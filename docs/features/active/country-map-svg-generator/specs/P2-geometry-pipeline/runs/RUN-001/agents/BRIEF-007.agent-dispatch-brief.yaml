@@ -1,0 +1,71 @@
+version: 1
+kind: agent-dispatch-brief
+id: BRIEF-007
+epic: country-map-svg-generator
+spec: P2
+run: RUN-001
+status: issued
+input_digest: 25dc2f3a5124f43cbb896be29c45b4cbefeccb4038448f0e0c05895385959e21
+role: coder
+provider: codex
+binding_mode: native
+dispatch_route: named-role
+role_contract:
+    reference: installed-role/coder
+    path: .codex/agents/coder.toml
+    sha256: e5078656ace1b8785d676e1410b701d4c8ebd31b129a54cce0d3813adfe99f10
+    reason: installed provider role contract
+    freshness: current
+issuer: teamlead
+grant: edit
+capability: edit
+semantic_tier: standard
+context:
+    - reference: context-doctrine-pack/CTX-RUN-003
+      path: docs/features/active/country-map-svg-generator/readiness/CTX-RUN-003.context-pack.yaml
+      sha256: 6c69281d77c8acd3b77e1ac76e4edf81e2f3d1c79a60a7135c861c4a96560029
+      reason: dispatch context
+      freshness: current
+plan:
+    artifact: plan-manifest
+    id: PLAN-001
+    path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/plans/PLAN-001/P2-geometry-pipeline.PLAN-001.plan-manifest.yaml
+    sha256: 340693ac032d454609087b3656caa01b0d7580684d01790dbce3543ebf6c4070
+readiness:
+    artifact: readiness-receipt
+    id: REV-37265DAB7EDB
+    path: docs/features/active/country-map-svg-generator/readiness/REV-37265DAB7EDB/REV-37265DAB7EDB.readiness.yaml
+    sha256: e6f2d3065ca58ba4bb404498562c07c537b93a6dedf89748534ac37b2305c6ec
+subject:
+    artifact: run-brief
+    id: RUN-001
+    path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-001/P2-geometry-pipeline.RUN-001.brief.md
+    sha256: cad7808b738d782df5cd7934b749dcc709e948b72bcf853d21d66b36d16ec16e
+objective: 'Implement P2 RUN-001 completely: pure-Go CTR-002 geometry pipeline with natural-aspect tight layout, arbitrary distortion-free contain frames, fitted-scale quality, projection/fitting, protected reduction, bounded softening, canonical commands, markers, versioned presets/overrides, D3 oracle fixtures, full mutation/visual/budget evidence, and green offline project ceiling. Return atomic product commit(s), exact changed paths and verification. Do not edit lifecycle docs.'
+writes:
+    - Makefile
+    - go.mod
+    - go.sum
+    - internal/geometry
+forbidden:
+    - .git
+    - .mate
+    - cmd
+    - data
+    - docs
+    - internal/catalog
+validation:
+    - GOWORK=off go test ./... -count=1
+    - GOWORK=off go test ./internal/geometry -count=1
+    - make check
+completion_schema:
+    - blockers
+    - changed_paths
+    - deviations
+    - evidence
+    - outcome
+    - summary
+    - verification
+expected_outputs: []
+budget: 12
+resume_anchor: Return exact product commit(s), changed paths, focused/full validation, approval evidence, deviations, feedback handles, and blockers; coordinator owns lifecycle and audit.
