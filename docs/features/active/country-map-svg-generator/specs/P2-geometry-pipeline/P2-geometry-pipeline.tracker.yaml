@@ -1,0 +1,14 @@
+version: 1
+epic: country-map-svg-generator
+spec: P2
+slug: geometry-pipeline
+title: Soft-Organic Geometry Pipeline
+state: draft
+revision: 1
+updated_by: operator
+updated_at: "2026-07-23T15:58:28Z"
+last_event_id: spec-add-434b8fb8452bfee7
+input_digest: 434b8fb8452bfee7efb7d8a2ec3c9846659a63ce55220c1b9ba7c58ab6950993
+runs: []
+findings: []
+next_action: Author the specification and its validation obligations.

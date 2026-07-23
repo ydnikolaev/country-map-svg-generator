@@ -1,0 +1,41 @@
+version: 1
+kind: transition-receipt
+id: country-map-discovery-ground-refresh
+epic: country-map-svg-generator
+status: recorded
+input_digest: eaf91009150c3f13b49076e0507907e29b5711fb0d0f849c244dcd90706c9d04
+subject:
+    artifact: epic-tracker
+    id: country-map-svg-generator
+    path: docs/features/active/country-map-svg-generator/country-map-svg-generator.tracker.yaml
+    sha256: 2551c567c3f82b1b0454dde9d0b17560ca8dfc0235b39a675a19c0d124d5c91e
+producer_role: lifecycle-engine
+principal: operator
+result: pass
+machine: discovery-session
+event: checkpoint
+from: active
+to: active
+inputs:
+    - artifact: decision
+      id: DEC-001
+      path: docs/features/active/country-map-svg-generator/decisions/DEC-001/country-map-svg-generator.DEC-001-risk-policy-elevated.decision.md
+      sha256: b6b367af3372e0697f34731f74a0e54bda003376c25b0b6c4ec3de73d4a4cde0
+    - artifact: decision
+      id: DEC-002
+      path: docs/features/active/country-map-svg-generator/decisions/DEC-002/country-map-svg-generator.DEC-002-boundary-policy-profiles.decision.md
+      sha256: e85a2070c903045ea0eadfa0452c40fe5ebc6fd3949595c4d1f112f3e7bbb30c
+    - artifact: decision
+      id: DEC-003
+      path: docs/features/active/country-map-svg-generator/decisions/DEC-003/country-map-svg-generator.DEC-003-go-corpus-architecture.decision.md
+      sha256: f1002bdfbcf6947d11faa339161445614c2ae93ee340c2f97fa90a4036e7261d
+    - artifact: discovery-checkpoint
+      id: DISC-006
+      path: docs/features/active/country-map-svg-generator/discovery/checkpoints/DISC-006/country-map-svg-generator.DISC-006.checkpoint.yaml
+      sha256: 7951d9c7af716f14ed4d74f7f2f5d7ff4325f15007113e73b5664cd94c75ab73
+    - artifact: epic-tracker
+      id: country-map-svg-generator
+      path: docs/features/active/country-map-svg-generator/country-map-svg-generator.tracker.yaml
+      sha256: 2551c567c3f82b1b0454dde9d0b17560ca8dfc0235b39a675a19c0d124d5c91e
+predecessor: 2551c567c3f82b1b0454dde9d0b17560ca8dfc0235b39a675a19c0d124d5c91e
+successor: debf2939e49a6b9f1b86413f905eaea821c0debe243e83a8b8051b917ce858a5

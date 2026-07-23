@@ -1,0 +1,97 @@
+version: 1
+kind: transition-receipt
+id: country-map-discovery-complete-v3
+epic: country-map-svg-generator
+status: recorded
+input_digest: 0f0d5b2891639a51f8f213f4c366528532509e2f6a9406b946d3294737f0b6c2
+subject:
+    artifact: epic-tracker
+    id: country-map-svg-generator
+    path: docs/features/active/country-map-svg-generator/country-map-svg-generator.tracker.yaml
+    sha256: 7748de8f5bbbc9b23a4a7f45e3372e5b6fa2fb7072f31d596e7a44f976c17043
+producer_role: lifecycle-engine
+principal: operator
+result: pass
+machine: discovery-session
+event: complete
+from: active
+to: completed
+inputs:
+    - artifact: context-registry
+      id: country-map-svg-generator
+      path: docs/features/active/country-map-svg-generator/country-map-svg-generator.context.yaml
+      sha256: fde554723b22a903c3b4b153acabce4aefb8f443bfce4068ed8381ca8bdb8bbc
+    - artifact: decision
+      id: DEC-001
+      path: docs/features/active/country-map-svg-generator/decisions/DEC-001/country-map-svg-generator.DEC-001-risk-policy-elevated.decision.md
+      sha256: b6b367af3372e0697f34731f74a0e54bda003376c25b0b6c4ec3de73d4a4cde0
+    - artifact: decision
+      id: DEC-002
+      path: docs/features/active/country-map-svg-generator/decisions/DEC-002/country-map-svg-generator.DEC-002-boundary-policy-profiles.decision.md
+      sha256: e85a2070c903045ea0eadfa0452c40fe5ebc6fd3949595c4d1f112f3e7bbb30c
+    - artifact: decision
+      id: DEC-003
+      path: docs/features/active/country-map-svg-generator/decisions/DEC-003/country-map-svg-generator.DEC-003-go-corpus-architecture.decision.md
+      sha256: f1002bdfbcf6947d11faa339161445614c2ae93ee340c2f97fa90a4036e7261d
+    - artifact: discovery-checkpoint
+      id: DISC-010
+      path: docs/features/active/country-map-svg-generator/discovery/checkpoints/DISC-010/country-map-svg-generator.DISC-010.checkpoint.yaml
+      sha256: 6ed17cbb41fc1d71793be208af5267922ee5c7fa45459d0c2c3daf8369c6a113
+    - artifact: epic-overview
+      id: country-map-svg-generator
+      path: docs/features/active/country-map-svg-generator/country-map-svg-generator.epic.md
+      sha256: d49a3608ba3e82b9f5c96285fa8391c48d3fcf264e4a3683d7339884089ed7af
+    - artifact: epic-tracker
+      id: country-map-svg-generator
+      path: docs/features/active/country-map-svg-generator/country-map-svg-generator.tracker.yaml
+      sha256: 7748de8f5bbbc9b23a4a7f45e3372e5b6fa2fb7072f31d596e7a44f976c17043
+    - artifact: solution-architecture
+      id: ARCH-001
+      path: docs/features/active/country-map-svg-generator/architecture/country-map-svg-generator.solution-architecture.md
+      sha256: 5325da7358596b56c9dc6f65d3b6af3801174257503a332334a77a9c71433947
+    - artifact: solution-architecture
+      id: CTX-ARCH
+      path: docs/features/active/country-map-svg-generator/architecture/country-map-svg-generator.solution-architecture.md
+      sha256: 5325da7358596b56c9dc6f65d3b6af3801174257503a332334a77a9c71433947
+    - artifact: spec-tracker
+      id: P1
+      path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/P1-source-corpus.tracker.yaml
+      sha256: 1812764641d78f416d0a03d865d16538dd53ca416d9d7b88a4783993f5f0bb61
+    - artifact: spec-tracker
+      id: P2
+      path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/P2-geometry-pipeline.tracker.yaml
+      sha256: b88edab1dc82ce5fdbefc36dc7596a9a9fdf83231039bd557eac48ae1ac5d1c1
+    - artifact: spec-tracker
+      id: P3
+      path: docs/features/active/country-map-svg-generator/specs/P3-generator-cli/P3-generator-cli.tracker.yaml
+      sha256: 2de80468f9aae2e988d6e1e1324e1e6f3a7f03fa744f9a4dced4ba14dd9d109c
+    - artifact: spec-tracker
+      id: P4
+      path: docs/features/active/country-map-svg-generator/specs/P4-site-delivery/P4-site-delivery.tracker.yaml
+      sha256: a2b4f4502483d71bbd1ca289ba416bbc7cb31a1abdf0c90949357f2f7183f94c
+    - artifact: spec-tracker
+      id: P5
+      path: docs/features/active/country-map-svg-generator/specs/P5-portable-distribution/P5-portable-distribution.tracker.yaml
+      sha256: d0bec03e26dfcaa1b112791949552568698072ff2f7db81ee1ac2cc8ebdcfb6f
+    - artifact: specification
+      id: P1
+      path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/P1-source-corpus.spec.md
+      sha256: a2dd6817331c8da19775f66de49b7aa4526651f06292f8254606c3b3fe3ea3bd
+    - artifact: specification
+      id: P2
+      path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/P2-geometry-pipeline.spec.md
+      sha256: 9cfdf6bff8a5b49559fbbcfd0679517891b27087c7d587b2fbd51646760aa74f
+    - artifact: specification
+      id: P3
+      path: docs/features/active/country-map-svg-generator/specs/P3-generator-cli/P3-generator-cli.spec.md
+      sha256: 27f22e643e732f6172a63b437e982b038101b8e30e07daa1478491163e678fed
+    - artifact: specification
+      id: P4
+      path: docs/features/active/country-map-svg-generator/specs/P4-site-delivery/P4-site-delivery.spec.md
+      sha256: 5849fd988f28fa3b84868f739f202ac069ac0b7cb5c29e17ab4a6a9b80fba0d2
+    - artifact: specification
+      id: P5
+      path: docs/features/active/country-map-svg-generator/specs/P5-portable-distribution/P5-portable-distribution.spec.md
+      sha256: 6588ceb61142cee849eb0d936aef952910902eb64b468fee07898ce6dfda697f
+predecessor: 7748de8f5bbbc9b23a4a7f45e3372e5b6fa2fb7072f31d596e7a44f976c17043
+successor: a6a957f978220fd1b1f568f02dd3cfdf62c977ecac923f75304febd3534c4aca

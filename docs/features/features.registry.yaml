@@ -1,0 +1,7 @@
+version: 1
+features:
+    country-map-svg-generator:
+        backend: repository
+        collection: active
+        root: docs/features/active/country-map-svg-generator
+        tracker: docs/features/active/country-map-svg-generator/country-map-svg-generator.tracker.yaml

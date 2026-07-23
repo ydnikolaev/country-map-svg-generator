@@ -1,0 +1,14 @@
+version: 1
+epic: country-map-svg-generator
+spec: P4
+slug: site-delivery
+title: Full Catalog and Site Integration
+state: draft
+revision: 1
+updated_by: operator
+updated_at: "2026-07-23T15:58:28Z"
+last_event_id: spec-add-7f72daab6d7d4101
+input_digest: 7f72daab6d7d410170bc40cb3de17f2ba897fb8ea31f525bc1fa085addeb4eff
+runs: []
+findings: []
+next_action: Author the specification and its validation obligations.

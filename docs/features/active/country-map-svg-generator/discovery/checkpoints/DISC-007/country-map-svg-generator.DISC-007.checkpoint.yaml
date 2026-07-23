@@ -1,0 +1,106 @@
+version: 1
+kind: discovery-checkpoint
+id: DISC-007
+epic: country-map-svg-generator
+status: active
+input_digest: eb577b0ee205a1891ff33ded5157d3197408c5e136a52a60da60c38d9962901f
+previous:
+    artifact: discovery-checkpoint
+    id: DISC-006
+    path: docs/features/active/country-map-svg-generator/discovery/checkpoints/DISC-006/country-map-svg-generator.DISC-006.checkpoint.yaml
+    sha256: 7951d9c7af716f14ed4d74f7f2f5d7ff4325f15007113e73b5664cd94c75ab73
+answers:
+    - id: Q-001
+      question: Какая политика сущностей и спорных границ определяет базовый набор карт?
+      answer: Базовый каталог охватывает все актуальные сущности ISO 3166-1; профиль границ un используется по умолчанию, а профиль de-facto доступен как настраиваемая альтернатива.
+      source: owner
+    - id: Q-002
+      question: Какой контракт стилевых вариантов и кастомизации должен выдавать генератор?
+      answer: Геометрия отделена от оформления. Генератор предоставляет наследуемые YAML/JSON-пресеты и дизайн-токены, глобальные и страновые переопределения, пять базовых стилей, режим standalone с запечённым оформлением и режим themed-inline со стабильными CSS-хуками, CSS-переменными и лёгкими анимационными токенами. Допускается опциональный advanced-слой для градиентов, паттернов и фильтров; CLI обязан поддерживать перенос профилей, schema validation, preview, explain и машиночитаемый JSON-вывод.
+      source: owner
+    - id: Q-003
+      question: Как генератор должен определять, размещать и настраивать пины столиц и пользовательских точек?
+      answer: Пины выключены по умолчанию. Поддерживаются режимы none, capital, all-capitals и custom; версионированный локальный реестр хранит именованные столицы, координаты и роли, а custom принимает пользовательские географические точки. Глобальные и страновые переопределения позволяют скрывать, смещать, заменять и добавлять точки. Маркер имеет отдельные токены, CSS-хук и варианты dot, ring и pin; после проекции валидатор проверяет размещение или явно разрешённое смещение.
+      source: owner
+    - id: Q-004
+      question: Для каких размеров отображения оптимизируется базовый профиль и какой предел веса считается успешным?
+      answer: MVP оптимизируется под два продуктовых слота. hero рассчитан примерно на 500–700 CSS px и имеет целевые бюджеты median <= 1.8 KB, p95 <= 4 KB, max <= 8 KB. card рассчитан на 90–160 CSS px и до 240 px в акцентной карточке с бюджетами median <= 0.6 KB, p95 <= 1.2 KB, max <= 2.5 KB. Оба используют декоративный soft-organic силуэт с контролируемым упрощением; малые детали удаляются по видимой площади, но характерные части островных стран защищены реестром исключений. На карточках пин и постоянная анимация выключены, основной клиентский режим — кешируемая SVG mask; hero использует themed-inline. Документация обязана отдельно описывать производительный producer workflow и client integration. Профиль detail исключён из MVP и отложен в проектный backlog.
+      source: owner
+    - id: Q-005
+      question: В каком переносимом виде коллеги должны получать и запускать локальный инструмент?
+      answer: Инструмент поставляется как один автономный кроссплатформенный бинарник для macOS arm64/amd64, Linux arm64/amd64 и Windows amd64, без Node/Python и без сетевых запросов при генерации. Он включает версионированные данные, схемы и базовые пресеты, поддерживает переносимые YAML/JSON-профили, release-архивы и go install, детерминированный вывод, стабильный JSON-контракт, exit codes и команды init, validate, preview, generate, explain, inspect и version. Сгенерированный каталог является автономным артефактом.
+      source: owner
+    - id: Q-006
+      question: Какая внутренняя архитектура геоданных и SVG-пайплайна лучше всего выполняет принятый контракт автономного бинарника?
+      answer: Go CLI работает с версионированным immutable geometry corpus, отделённым от редкого обновления upstream-источников. Source adapters, corpus compiler, geometry pipeline, style renderer и output packagers являются независимыми границами. Natural Earth и UN-aligned overlay фиксируются по версии; orb используется для GeoJSON и упрощения; центрированная equal-area проекция и минимальный SVG writer остаются малыми изолированными модулями с D3 golden fixtures. Структурный валидатор ловит самопересечения, потерю обязательных компонентов, некорректные пины и превышение бюджетов. Runtime не требует Node, Python, GDAL или сети.
+      source: inference
+    - id: Q-007
+      question: Какой rollout-приоритет определяет границы первой поставки?
+      answer: Первая цель — готовый локальный проект, который генерирует и интегрирует карты для текущего сайта. Правильные расширяемые границы закладываются сразу, но release automation, широкая дистрибуция, публичность и дополнительная платформенная обвязка выполняются последней волной без расширения основного MVP.
+      source: owner
+ground_truth:
+    - reference: EPIC-OVERVIEW
+      path: docs/features/active/country-map-svg-generator/country-map-svg-generator.epic.md
+      sha256: b7cf9490666b0d96bc636446c27e9283b4bed80cf4fdc0589ed54e0112cbef4d
+      reason: Канонический outcome, scope, spec map, delivery и risk corpus
+      freshness: current
+    - reference: PLANNING-CONTEXT
+      path: docs/features/active/country-map-svg-generator/country-map-svg-generator.context.yaml
+      sha256: fde554723b22a903c3b4b153acabce4aefb8f443bfce4068ed8381ca8bdb8bbc
+      reason: CAS-реестр канонического planning context
+      freshness: current
+    - reference: PROJECT-BACKLOG
+      path: docs/backlog.md
+      sha256: 2c1cf7ad2a0f43cb5e895c9d5b1686251605af098192fa034ce96394ff9af58b
+      reason: Авторитетная проектная очередь с отложенным detail-профилем
+      freshness: current
+    - reference: PROJECT-CONFIG
+      path: .mate/config.yaml
+      sha256: 2307f4c8a5f95efb51bdbb77424a3ccb3e350a3ba595b5a4738e239b03a479ff
+      reason: Текущая Go CLI идентичность проекта и repository lifecycle backend
+      freshness: current
+    - reference: SOLUTION-ARCHITECTURE
+      path: docs/features/active/country-map-svg-generator/architecture/country-map-svg-generator.solution-architecture.md
+      sha256: adf3b365e97f11e9722b36ce6ae033808d714d5441dcc6aa8d0328ec35f0097a
+      reason: Канонические архитектурные границы, контракты, бюджеты и волны
+      freshness: current
+    - reference: SPEC-P1
+      path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/P1-source-corpus.spec.md
+      sha256: 19de64177811171a700277a4d7b2217dbefa1145e89d17085f062d3331710689
+      reason: Контракт версионированного источника геометрии и столиц
+      freshness: current
+    - reference: SPEC-P2
+      path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/P2-geometry-pipeline.spec.md
+      sha256: 9cfdf6bff8a5b49559fbbcfd0679517891b27087c7d587b2fbd51646760aa74f
+      reason: Контракт soft-organic геометрического пайплайна
+      freshness: current
+    - reference: SPEC-P3
+      path: docs/features/active/country-map-svg-generator/specs/P3-generator-cli/P3-generator-cli.spec.md
+      sha256: 27f22e643e732f6172a63b437e982b038101b8e30e07daa1478491163e678fed
+      reason: Контракт agent-first CLI, конфигурации и SVG
+      freshness: current
+    - reference: SPEC-P4
+      path: docs/features/active/country-map-svg-generator/specs/P4-site-delivery/P4-site-delivery.spec.md
+      sha256: 5849fd988f28fa3b84868f739f202ac069ac0b7cb5c29e17ab4a6a9b80fba0d2
+      reason: Контракт полного каталога, сайта и performance-документации
+      freshness: current
+    - reference: SPEC-P5
+      path: docs/features/active/country-map-svg-generator/specs/P5-portable-distribution/P5-portable-distribution.spec.md
+      sha256: 6588ceb61142cee849eb0d936aef952910902eb64b468fee07898ce6dfda697f
+      reason: Контракт переносимой поставки коллегам
+      freshness: current
+decisions:
+    - artifact: decision
+      id: DEC-001
+      path: docs/features/active/country-map-svg-generator/decisions/DEC-001/country-map-svg-generator.DEC-001-risk-policy-elevated.decision.md
+      sha256: b6b367af3372e0697f34731f74a0e54bda003376c25b0b6c4ec3de73d4a4cde0
+    - artifact: decision
+      id: DEC-002
+      path: docs/features/active/country-map-svg-generator/decisions/DEC-002/country-map-svg-generator.DEC-002-boundary-policy-profiles.decision.md
+      sha256: e85a2070c903045ea0eadfa0452c40fe5ebc6fd3949595c4d1f112f3e7bbb30c
+    - artifact: decision
+      id: DEC-003
+      path: docs/features/active/country-map-svg-generator/decisions/DEC-003/country-map-svg-generator.DEC-003-go-corpus-architecture.decision.md
+      sha256: f1002bdfbcf6947d11faa339161445614c2ae93ee340c2f97fa90a4036e7261d
+open_questions: []
+resume_anchor: Discovery corpus authored and validated; complete discovery, then continue with dependency-legal P1 planning.

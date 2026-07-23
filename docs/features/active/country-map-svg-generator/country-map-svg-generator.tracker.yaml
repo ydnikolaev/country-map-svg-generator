@@ -1,0 +1,45 @@
+version: 1
+epic: country-map-svg-generator
+title: Country Map SVG Generator
+state: draft
+revision: 17
+updated_by: operator
+updated_at: "2026-07-23T16:24:38Z"
+last_event_id: country-map-discovery-complete-v3
+input_digest: 28b18c930912cff32da69b2e063d60e2f14a5d56e885efbd7f5e54f541fa1718
+specs:
+    - id: P1
+      slug: source-corpus
+      tracker: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/P1-source-corpus.tracker.yaml
+    - id: P2
+      slug: geometry-pipeline
+      tracker: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/P2-geometry-pipeline.tracker.yaml
+    - id: P3
+      slug: generator-cli
+      tracker: docs/features/active/country-map-svg-generator/specs/P3-generator-cli/P3-generator-cli.tracker.yaml
+    - id: P4
+      slug: site-delivery
+      tracker: docs/features/active/country-map-svg-generator/specs/P4-site-delivery/P4-site-delivery.tracker.yaml
+    - id: P5
+      slug: portable-distribution
+      tracker: docs/features/active/country-map-svg-generator/specs/P5-portable-distribution/P5-portable-distribution.tracker.yaml
+dependencies:
+    - from: P1
+      to: P2
+    - from: P2
+      to: P3
+    - from: P3
+      to: P4
+    - from: P3
+      to: P5
+next_action: Continue with epic-planner.
+discovery:
+    state: completed
+    revision: 11
+    current_checkpoint:
+        artifact: discovery-checkpoint
+        id: DISC-011
+        path: docs/features/active/country-map-svg-generator/discovery/checkpoints/DISC-011/country-map-svg-generator.DISC-011.checkpoint.yaml
+        sha256: 899f637a614b352703d64d822faed11b2ce8d91b172f5762a26c2ea5bb601537
+    last_event_id: country-map-discovery-complete-v3
+    next_action: Continue with epic-planner.

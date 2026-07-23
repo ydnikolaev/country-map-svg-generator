@@ -1,0 +1,12 @@
+version: 1
+epic: country-map-svg-generator
+resources:
+    - id: CTX-ARCH
+      kind: solution-architecture
+      title: Canonical country map architecture
+      path: docs/features/active/country-map-svg-generator/architecture/country-map-svg-generator.solution-architecture.md
+      status: current
+      required_at:
+        - planning
+      owner: teamlead
+      updated: "2026-07-23"

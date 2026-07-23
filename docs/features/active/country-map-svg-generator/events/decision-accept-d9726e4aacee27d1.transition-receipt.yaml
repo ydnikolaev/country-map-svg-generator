@@ -1,0 +1,25 @@
+version: 1
+kind: transition-receipt
+id: decision-accept-d9726e4aacee27d1
+epic: country-map-svg-generator
+status: recorded
+input_digest: a063a107a7e271a3a0f34c8d5ce63bae4728f5650eb19d0c0b1f97c73abadb86
+subject:
+    artifact: decision
+    id: DEC-001
+    path: docs/features/active/country-map-svg-generator/decisions/candidates/DEC-001/country-map-svg-generator.DEC-001-risk-policy-elevated.decision.md
+    sha256: 1432a7f7b543341f6a64278a465de2a17f7d296268f9a5a2dd4d002c8ffd9061
+producer_role: lifecycle-engine
+principal: operator
+result: pass
+machine: decision
+event: accept
+from: draft
+to: accepted
+inputs:
+    - artifact: decision
+      id: DEC-001
+      path: docs/features/active/country-map-svg-generator/decisions/candidates/DEC-001/country-map-svg-generator.DEC-001-risk-policy-elevated.decision.md
+      sha256: 1432a7f7b543341f6a64278a465de2a17f7d296268f9a5a2dd4d002c8ffd9061
+predecessor: 1432a7f7b543341f6a64278a465de2a17f7d296268f9a5a2dd4d002c8ffd9061
+successor: b6b367af3372e0697f34731f74a0e54bda003376c25b0b6c4ec3de73d4a4cde0

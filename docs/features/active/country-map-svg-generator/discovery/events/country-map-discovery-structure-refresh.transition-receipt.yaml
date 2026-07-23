@@ -1,0 +1,41 @@
+version: 1
+kind: transition-receipt
+id: country-map-discovery-structure-refresh
+epic: country-map-svg-generator
+status: recorded
+input_digest: 46821510ecc27a19e35d88ca20e087bfae7de26c1e1a36222a1403bfdfb6dd29
+subject:
+    artifact: epic-tracker
+    id: country-map-svg-generator
+    path: docs/features/active/country-map-svg-generator/country-map-svg-generator.tracker.yaml
+    sha256: 7487dbe488128cb39364a1c2ede29df60c1345bf5b4124bc833f12cb39c90f17
+producer_role: lifecycle-engine
+principal: operator
+result: pass
+machine: discovery-session
+event: checkpoint
+from: active
+to: active
+inputs:
+    - artifact: decision
+      id: DEC-001
+      path: docs/features/active/country-map-svg-generator/decisions/DEC-001/country-map-svg-generator.DEC-001-risk-policy-elevated.decision.md
+      sha256: b6b367af3372e0697f34731f74a0e54bda003376c25b0b6c4ec3de73d4a4cde0
+    - artifact: decision
+      id: DEC-002
+      path: docs/features/active/country-map-svg-generator/decisions/DEC-002/country-map-svg-generator.DEC-002-boundary-policy-profiles.decision.md
+      sha256: e85a2070c903045ea0eadfa0452c40fe5ebc6fd3949595c4d1f112f3e7bbb30c
+    - artifact: decision
+      id: DEC-003
+      path: docs/features/active/country-map-svg-generator/decisions/DEC-003/country-map-svg-generator.DEC-003-go-corpus-architecture.decision.md
+      sha256: f1002bdfbcf6947d11faa339161445614c2ae93ee340c2f97fa90a4036e7261d
+    - artifact: discovery-checkpoint
+      id: DISC-008
+      path: docs/features/active/country-map-svg-generator/discovery/checkpoints/DISC-008/country-map-svg-generator.DISC-008.checkpoint.yaml
+      sha256: ba507e5d3fafb169aa8d49effa4ccdd29c0080854cc861c0eeccde1e6842e8b4
+    - artifact: epic-tracker
+      id: country-map-svg-generator
+      path: docs/features/active/country-map-svg-generator/country-map-svg-generator.tracker.yaml
+      sha256: 7487dbe488128cb39364a1c2ede29df60c1345bf5b4124bc833f12cb39c90f17
+predecessor: 7487dbe488128cb39364a1c2ede29df60c1345bf5b4124bc833f12cb39c90f17
+successor: b6322cfdf6999b6a3767a3e2bcddab515d8e8f748114393393914d6e9218d7e3

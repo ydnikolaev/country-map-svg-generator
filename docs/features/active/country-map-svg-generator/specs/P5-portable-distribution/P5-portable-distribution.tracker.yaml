@@ -1,0 +1,14 @@
+version: 1
+epic: country-map-svg-generator
+spec: P5
+slug: portable-distribution
+title: Portable Distribution and Handoff
+state: draft
+revision: 1
+updated_by: operator
+updated_at: "2026-07-23T15:58:28Z"
+last_event_id: spec-add-59268e9858b7a9f7
+input_digest: 59268e9858b7a9f714e64a7e716f2ad39feab9228b5c0ceb3b87c4f8b9d4f23b
+runs: []
+findings: []
+next_action: Author the specification and its validation obligations.

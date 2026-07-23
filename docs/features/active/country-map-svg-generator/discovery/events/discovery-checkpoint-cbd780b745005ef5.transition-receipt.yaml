@@ -1,0 +1,29 @@
+version: 1
+kind: transition-receipt
+id: discovery-checkpoint-cbd780b745005ef5
+epic: country-map-svg-generator
+status: recorded
+input_digest: 2e23d77d2f80eb3b3dc533c7d9f50d65eb1095c9d3996656b90cd819c9f6dbee
+subject:
+    artifact: epic-tracker
+    id: country-map-svg-generator
+    path: docs/features/active/country-map-svg-generator/country-map-svg-generator.tracker.yaml
+    sha256: 4917176c977b688458019e22ecdb8c826e89993849a4b2c34bb1f3cb542dca03
+producer_role: lifecycle-engine
+principal: operator
+result: pass
+machine: discovery-session
+event: checkpoint
+from: active
+to: active
+inputs:
+    - artifact: discovery-checkpoint
+      id: DISC-003
+      path: docs/features/active/country-map-svg-generator/discovery/checkpoints/DISC-003/country-map-svg-generator.DISC-003.checkpoint.yaml
+      sha256: 671160e480a60bd435ab14fb89b1dd54c9a3af62179a1e6a1e2d9a0f57b69983
+    - artifact: epic-tracker
+      id: country-map-svg-generator
+      path: docs/features/active/country-map-svg-generator/country-map-svg-generator.tracker.yaml
+      sha256: 4917176c977b688458019e22ecdb8c826e89993849a4b2c34bb1f3cb542dca03
+predecessor: 4917176c977b688458019e22ecdb8c826e89993849a4b2c34bb1f3cb542dca03
+successor: 769b4aeed4f603e43f13f42d3c6ae8c668e74c4af3729b72fe15b1d8ed8eb992

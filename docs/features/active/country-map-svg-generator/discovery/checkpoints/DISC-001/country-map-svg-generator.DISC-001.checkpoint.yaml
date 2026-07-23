@@ -1,0 +1,30 @@
+version: 1
+kind: discovery-checkpoint
+id: DISC-001
+epic: country-map-svg-generator
+status: active
+input_digest: 370b5bf3b683000f5917fc017a09c665beaa19822e8c8e319ada3cbc7faf417a
+answers:
+    - id: Q-001
+      question: Какая политика сущностей и спорных границ определяет базовый набор карт?
+      answer: Базовый каталог охватывает все актуальные сущности ISO 3166-1; профиль границ un используется по умолчанию, а профиль de-facto доступен как настраиваемая альтернатива.
+      source: owner
+ground_truth:
+    - reference: EPIC-OVERVIEW
+      path: docs/features/active/country-map-svg-generator/country-map-svg-generator.epic.md
+      sha256: 86179c3ba0696c7ccba77654b8e5fa479ef40387fa292defa09279e4a02cefd7
+      reason: Канонический зарегистрированный обзор epic и его авторуемые discovery-слоты
+      freshness: current
+    - reference: PROJECT-CONFIG
+      path: .mate/config.yaml
+      sha256: 6f9cee8e31bee1c1ef61734427bc89fd8c9be7c572daf3c71e1cb38405fac04f
+      reason: Текущая идентичность проекта и включённый repository lifecycle backend
+      freshness: current
+decisions: []
+open_questions:
+    - id: Q-002
+      question: Какой контракт стилевых вариантов и кастомизации должен выдавать генератор?
+      owner: operator
+      blocking: true
+      due_before: discovery-complete
+resume_anchor: 'Продолжить интервью с Q-002: определить базовые стили, формат пресетов и границы агентской кастомизации.'

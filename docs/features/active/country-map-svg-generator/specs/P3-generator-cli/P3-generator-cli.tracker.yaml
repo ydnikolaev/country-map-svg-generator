@@ -1,0 +1,14 @@
+version: 1
+epic: country-map-svg-generator
+spec: P3
+slug: generator-cli
+title: Agent-First SVG Generator CLI
+state: draft
+revision: 1
+updated_by: operator
+updated_at: "2026-07-23T15:58:28Z"
+last_event_id: spec-add-cf2d4806278afa51
+input_digest: cf2d4806278afa517b2c15a2a56cdbc46b2352d303173c56149463b6d95bbfce
+runs: []
+findings: []
+next_action: Author the specification and its validation obligations.

@@ -1,0 +1,25 @@
+version: 1
+kind: transition-receipt
+id: decision-accept-baf1a46d78b2e847
+epic: country-map-svg-generator
+status: recorded
+input_digest: 1c82b0310976a6de701acb2ba3c3f3df5e54f29aa4886e8e447b20954e414991
+subject:
+    artifact: decision
+    id: DEC-002
+    path: docs/features/active/country-map-svg-generator/decisions/candidates/DEC-002/country-map-svg-generator.DEC-002-boundary-policy-profiles.decision.md
+    sha256: 73b30420b7688637a287e2c7da733a55a39ef43e2f070736fe0ac825a2ff3804
+producer_role: lifecycle-engine
+principal: operator
+result: pass
+machine: decision
+event: accept
+from: draft
+to: accepted
+inputs:
+    - artifact: decision
+      id: DEC-002
+      path: docs/features/active/country-map-svg-generator/decisions/candidates/DEC-002/country-map-svg-generator.DEC-002-boundary-policy-profiles.decision.md
+      sha256: 73b30420b7688637a287e2c7da733a55a39ef43e2f070736fe0ac825a2ff3804
+predecessor: 73b30420b7688637a287e2c7da733a55a39ef43e2f070736fe0ac825a2ff3804
+successor: e85a2070c903045ea0eadfa0452c40fe5ebc6fd3949595c4d1f112f3e7bbb30c

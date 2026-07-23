@@ -1,0 +1,5 @@
+.DS_Store
+
+# Mate runtime state. Governed evidence under docs/features remains tracked.
+.mate/work-locks/
+.mate/work-transactions/

@@ -1,0 +1,25 @@
+version: 1
+kind: transition-receipt
+id: decision-accept-a7322741531cdeed
+epic: country-map-svg-generator
+status: recorded
+input_digest: d530e661e26b7a8b0e6a593c3263a8e070681e3897c4bf481ebedb227b208712
+subject:
+    artifact: decision
+    id: DEC-003
+    path: docs/features/active/country-map-svg-generator/decisions/candidates/DEC-003/country-map-svg-generator.DEC-003-go-corpus-architecture.decision.md
+    sha256: 04a65c2b8c70853cd855d427012139e7566b8c16742a21af19a338ffe26fd994
+producer_role: lifecycle-engine
+principal: operator
+result: pass
+machine: decision
+event: accept
+from: draft
+to: accepted
+inputs:
+    - artifact: decision
+      id: DEC-003
+      path: docs/features/active/country-map-svg-generator/decisions/candidates/DEC-003/country-map-svg-generator.DEC-003-go-corpus-architecture.decision.md
+      sha256: 04a65c2b8c70853cd855d427012139e7566b8c16742a21af19a338ffe26fd994
+predecessor: 04a65c2b8c70853cd855d427012139e7566b8c16742a21af19a338ffe26fd994
+successor: f1002bdfbcf6947d11faa339161445614c2ae93ee340c2f97fa90a4036e7261d
