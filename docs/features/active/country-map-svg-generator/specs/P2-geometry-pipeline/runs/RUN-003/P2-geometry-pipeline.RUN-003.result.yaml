@@ -1,0 +1,34 @@
+version: 1
+kind: run-result
+id: RUN-003-RESULT
+epic: country-map-svg-generator
+spec: P2
+run: RUN-003
+status: interrupted
+input_digest: bff51045911f7faee59e3e196f8803a94ddacf7baf4078a510fb96fe50d127a7
+plan_id: PLAN-003
+readiness_id: REV-28C2E84BB73D
+outcome: blocked
+revision:
+    repository: project
+    commit: 406b0c4d7ac0b37202b8169c9a70c2bd25423890
+    tree: 8a3d88e20d227d33c1c3f121fc06b52ef536d66e
+evidence:
+    - artifact: run-brief
+      id: RUN-003
+      path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-003/P2-geometry-pipeline.RUN-003.brief.md
+      sha256: 4371b6840f16fa3a2f3731894b04f58defac4bf929a677b6a03a10ac2aa82476
+      verdict: pass
+    - artifact: transition-receipt
+      id: run-start-b986ce213c2fbcce-run
+      path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-003/events/run-start-b986ce213c2fbcce-run.transition-receipt.yaml
+      sha256: 728431f980654b59bf491ad748be2421e3eee2f0bd4e24272493c264b498dac8
+      verdict: pass
+    - artifact: agent-dispatch-result
+      id: RESULT-010
+      path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-003/agents/RESULT-010.agent-dispatch-result.yaml
+      sha256: ac18bdb08da3d20820ddc98512687a3730edf409d219f552d6e9208888c50d86
+      verdict: blocked
+deviations: []
+followups: []
+next_action: Invalidate PLAN-003 and author a successor with a bounded fitted-scale-only visual tolerance calibration; preserve budgets, topology guards, LOD tiers, and runtime boundary.

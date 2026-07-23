@@ -1,0 +1,53 @@
+version: 1
+kind: agent-dispatch-result
+id: RESULT-010
+epic: country-map-svg-generator
+spec: P2
+run: RUN-003
+status: blocked
+input_digest: 44822d0fb4335f1430b7fde68b9ebd61825b3515b3b63e77e90667a722d1e3ba
+previous:
+    artifact: agent-dispatch-brief
+    id: BRIEF-010
+    path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-003/agents/BRIEF-010.agent-dispatch-brief.yaml
+    sha256: 82dc761c8c160da56956bdcb975417f2d3bb6c47ece65387edb0a348d572e8c2
+brief:
+    artifact: agent-dispatch-brief
+    id: BRIEF-010
+    path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-003/agents/BRIEF-010.agent-dispatch-brief.yaml
+    sha256: 82dc761c8c160da56956bdcb975417f2d3bb6c47ece65387edb0a348d572e8c2
+principal: codex-p2-t0-coder
+provider_task_ref: p2-coder
+outcome: blocked
+summary: Integrated production guards and exact topology/serializer teeth pass, but AQ exceeds the accepted 0.75px deviation at the full 64/256 calibration endpoint.
+changed_paths:
+    - path: internal/geometry/cmd/lodbuild/main_test.go
+      sha256: 17db58ba2f488a0ae136c4426962327b86d4c1f388ef707f295d74b131955eae
+    - path: internal/geometry/diagnostic.go
+      sha256: 23f130a438aadcbc83a9ae2abd2883ec2dae48749305284c8294a5b11e9e78cd
+    - path: internal/geometry/lod.go
+      sha256: b791d6293331f90763eeb8247e21fff4fbfa7eda3275b924eaf2c9bd09223c11
+    - path: internal/geometry/lod/v1.recipe.json
+      sha256: 5ca875f370fed048f3c0c5ee6380677b6c25d8e6583024e4f1d7701fd6e7703c
+    - path: internal/geometry/lod_test.go
+      sha256: b22f066c5c0d827c86679897b3de0954e53f9f7ad0b7ec9e17219900adf98f52
+    - path: internal/geometry/path.go
+      sha256: c7316612bb98fb80c87cade87bd0e490e358f760d3f06773b912214184412e34
+    - path: internal/geometry/pipeline.go
+      sha256: cb73873246d44c56208da926b92420d7ef493502e481ff99bf6141b869f2c447
+    - path: internal/geometry/serialize.go
+      sha256: c9ee9019b9155522acef16cd405ef0a72c93a4d519493a86061617cc2e034345
+    - path: internal/geometry/serialize_test.go
+      sha256: 0142dea0db810bfa97e4bb23d30cdf039faad860e8e1354a4111b804ee584c8f
+    - path: internal/geometry/simplify.go
+      sha256: 7e16ce56fc69c8d7740daad41126106b04d1ec339536bf733c801020cd101010
+    - path: internal/geometry/simplify_test.go
+      sha256: 52e3eb43ca120724d5b37f89cb1563001399b0ce3782371dbe39f0f82f510322
+    - path: internal/geometry/soften.go
+      sha256: aa5d0723caf9874cd7d7d989f31283a9b52874a33fd880e4362fbb8a7b6b3492
+outputs: []
+verification: []
+deviations: []
+feedback: []
+blocked_reason: AQ compact deviation 0.762996123284856 and standard 0.8694981849135152 exceed 0.75; source fixed-grid topology fails. No in-range tier can pass T0 without a governed global tolerance calibration change.
+resume_anchor: Resume teamlead from mate agent result status.
