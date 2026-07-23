@@ -1,0 +1,79 @@
+version: 1
+kind: agent-dispatch-result
+id: RESULT-007
+epic: country-map-svg-generator
+spec: P2
+run: RUN-001
+status: blocked
+input_digest: f0c289417353bd3ddb4fe20f4519669b00d48876b6e943973a5ea7534929f5f8
+previous:
+    artifact: agent-dispatch-brief
+    id: BRIEF-007
+    path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-001/agents/BRIEF-007.agent-dispatch-brief.yaml
+    sha256: b0fc3b79256c11104a3a8240639227a3d61479da9881f82ce3c75f00f4341ab6
+brief:
+    artifact: agent-dispatch-brief
+    id: BRIEF-007
+    path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-001/agents/BRIEF-007.agent-dispatch-brief.yaml
+    sha256: b0fc3b79256c11104a3a8240639227a3d61479da9881f82ce3c75f00f4341ab6
+principal: codex-p2-coder-1
+provider_task_ref: p2_coder
+outcome: blocked
+summary: Dynamic 10m RDP draft preserved but cannot satisfy fixed-0.01 topology and card byte budget for CN at resolved 0.75px tolerance.
+changed_paths:
+    - path: go.mod
+      sha256: 4412d79908d733d715bad8c17334eafbdabb6f96ab8b242d87bdf6637ee9f13b
+    - path: go.sum
+      sha256: 139a8de4191f92748a9d3a8c3868f56862e42f1b0d60d8f1dc4a582d273b5daf
+    - path: internal/geometry/adapter.go
+      sha256: 9ec1981068c22a4295789a55e8fafba21b1cad8d77959231929086519aa4583b
+    - path: internal/geometry/diagnostic.go
+      sha256: ca1c6d733ef2a11fbd63bd6a3c4d0220d184535444c4efa8b5153d1e14717b9c
+    - path: internal/geometry/fit.go
+      sha256: 514152c8b716ec6bbdfc7d9b5be3231101b420eba93d5c7c1f6ea9be853489e1
+    - path: internal/geometry/integration_test.go
+      sha256: 902a45555532b91e346cd7c221f1ebd5e28382ab016bc0774979a4d04b26a7de
+    - path: internal/geometry/marker.go
+      sha256: a358557e66ee40cd382315e5a86442e122f8872ff793122968ee4e665a1d3227
+    - path: internal/geometry/marker_test.go
+      sha256: 968428acbefd1d6e5d9bffa4dc97f27c62b897c5cc6725b4db52439beb679c63
+    - path: internal/geometry/math.go
+      sha256: 54b17fa64ac661e4fcf92fa12bc3d5fb2903a09167b35f970275d2ed3d32401e
+    - path: internal/geometry/model.go
+      sha256: b9fd765ef215870f81391841fec84cd09623a72524e954e760b241713de5669c
+    - path: internal/geometry/model_test.go
+      sha256: ae00cd606ce23d91664e7e2283b96de4376cdd18f16c3c6f474c171f3d516be9
+    - path: internal/geometry/mutations_test.go
+      sha256: 95f77065b5c67f3b3f2a4622e4e8b615aa31e904e5dfd32923fdb279eb12aadd
+    - path: internal/geometry/normalize.go
+      sha256: ab4b3d8dfb4d5a7a2bb6583fb2666e6f64c0f6d1a05c4fe8ec3318091396f6d6
+    - path: internal/geometry/override.go
+      sha256: aedb0b75ddfbc198f35d9916aea290f09806920b7381772198c81bc6b2713ac8
+    - path: internal/geometry/override_test.go
+      sha256: cf880037438a4316e2745bb97f662dda5949dc78e245e57db17d7e5a65c6e0a4
+    - path: internal/geometry/overrides/v1.json
+      sha256: 5239a7754876b9a70871c45e41f1bd9abbd91ed2de67af926c1cfcc9c9377d51
+    - path: internal/geometry/path.go
+      sha256: 2cb9e1c637bdbe8d8ac00ccaf71921c56ec4c2455aa5cf27f6a7b6c30c9abd91
+    - path: internal/geometry/pipeline.go
+      sha256: 451d65875b1c990c167dfb37af695cdccd28f8d1cdef2fd31b64e934bc3aca38
+    - path: internal/geometry/pipeline_test.go
+      sha256: 964da51236dfa63bc4f70a52bb4596ee8c7d5985e05c17c7d2b771a401d8e26e
+    - path: internal/geometry/preset.go
+      sha256: 2f32414a8f2c12967b950538d59a8dc33e2989e0ebd622f9ec6ef7269aafec0b
+    - path: internal/geometry/presets/v1.json
+      sha256: ceb14f0273902a50833faf22c69d4e4226fcea65699e7b3926c2f7c1968239ad
+    - path: internal/geometry/projection.go
+      sha256: 5ee3bf61ee6fd543aa62c45701d0733d4b0babdc617c6d34b76b55c5a0bbd87a
+    - path: internal/geometry/retain.go
+      sha256: e2af0e001291b35887754baf6181e2816ba0af209a1e9c9f7f29c43a1bdf812c
+    - path: internal/geometry/simplify.go
+      sha256: 7664b28219e0e221843c7ae808473996bbdb2476c93530daf5432a50b2ef33db
+    - path: internal/geometry/soften.go
+      sha256: fd488d890fab035817bb0205f3ab4b6ddae4af7e8ac02d9520954f3225e70bc6
+outputs: []
+verification: []
+deviations: []
+feedback: []
+blocked_reason: CN fixed-0.01 topology and 2200-byte target require a governed reduction-strategy revision; adaptive precision reaches 292423 bytes and topology normalization leaves 83827 linear bytes.
+resume_anchor: Finish RUN-001 as interrupted, invalidate PLAN-001, accept the LOD successor plan, then resume from the preserved geometry draft.
