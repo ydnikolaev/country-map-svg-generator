@@ -1,0 +1,3 @@
+GOWORK=off go test ./... -count=1
+ok  	github.com/yuranikolaev/country-map-svg-generator/internal/catalog	29.535s
+?   	github.com/yuranikolaev/country-map-svg-generator/internal/catalog/cmd/corpuscompile	[no test files]

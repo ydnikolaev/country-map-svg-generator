@@ -1,0 +1,20 @@
+version: 1
+kind: advisor-receipt
+id: ADV-003
+epic: country-map-svg-generator
+spec: P1
+run: RUN-002
+status: recorded
+input_digest: d231dc9ac576f5c35fbcf7ed98182f50352257ea12785969d46f07450d83c1aa
+subject:
+    artifact: audit
+    id: AUD-003
+    path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/audits/AUD-003/P1-source-corpus.AUD-003-implementation.audit.md
+    sha256: 8012511cbe406b126666aec3dd93a101446eef4d2c3fe58873b858dc6abc0f7c
+producer_role: independent-auditor
+principal: codex-p1-auditor-3
+result: pass
+risk_policy: elevated
+independence: independent-review
+findings: []
+verdict: pass

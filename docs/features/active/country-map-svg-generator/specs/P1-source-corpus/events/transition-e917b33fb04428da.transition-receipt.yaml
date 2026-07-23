@@ -1,0 +1,102 @@
+version: 1
+kind: transition-receipt
+id: transition-e917b33fb04428da
+epic: country-map-svg-generator
+spec: P1
+status: recorded
+input_digest: 785e7a2461802b53d842a7200c1457bb60b2da8d77989d5c7bb9baaa3e8cc51d
+subject:
+    artifact: spec-tracker
+    id: P1
+    path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/P1-source-corpus.tracker.yaml
+    sha256: de629c014493ab016d0f9c63048d8423748ee10d6c8cce3cd123e69270e6cb69
+producer_role: lifecycle-engine
+principal: teamlead
+result: pass
+machine: spec
+event: complete
+from: in_progress
+to: completed
+inputs:
+    - artifact: accepted-plan-revision
+      id: PLAN-001
+      path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/plans/PLAN-001/P1-source-corpus.PLAN-001.plan.md
+      sha256: 4e39f29252ac88caf43144e625c1cbff18111720f7cb1a3fffde2d3e7ed82a27
+    - artifact: advisor-receipt
+      id: ADV-001
+      path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/audits/AUD-001/P1-source-corpus.ADV-001.advisor-receipt.yaml
+      sha256: d8e0df1d67b89a48924ffc7443d52bc62225dafd519ee22b8b5620618bc97b2a
+    - artifact: advisor-receipt
+      id: ADV-003
+      path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/audits/AUD-003/P1-source-corpus.ADV-003.advisor-receipt.yaml
+      sha256: 7fd1fcec1dff68858799a260e4f84449bdef3702dcee99ac4bfb1c7e8af97d18
+    - artifact: agent-dispatch-result
+      id: RESULT-008
+      path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/runs/RUN-002/agents/RESULT-008.agent-dispatch-result.yaml
+      sha256: e751021a7b4e42b6333a398361ad653561f9133211b2a0a80c7428e4fc14fd84
+    - artifact: audit
+      id: AUD-001
+      path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/audits/AUD-001/P1-source-corpus.AUD-001-implementation.audit.md
+      sha256: da0f7b477e6d044ddb5cedf66b16c41ab8703bc9cfc6c10ccccabc7ba5033be6
+    - artifact: audit
+      id: AUD-003
+      path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/audits/AUD-003/P1-source-corpus.AUD-003-implementation.audit.md
+      sha256: 8012511cbe406b126666aec3dd93a101446eef4d2c3fe58873b858dc6abc0f7c
+    - artifact: context-doctrine-pack
+      id: CTX-RUN-002
+      path: docs/features/active/country-map-svg-generator/readiness/CTX-RUN-002.context-pack.yaml
+      sha256: 5f5d7fcb829c078920e9dd3a49ec1161492822b0018c7229a31fb51da160f657
+    - artifact: gate-receipt
+      id: GATE-783FF0FCACE4
+      path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/audits/AUD-003/gates/GATE-783FF0FCACE4/GATE-783FF0FCACE4.gate-receipt.yaml
+      sha256: 6bc2bab33de56eb04b82d636c1cb391b800cc2e06d72ce00be77de46d43fc607
+    - artifact: gate-receipt
+      id: GATE-D6EB2AA4AC19
+      path: docs/features/active/country-map-svg-generator/readiness/REV-D6EB2AA4AC19/GATE-D6EB2AA4AC19.gate-receipt.yaml
+      sha256: 85a70638f6c9bfe99fb791074221240fdad44b049ded7c97cd5c66bf4e2b7f96
+    - artifact: plan-manifest
+      id: PLAN-001
+      path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/plans/PLAN-001/P1-source-corpus.PLAN-001.plan-manifest.yaml
+      sha256: 4cd93236c76fbb76ecbff1f83dff79070393718a691925a3f8c5bd2fcf774a6e
+    - artifact: provider-capability-receipt
+      id: CAP-D6EB2AA4AC19
+      path: docs/features/active/country-map-svg-generator/readiness/REV-D6EB2AA4AC19/CAP-D6EB2AA4AC19.provider-capability-receipt.yaml
+      sha256: ab360b6cec6818e79c22f516fd1c6412bd1c9110d153ae4005003630d4dd51b9
+    - artifact: readiness-receipt
+      id: REV-D6EB2AA4AC19
+      path: docs/features/active/country-map-svg-generator/readiness/REV-D6EB2AA4AC19/REV-D6EB2AA4AC19.readiness.yaml
+      sha256: 57fa94d439b435349d5422fb265cecca20f6c59e0848e8559bd8d5d92fd8223d
+    - artifact: run-brief
+      id: RUN-002
+      path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/runs/candidates/RUN-002/P1-source-corpus.RUN-002.brief.md
+      sha256: 12d7a801931284d9280b4936bba4d228b3788709b6e3adca97c1dbe42f582867
+    - artifact: run-result
+      id: RUN-001-RESULT
+      path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/runs/RUN-001/P1-source-corpus.RUN-001.result.yaml
+      sha256: de1aacd394ec4a00fdfedd6aae532c53663ce60f00dbddb23d795c0a59a8ce90
+    - artifact: run-result
+      id: RUN-002-RESULT
+      path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/runs/RUN-002/P1-source-corpus.RUN-002.result.yaml
+      sha256: eb64507d5b9c108bb25492c8d2091c3335ca968e73485571783e62f302b99282
+    - artifact: spec-tracker
+      id: P1
+      path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/P1-source-corpus.tracker.yaml
+      sha256: de629c014493ab016d0f9c63048d8423748ee10d6c8cce3cd123e69270e6cb69
+    - artifact: transition-receipt
+      id: run-start-1e59d5728afed77e-run
+      path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/runs/RUN-002/events/run-start-1e59d5728afed77e-run.transition-receipt.yaml
+      sha256: bd4a6502297ff8b9c829e6ed64a7a900772b4c8f105340e180c3425c881227ba
+    - artifact: verification-attempt
+      id: ATTEMPT-D6EB2AA4AC19
+      path: docs/features/active/country-map-svg-generator/readiness/REV-D6EB2AA4AC19/ATTEMPT-D6EB2AA4AC19.verification-attempt.yaml
+      sha256: 6194f31bcf8823c8cde508b9b32201245448c525d048e8ec06b5ea9160904881
+    - artifact: verification-result
+      id: VERIFY-D6EB2AA4AC19
+      path: docs/features/active/country-map-svg-generator/readiness/REV-D6EB2AA4AC19/VERIFY-D6EB2AA4AC19.verification-result.yaml
+      sha256: 2bf96d04c17db13f730d44984e986d1423a59733531cceb4d89bdebe28dbeb30
+    - artifact: verification-selection
+      id: SELECT-D6EB2AA4AC19
+      path: docs/features/active/country-map-svg-generator/readiness/REV-D6EB2AA4AC19/SELECT-D6EB2AA4AC19.verification-selection.yaml
+      sha256: 2573af3b499bacd8fde64e1863bfe1a9939936fca7e3e9450a9efcca5c7f58b6
+predecessor: de629c014493ab016d0f9c63048d8423748ee10d6c8cce3cd123e69270e6cb69
+successor: 9f997bada0ba4ecd8da2a8d171347ba29fcac8f59d117f30525c7e3904087d84

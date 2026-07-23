@@ -8,7 +8,7 @@ One human index derived from the [governed feature registry](features.registry.y
 
 | Epic | State | Specs | Active run | Next |
 |---|---|---|---|---|
-| [country-map-svg-generator](active/country-map-svg-generator/country-map-svg-generator.tracker.yaml) — Country Map SVG Generator | `in_progress` | P1 `in_progress`<br>P2 `draft`<br>P3 `draft`<br>P4 `draft`<br>P5 `draft` | — | `P1:run.scaffold` |
+| [country-map-svg-generator](active/country-map-svg-generator/country-map-svg-generator.tracker.yaml) — Country Map SVG Generator | `in_progress` | P1 `completed`<br>P2 `draft`<br>P3 `draft`<br>P4 `draft`<br>P5 `draft` | — | `P2:spec.accept-readiness` |
 
 ## Completed, awaiting archive
 

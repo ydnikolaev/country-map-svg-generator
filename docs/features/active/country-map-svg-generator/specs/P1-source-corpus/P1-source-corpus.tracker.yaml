@@ -3,12 +3,12 @@ epic: country-map-svg-generator
 spec: P1
 slug: source-corpus
 title: Versioned Country Geometry Corpus
-state: in_progress
-revision: 23
+state: completed
+revision: 26
 updated_by: teamlead
-updated_at: "2026-07-23T18:13:52Z"
-last_event_id: run-pass-9a2b0fa76d9270a3
-input_digest: a61ffd752c5285ca2f46ca0b77d9dd8ea7dff9a4c88e4d1744d0540e0c46d279
+updated_at: "2026-07-23T18:22:58Z"
+last_event_id: transition-e917b33fb04428da
+input_digest: 785e7a2461802b53d842a7200c1457bb60b2da8d77989d5c7bb9baaa3e8cc51d
 current_plan: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/plans/PLAN-001/P1-source-corpus.PLAN-001.plan.md
 runs:
     - id: RUN-001
@@ -21,31 +21,31 @@ runs:
       result: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/runs/RUN-002/P1-source-corpus.RUN-002.result.yaml
 findings:
     - id: F-001
-      status: open
+      status: closed
       destination: same-plan
       reference: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/audits/AUD-001/P1-source-corpus.ADV-001.advisor-receipt.yaml
     - id: F-002
-      status: open
+      status: closed
       destination: same-plan
       reference: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/audits/AUD-001/P1-source-corpus.ADV-001.advisor-receipt.yaml
     - id: F-003
-      status: open
+      status: closed
       destination: same-plan
       reference: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/audits/AUD-001/P1-source-corpus.ADV-001.advisor-receipt.yaml
     - id: F-004
-      status: open
+      status: closed
       destination: same-plan
       reference: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/audits/AUD-001/P1-source-corpus.ADV-001.advisor-receipt.yaml
     - id: F-005
-      status: open
+      status: closed
       destination: same-plan
       reference: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/audits/AUD-001/P1-source-corpus.ADV-001.advisor-receipt.yaml
     - id: F-006
-      status: open
+      status: closed
       destination: same-plan
       reference: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/audits/AUD-001/P1-source-corpus.ADV-001.advisor-receipt.yaml
     - id: F-007
-      status: open
+      status: closed
       destination: same-plan
       reference: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/audits/AUD-001/P1-source-corpus.ADV-001.advisor-receipt.yaml
-next_action: agent-dispatch:agent-dispatch-brief/BRIEF-008#14bd453d370f980c3a01e1e8209fc9380a92434d346971304723666e0fa5eced
+next_action: Continue with spec-closeout.

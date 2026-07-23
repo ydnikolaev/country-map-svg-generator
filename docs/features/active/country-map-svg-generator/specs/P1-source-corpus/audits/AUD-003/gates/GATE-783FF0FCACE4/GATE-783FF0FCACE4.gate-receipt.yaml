@@ -1,0 +1,24 @@
+version: 1
+kind: gate-receipt
+id: GATE-783FF0FCACE4
+epic: country-map-svg-generator
+spec: P1
+status: recorded
+input_digest: 8012511cbe406b126666aec3dd93a101446eef4d2c3fe58873b858dc6abc0f7c
+subject:
+    artifact: audit
+    id: AUD-003
+    path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/audits/AUD-003/P1-source-corpus.AUD-003-implementation.audit.md
+    sha256: 8012511cbe406b126666aec3dd93a101446eef4d2c3fe58873b858dc6abc0f7c
+producer_role: verification-runner
+principal: teamlead
+result: pass
+gate: spec-closeout
+attempt_ids:
+    - ATTEMPT-783FF0FCACE4
+evidence:
+    - artifact: verification-result
+      id: VERIFY-783FF0FCACE4
+      path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/audits/AUD-003/gates/GATE-783FF0FCACE4/VERIFY-783FF0FCACE4.verification-result.yaml
+      sha256: 5c03696509d61214054a1ae9cdde596f72fc57862139d6530f1350c94f98fec7
+      verdict: pass

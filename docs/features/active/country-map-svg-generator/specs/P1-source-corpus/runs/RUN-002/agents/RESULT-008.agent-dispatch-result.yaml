@@ -1,0 +1,32 @@
+version: 1
+kind: agent-dispatch-result
+id: RESULT-008
+epic: country-map-svg-generator
+spec: P1
+run: RUN-002
+status: passed
+input_digest: d86ed65c43afee9856c96fce20919dc8821fe342d6564d0b70b37f8413896c1f
+previous:
+    artifact: agent-dispatch-brief
+    id: BRIEF-008
+    path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/runs/RUN-002/agents/BRIEF-008.agent-dispatch-brief.yaml
+    sha256: 14bd453d370f980c3a01e1e8209fc9380a92434d346971304723666e0fa5eced
+brief:
+    artifact: agent-dispatch-brief
+    id: BRIEF-008
+    path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/runs/RUN-002/agents/BRIEF-008.agent-dispatch-brief.yaml
+    sha256: 14bd453d370f980c3a01e1e8209fc9380a92434d346971304723666e0fa5eced
+principal: codex-p1-auditor-3
+provider_task_ref: p1-closure-audit
+outcome: passed
+summary: 'Fresh independent closure audit passed exact product commit ed4fdca: every P1 obligation is proven by focused receipts plus independent adversarial evidence; no product/spec risk or executable in-repo correction remains. F-005-R2 is terminally owned by Mate harness finding FND-ED003909B82A.'
+changed_paths: []
+outputs:
+    - artifact: audit
+      id: AUD-003
+      path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/audits/AUD-003/P1-source-corpus.AUD-003-implementation.audit.md
+      sha256: 8012511cbe406b126666aec3dd93a101446eef4d2c3fe58873b858dc6abc0f7c
+verification: []
+deviations: []
+feedback: []
+resume_anchor: Record AUD-003 pass verdict, issue closure readiness, complete P1, and retain FND-ED003909B82A as upstream harness work.

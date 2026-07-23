@@ -1,0 +1,12 @@
+version: 1
+kind: verification-selection
+id: SELECT-783FF0FCACE4
+epic: country-map-svg-generator
+spec: P1
+status: recorded
+input_digest: 8012511cbe406b126666aec3dd93a101446eef4d2c3fe58873b858dc6abc0f7c
+topology_digest: c1c4713fdb9c712747de67eafa86f8a672b41f22a1b8e610143f7529ed62031b
+nodes:
+    - spec-closeout
+reason: lifecycle gate for audit
+required_ceiling: spec-closeout

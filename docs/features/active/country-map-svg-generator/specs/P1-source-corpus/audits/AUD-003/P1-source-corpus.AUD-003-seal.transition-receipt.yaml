@@ -1,0 +1,26 @@
+version: 1
+kind: transition-receipt
+id: AUD-003-SEAL
+epic: country-map-svg-generator
+spec: P1
+status: recorded
+input_digest: 6156f782a0e4b189eedf087a2a5b89f80f5165cca3fefa5ffd57806cfa90b750
+subject:
+    artifact: audit
+    id: AUD-003
+    path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/audits/candidates/AUD-003/P1-source-corpus.AUD-003-implementation.audit.md
+    sha256: 6193dcaf3f9cb915fd4ccbeed29bd265ea54605ed6c52ac47c79df7345b98dbe
+producer_role: audit-sealer
+principal: codex-p1-auditor-3
+result: pass
+machine: audit
+event: seal
+from: draft
+to: completed
+inputs:
+    - artifact: audit
+      id: AUD-003
+      path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/audits/candidates/AUD-003/P1-source-corpus.AUD-003-implementation.audit.md
+      sha256: 6193dcaf3f9cb915fd4ccbeed29bd265ea54605ed6c52ac47c79df7345b98dbe
+predecessor: 6193dcaf3f9cb915fd4ccbeed29bd265ea54605ed6c52ac47c79df7345b98dbe
+successor: 8012511cbe406b126666aec3dd93a101446eef4d2c3fe58873b858dc6abc0f7c
