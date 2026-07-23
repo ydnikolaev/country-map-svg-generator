@@ -4,13 +4,18 @@ id: PLAN-006
 epic: country-map-svg-generator
 spec: P2
 status: draft
-input_digest: 83641678ead58533ad2414b8adeef8cf584486c4e783678c641ddbbda4555fd8
+input_digest: 710e915af2d458eae0def00216b1a0d7b4379f00def1fecdeedbf9f82457a4dc
 plan_id: PLAN-006
 baseline:
     repository: project
     commit: 7ab35331e3e30291769fd178d7b2f0a9aa91c3df
     tree: 50b5d30f4ee904d6c53c92a8610a988f2526c5d3
 inputs:
+    - reference: implementation-plan/PLAN-006
+      path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/plans/candidates/PLAN-006/P2-geometry-pipeline.PLAN-006.plan.md
+      sha256: d1fa9484e4199cf8230b27895787abcfb69376168443fdbb61a62ca45b7ae0a7
+      reason: candidate plan body
+      freshness: current
     - reference: solution-architecture/CTX-ARCH
       path: docs/features/active/country-map-svg-generator/architecture/country-map-svg-generator.solution-architecture.md
       sha256: 5325da7358596b56c9dc6f65d3b6af3801174257503a332334a77a9c71433947
