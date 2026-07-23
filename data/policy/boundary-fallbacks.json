@@ -1,0 +1,16 @@
+{
+  "de_facto_identical_to_un": [
+    "BES",
+    "BVT",
+    "CCK",
+    "CXR",
+    "GLP",
+    "GUF",
+    "MTQ",
+    "MYT",
+    "REU",
+    "SJM",
+    "TKL"
+  ],
+  "reason": "The de-facto theme has no ISO_A3 feature for these assigned entities; the reviewed ISO point-of-view geometry is the explicit profile resolution."
+}

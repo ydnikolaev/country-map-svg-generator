@@ -1,0 +1,10 @@
+{
+  "features": [
+    {"alpha2": "ID", "name": "Indonesian archipelago", "anchor": [118.0, -2.0], "minimum_parts": 20},
+    {"alpha2": "KI", "name": "Kiribati island groups", "anchor": [-157.36, 1.87], "minimum_parts": 3},
+    {"alpha2": "MC", "name": "Monaco microstate", "anchor": [7.4246, 43.7384], "minimum_parts": 1},
+    {"alpha2": "NR", "name": "Nauru island", "anchor": [166.93, -0.52], "minimum_parts": 1},
+    {"alpha2": "SM", "name": "San Marino microstate", "anchor": [12.46, 43.94], "minimum_parts": 1},
+    {"alpha2": "VA", "name": "Vatican City microstate", "anchor": [12.4534, 41.9029], "minimum_parts": 1}
+  ]
+}

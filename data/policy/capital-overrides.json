@@ -1,0 +1,19 @@
+{
+  "overrides": [
+    {"alpha2": "BJ", "primary_name": "Porto-Novo"},
+    {"alpha2": "BO", "primary_name": "Sucre"},
+    {"alpha2": "CI", "primary_name": "Yamoussoukro"},
+    {"alpha2": "CL", "primary_name": "Santiago"},
+    {"alpha2": "IL", "primary_name": "Jerusalem"},
+    {"alpha2": "JP", "primary_name": "Tokyo"},
+    {"alpha2": "LK", "primary_name": "Sri Jayawardenepura Kotte"},
+    {"alpha2": "MA", "primary_name": "Rabat"},
+    {"alpha2": "MY", "primary_name": "Kuala Lumpur"},
+    {"alpha2": "NG", "primary_name": "Abuja"},
+    {"alpha2": "NL", "primary_name": "Amsterdam"},
+    {"alpha2": "PH", "primary_name": "Manila"},
+    {"alpha2": "SZ", "primary_name": "Mbabane"},
+    {"alpha2": "TZ", "primary_name": "Dodoma"},
+    {"alpha2": "ZA", "primary_name": "Pretoria"}
+  ]
+}

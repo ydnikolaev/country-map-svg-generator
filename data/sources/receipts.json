@@ -1,0 +1,40 @@
+{
+  "receipts": [
+    {
+      "id": "iso-3166-1-2026-07-23",
+      "path": "sources/iso/2026-07-23/iso-3166-1.json",
+      "origin": "https://www.iso.org/obp/ui/#search/code/",
+      "upstream_version": "observed 2026-07-23",
+      "license": "ISO country codes: free-of-charge use",
+      "sha256": "e875253a9bafc4b5b28be60c3c620ca3d885c33a7f6f3e7dcc3ceb5f59a5b5dd",
+      "transformation": "reviewed alpha-2, alpha-3 and English-name snapshot; sorted by alpha-2"
+    },
+    {
+      "id": "natural-earth-admin0-iso-5.1.1",
+      "path": "sources/natural-earth/5.1.1/ne_10m_admin_0_countries_iso.geojson",
+      "origin": "https://github.com/nvkelso/natural-earth-vector/blob/v5.1.2/geojson/ne_10m_admin_0_countries_iso.geojson",
+      "upstream_version": "5.1.1 (distributed in tag v5.1.2)",
+      "license": "Natural Earth public domain",
+      "sha256": "60eb10aa951f5872507c9436937508b09be4b43dc9fa7aad7644f23ef12e1cad",
+      "transformation": "none; exact tagged GeoJSON bytes"
+    },
+    {
+      "id": "natural-earth-admin0-defacto-5.1.1",
+      "path": "sources/natural-earth/5.1.1/ne_10m_admin_0_countries.geojson",
+      "origin": "https://github.com/nvkelso/natural-earth-vector/blob/v5.1.2/geojson/ne_10m_admin_0_countries.geojson",
+      "upstream_version": "5.1.1 (distributed in tag v5.1.2)",
+      "license": "Natural Earth public domain",
+      "sha256": "239eec57ac17f100a11e2536cffc56752c318b50ae765b0918ff7aab4ce8f255",
+      "transformation": "none; exact tagged GeoJSON bytes"
+    },
+    {
+      "id": "natural-earth-populated-places-5.1.2",
+      "path": "sources/natural-earth/5.1.2/ne_10m_populated_places_simple.geojson",
+      "origin": "https://github.com/nvkelso/natural-earth-vector/blob/v5.1.2/geojson/ne_10m_populated_places_simple.geojson",
+      "upstream_version": "5.1.2",
+      "license": "Natural Earth public domain",
+      "sha256": "fd3fa867a320cbd5c5b6bb5bc550afeec2939fb2cef688e508007282a55ac42f",
+      "transformation": "none; exact tagged GeoJSON bytes"
+    }
+  ]
+}
