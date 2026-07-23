@@ -1,0 +1,12 @@
+version: 1
+kind: verification-selection
+id: SELECT-9DEC6DB0F97A
+epic: country-map-svg-generator
+spec: P2
+status: recorded
+input_digest: 6308bb57ca59d288027c28b5dc58ee2a186584c5687e83536da943dca0c9b3c2
+topology_digest: e9a8a1df6ee5e969a2a88f452606de8891e63b1f98ce84da354b9b9d7fee9a6b
+nodes:
+    - project-ceiling
+reason: readiness gate for plan.accept
+required_ceiling: project-ceiling

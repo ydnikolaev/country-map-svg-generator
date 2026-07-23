@@ -1,0 +1,29 @@
+version: 1
+kind: readiness-receipt
+id: REV-9DEC6DB0F97A
+epic: country-map-svg-generator
+spec: P2
+status: recorded
+input_digest: 6308bb57ca59d288027c28b5dc58ee2a186584c5687e83536da943dca0c9b3c2
+subject:
+    artifact: plan-manifest
+    id: PLAN-006
+    path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/plans/candidates/PLAN-006/P2-geometry-pipeline.PLAN-006.plan-manifest.yaml
+    sha256: 3fbb8f93185ec64506a79bf7a4bda043f1d826e312b64d42f94fcddec60a7ea7
+producer_role: readiness-producer
+principal: teamlead
+result: pass
+risk_policy: efficient
+capabilities:
+    - artifact: provider-capability-receipt
+      id: CAP-9DEC6DB0F97A
+      path: docs/features/active/country-map-svg-generator/readiness/REV-9DEC6DB0F97A/CAP-9DEC6DB0F97A.provider-capability-receipt.yaml
+      sha256: 9ebb4ef573e2fc6d5d4ca9b7ec5d8a17646524b6ab698dbf8e605f4a20279d67
+      verdict: pass
+gates:
+    - artifact: gate-receipt
+      id: GATE-9DEC6DB0F97A
+      path: docs/features/active/country-map-svg-generator/readiness/REV-9DEC6DB0F97A/GATE-9DEC6DB0F97A.gate-receipt.yaml
+      sha256: 5a97d341d8a562a9caa1befa730e0e4ffe8fa4653a3cb5763a61a70a91985cd2
+      verdict: pass
+authorized_next: plan.accept
