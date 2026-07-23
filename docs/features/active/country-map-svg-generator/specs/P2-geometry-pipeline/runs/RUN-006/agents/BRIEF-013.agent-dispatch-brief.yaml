@@ -1,0 +1,118 @@
+version: 1
+kind: agent-dispatch-brief
+id: BRIEF-013
+epic: country-map-svg-generator
+spec: P2
+run: RUN-006
+status: issued
+input_digest: da9a745843fa8be1b2c2a5b2c555277341987767e22a132c4ce818e5d572e932
+role: coder
+provider: codex
+binding_mode: native
+dispatch_route: named-role
+role_contract:
+    reference: installed-role/coder
+    path: .codex/agents/coder.toml
+    sha256: e5078656ace1b8785d676e1410b701d4c8ebd31b129a54cce0d3813adfe99f10
+    reason: installed provider role contract
+    freshness: current
+issuer: teamlead
+grant: edit
+capability: edit
+semantic_tier: standard
+context:
+    - reference: context-doctrine-pack/CTX-RUN-008
+      path: docs/features/active/country-map-svg-generator/readiness/CTX-RUN-008.context-pack.yaml
+      sha256: 4a9124a2c8cd3d61be7f6ced6b9aa9d62cd78c6cc6aee503079b28f7ca622c84
+      reason: dispatch context
+      freshness: current
+plan:
+    artifact: plan-manifest
+    id: PLAN-006
+    path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/plans/PLAN-006/P2-geometry-pipeline.PLAN-006.plan-manifest.yaml
+    sha256: b62f645fb2ae84a3a8ff07a670299eee1764bedd0c8d5cc5d1264331881ff190
+readiness:
+    artifact: readiness-receipt
+    id: REV-47238ABC6B4D
+    path: docs/features/active/country-map-svg-generator/readiness/REV-47238ABC6B4D/REV-47238ABC6B4D.readiness.yaml
+    sha256: 56b3a10f9ffa12eee14c01a63e653065eb35d34b237568408573391febf7c1ef
+subject:
+    artifact: run-brief
+    id: RUN-006
+    path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-006/P2-geometry-pipeline.RUN-006.brief.md
+    sha256: 2a3c0fc8ed2c1bcba5eb0536722042ad7a496f0bac37bab567580f82700a5c21
+objective: Execute only the PLAN-006 T0 first AQ/RU frozen-serializer brake. Reconcile the existing scratch, build centered unrotated LAEA planar compact/standard candidates with exact metadata/runtime binding, and implement DEC-005 q-aware source finalization. Run equivalent unlimited AQ card/hero compact+standard and forced-source AQ card/hero plus RU card, then the normal 2500/8000 budgets. Stop and return evidence at this checkpoint even if it passes; do not run the broad matrix, change serializer, commit, mutate lifecycle, publish T1, or touch T2.
+writes:
+    - go.mod
+    - go.sum
+    - internal/geometry/adapter.go
+    - internal/geometry/adapter_test.go
+    - internal/geometry/cmd/lodbuild
+    - internal/geometry/diagnostic.go
+    - internal/geometry/fit.go
+    - internal/geometry/fit_test.go
+    - internal/geometry/lod.go
+    - internal/geometry/lod/tool
+    - internal/geometry/lod/v1.recipe.json
+    - internal/geometry/lod_test.go
+    - internal/geometry/marker.go
+    - internal/geometry/marker_test.go
+    - internal/geometry/math.go
+    - internal/geometry/model.go
+    - internal/geometry/model_test.go
+    - internal/geometry/normalize.go
+    - internal/geometry/normalize_test.go
+    - internal/geometry/override.go
+    - internal/geometry/override_test.go
+    - internal/geometry/overrides
+    - internal/geometry/path.go
+    - internal/geometry/path_test.go
+    - internal/geometry/pipeline.go
+    - internal/geometry/pipeline_test.go
+    - internal/geometry/preset.go
+    - internal/geometry/preset_test.go
+    - internal/geometry/presets
+    - internal/geometry/projection.go
+    - internal/geometry/projection_test.go
+    - internal/geometry/retain.go
+    - internal/geometry/retain_test.go
+    - internal/geometry/simplify.go
+    - internal/geometry/simplify_test.go
+    - internal/geometry/soften.go
+    - internal/geometry/soften_test.go
+    - internal/geometry/testdata/lod-spike
+forbidden:
+    - Makefile
+    - cmd
+    - data
+    - docs
+    - internal/catalog
+    - internal/geometry/approval_test.go
+    - internal/geometry/integration_test.go
+    - internal/geometry/lod/v1.compact.json
+    - internal/geometry/lod/v1.manifest.json
+    - internal/geometry/lod/v1.standard.json
+    - internal/geometry/lod_build_test.go
+    - internal/geometry/lod_generated.go
+    - internal/geometry/mutations_test.go
+    - internal/geometry/oracle_test.go
+    - internal/geometry/serialize.go
+    - internal/geometry/serialize_test.go
+    - internal/geometry/testdata/approval
+    - internal/geometry/testdata/d3
+    - internal/geometry/testdata/mutations
+validation:
+    - GOCACHE=/private/tmp/country-map-go-cache GOWORK=off go test ./internal/geometry -run 'Test(AutoQuality|PresetPolicy|ExplicitQuality|Topology|Projection|ProjectedLOD|SourceFinal)' -count=1
+    - GOCACHE=/private/tmp/country-map-go-cache GOWORK=off go test ./internal/geometry/... -count=1
+    - Run the exact RUN-006 AQ/RU unlimited then 2500/8000 frozen-serializer checkpoint and report tier, coordinate-space identity, raw/final deviation, tolerance, q, restorations, fallbacks, points, path bytes, parser round-trip and runtime
+completion_schema:
+    - blockers
+    - changed_paths
+    - deviations
+    - evidence
+    - outcome
+    - summary
+    - verification
+expected_outputs: []
+budget: 8
+resume_anchor: Return the exact first-brake outcome and structured evidence only. Do not commit, mutate lifecycle, change serializer, run the broad matrix or start T1.
