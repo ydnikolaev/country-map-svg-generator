@@ -1,0 +1,90 @@
+version: 1
+kind: transition-receipt
+id: plan-supersede-1a1b102d0d6f4d4b-accept
+epic: country-map-svg-generator
+spec: P2
+status: recorded
+input_digest: e68976824fa115d02a66d62bac158211f48327f86fd5bd40ec86e2b705589f72
+subject:
+    artifact: plan-manifest
+    id: PLAN-002
+    path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/plans/candidates/PLAN-002/P2-geometry-pipeline.PLAN-002.plan-manifest.yaml
+    sha256: 1e276f44ef4801e5174b4ec22abb0f0479bead411062573cd9c9b8124152035e
+producer_role: lifecycle-engine
+principal: teamlead
+result: pass
+machine: plan-revision
+event: accept
+from: draft
+to: accepted
+inputs:
+    - artifact: accepted-plan-revision
+      id: PLAN-001
+      path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/plans/PLAN-001/P2-geometry-pipeline.PLAN-001.plan.md
+      sha256: 3c7147cd86a0be2c65236fbcc9939ba5c83961b5541c2bc12745385328c4b67e
+    - artifact: agent-dispatch-result
+      id: RESULT-007
+      path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-001/agents/RESULT-007.agent-dispatch-result.yaml
+      sha256: 9ae1c7202bcfabb77b1aed18c1cdb12da1549adff64beda54543dbf1d723fd23
+    - artifact: gate-receipt
+      id: GATE-AA3D1A98BD06
+      path: docs/features/active/country-map-svg-generator/readiness/REV-AA3D1A98BD06/GATE-AA3D1A98BD06.gate-receipt.yaml
+      sha256: 0f46610315f168c0cd5490a479249c989c99c272c7191df1cefc414ee8b73863
+    - artifact: implementation-plan
+      id: PLAN-001
+      path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/plans/candidates/PLAN-001/P2-geometry-pipeline.PLAN-001.plan.md
+      sha256: 5aa3a25c14c4dd6b6dc3972a51f2753092bb3da0d4eea4c62483bf87cfe428ff
+    - artifact: implementation-plan
+      id: PLAN-002
+      path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/plans/candidates/PLAN-002/P2-geometry-pipeline.PLAN-002.plan.md
+      sha256: 6a679a73599a25503985822e3c6e03f899b330973befed6c2d1b57e47859f283
+    - artifact: plan-manifest
+      id: PLAN-001
+      path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/plans/PLAN-001/P2-geometry-pipeline.PLAN-001.plan-manifest.yaml
+      sha256: 340693ac032d454609087b3656caa01b0d7580684d01790dbce3543ebf6c4070
+    - artifact: plan-manifest
+      id: PLAN-002
+      path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/plans/candidates/PLAN-002/P2-geometry-pipeline.PLAN-002.plan-manifest.yaml
+      sha256: 1e276f44ef4801e5174b4ec22abb0f0479bead411062573cd9c9b8124152035e
+    - artifact: provider-capability-receipt
+      id: CAP-AA3D1A98BD06
+      path: docs/features/active/country-map-svg-generator/readiness/REV-AA3D1A98BD06/CAP-AA3D1A98BD06.provider-capability-receipt.yaml
+      sha256: cca6ba0d50519eb81735d77037d4ef44cce860d1f17c5b98ac5bd20fc0f6d66f
+    - artifact: readiness-receipt
+      id: REV-AA3D1A98BD06
+      path: docs/features/active/country-map-svg-generator/readiness/REV-AA3D1A98BD06/REV-AA3D1A98BD06.readiness.yaml
+      sha256: 5d5391f3a1c0982676d2f2b24f2ced92ad838e4c9c335bfc5824c1c94cc3efc5
+    - artifact: run-brief
+      id: RUN-001
+      path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-001/P2-geometry-pipeline.RUN-001.brief.md
+      sha256: cad7808b738d782df5cd7934b749dcc709e948b72bcf853d21d66b36d16ec16e
+    - artifact: run-result
+      id: RUN-001-RESULT
+      path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-001/P2-geometry-pipeline.RUN-001.result.yaml
+      sha256: 2d704d25d76d2646f5cfb8061623ed19bbe43ebb24af5ad60e711c6d9e92ac87
+    - artifact: transition-receipt
+      id: plan-accept-238b4004999f2d59
+      path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/events/plan-accept-238b4004999f2d59.transition-receipt.yaml
+      sha256: a32b4d3c7c828ee9916303b732f90818178846006c2addd478b42a2ac06e7c60
+    - artifact: transition-receipt
+      id: plan-invalidate-afcf14087aeb7929
+      path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/events/plan-invalidate-afcf14087aeb7929.transition-receipt.yaml
+      sha256: bf6dacdc8f8c717d47e1c60b3d53025069b71b8702554a93cd80c0946c0e5fc0
+    - artifact: transition-receipt
+      id: run-start-b250692fa07320cb-run
+      path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-001/events/run-start-b250692fa07320cb-run.transition-receipt.yaml
+      sha256: 5c00b83f474796cc3f7bb0a29e74a2f72b680e85056cfc7ffbd75faafeef75ed
+    - artifact: verification-attempt
+      id: ATTEMPT-AA3D1A98BD06
+      path: docs/features/active/country-map-svg-generator/readiness/REV-AA3D1A98BD06/ATTEMPT-AA3D1A98BD06.verification-attempt.yaml
+      sha256: 597d186fd555f533bdb3e90f196752259e4d13eb11bc6dc78f5b45e11562c26e
+    - artifact: verification-result
+      id: VERIFY-AA3D1A98BD06
+      path: docs/features/active/country-map-svg-generator/readiness/REV-AA3D1A98BD06/VERIFY-AA3D1A98BD06.verification-result.yaml
+      sha256: 8e4355e5db70bae7f5889b0e2e2d67aaa32c8fa1d7d586aa89ee1e89fa11a313
+    - artifact: verification-selection
+      id: SELECT-AA3D1A98BD06
+      path: docs/features/active/country-map-svg-generator/readiness/REV-AA3D1A98BD06/SELECT-AA3D1A98BD06.verification-selection.yaml
+      sha256: 6b786a5f2a6deb891d72aa2eacfed59aa84daecfdbb6996a4f10ec845878e3bc
+predecessor: 1e276f44ef4801e5174b4ec22abb0f0479bead411062573cd9c9b8124152035e
+successor: 1f39e250c9edab3faf0be60bca044b9b3a0043ac6f7c63eab5765268c270eb7b
