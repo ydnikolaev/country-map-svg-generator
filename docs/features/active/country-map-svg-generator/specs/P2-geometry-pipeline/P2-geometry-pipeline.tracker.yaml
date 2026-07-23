@@ -3,13 +3,17 @@ epic: country-map-svg-generator
 spec: P2
 slug: geometry-pipeline
 title: Soft-Organic Geometry Pipeline
-state: ready
-revision: 15
+state: in_progress
+revision: 16
 updated_by: teamlead
-updated_at: "2026-07-23T19:38:37Z"
-last_event_id: plan-accept-238b4004999f2d59
-input_digest: ad83f2af1e11c08965a80fa92e13422144d860223b3b996899a52b2f7a733a6b
+updated_at: "2026-07-23T19:41:31Z"
+last_event_id: run-start-b250692fa07320cb-run
+input_digest: e32567a0b2afc6736a8e09fdfada6d3fbdb5645660373acc69cd26fb3296ada4
 current_plan: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/plans/PLAN-001/P2-geometry-pipeline.PLAN-001.plan.md
-runs: []
+active_run: RUN-001
+runs:
+    - id: RUN-001
+      plan: PLAN-001
+      status: running
 findings: []
-next_action: Refresh execution readiness, then begin the spec and its first run.
+next_action: Execute RUN-001 within the accepted brief; pass, fail, interrupt, or cancel it with evidence.
