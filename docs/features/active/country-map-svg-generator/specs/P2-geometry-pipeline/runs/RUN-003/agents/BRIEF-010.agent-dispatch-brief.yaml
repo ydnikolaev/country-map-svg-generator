@@ -1,0 +1,120 @@
+version: 1
+kind: agent-dispatch-brief
+id: BRIEF-010
+epic: country-map-svg-generator
+spec: P2
+run: RUN-003
+status: issued
+input_digest: 2d2b107f63bbad3d1891c8de00f52fcc891e82d0704524af6a200d7cc99eac9f
+role: coder
+provider: codex
+binding_mode: native
+dispatch_route: named-role
+role_contract:
+    reference: installed-role/coder
+    path: .codex/agents/coder.toml
+    sha256: e5078656ace1b8785d676e1410b701d4c8ebd31b129a54cce0d3813adfe99f10
+    reason: installed provider role contract
+    freshness: current
+issuer: teamlead
+grant: edit
+capability: edit
+semantic_tier: standard
+context:
+    - reference: context-doctrine-pack/CTX-RUN-005
+      path: docs/features/active/country-map-svg-generator/readiness/CTX-RUN-005.context-pack.yaml
+      sha256: dd4f83d709b541f9f162eb2312bc73153421f8975b7ba80551d3a9e799c15ab7
+      reason: dispatch context
+      freshness: current
+plan:
+    artifact: plan-manifest
+    id: PLAN-003
+    path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/plans/PLAN-003/P2-geometry-pipeline.PLAN-003.plan-manifest.yaml
+    sha256: 3ea7b881765c64fd5543b32071e623edb074925a32544ec1f77e61d6c9f51f79
+readiness:
+    artifact: readiness-receipt
+    id: REV-28C2E84BB73D
+    path: docs/features/active/country-map-svg-generator/readiness/REV-28C2E84BB73D/REV-28C2E84BB73D.readiness.yaml
+    sha256: 5a712ec63bcf25fb04e4f46d812d5972c08ddba35ec20ac6791fb5fac16667e8
+subject:
+    artifact: run-brief
+    id: RUN-003
+    path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-003/P2-geometry-pipeline.RUN-003.brief.md
+    sha256: 4371b6840f16fa3a2f3731894b04f58defac4bf929a677b6a03a10ac2aa82476
+objective: Execute PLAN-003 T0 only. Integrate the pinned all-283 LOD builder with the exact production full-source projection/fit/retention/restoration path, robust shared-source-endpoint topology, scale-only tier selection, symmetric deviation, canonical minified round-trippable SVG path serialization, generic budgets and bounded softening. Search only accepted global ranges; emit the all-corpus matrix and representative visual sheet. Stop without commit and do not start T1 unless every machine brake passes and owner visual approval is the only remaining action.
+writes:
+    - go.mod
+    - go.sum
+    - internal/geometry/adapter.go
+    - internal/geometry/adapter_test.go
+    - internal/geometry/cmd/lodbuild
+    - internal/geometry/diagnostic.go
+    - internal/geometry/fit.go
+    - internal/geometry/fit_test.go
+    - internal/geometry/lod.go
+    - internal/geometry/lod/tool
+    - internal/geometry/lod/v1.recipe.json
+    - internal/geometry/lod_test.go
+    - internal/geometry/marker.go
+    - internal/geometry/marker_test.go
+    - internal/geometry/math.go
+    - internal/geometry/model.go
+    - internal/geometry/model_test.go
+    - internal/geometry/normalize.go
+    - internal/geometry/normalize_test.go
+    - internal/geometry/override.go
+    - internal/geometry/override_test.go
+    - internal/geometry/overrides
+    - internal/geometry/path.go
+    - internal/geometry/path_test.go
+    - internal/geometry/pipeline.go
+    - internal/geometry/pipeline_test.go
+    - internal/geometry/preset.go
+    - internal/geometry/preset_test.go
+    - internal/geometry/presets
+    - internal/geometry/projection.go
+    - internal/geometry/projection_test.go
+    - internal/geometry/retain.go
+    - internal/geometry/retain_test.go
+    - internal/geometry/serialize.go
+    - internal/geometry/serialize_test.go
+    - internal/geometry/simplify.go
+    - internal/geometry/simplify_test.go
+    - internal/geometry/soften.go
+    - internal/geometry/soften_test.go
+    - internal/geometry/testdata/lod-spike
+forbidden:
+    - .git
+    - .mate
+    - Makefile
+    - cmd
+    - data
+    - docs
+    - internal/catalog
+    - internal/geometry/approval_test.go
+    - internal/geometry/integration_test.go
+    - internal/geometry/lod/v1.compact.json
+    - internal/geometry/lod/v1.manifest.json
+    - internal/geometry/lod/v1.standard.json
+    - internal/geometry/lod_build_test.go
+    - internal/geometry/lod_generated.go
+    - internal/geometry/mutations_test.go
+    - internal/geometry/oracle_test.go
+    - internal/geometry/testdata/approval
+    - internal/geometry/testdata/d3
+    - internal/geometry/testdata/mutations
+validation:
+    - GOWORK=off go test ./internal/geometry -run 'Test(Serialize|Topology|Projection)' -count=1
+    - GOWORK=off go test ./internal/geometry/... -count=1
+    - GOWORK=off go test ./internal/geometry/... -run '^TestLODIntegratedBrake$' -count=1
+completion_schema:
+    - blockers
+    - changed_paths
+    - deviations
+    - evidence
+    - outcome
+    - summary
+    - verification
+expected_outputs: []
+budget: 10
+resume_anchor: Return exact changed paths, commands, all-corpus maxima/fallbacks/restorations/hashes/runtime and the visual-sheet locator. Do not commit, issue gates, mutate lifecycle, or start T1. If any hard brake fails, return blocked with the first minimal reproducible case and preserve all evidence.
