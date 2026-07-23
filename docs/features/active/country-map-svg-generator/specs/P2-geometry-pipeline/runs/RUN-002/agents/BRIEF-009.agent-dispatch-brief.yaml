@@ -1,0 +1,78 @@
+version: 1
+kind: agent-dispatch-brief
+id: BRIEF-009
+epic: country-map-svg-generator
+spec: P2
+run: RUN-002
+status: issued
+input_digest: d1d998bed8564343308e7e1463dbf79fb6369dccd251b82a0302e3b77b09187b
+previous:
+    artifact: agent-dispatch-result
+    id: RESULT-008
+    path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-002/agents/RESULT-008.agent-dispatch-result.yaml
+    sha256: 3922f338c75c19a455aaed1e07180de0af07d63fb9f99b36bee811704a006e4e
+role: coder
+provider: codex
+binding_mode: native
+dispatch_route: named-role
+role_contract:
+    reference: installed-role/coder
+    path: .codex/agents/coder.toml
+    sha256: e5078656ace1b8785d676e1410b701d4c8ebd31b129a54cce0d3813adfe99f10
+    reason: installed provider role contract
+    freshness: current
+issuer: teamlead
+grant: edit
+capability: edit
+semantic_tier: standard
+context:
+    - reference: context-doctrine-pack/CTX-RUN-004
+      path: docs/features/active/country-map-svg-generator/readiness/CTX-RUN-004.context-pack.yaml
+      sha256: 11e319291722631f226ab3912ea29e5e0a3e82f8eb0a25655606296981682228
+      reason: dispatch context
+      freshness: current
+plan:
+    artifact: plan-manifest
+    id: PLAN-002
+    path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/plans/PLAN-002/P2-geometry-pipeline.PLAN-002.plan-manifest.yaml
+    sha256: 1f39e250c9edab3faf0be60bca044b9b3a0043ac6f7c63eab5765268c270eb7b
+readiness:
+    artifact: readiness-receipt
+    id: REV-C00BB1507A7E
+    path: docs/features/active/country-map-svg-generator/readiness/REV-C00BB1507A7E/REV-C00BB1507A7E.readiness.yaml
+    sha256: 7492693076403ab5cdaa6bbad5a0a8e627f36c56e34cf9f102f9f9933da08c3d
+subject:
+    artifact: run-brief
+    id: RUN-002
+    path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-002/P2-geometry-pipeline.RUN-002.brief.md
+    sha256: 2e7eb4ba6a3e84450c966b898d19ef6183da8aa2cc4d9519b9804ae079bc3157
+objective: 'Execute PLAN-002 T0 only: finish a production-capable pinned Mapshaper LOD builder and v1 recipe, temporarily evaluate all 283 geometry IDs/all entities/profiles/presets, and return exact structural, topology, protection, deterministic rebuild, artifact-size/runtime, 2500/8000-byte and representative visual evidence. Stop without production artifact commit on any brake failure.'
+writes:
+    - internal/geometry/cmd/lodbuild
+    - internal/geometry/lod/tool
+    - internal/geometry/lod/v1.recipe.json
+    - internal/geometry/testdata/lod-spike
+forbidden:
+    - Makefile
+    - cmd
+    - data
+    - docs
+    - internal/catalog
+    - internal/geometry/lod/v1.compact.json
+    - internal/geometry/lod/v1.manifest.json
+    - internal/geometry/lod/v1.standard.json
+validation:
+    - GOWORK=off go test ./internal/geometry/cmd/lodbuild -run TestLODSpike -count=1
+    - GOWORK=off go test ./internal/geometry/cmd/lodbuild -run TestLODSpikeFullCorpus -count=1
+    - GOWORK=off go test ./internal/geometry/cmd/lodbuild -run TestLODSpikeRebuild -count=1
+completion_schema:
+    - blockers
+    - changed_paths
+    - deviations
+    - evidence
+    - outcome
+    - summary
+    - verification
+expected_outputs: []
+budget: 6
+resume_anchor: Return T0 product commit only if every brake is green; otherwise return blocked with exact failing country/profile/preset, bytes, topology/protection/provenance, runtime and current scoped diff. Do not start T1.

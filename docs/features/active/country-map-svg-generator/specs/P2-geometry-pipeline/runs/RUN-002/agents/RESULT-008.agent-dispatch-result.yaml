@@ -1,0 +1,28 @@
+version: 1
+kind: agent-dispatch-result
+id: RESULT-008
+epic: country-map-svg-generator
+spec: P2
+run: RUN-002
+status: no-result
+input_digest: 6ba0f964deab9465b88e943899a0d6710494b0d5acac3ce684d586b8be3ff510
+previous:
+    artifact: agent-dispatch-brief
+    id: BRIEF-008
+    path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-002/agents/BRIEF-008.agent-dispatch-brief.yaml
+    sha256: effd6803cc672718a96414b47f26c99f6d3c14a742d127003faae70ab449bde2
+brief:
+    artifact: agent-dispatch-brief
+    id: BRIEF-008
+    path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-002/agents/BRIEF-008.agent-dispatch-brief.yaml
+    sha256: effd6803cc672718a96414b47f26c99f6d3c14a742d127003faae70ab449bde2
+principal: codex-p2-t0-coder
+provider_task_ref: not_dispatched
+outcome: no-result
+summary: Cancelled before provider dispatch because the validation command targeted the parent geometry package instead of the leased lodbuild package; no product mutation occurred.
+changed_paths: []
+outputs: []
+verification: []
+deviations: []
+feedback: []
+resume_anchor: Issue corrected T0 brief with lodbuild-package validations before provider dispatch.
