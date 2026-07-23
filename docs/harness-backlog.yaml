@@ -1,8 +1,15 @@
 version: 1
 kind: harness-feedback-backlog
 project: country-map-svg-generator
-revision: 1
+revision: 2
 operations:
+    - version: 1
+      id: feedback-add-7250ea81199fbe42
+      kind: feedback-add
+      input_digest: a839d83e496a52fa65165308af472ba43ce1783fad2c2b09ab4ea8f72e6ab18d
+      result_id: FND-9A2B22724307
+      result_revision: 2
+      recorded_at: "2026-07-23T16:46:38Z"
     - version: 1
       id: feedback-add-ff16350552dc7dba
       kind: feedback-add
@@ -31,3 +38,23 @@ findings:
       state: new
       created_at: "2026-07-23T16:34:50Z"
       updated_at: "2026-07-23T16:34:50Z"
+    - id: FND-9A2B22724307
+      scope: mate
+      severity: medium
+      area: agent-dispatch
+      summary: Native planner contract cannot author its scaffold write allowlist
+      observed: BRIEF-001 was issued with a candidate-directory write allowlist and dispatch_route named-role, while .codex/agents/implementation-planner.toml enforces sandbox_mode read-only; the native task produced no candidate and required a no-result terminal record.
+      expected: The teamlead named-role planning route should let the implementation-planner produce the scaffolded candidate and manifest required by plan acceptance, or explicitly route to a proposal-only coordinator handoff.
+      fingerprint: 9a2b2272430735a867ab27e6b6cf08f76746475d7e0fc752b525d16f4c2502af
+      project: country-map-svg-generator
+      mate_release: v1.4.1
+      evidence:
+        - kind: repository
+          locator: .codex/agents/implementation-planner.toml
+        - kind: repository
+          locator: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/agents/BRIEF-001.agent-dispatch-brief.yaml
+        - kind: repository
+          locator: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/agents/RESULT-001.agent-dispatch-result.yaml
+      state: new
+      created_at: "2026-07-23T16:46:38Z"
+      updated_at: "2026-07-23T16:46:38Z"
