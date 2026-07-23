@@ -4,13 +4,12 @@ spec: P1
 slug: source-corpus
 title: Versioned Country Geometry Corpus
 state: in_progress
-revision: 18
+revision: 21
 updated_by: teamlead
-updated_at: "2026-07-23T17:37:57Z"
-last_event_id: run-start-1e59d5728afed77e-run
-input_digest: 7bb7d2410ed500f34fdd0bd468f1992ca2d8ece557deb52f27253fafd9d0aa08
+updated_at: "2026-07-23T17:59:44Z"
+last_event_id: run-pass-9a2b0fa76d9270a3
+input_digest: 65a7e981651ee1e82ee5d905040d0a5d9332a81745ae4a84dc1bb4895902188a
 current_plan: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/plans/PLAN-001/P1-source-corpus.PLAN-001.plan.md
-active_run: RUN-002
 runs:
     - id: RUN-001
       plan: PLAN-001
@@ -18,7 +17,8 @@ runs:
       result: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/runs/RUN-001/P1-source-corpus.RUN-001.result.yaml
     - id: RUN-002
       plan: PLAN-001
-      status: running
+      status: passed
+      result: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/runs/RUN-002/P1-source-corpus.RUN-002.result.yaml
 findings:
     - id: F-001
       status: open
@@ -48,4 +48,4 @@ findings:
       status: open
       destination: same-plan
       reference: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/audits/AUD-001/P1-source-corpus.ADV-001.advisor-receipt.yaml
-next_action: agent-dispatch:agent-dispatch-brief/BRIEF-006#ce7c3540081c43c2acb4f8a0f14ca80d40b5d7be5b74e7d99b7286f62ed89e35
+next_action: agent-dispatch:agent-dispatch-brief/BRIEF-007#63dd840c72729e24569b403492a4630c6e6f6c9ea00a0a1f4cfed05138f45009

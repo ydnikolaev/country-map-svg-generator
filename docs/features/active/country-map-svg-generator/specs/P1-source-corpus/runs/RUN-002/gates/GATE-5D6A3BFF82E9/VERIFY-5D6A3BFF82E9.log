@@ -1,0 +1,14 @@
+=== RUN   TestCompileProtectedCoverage
+--- PASS: TestCompileProtectedCoverage (1.25s)
+=== RUN   TestMutationProtectedFeatureRemovalNamesEntityAndFeature
+--- PASS: TestMutationProtectedFeatureRemovalNamesEntityAndFeature (0.34s)
+=== RUN   TestMutationProtectedAnchorsRejectOceanAndWrongEntity
+=== RUN   TestMutationProtectedAnchorsRejectOceanAndWrongEntity/ocean
+=== RUN   TestMutationProtectedAnchorsRejectOceanAndWrongEntity/wrong_entity
+=== RUN   TestMutationProtectedAnchorsRejectOceanAndWrongEntity/insufficient_parts
+--- PASS: TestMutationProtectedAnchorsRejectOceanAndWrongEntity (1.00s)
+    --- PASS: TestMutationProtectedAnchorsRejectOceanAndWrongEntity/ocean (0.33s)
+    --- PASS: TestMutationProtectedAnchorsRejectOceanAndWrongEntity/wrong_entity (0.34s)
+    --- PASS: TestMutationProtectedAnchorsRejectOceanAndWrongEntity/insufficient_parts (0.33s)
+PASS
+ok  	github.com/yuranikolaev/country-map-svg-generator/internal/catalog	2.856s

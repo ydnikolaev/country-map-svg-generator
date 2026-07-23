@@ -1,0 +1,13 @@
+version: 1
+kind: verification-selection
+id: SELECT-B475A8CCACA3
+epic: country-map-svg-generator
+spec: P1
+run: RUN-002
+status: recorded
+input_digest: 421beec840df234809d647da69e0caaeeeebfae0c9c27ecadf695612d1b67624
+topology_digest: f90c33ab02e92a050314f735a7e283d04487a7ef013ce49a22f8d6b85cbc1c8e
+nodes:
+    - corpus-capital-registry
+reason: lifecycle gate for run-brief
+required_ceiling: corpus-capital-registry

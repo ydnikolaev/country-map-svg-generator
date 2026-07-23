@@ -1,0 +1,30 @@
+version: 1
+kind: gate-receipt
+id: GATE-B475A8CCACA3
+epic: country-map-svg-generator
+spec: P1
+run: RUN-002
+status: recorded
+input_digest: 421beec840df234809d647da69e0caaeeeebfae0c9c27ecadf695612d1b67624
+subject:
+    artifact: run-brief
+    id: RUN-002
+    path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/runs/RUN-002/P1-source-corpus.RUN-002.brief.md
+    sha256: 421beec840df234809d647da69e0caaeeeebfae0c9c27ecadf695612d1b67624
+producer_role: verification-runner
+principal: teamlead
+result: pass
+gate: corpus-capital-registry
+attempt_ids:
+    - ATTEMPT-B475A8CCACA3
+evidence:
+    - artifact: verification-result
+      id: VERIFY-B475A8CCACA3
+      path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/runs/RUN-002/gates/GATE-B475A8CCACA3/VERIFY-B475A8CCACA3.verification-result.yaml
+      sha256: bb6f0c6afee489ffae106e6e31dbc543fd69fb9011967a56218105cfa4ab56af
+      verdict: pass
+    - artifact: verification-result
+      id: VR-VAL-4-P1-RUN-002
+      path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/runs/RUN-002/evidence/VR-VAL-4-P1-RUN-002.verification-result.yaml
+      sha256: 91a88f8282140f47a0011f6aa03b8a9a3b1bb26b030ac2a9ffbceac012b9af61
+      verdict: pass

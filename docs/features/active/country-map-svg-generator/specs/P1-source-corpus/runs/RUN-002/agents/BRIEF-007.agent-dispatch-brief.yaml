@@ -1,0 +1,59 @@
+version: 1
+kind: agent-dispatch-brief
+id: BRIEF-007
+epic: country-map-svg-generator
+spec: P1
+run: RUN-002
+status: issued
+input_digest: e6345f8372ca9016f0ac4a47e71d2069f64f506f52e051c4f811a1078617e429
+role: auditor
+provider: codex
+binding_mode: native
+dispatch_route: named-role
+role_contract:
+    reference: installed-role/auditor
+    path: .codex/agents/auditor.toml
+    sha256: ac38fb1d3936459fc1480d239a4d24279d5b600404b6a8d8a07e12f3ee6ed654
+    reason: installed provider role contract
+    freshness: current
+issuer: teamlead
+grant: verification
+capability: independent-review
+semantic_tier: reasoning
+context:
+    - reference: run-result/RUN-002-RESULT
+      path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/runs/RUN-002/P1-source-corpus.RUN-002.result.yaml
+      sha256: eb64507d5b9c108bb25492c8d2091c3335ca968e73485571783e62f302b99282
+      reason: dispatch context
+      freshness: current
+plan:
+    artifact: plan-manifest
+    id: PLAN-001
+    path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/plans/PLAN-001/P1-source-corpus.PLAN-001.plan-manifest.yaml
+    sha256: 4cd93236c76fbb76ecbff1f83dff79070393718a691925a3f8c5bd2fcf774a6e
+subject:
+    artifact: run-result
+    id: RUN-002-RESULT
+    path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/runs/RUN-002/P1-source-corpus.RUN-002.result.yaml
+    sha256: eb64507d5b9c108bb25492c8d2091c3335ca968e73485571783e62f302b99282
+objective: Independently audit P1 RUN-002 exact commit ed4fdca23965b6aa0c0fc1b8e4c449e79f2d45ee against the accepted P1/PLAN-001, sealed AUD-001 findings F-001 through F-007, exact focused gates and run result. Re-run adversarial probes for whole-set identity, exact profile oracle, anchor containment, capital add/replace, ISO attestation, and atomic output publication. Produce AUD-002 with pass/adjust/block; do not remediate.
+writes:
+    - docs/features/active/country-map-svg-generator/specs/P1-source-corpus/audits/candidates/AUD-002
+forbidden:
+    - .git
+    - .mate
+    - data
+    - internal
+validation:
+    - mate audit validate country-map-svg-generator P1 AUD-002 --json
+completion_schema:
+    - blockers
+    - deviations
+    - evidence
+    - findings
+    - outcome
+    - summary
+    - verdict
+expected_outputs: []
+budget: 2
+resume_anchor: Return a complete AUD-002 proposal, exact independent recommendation, adversarial evidence, any findings, and blockers. Coordinator materializes if native role is read-only, then validates, seals, records, and applies verdict.

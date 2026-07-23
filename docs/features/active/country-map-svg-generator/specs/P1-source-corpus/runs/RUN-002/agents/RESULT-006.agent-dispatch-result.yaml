@@ -1,0 +1,93 @@
+version: 1
+kind: agent-dispatch-result
+id: RESULT-006
+epic: country-map-svg-generator
+spec: P1
+run: RUN-002
+status: passed
+input_digest: 61ee980048133ad05a71b0b9acd0954b6aa704a53ccd15f8d854dc1cd039ed9f
+previous:
+    artifact: agent-dispatch-brief
+    id: BRIEF-006
+    path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/runs/RUN-002/agents/BRIEF-006.agent-dispatch-brief.yaml
+    sha256: ce7c3540081c43c2acb4f8a0f14ca80d40b5d7be5b74e7d99b7286f62ed89e35
+brief:
+    artifact: agent-dispatch-brief
+    id: BRIEF-006
+    path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/runs/RUN-002/agents/BRIEF-006.agent-dispatch-brief.yaml
+    sha256: ce7c3540081c43c2acb4f8a0f14ca80d40b5d7be5b74e7d99b7286f62ed89e35
+principal: codex-p1-coder-2
+provider_task_ref: p1-remediation
+outcome: passed
+summary: 'Remediated AUD-001 F-001 through F-007 at commit ed4fdca23965b6aa0c0fc1b8e4c449e79f2d45ee: whole-set identity and strict decode, exact boundary oracle, contained protected anchors, full capital overrides, 249-row ISO attestation, atomic output-set publication, focused adversarial teeth; corpus 9d56b4d205eb2f5979e0d1f82d84222946b9f4e12e8a2b7ec09204e2225f2d95 and all gates pass.'
+changed_paths:
+    - path: data/corpus/v1/manifest.json
+      sha256: 227374e94910f078623b3c643085d39fa094b4e1ae20a0ffc01cb2d4a19ee616
+    - path: data/corpus/v1/receipts.json
+      sha256: aa818867e58a202ecbf92ef686288cc5a3a7c545745795dfe644583cd168e14e
+    - path: data/policy/boundary-profile-oracle.json
+      sha256: 6232e0ceffe2c3e1f0ce6bb38959db38c32741a78886310d924ac24fe613963f
+    - path: data/policy/protected-features.json
+      sha256: ec3cc95d11f7eb69cb5e2049e3c586f07d3daa46369afec56bbc3b732e7d18ee
+    - path: data/reports/v1/compare.json
+      sha256: c1e46758352fbf554745768b3141eb989c5b0eaf3d015eec9f57f94f29398daa
+    - path: data/sources/iso/2026-07-23/reconciliation.json
+      sha256: 40b19650643df05d81190a5897c91bb14470ce0717eadbc2b1b714cd1249be30
+    - path: data/sources/receipts.json
+      sha256: 4bbe45e0d9b4486db81b13ce0bd1335a6d9df4b79dd04ac6e95e6a89456c3b93
+    - path: internal/catalog/canonical.go
+      sha256: cf4ebecdcdafe9875c966162fdbbe59d8f776328628ba259d8bc804ceedebbfa
+    - path: internal/catalog/canonical_test.go
+      sha256: 3f5f511e955c00474889d41e120f9ba082b612501b657af66ca9cb961bee7636
+    - path: internal/catalog/cmd/corpuscompile/main.go
+      sha256: dc19f4d2d3eb696705348509ed27d7495a196bcbed99987641105ee1f548ee12
+    - path: internal/catalog/compare.go
+      sha256: 9debcec940f0ea17ec55c952142d3ccd7c8b4af7773dcd12de341682e34eecb0
+    - path: internal/catalog/compare_test.go
+      sha256: e5afc73dbb37094f781c3742105137d097c302fa62fe0679ae428e693f328682
+    - path: internal/catalog/compile.go
+      sha256: e026b342d3204f405fcb190483401eeec78817b606a5bf3123318f9c0900d085
+    - path: internal/catalog/compile_test.go
+      sha256: bcd46df3827e2135f4b4248cd3a1a3125f361c52b4a09eea2e3a94f18ba97945
+    - path: internal/catalog/embedded_gen.go
+      sha256: e3d825c117ad355352e39898af567b6912f0ee7e941c458c440d0f81f1cc28b7
+    - path: internal/catalog/model.go
+      sha256: d5094eeb192b328859e7b2aa9ba38e9249e4f59bd837502e897402c75f392556
+    - path: internal/catalog/mutations_test.go
+      sha256: 185691f7d699fa96652832397c93fd7f9bc6c981e6c370a67f13a0e0b9314ab8
+    - path: internal/catalog/source.go
+      sha256: ed603710a3bed32a4531dcf84c2b2f65d1bf4a5ac804b40235203cd32a42e2bd
+    - path: internal/catalog/source_test.go
+      sha256: 41952f807d05c438503bbd9c09d7f8dc881b864e058061a81fda391407704c72
+    - path: internal/catalog/validate.go
+      sha256: ad840af47f7a56c69dedfebd55415c8fc1a93b2536a8a6ced40c64397b7b6601
+outputs: []
+verification:
+    - artifact: verification-result
+      id: VERIFY-59FD08536411
+      path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/runs/RUN-002/gates/GATE-59FD08536411/VERIFY-59FD08536411.verification-result.yaml
+      sha256: 457719eee5f25c02c95f7fc750047ad824ce108743647a08cb0d92e28c5fb2cd
+      verdict: pass
+    - artifact: verification-result
+      id: VERIFY-5D6A3BFF82E9
+      path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/runs/RUN-002/gates/GATE-5D6A3BFF82E9/VERIFY-5D6A3BFF82E9.verification-result.yaml
+      sha256: 5aa1c5234b9b9b2a05bb60e04e61667078c64b4ca8dc581fe57b4f3989914d2a
+      verdict: pass
+    - artifact: verification-result
+      id: VERIFY-6F08DD3DA870
+      path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/runs/RUN-002/gates/GATE-6F08DD3DA870/VERIFY-6F08DD3DA870.verification-result.yaml
+      sha256: 602393876a4da8a0f9f0d8d0df20c39cbc1c3858a2d17c58568e3e10506ea065
+      verdict: pass
+    - artifact: verification-result
+      id: VERIFY-B475A8CCACA3
+      path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/runs/RUN-002/gates/GATE-B475A8CCACA3/VERIFY-B475A8CCACA3.verification-result.yaml
+      sha256: bb6f0c6afee489ffae106e6e31dbc543fd69fb9011967a56218105cfa4ab56af
+      verdict: pass
+    - artifact: verification-result
+      id: VERIFY-EE3514765774
+      path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/runs/RUN-002/gates/GATE-EE3514765774/VERIFY-EE3514765774.verification-result.yaml
+      sha256: e1dd55ba9dc838bdac829056e57f5bc63ecf6c68a1fe9d8aaf680d1ed530eb6e
+      verdict: pass
+deviations: []
+feedback: []
+resume_anchor: Coordinator finishes RUN-002 with GATE-59FD08536411, then dispatches a fresh independent auditor against exact commit ed4fdca23965b6aa0c0fc1b8e4c449e79f2d45ee.

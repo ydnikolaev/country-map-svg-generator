@@ -1,0 +1,13 @@
+version: 1
+kind: verification-selection
+id: SELECT-EE3514765774
+epic: country-map-svg-generator
+spec: P1
+run: RUN-002
+status: recorded
+input_digest: 421beec840df234809d647da69e0caaeeeebfae0c9c27ecadf695612d1b67624
+topology_digest: 6a91acbb3d3c5b409eb0cca69e038785acd8f155d148bc8f95f99698b0914f0c
+nodes:
+    - corpus-iso-integrity
+reason: lifecycle gate for run-brief
+required_ceiling: corpus-iso-integrity

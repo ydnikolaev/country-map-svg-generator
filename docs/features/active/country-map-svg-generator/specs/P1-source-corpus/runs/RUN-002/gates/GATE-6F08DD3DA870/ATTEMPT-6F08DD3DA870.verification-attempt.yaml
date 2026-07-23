@@ -1,0 +1,18 @@
+version: 1
+kind: verification-attempt
+id: ATTEMPT-6F08DD3DA870
+epic: country-map-svg-generator
+spec: P1
+run: RUN-002
+status: pass
+input_digest: 91e394b8957b1dae24352b143eccc7463f887223cf5e90c907139ef129b791c6
+selection_id: SELECT-6F08DD3DA870
+attempt: 1
+started_at: "2026-07-23T17:57:32.766944Z"
+finished_at: "2026-07-23T17:57:37.722904Z"
+results:
+    - node: corpus-boundary-profiles
+      verdict: pass
+      exit_code: 0
+      output_hash: da21bb8626579f70f5c7ffe942628c99cde5e60db9858b28e46282dbe8400a77
+      duration_ms: 4955

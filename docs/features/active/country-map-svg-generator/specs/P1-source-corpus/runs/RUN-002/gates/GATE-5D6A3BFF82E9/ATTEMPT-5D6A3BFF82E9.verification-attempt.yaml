@@ -1,0 +1,18 @@
+version: 1
+kind: verification-attempt
+id: ATTEMPT-5D6A3BFF82E9
+epic: country-map-svg-generator
+spec: P1
+run: RUN-002
+status: pass
+input_digest: f7217f2b364ee9350ede6ca1fb25ab1a0179679e099c8ade326fe90c79060523
+selection_id: SELECT-5D6A3BFF82E9
+attempt: 1
+started_at: "2026-07-23T17:57:40.439237Z"
+finished_at: "2026-07-23T17:57:43.48723Z"
+results:
+    - node: corpus-protected-features
+      verdict: pass
+      exit_code: 0
+      output_hash: cb3c1c6caf24d0be2d8768afc34110b0ac72f2bd4fe387cbf33036f28baa2e1e
+      duration_ms: 3047

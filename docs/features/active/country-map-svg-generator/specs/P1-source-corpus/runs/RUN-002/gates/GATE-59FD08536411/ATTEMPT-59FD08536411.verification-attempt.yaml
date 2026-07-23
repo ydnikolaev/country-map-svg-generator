@@ -1,0 +1,18 @@
+version: 1
+kind: verification-attempt
+id: ATTEMPT-59FD08536411
+epic: country-map-svg-generator
+spec: P1
+run: RUN-002
+status: pass
+input_digest: db01c0ee2a6b110ec8d1a09ea1f0f92408412235afd62ee1f5d3726de629d88d
+selection_id: SELECT-59FD08536411
+attempt: 1
+started_at: "2026-07-23T17:57:44.168407Z"
+finished_at: "2026-07-23T17:58:13.218819Z"
+results:
+    - node: corpus-reproducibility
+      verdict: pass
+      exit_code: 0
+      output_hash: 916becba0a2368e737ba6ee47ea5098ce8993c2e10ceb25ce566f9724134a1c0
+      duration_ms: 29050

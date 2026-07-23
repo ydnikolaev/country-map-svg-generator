@@ -1,0 +1,40 @@
+=== RUN   TestMutationsISOAndProfilesFailClosed
+=== RUN   TestMutationsISOAndProfilesFailClosed/duplicate_ISO
+=== RUN   TestMutationsISOAndProfilesFailClosed/removed_profile
+=== RUN   TestMutationsISOAndProfilesFailClosed/selected_dispute_collapsed
+=== RUN   TestMutationsISOAndProfilesFailClosed/empty_geometry
+=== RUN   TestMutationsISOAndProfilesFailClosed/missing_ISO
+--- PASS: TestMutationsISOAndProfilesFailClosed (2.53s)
+    --- PASS: TestMutationsISOAndProfilesFailClosed/duplicate_ISO (1.30s)
+    --- PASS: TestMutationsISOAndProfilesFailClosed/removed_profile (0.36s)
+    --- PASS: TestMutationsISOAndProfilesFailClosed/selected_dispute_collapsed (0.34s)
+    --- PASS: TestMutationsISOAndProfilesFailClosed/empty_geometry (0.27s)
+    --- PASS: TestMutationsISOAndProfilesFailClosed/missing_ISO (0.27s)
+=== RUN   TestSourceISORealSnapshot
+--- PASS: TestSourceISORealSnapshot (0.00s)
+=== RUN   TestSourceISOMissingAndDuplicateFail
+=== RUN   TestSourceISOMissingAndDuplicateFail/missing
+=== RUN   TestSourceISOMissingAndDuplicateFail/duplicate
+--- PASS: TestSourceISOMissingAndDuplicateFail (0.00s)
+    --- PASS: TestSourceISOMissingAndDuplicateFail/missing (0.00s)
+    --- PASS: TestSourceISOMissingAndDuplicateFail/duplicate (0.00s)
+=== RUN   TestSourceReceiptDigestAndCompleteness
+--- PASS: TestSourceReceiptDigestAndCompleteness (0.00s)
+=== RUN   TestSourceUndocumentedInputFails
+--- PASS: TestSourceUndocumentedInputFails (0.00s)
+=== RUN   TestSourceStrictJSONRejectsTrailingValue
+--- PASS: TestSourceStrictJSONRejectsTrailingValue (0.00s)
+=== RUN   TestISOReconciliationRealAttestation
+--- PASS: TestISOReconciliationRealAttestation (0.00s)
+=== RUN   TestISOReconciliationMutationsFailClosed
+=== RUN   TestISOReconciliationMutationsFailClosed/missing
+=== RUN   TestISOReconciliationMutationsFailClosed/duplicate
+=== RUN   TestISOReconciliationMutationsFailClosed/mismatched
+=== RUN   TestISOReconciliationMutationsFailClosed/unbound
+--- PASS: TestISOReconciliationMutationsFailClosed (0.00s)
+    --- PASS: TestISOReconciliationMutationsFailClosed/missing (0.00s)
+    --- PASS: TestISOReconciliationMutationsFailClosed/duplicate (0.00s)
+    --- PASS: TestISOReconciliationMutationsFailClosed/mismatched (0.00s)
+    --- PASS: TestISOReconciliationMutationsFailClosed/unbound (0.00s)
+PASS
+ok  	github.com/yuranikolaev/country-map-svg-generator/internal/catalog	2.811s

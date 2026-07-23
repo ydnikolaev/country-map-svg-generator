@@ -1,0 +1,130 @@
+version: 1
+kind: gate-receipt
+id: GATE-59FD08536411
+epic: country-map-svg-generator
+spec: P1
+run: RUN-002
+status: recorded
+input_digest: 421beec840df234809d647da69e0caaeeeebfae0c9c27ecadf695612d1b67624
+subject:
+    artifact: run-brief
+    id: RUN-002
+    path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/runs/RUN-002/P1-source-corpus.RUN-002.brief.md
+    sha256: 421beec840df234809d647da69e0caaeeeebfae0c9c27ecadf695612d1b67624
+producer_role: verification-runner
+principal: teamlead
+result: pass
+gate: corpus-reproducibility
+attempt_ids:
+    - ATTEMPT-59FD08536411
+evidence:
+    - artifact: verification-result
+      id: VERIFY-59FD08536411
+      path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/runs/RUN-002/gates/GATE-59FD08536411/VERIFY-59FD08536411.verification-result.yaml
+      sha256: 457719eee5f25c02c95f7fc750047ad824ce108743647a08cb0d92e28c5fb2cd
+      verdict: pass
+    - artifact: verification-result
+      id: VR-AC-1-P1-RUN-002
+      path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/runs/RUN-002/evidence/VR-AC-1-P1-RUN-002.verification-result.yaml
+      sha256: 54dedb24b280f0bafe0c717d4efa935b2869853a8d09c8e49c412d83e894f98b
+      verdict: pass
+    - artifact: verification-result
+      id: VR-AC-2-P1-RUN-002
+      path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/runs/RUN-002/evidence/VR-AC-2-P1-RUN-002.verification-result.yaml
+      sha256: 5922381da8e75de27aa63976e4478791e9e45b146af4adf224684c7b88cc9177
+      verdict: pass
+    - artifact: verification-result
+      id: VR-AC-3-P1-RUN-002
+      path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/runs/RUN-002/evidence/VR-AC-3-P1-RUN-002.verification-result.yaml
+      sha256: 92625aad6045369a56f31e40259c294d4b22092770cddf3323dd99e2fc28c5c3
+      verdict: pass
+    - artifact: verification-result
+      id: VR-AC-4-P1-RUN-002
+      path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/runs/RUN-002/evidence/VR-AC-4-P1-RUN-002.verification-result.yaml
+      sha256: 9646ae0da50343c4be48e23a7f26368bc68efe6fc0ee3746eabb1ed64294308a
+      verdict: pass
+    - artifact: verification-result
+      id: VR-INV-1-P1-RUN-002
+      path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/runs/RUN-002/evidence/VR-INV-1-P1-RUN-002.verification-result.yaml
+      sha256: 7a1578ca2d81e4cb0a1f861c0feef125d0c5f9a3e3b093bd1a9b307807c57a64
+      verdict: pass
+    - artifact: verification-result
+      id: VR-REQ-1-P1-RUN-002
+      path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/runs/RUN-002/evidence/VR-REQ-1-P1-RUN-002.verification-result.yaml
+      sha256: dcdf09fa2b796df09df81034d8b992e41da8005c0f428d920afc8a08ee654183
+      verdict: pass
+    - artifact: verification-result
+      id: VR-REQ-2-P1-RUN-002
+      path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/runs/RUN-002/evidence/VR-REQ-2-P1-RUN-002.verification-result.yaml
+      sha256: 44d6ef1e023a4c0a9cc959919ccdb4cc86cde9a3a1c52937da0adb53fb4dc859
+      verdict: pass
+    - artifact: verification-result
+      id: VR-REQ-3-P1-RUN-002
+      path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/runs/RUN-002/evidence/VR-REQ-3-P1-RUN-002.verification-result.yaml
+      sha256: 697da18c41d70e0e58852fa3ac15ce44257bec85e0a88c243cf34588248cab36
+      verdict: pass
+    - artifact: verification-result
+      id: VR-REQ-4-P1-RUN-002
+      path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/runs/RUN-002/evidence/VR-REQ-4-P1-RUN-002.verification-result.yaml
+      sha256: 9fc4b594950ddca23e1b38c85a42e66d90f3209a2369b054b0e32199936ae383
+      verdict: pass
+    - artifact: verification-result
+      id: VR-REQ-5-P1-RUN-002
+      path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/runs/RUN-002/evidence/VR-REQ-5-P1-RUN-002.verification-result.yaml
+      sha256: 0e7b6c34c48b43fb36fb6ee440e454fca99718b49520ffb0b51afe2d550586df
+      verdict: pass
+    - artifact: verification-result
+      id: VR-REQ-6-P1-RUN-002
+      path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/runs/RUN-002/evidence/VR-REQ-6-P1-RUN-002.verification-result.yaml
+      sha256: db706037e3e887fa878d494d34e9b0232d36ed3d5c336e51d71809fc27354f9e
+      verdict: pass
+    - artifact: verification-result
+      id: VR-REQ-7-P1-RUN-002
+      path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/runs/RUN-002/evidence/VR-REQ-7-P1-RUN-002.verification-result.yaml
+      sha256: 08a88d3c1cce5ab9b84bb35b7f53d772b740369b214972d96e059457c352be4b
+      verdict: pass
+    - artifact: verification-result
+      id: VR-US-1-P1-RUN-002
+      path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/runs/RUN-002/evidence/VR-US-1-P1-RUN-002.verification-result.yaml
+      sha256: dc43d5aba4092ba30eb99c2383595d1407dc690bd70b225fc5ad0d6d430c05bf
+      verdict: pass
+    - artifact: verification-result
+      id: VR-US-2-P1-RUN-002
+      path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/runs/RUN-002/evidence/VR-US-2-P1-RUN-002.verification-result.yaml
+      sha256: 53dad09cf4065f8b8550214afa3d5b1f77e6e52ed3887931ac85cc44c95b366b
+      verdict: pass
+    - artifact: verification-result
+      id: VR-US-3-P1-RUN-002
+      path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/runs/RUN-002/evidence/VR-US-3-P1-RUN-002.verification-result.yaml
+      sha256: f566a18c7fa1885a159d2e70f65d5e01e5be74d6ac15d5b3b86469645040ae5e
+      verdict: pass
+    - artifact: verification-result
+      id: VR-US-4-P1-RUN-002
+      path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/runs/RUN-002/evidence/VR-US-4-P1-RUN-002.verification-result.yaml
+      sha256: f984a1fbf9b1a8538c2ff1cb666021d92dc409d7ea7fba110a81e45a043f6e74
+      verdict: pass
+    - artifact: verification-result
+      id: VR-VAL-1-P1-RUN-002
+      path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/runs/RUN-002/evidence/VR-VAL-1-P1-RUN-002.verification-result.yaml
+      sha256: 8d72716b36631f4b039c0983ae95905d6ac4c47943aaa6bb9b3fba1040b44da6
+      verdict: pass
+    - artifact: verification-result
+      id: VR-VAL-2-P1-RUN-002
+      path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/runs/RUN-002/evidence/VR-VAL-2-P1-RUN-002.verification-result.yaml
+      sha256: fa758a99e4e37c029b153c5dbfc9cb4449510718415cb608c1148ffbcc1c4c0f
+      verdict: pass
+    - artifact: verification-result
+      id: VR-VAL-3-P1-RUN-002
+      path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/runs/RUN-002/evidence/VR-VAL-3-P1-RUN-002.verification-result.yaml
+      sha256: 5a47d5f689bb232c055e9138325f82fc13691cff8301fe3d6f543aee885e0812
+      verdict: pass
+    - artifact: verification-result
+      id: VR-VAL-4-P1-RUN-002
+      path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/runs/RUN-002/evidence/VR-VAL-4-P1-RUN-002.verification-result.yaml
+      sha256: 91a88f8282140f47a0011f6aa03b8a9a3b1bb26b030ac2a9ffbceac012b9af61
+      verdict: pass
+    - artifact: verification-result
+      id: VR-VAL-5-P1-RUN-002
+      path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/runs/RUN-002/evidence/VR-VAL-5-P1-RUN-002.verification-result.yaml
+      sha256: a2c4a11dd28c0c6878088a09116b1fb41d56930b8f0fdc53378ce220c03f6f4a
+      verdict: pass

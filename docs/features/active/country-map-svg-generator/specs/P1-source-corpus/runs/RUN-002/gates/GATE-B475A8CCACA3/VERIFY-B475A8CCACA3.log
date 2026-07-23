@@ -1,0 +1,28 @@
+=== RUN   TestCapitalOverrideAddReplaceRolesAndPrimary
+=== RUN   TestCapitalOverrideAddReplaceRolesAndPrimary/zero_to_one_addition
+=== RUN   TestCapitalOverrideAddReplaceRolesAndPrimary/replacement_assigns_roles
+=== RUN   TestCapitalOverrideAddReplaceRolesAndPrimary/additive_primary_selection
+--- PASS: TestCapitalOverrideAddReplaceRolesAndPrimary (0.00s)
+    --- PASS: TestCapitalOverrideAddReplaceRolesAndPrimary/zero_to_one_addition (0.00s)
+    --- PASS: TestCapitalOverrideAddReplaceRolesAndPrimary/replacement_assigns_roles (0.00s)
+    --- PASS: TestCapitalOverrideAddReplaceRolesAndPrimary/additive_primary_selection (0.00s)
+=== RUN   TestCapitalOverrideRejectsInvalidRecords
+=== RUN   TestCapitalOverrideRejectsInvalidRecords/duplicate_IDs
+=== RUN   TestCapitalOverrideRejectsInvalidRecords/duplicate_roles
+=== RUN   TestCapitalOverrideRejectsInvalidRecords/dangling_primary
+=== RUN   TestCapitalOverrideRejectsInvalidRecords/invalid_coordinates
+--- PASS: TestCapitalOverrideRejectsInvalidRecords (0.00s)
+    --- PASS: TestCapitalOverrideRejectsInvalidRecords/duplicate_IDs (0.00s)
+    --- PASS: TestCapitalOverrideRejectsInvalidRecords/duplicate_roles (0.00s)
+    --- PASS: TestCapitalOverrideRejectsInvalidRecords/dangling_primary (0.00s)
+    --- PASS: TestCapitalOverrideRejectsInvalidRecords/invalid_coordinates (0.00s)
+=== RUN   TestCompileCapitalCasesAndOverrides
+--- PASS: TestCompileCapitalCasesAndOverrides (1.23s)
+=== RUN   TestValidationRejectsInvalidCapitalPrimaryAndCoordinate
+=== RUN   TestValidationRejectsInvalidCapitalPrimaryAndCoordinate/primary
+=== RUN   TestValidationRejectsInvalidCapitalPrimaryAndCoordinate/coordinate
+--- PASS: TestValidationRejectsInvalidCapitalPrimaryAndCoordinate (0.67s)
+    --- PASS: TestValidationRejectsInvalidCapitalPrimaryAndCoordinate/primary (0.34s)
+    --- PASS: TestValidationRejectsInvalidCapitalPrimaryAndCoordinate/coordinate (0.34s)
+PASS
+ok  	github.com/yuranikolaev/country-map-svg-generator/internal/catalog	2.188s

@@ -1,0 +1,28 @@
+=== RUN   TestCompileRealSourceSet
+--- PASS: TestCompileRealSourceSet (1.23s)
+=== RUN   TestMutationsISOAndProfilesFailClosed
+=== RUN   TestMutationsISOAndProfilesFailClosed/duplicate_ISO
+=== RUN   TestMutationsISOAndProfilesFailClosed/removed_profile
+=== RUN   TestMutationsISOAndProfilesFailClosed/selected_dispute_collapsed
+=== RUN   TestMutationsISOAndProfilesFailClosed/empty_geometry
+=== RUN   TestMutationsISOAndProfilesFailClosed/missing_ISO
+--- PASS: TestMutationsISOAndProfilesFailClosed (1.54s)
+    --- PASS: TestMutationsISOAndProfilesFailClosed/duplicate_ISO (0.34s)
+    --- PASS: TestMutationsISOAndProfilesFailClosed/removed_profile (0.33s)
+    --- PASS: TestMutationsISOAndProfilesFailClosed/selected_dispute_collapsed (0.33s)
+    --- PASS: TestMutationsISOAndProfilesFailClosed/empty_geometry (0.26s)
+    --- PASS: TestMutationsISOAndProfilesFailClosed/missing_ISO (0.27s)
+=== RUN   TestMutationEveryReviewedProfileMustMatchExactOracle
+=== RUN   TestMutationEveryReviewedProfileMustMatchExactOracle/RU
+=== RUN   TestMutationEveryReviewedProfileMustMatchExactOracle/CN
+=== RUN   TestMutationEveryReviewedProfileMustMatchExactOracle/CY
+=== RUN   TestMutationEveryReviewedProfileMustMatchExactOracle/IL
+=== RUN   TestMutationEveryReviewedProfileMustMatchExactOracle/IN
+--- PASS: TestMutationEveryReviewedProfileMustMatchExactOracle (1.68s)
+    --- PASS: TestMutationEveryReviewedProfileMustMatchExactOracle/RU (0.33s)
+    --- PASS: TestMutationEveryReviewedProfileMustMatchExactOracle/CN (0.33s)
+    --- PASS: TestMutationEveryReviewedProfileMustMatchExactOracle/CY (0.33s)
+    --- PASS: TestMutationEveryReviewedProfileMustMatchExactOracle/IL (0.34s)
+    --- PASS: TestMutationEveryReviewedProfileMustMatchExactOracle/IN (0.33s)
+PASS
+ok  	github.com/yuranikolaev/country-map-svg-generator/internal/catalog	4.753s
