@@ -1,0 +1,37 @@
+version: 1
+kind: agent-dispatch-result
+id: RESULT-012
+epic: country-map-svg-generator
+spec: P2
+run: RUN-005
+status: blocked
+input_digest: a1b2cb083525c81079a28bc4790f57cebd091bf6c6b4443cb322b9a0ea31c21b
+previous:
+    artifact: agent-dispatch-brief
+    id: BRIEF-012
+    path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-005/agents/BRIEF-012.agent-dispatch-brief.yaml
+    sha256: 254ff9e4184ee13a8e271b659f73dde1a9b865c990d788a620c4ef1ebe8e1362
+brief:
+    artifact: agent-dispatch-brief
+    id: BRIEF-012
+    path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-005/agents/BRIEF-012.agent-dispatch-brief.yaml
+    sha256: 254ff9e4184ee13a8e271b659f73dde1a9b865c990d788a620c4ef1ebe8e1362
+principal: codex-p2-t0-coder
+provider_task_ref: p2-coder
+outcome: blocked
+summary: 'The bounded 0.011–0.012 ratio calibration is exhausted: AQ card and hero still fail the deviation guard before final path output; source q=0.01 fallback remains topology-invalid.'
+changed_paths:
+    - path: internal/geometry/model_test.go
+      sha256: d0bf03dbfd639c78a7c7915d44411c14cd8fcf349089a7e0922ee2d508ea40ba
+    - path: internal/geometry/preset.go
+      sha256: cdb0b459372ca35f033f529ae73b2649fc1efd840f7530867b9ecce1ce46a251
+    - path: internal/geometry/preset_test.go
+      sha256: 4b730ab12e5d1001c9091ba98d5dee83cac684cf6894f9df03496e92f7635571
+    - path: internal/geometry/presets/v1.json
+      sha256: c382cfba7db288e04f236919f7b3fdfb41edcca2e075a97cd84143ce5d3a59be
+outputs: []
+verification: []
+deviations: []
+feedback: []
+blocked_reason: At ratio 0.012, AQ card compact deviation 1.583086150019346 exceeds tolerance 1.536 and AQ hero standard deviation 8.163153181359744 exceeds tolerance 7.68; source q=0.01 fallback remains topology-invalid, and PLAN-005 forbids widening the ratio or weakening guards.
+resume_anchor: Interrupt RUN-005 and invalidate PLAN-005. Preserve the measured endpoint evidence, q=0.01, topology/deviation guards, tiers, budgets and generic selection. Replan the AQ source/LOD representation rather than widening visual tolerance; no T1 until T0 yields valid final paths.
