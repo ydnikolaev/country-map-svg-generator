@@ -1,0 +1,317 @@
+version: 1
+kind: plan-manifest
+id: PLAN-006
+epic: country-map-svg-generator
+spec: P2
+status: draft
+input_digest: 83641678ead58533ad2414b8adeef8cf584486c4e783678c641ddbbda4555fd8
+plan_id: PLAN-006
+baseline:
+    repository: project
+    commit: 7ab35331e3e30291769fd178d7b2f0a9aa91c3df
+    tree: 50b5d30f4ee904d6c53c92a8610a988f2526c5d3
+inputs:
+    - reference: solution-architecture/CTX-ARCH
+      path: docs/features/active/country-map-svg-generator/architecture/country-map-svg-generator.solution-architecture.md
+      sha256: 5325da7358596b56c9dc6f65d3b6af3801174257503a332334a77a9c71433947
+      reason: required at planning for spec P2 by context registry
+      freshness: current
+    - reference: specification/P2
+      path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/P2-geometry-pipeline.spec.md
+      sha256: 4fb4535e74ee072d9db6ecc6e1ee92e667ac9c78f35a8adbf342c7b93d1c2741
+      reason: normative specification
+      freshness: current
+    - reference: transition-receipt/plan-invalidate-9bd6b028c16a9ea6
+      path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/events/plan-invalidate-9bd6b028c16a9ea6.transition-receipt.yaml
+      sha256: 81671b152b43cfa80634840de6d80587927eff415819b4b45c0a09aadf01113d
+      reason: machine-approved predecessor invalidation
+      freshness: current
+coverage:
+    - obligation:
+        artifact: specification
+        id: US-1
+      task: T0
+      evidence:
+        artifact: verification-result
+        id: VR-US-1
+    - obligation:
+        artifact: specification
+        id: US-2
+      task: T0
+      evidence:
+        artifact: verification-result
+        id: VR-US-2
+    - obligation:
+        artifact: specification
+        id: US-3
+      task: T0
+      evidence:
+        artifact: verification-result
+        id: VR-US-3
+    - obligation:
+        artifact: specification
+        id: US-4
+      task: T2
+      evidence:
+        artifact: verification-result
+        id: VR-US-4
+    - obligation:
+        artifact: specification
+        id: REQ-1
+      task: T0
+      evidence:
+        artifact: verification-result
+        id: VR-REQ-1
+    - obligation:
+        artifact: specification
+        id: REQ-2
+      task: T0
+      evidence:
+        artifact: verification-result
+        id: VR-REQ-2
+    - obligation:
+        artifact: specification
+        id: REQ-3
+      task: T0
+      evidence:
+        artifact: verification-result
+        id: VR-REQ-3
+    - obligation:
+        artifact: specification
+        id: REQ-4
+      task: T0
+      evidence:
+        artifact: verification-result
+        id: VR-REQ-4
+    - obligation:
+        artifact: specification
+        id: REQ-5
+      task: T0
+      evidence:
+        artifact: verification-result
+        id: VR-REQ-5
+    - obligation:
+        artifact: specification
+        id: REQ-6
+      task: T0
+      evidence:
+        artifact: verification-result
+        id: VR-REQ-6
+    - obligation:
+        artifact: specification
+        id: REQ-7
+      task: T2
+      evidence:
+        artifact: verification-result
+        id: VR-REQ-7
+    - obligation:
+        artifact: specification
+        id: REQ-8
+      task: T0
+      evidence:
+        artifact: verification-result
+        id: VR-REQ-8
+    - obligation:
+        artifact: specification
+        id: INV-1
+      task: T0
+      evidence:
+        artifact: verification-result
+        id: VR-INV-1
+    - obligation:
+        artifact: specification
+        id: AC-1
+      task: T2
+      evidence:
+        artifact: verification-result
+        id: VR-AC-1
+    - obligation:
+        artifact: specification
+        id: AC-2
+      task: T2
+      evidence:
+        artifact: verification-result
+        id: VR-AC-2
+    - obligation:
+        artifact: specification
+        id: AC-3
+      task: T2
+      evidence:
+        artifact: verification-result
+        id: VR-AC-3
+    - obligation:
+        artifact: specification
+        id: AC-4
+      task: T2
+      evidence:
+        artifact: verification-result
+        id: VR-AC-4
+    - obligation:
+        artifact: specification
+        id: VAL-1
+      task: T2
+      evidence:
+        artifact: verification-result
+        id: VR-VAL-1
+    - obligation:
+        artifact: specification
+        id: VAL-2
+      task: T0
+      evidence:
+        artifact: verification-result
+        id: VR-VAL-2
+    - obligation:
+        artifact: specification
+        id: VAL-3
+      task: T0
+      evidence:
+        artifact: verification-result
+        id: VR-VAL-3
+    - obligation:
+        artifact: specification
+        id: VAL-4
+      task: T2
+      evidence:
+        artifact: verification-result
+        id: VR-VAL-4
+    - obligation:
+        artifact: specification
+        id: VAL-5
+      task: T2
+      evidence:
+        artifact: verification-result
+        id: VR-VAL-5
+tasks:
+    - id: T0
+      outcome: Repair LOD and source final representations, then pass the full machine and owner visual brake without relaxing tolerance, q, tiers or budgets.
+      depends_on: []
+      writes:
+        - go.mod
+        - go.sum
+        - internal/geometry/adapter.go
+        - internal/geometry/adapter_test.go
+        - internal/geometry/cmd/lodbuild
+        - internal/geometry/diagnostic.go
+        - internal/geometry/fit.go
+        - internal/geometry/fit_test.go
+        - internal/geometry/lod.go
+        - internal/geometry/lod/tool
+        - internal/geometry/lod/v1.recipe.json
+        - internal/geometry/lod_test.go
+        - internal/geometry/marker.go
+        - internal/geometry/marker_test.go
+        - internal/geometry/math.go
+        - internal/geometry/model.go
+        - internal/geometry/model_test.go
+        - internal/geometry/normalize.go
+        - internal/geometry/normalize_test.go
+        - internal/geometry/override.go
+        - internal/geometry/override_test.go
+        - internal/geometry/overrides
+        - internal/geometry/path.go
+        - internal/geometry/path_test.go
+        - internal/geometry/pipeline.go
+        - internal/geometry/pipeline_test.go
+        - internal/geometry/preset.go
+        - internal/geometry/preset_test.go
+        - internal/geometry/presets
+        - internal/geometry/projection.go
+        - internal/geometry/projection_test.go
+        - internal/geometry/retain.go
+        - internal/geometry/retain_test.go
+        - internal/geometry/simplify.go
+        - internal/geometry/simplify_test.go
+        - internal/geometry/soften.go
+        - internal/geometry/soften_test.go
+        - internal/geometry/testdata/lod-spike
+      owner: lod-representation-brake
+      wave: W1
+    - id: T1
+      outcome: Publish deterministic all-283 projected compact and standard artifacts with coordinate-space and omission provenance.
+      depends_on:
+        - T0
+      writes:
+        - internal/geometry/lod/v1.compact.json
+        - internal/geometry/lod/v1.manifest.json
+        - internal/geometry/lod/v1.standard.json
+        - internal/geometry/lod_build_test.go
+        - internal/geometry/lod_generated.go
+      owner: lod-publisher
+      wave: W2
+    - id: T2
+      outcome: Complete P2 parity, layout, budget, visual, override and marker evidence and pass the offline project ceiling.
+      depends_on:
+        - T1
+      writes:
+        - Makefile
+        - internal/geometry/approval_test.go
+        - internal/geometry/integration_test.go
+        - internal/geometry/mutations_test.go
+        - internal/geometry/oracle_test.go
+        - internal/geometry/testdata/approval
+        - internal/geometry/testdata/d3
+        - internal/geometry/testdata/mutations
+      owner: lod-verifier
+      wave: W3
+waves:
+    - id: W1
+      tasks:
+        - T0
+      concurrency: 1
+    - id: W2
+      tasks:
+        - T1
+      concurrency: 1
+    - id: W3
+      tasks:
+        - T2
+      concurrency: 1
+validation:
+    - obligation:
+        artifact: specification
+        id: VAL-1
+      gate: geometry-d3-parity
+      tier: integration
+      evidence:
+        artifact: verification-result
+        id: VR-VAL-1
+    - obligation:
+        artifact: specification
+        id: VAL-2
+      gate: geometry-final-representation-teeth
+      tier: integration
+      evidence:
+        artifact: verification-result
+        id: VR-VAL-2
+    - obligation:
+        artifact: specification
+        id: VAL-3
+      gate: geometry-lod-integrated-brake
+      tier: project
+      evidence:
+        artifact: verification-result
+        id: VR-VAL-3
+    - obligation:
+        artifact: specification
+        id: VAL-4
+      gate: geometry-overrides
+      tier: component
+      evidence:
+        artifact: verification-result
+        id: VR-VAL-4
+    - obligation:
+        artifact: specification
+        id: VAL-5
+      gate: geometry-markers
+      tier: integration
+      evidence:
+        artifact: verification-result
+        id: VR-VAL-5
+deviation_policy: p2-lod-projected-coordinate-how-v3
+estimate:
+    unit: agent-hour
+    low: 8
+    likely: 13
+    high: 18
+    confidence: medium
+    basis: RUN-005 isolated the representation boundary; projected artifact conversion, q-aware source fallback, full byte matrix and owner visual approval remain.
