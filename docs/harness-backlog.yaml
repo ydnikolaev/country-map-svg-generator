@@ -1,7 +1,7 @@
 version: 1
 kind: harness-feedback-backlog
 project: country-map-svg-generator
-revision: 4
+revision: 5
 operations:
     - version: 1
       id: feedback-add-27604b086c5309d9
@@ -25,6 +25,13 @@ operations:
       result_revision: 2
       recorded_at: "2026-07-23T16:46:38Z"
     - version: 1
+      id: feedback-add-9c34686b61a60db1
+      kind: feedback-add
+      input_digest: c422c35ea719399ad91da07984d36a742fae1d307b8b0c0f992236e04bc2abe6
+      result_id: FND-0159B85A165A
+      result_revision: 5
+      recorded_at: "2026-07-23T21:05:50Z"
+    - version: 1
       id: feedback-add-ff16350552dc7dba
       kind: feedback-add
       input_digest: a3dfff995c55a45a4950e6e39edeac54980ccc263efbbe3470c7557eb9108d52
@@ -32,6 +39,25 @@ operations:
       result_revision: 1
       recorded_at: "2026-07-23T16:34:50Z"
 findings:
+    - id: FND-0159B85A165A
+      scope: mate
+      severity: medium
+      area: agent-dispatch
+      summary: Planner brief rejects in-progress spec after plan invalidation
+      observed: After RUN-002 was interrupted and PLAN-002 invalidated, P2 remained in_progress with next_action plan.scaffold. mate plan scaffold PLAN-003 succeeded, but mate agent brief issue role=implementation-planner rejected the state because it requires ready, leaving no durable planner dispatch route for the required successor.
+      expected: When an in-progress spec has an invalidated plan and plan.scaffold is available, the implementation-planner brief producer accepts the exact successor scaffold and invalidation authority, or the lifecycle transitions to a state where the documented planning protocol is executable.
+      fingerprint: 0159b85a165ab416d2fbc01b994e3031eff38d47867740266269409d7af008e9
+      project: country-map-svg-generator
+      mate_release: v1.4.1
+      provider: mate
+      evidence:
+        - kind: repository
+          locator: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/P2-geometry-pipeline.tracker.yaml
+        - kind: repository
+          locator: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/events/plan-invalidate-f34f954b443af6fb.transition-receipt.yaml
+      state: new
+      created_at: "2026-07-23T21:05:50Z"
+      updated_at: "2026-07-23T21:05:50Z"
     - id: FND-67945CF6F3B4
       scope: mate
       severity: low
