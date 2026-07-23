@@ -1,0 +1,33 @@
+version: 1
+kind: harness-feedback-backlog
+project: country-map-svg-generator
+revision: 1
+operations:
+    - version: 1
+      id: feedback-add-ff16350552dc7dba
+      kind: feedback-add
+      input_digest: a3dfff995c55a45a4950e6e39edeac54980ccc263efbbe3470c7557eb9108d52
+      result_id: FND-67945CF6F3B4
+      result_revision: 1
+      recorded_at: "2026-07-23T16:34:50Z"
+findings:
+    - id: FND-67945CF6F3B4
+      scope: mate
+      severity: low
+      area: sync
+      summary: Synced managed files fail clean baseline diff-check
+      observed: Synced create-report skill/template files contain trailing whitespace and two managed files contain extra EOF blank lines, so git diff --cached --check exits non-zero before any project code exists.
+      expected: A freshly pulled consumer harness should satisfy git diff --check when establishing its initial baseline.
+      fingerprint: 67945cf6f3b4caedfad24669c381b0eedf5ada7be745a405329665f97a47d890
+      project: country-map-svg-generator
+      mate_release: v1.4.1
+      evidence:
+        - kind: repository
+          locator: .agents/skills/create-report/SKILL.md
+        - kind: repository
+          locator: .agents/skills/create-report/references/report-template.md
+        - kind: repository
+          locator: .mate/config.yaml
+      state: new
+      created_at: "2026-07-23T16:34:50Z"
+      updated_at: "2026-07-23T16:34:50Z"
