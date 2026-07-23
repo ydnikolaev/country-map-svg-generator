@@ -1,0 +1,35 @@
+version: 1
+kind: agent-dispatch-result
+id: RESULT-003
+epic: country-map-svg-generator
+spec: P1
+status: passed
+input_digest: 27aa066a8fb6cb7d68ddc0971402e1c29ed0705bea8262655ecb7bfcd0447032
+previous:
+    artifact: agent-dispatch-brief
+    id: BRIEF-003
+    path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/agents/BRIEF-003.agent-dispatch-brief.yaml
+    sha256: 621fa9f5eff2aea98cdffbc98d1917ee05952037b96b784eb8e33e7d9fc6e3f7
+brief:
+    artifact: agent-dispatch-brief
+    id: BRIEF-003
+    path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/agents/BRIEF-003.agent-dispatch-brief.yaml
+    sha256: 621fa9f5eff2aea98cdffbc98d1917ee05952037b96b784eb8e33e7d9fc6e3f7
+principal: teamlead-inline-planner
+provider_task_ref: p1-plan-task-3
+outcome: passed
+summary: Conforming-emulation fallback materialized and sealed a complete P1 plan covering all user stories, requirements, invariants, acceptance criteria, validation obligations, exact writes, source pins, rollback, and deviation policy; no independence claim is made.
+changed_paths:
+    - path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/plans/candidates/PLAN-001/P1-source-corpus.PLAN-001.plan-manifest.yaml
+      sha256: 3778638d825d9c82f4a0c305e0304c7811079099d9126faa1c0f0a6a5e135da3
+    - path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/plans/candidates/PLAN-001/P1-source-corpus.PLAN-001.plan.md
+      sha256: 59e6d864a7041806fcd24a5bb591871edd06c8d83f01ef1838f14b7b22d22506
+outputs:
+    - artifact: plan-manifest
+      id: PLAN-001
+      path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/plans/candidates/PLAN-001/P1-source-corpus.PLAN-001.plan-manifest.yaml
+      sha256: 3778638d825d9c82f4a0c305e0304c7811079099d9126faa1c0f0a6a5e135da3
+verification: []
+deviations: []
+feedback: []
+resume_anchor: Issue plan.accept readiness and accept PLAN-001 with this exact result.

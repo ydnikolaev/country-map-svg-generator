@@ -1,0 +1,38 @@
+version: 1
+kind: transition-receipt
+id: plan-accept-3b0a947c9019406c
+epic: country-map-svg-generator
+spec: P1
+status: recorded
+input_digest: 20d54aab0446fc969d0041a9d77abcfc0f4b3bc3f5380284811fe7a97c05d317
+subject:
+    artifact: plan-manifest
+    id: PLAN-001
+    path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/plans/candidates/PLAN-001/P1-source-corpus.PLAN-001.plan-manifest.yaml
+    sha256: 3778638d825d9c82f4a0c305e0304c7811079099d9126faa1c0f0a6a5e135da3
+producer_role: lifecycle-engine
+principal: teamlead
+result: pass
+machine: plan-revision
+event: accept
+from: draft
+to: accepted
+inputs:
+    - artifact: agent-dispatch-result
+      id: RESULT-003
+      path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/agents/RESULT-003.agent-dispatch-result.yaml
+      sha256: 638178c43c184ce7bdfdb5691f3f3ff5c28c13b50552e4823739f7610de82e89
+    - artifact: implementation-plan
+      id: PLAN-001
+      path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/plans/candidates/PLAN-001/P1-source-corpus.PLAN-001.plan.md
+      sha256: 59e6d864a7041806fcd24a5bb591871edd06c8d83f01ef1838f14b7b22d22506
+    - artifact: plan-manifest
+      id: PLAN-001
+      path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/plans/candidates/PLAN-001/P1-source-corpus.PLAN-001.plan-manifest.yaml
+      sha256: 3778638d825d9c82f4a0c305e0304c7811079099d9126faa1c0f0a6a5e135da3
+    - artifact: readiness-receipt
+      id: REV-73EAB5EA1F27
+      path: docs/features/active/country-map-svg-generator/readiness/REV-73EAB5EA1F27/REV-73EAB5EA1F27.readiness.yaml
+      sha256: 6b8a48a1750a30c9bb1888966b275e52f37bc62353482354554bbfc4f90ea1f0
+predecessor: 3778638d825d9c82f4a0c305e0304c7811079099d9126faa1c0f0a6a5e135da3
+successor: 4cd93236c76fbb76ecbff1f83dff79070393718a691925a3f8c5bd2fcf774a6e

@@ -1,0 +1,50 @@
+version: 1
+kind: agent-dispatch-brief
+id: BRIEF-002
+epic: country-map-svg-generator
+spec: P1
+status: issued
+input_digest: 4695241ba173ba423faae4cb62020e897eb9861a1731023c3a0707747c6b0e58
+previous:
+    artifact: agent-dispatch-result
+    id: RESULT-001
+    path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/agents/RESULT-001.agent-dispatch-result.yaml
+    sha256: a92cdd3ae1a1ab74c8ef9aeb0f7453a9c4c7b11fab809d50f16ed5601dda69a3
+role: implementation-planner
+provider: codex
+binding_mode: conforming-emulation
+dispatch_route: generic-serial-installed-contract
+role_contract:
+    reference: installed-role/implementation-planner
+    path: .codex/agents/implementation-planner.toml
+    sha256: 3ddae02828f8d331cf28f98200f1279232a6e660e79c6128fc10985cbf01f52b
+    reason: installed provider role contract
+    freshness: current
+issuer: teamlead
+grant: edit
+capability: implementation-planning
+semantic_tier: reasoning
+context:
+    - reference: specification/P1
+      path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/P1-source-corpus.spec.md
+      sha256: a2dd6817331c8da19775f66de49b7aa4526651f06292f8254606c3b3fe3ea3bd
+      reason: dispatch context
+      freshness: current
+objective: Return a complete executable PLAN-001 proposal for P1 source corpus; coordinator will materialize it into the scaffold because the installed native role is proposal-only. Cover every REQ, INV, AC and VAL with exact writes, ownership, waves, gates, rollback and deviation policy.
+writes:
+    - docs/features/active/country-map-svg-generator/specs/P1-source-corpus/plans/candidates/PLAN-001
+forbidden:
+    - .git
+    - .mate
+validation:
+    - mate plan validate country-map-svg-generator P1 PLAN-001 --json
+completion_schema:
+    - blockers
+    - deviations
+    - evidence
+    - outcome
+    - plan
+    - summary
+expected_outputs: []
+budget: 1
+resume_anchor: Return the exact structured proposal; coordinator will materialize, validate, seal, record, and accept it.

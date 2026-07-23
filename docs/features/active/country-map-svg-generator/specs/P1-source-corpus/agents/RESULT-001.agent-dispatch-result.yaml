@@ -1,0 +1,27 @@
+version: 1
+kind: agent-dispatch-result
+id: RESULT-001
+epic: country-map-svg-generator
+spec: P1
+status: no-result
+input_digest: b13f582fdf45289cf76b6d722d972efea3708f265ac7e1e5cf0b622e60eef7f2
+previous:
+    artifact: agent-dispatch-brief
+    id: BRIEF-001
+    path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/agents/BRIEF-001.agent-dispatch-brief.yaml
+    sha256: df85b4f4e91e7cf78a31cf377a0e0d61b4b89b2ac2ce01516b3f40e110cdc7a1
+brief:
+    artifact: agent-dispatch-brief
+    id: BRIEF-001
+    path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/agents/BRIEF-001.agent-dispatch-brief.yaml
+    sha256: df85b4f4e91e7cf78a31cf377a0e0d61b4b89b2ac2ce01516b3f40e110cdc7a1
+principal: codex-p1-planner-1
+provider_task_ref: p1-plan-task-1
+outcome: no-result
+summary: Native implementation-planner role remained non-terminal under its read-only adapter contract and produced no candidate bytes; redispatch through conforming emulation is required.
+changed_paths: []
+outputs: []
+verification: []
+deviations: []
+feedback: []
+resume_anchor: Issue a fresh conforming-emulation planner brief and materialize its proposal through the coordinator.

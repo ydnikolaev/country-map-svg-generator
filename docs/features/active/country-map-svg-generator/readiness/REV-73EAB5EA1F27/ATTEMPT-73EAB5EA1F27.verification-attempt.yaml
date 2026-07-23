@@ -1,0 +1,17 @@
+version: 1
+kind: verification-attempt
+id: ATTEMPT-73EAB5EA1F27
+epic: country-map-svg-generator
+spec: P1
+status: pass
+input_digest: cebf207279663f39fbb4c057e6409751b608deaba82489a2c22ca13f38767332
+selection_id: SELECT-73EAB5EA1F27
+attempt: 1
+started_at: "2026-07-23T16:57:47.998107Z"
+finished_at: "2026-07-23T16:57:48.033872Z"
+results:
+    - node: plan-contract
+      verdict: pass
+      exit_code: 0
+      output_hash: d0d6eac44213dc19405e3c958fa9c98ac063042722f929786c44a3cf9b12a891
+      duration_ms: 35

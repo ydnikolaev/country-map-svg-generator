@@ -1,0 +1,27 @@
+version: 1
+kind: agent-dispatch-result
+id: RESULT-002
+epic: country-map-svg-generator
+spec: P1
+status: no-result
+input_digest: 05f76e92180d84c0a6cf01cd68d3ebd975bf55b1ac53037cd3a9ad0b2dd24132
+previous:
+    artifact: agent-dispatch-brief
+    id: BRIEF-002
+    path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/agents/BRIEF-002.agent-dispatch-brief.yaml
+    sha256: c3dd6435281eb287584585531d8650693322839e5caa6f5a4c91ccd95aa5db3a
+brief:
+    artifact: agent-dispatch-brief
+    id: BRIEF-002
+    path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/agents/BRIEF-002.agent-dispatch-brief.yaml
+    sha256: c3dd6435281eb287584585531d8650693322839e5caa6f5a4c91ccd95aa5db3a
+principal: codex-p1-planner-2
+provider_task_ref: p1-plan-task-2
+outcome: no-result
+summary: Fresh conforming-emulation planner remained non-terminal and returned no proposal after bounded retries; coordinator inline planning is the remaining documented fallback.
+changed_paths: []
+outputs: []
+verification: []
+deviations: []
+feedback: []
+resume_anchor: Issue an inline conforming-emulation planner brief and materialize PLAN-001 without claiming independent planning.

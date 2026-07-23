@@ -1,0 +1,50 @@
+version: 1
+kind: agent-dispatch-brief
+id: BRIEF-003
+epic: country-map-svg-generator
+spec: P1
+status: issued
+input_digest: 709158b34344ceeaed79d227e5f004a5aee7c53afeb0aeb1513372f7b8f61d19
+previous:
+    artifact: agent-dispatch-result
+    id: RESULT-002
+    path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/agents/RESULT-002.agent-dispatch-result.yaml
+    sha256: 9237f2353954307ac3f5c3170311e3f577aaf4ff376e964e871d4e3e12df6821
+role: implementation-planner
+provider: codex
+binding_mode: conforming-emulation
+dispatch_route: generic-serial-installed-contract
+role_contract:
+    reference: installed-role/implementation-planner
+    path: .codex/agents/implementation-planner.toml
+    sha256: 3ddae02828f8d331cf28f98200f1279232a6e660e79c6128fc10985cbf01f52b
+    reason: installed provider role contract
+    freshness: current
+issuer: teamlead
+grant: edit
+capability: implementation-planning
+semantic_tier: reasoning
+context:
+    - reference: specification/P1
+      path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/P1-source-corpus.spec.md
+      sha256: a2dd6817331c8da19775f66de49b7aa4526651f06292f8254606c3b3fe3ea3bd
+      reason: dispatch context
+      freshness: current
+objective: 'Inline fallback: materialize a complete executable PLAN-001 for P1 source corpus after two fresh principals produced no result. Cover every REQ, INV, AC and VAL with exact writes, ownership, waves, gates, rollback and deviation policy; do not claim independent planning.'
+writes:
+    - docs/features/active/country-map-svg-generator/specs/P1-source-corpus/plans/candidates/PLAN-001
+forbidden:
+    - .git
+    - .mate
+validation:
+    - mate plan validate country-map-svg-generator P1 PLAN-001 --json
+completion_schema:
+    - blockers
+    - deviations
+    - evidence
+    - outcome
+    - plan
+    - summary
+expected_outputs: []
+budget: 1
+resume_anchor: Coordinator materializes, validates, seals, records RESULT-003, and accepts the plan without an independence claim.

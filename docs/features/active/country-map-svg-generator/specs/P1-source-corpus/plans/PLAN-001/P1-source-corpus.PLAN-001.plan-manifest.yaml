@@ -1,0 +1,299 @@
+version: 1
+kind: plan-manifest
+id: PLAN-001
+epic: country-map-svg-generator
+spec: P1
+status: accepted
+input_digest: d022112c12849160d4882f60fcfb4860b98b20d62b675afed145e7cd5b520e37
+plan_id: PLAN-001
+baseline:
+    repository: country-map-svg-generator
+    commit: c7116841e99ae099b75b3c9eabdfef1805c7543f
+    tree: 7749f5e628feecd38dff900c621e2eea095f0376
+inputs:
+    - reference: implementation-plan/PLAN-001
+      path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/plans/candidates/PLAN-001/P1-source-corpus.PLAN-001.plan.md
+      sha256: 59e6d864a7041806fcd24a5bb591871edd06c8d83f01ef1838f14b7b22d22506
+      reason: candidate plan body
+      freshness: current
+    - reference: solution-architecture/CTX-ARCH
+      path: docs/features/active/country-map-svg-generator/architecture/country-map-svg-generator.solution-architecture.md
+      sha256: 5325da7358596b56c9dc6f65d3b6af3801174257503a332334a77a9c71433947
+      reason: required at planning for spec P1 by context registry
+      freshness: current
+    - reference: specification/P1
+      path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/P1-source-corpus.spec.md
+      sha256: a2dd6817331c8da19775f66de49b7aa4526651f06292f8254606c3b3fe3ea3bd
+      reason: normative specification
+      freshness: current
+coverage:
+    - obligation:
+        artifact: specification
+        id: US-1
+      task: T1
+      evidence:
+        artifact: verification-result
+        id: VR-US-1
+    - obligation:
+        artifact: specification
+        id: US-2
+      task: T2
+      evidence:
+        artifact: verification-result
+        id: VR-US-2
+    - obligation:
+        artifact: specification
+        id: US-3
+      task: T1
+      evidence:
+        artifact: verification-result
+        id: VR-US-3
+    - obligation:
+        artifact: specification
+        id: US-4
+      task: T2
+      evidence:
+        artifact: verification-result
+        id: VR-US-4
+    - obligation:
+        artifact: specification
+        id: REQ-1
+      task: T1
+      evidence:
+        artifact: verification-result
+        id: VR-REQ-1
+    - obligation:
+        artifact: specification
+        id: REQ-2
+      task: T2
+      evidence:
+        artifact: verification-result
+        id: VR-REQ-2
+    - obligation:
+        artifact: specification
+        id: REQ-3
+      task: T1
+      evidence:
+        artifact: verification-result
+        id: VR-REQ-3
+    - obligation:
+        artifact: specification
+        id: REQ-4
+      task: T2
+      evidence:
+        artifact: verification-result
+        id: VR-REQ-4
+    - obligation:
+        artifact: specification
+        id: REQ-5
+      task: T2
+      evidence:
+        artifact: verification-result
+        id: VR-REQ-5
+    - obligation:
+        artifact: specification
+        id: REQ-6
+      task: T4
+      evidence:
+        artifact: verification-result
+        id: VR-REQ-6
+    - obligation:
+        artifact: specification
+        id: REQ-7
+      task: T3
+      evidence:
+        artifact: verification-result
+        id: VR-REQ-7
+    - obligation:
+        artifact: specification
+        id: INV-1
+      task: T3
+      evidence:
+        artifact: verification-result
+        id: VR-INV-1
+    - obligation:
+        artifact: specification
+        id: AC-1
+      task: T4
+      evidence:
+        artifact: verification-result
+        id: VR-AC-1
+    - obligation:
+        artifact: specification
+        id: AC-2
+      task: T4
+      evidence:
+        artifact: verification-result
+        id: VR-AC-2
+    - obligation:
+        artifact: specification
+        id: AC-3
+      task: T4
+      evidence:
+        artifact: verification-result
+        id: VR-AC-3
+    - obligation:
+        artifact: specification
+        id: AC-4
+      task: T4
+      evidence:
+        artifact: verification-result
+        id: VR-AC-4
+    - obligation:
+        artifact: specification
+        id: VAL-1
+      task: T4
+      evidence:
+        artifact: verification-result
+        id: VR-VAL-1
+    - obligation:
+        artifact: specification
+        id: VAL-2
+      task: T4
+      evidence:
+        artifact: verification-result
+        id: VR-VAL-2
+    - obligation:
+        artifact: specification
+        id: VAL-3
+      task: T4
+      evidence:
+        artifact: verification-result
+        id: VR-VAL-3
+    - obligation:
+        artifact: specification
+        id: VAL-4
+      task: T4
+      evidence:
+        artifact: verification-result
+        id: VR-VAL-4
+    - obligation:
+        artifact: specification
+        id: VAL-5
+      task: T4
+      evidence:
+        artifact: verification-result
+        id: VR-VAL-5
+tasks:
+    - id: T1
+      outcome: Pin the exact 249-entity ISO snapshot and Natural Earth source set with receipts, establish the Go module, and define strict catalog/source models.
+      depends_on: []
+      writes:
+        - data/sources
+        - go.mod
+        - go.sum
+        - internal/catalog/model.go
+        - internal/catalog/model_test.go
+        - internal/catalog/source.go
+        - internal/catalog/source_test.go
+        - internal/catalog/testdata/source
+      owner: catalog-contract
+      wave: W1
+    - id: T2
+      outcome: Reconcile pinned geometry, boundary profiles, capitals, overrides, and protected features into a fully validated presentation-free catalog.
+      depends_on:
+        - T1
+      writes:
+        - data/policy
+        - internal/catalog/cmd/corpuscompile
+        - internal/catalog/compile.go
+        - internal/catalog/compile_test.go
+        - internal/catalog/geojson.go
+        - internal/catalog/geojson_test.go
+        - internal/catalog/testdata/compile
+        - internal/catalog/validate.go
+        - internal/catalog/validate_test.go
+      owner: catalog-compiler
+      wave: W2
+    - id: T3
+      outcome: Publish immutable content-addressed corpus v1, deterministic comparison output, decoder, and generated embedded bundle without in-place rewrites.
+      depends_on:
+        - T2
+      writes:
+        - data/corpus/v1
+        - data/reports/v1
+        - internal/catalog/canonical.go
+        - internal/catalog/canonical_test.go
+        - internal/catalog/compare.go
+        - internal/catalog/compare_test.go
+        - internal/catalog/embedded.go
+        - internal/catalog/embedded_gen.go
+      owner: corpus-publisher
+      wave: W3
+    - id: T4
+      outcome: Prove all five validation obligations with full-corpus and mutation tests and wire deterministic generation into the project ceiling.
+      depends_on:
+        - T3
+      writes:
+        - Makefile
+        - internal/catalog/fullcatalog_test.go
+        - internal/catalog/mutations_test.go
+        - internal/catalog/testdata/mutations
+      owner: corpus-verifier
+      wave: W4
+waves:
+    - id: W1
+      tasks:
+        - T1
+      concurrency: 1
+    - id: W2
+      tasks:
+        - T2
+      concurrency: 1
+    - id: W3
+      tasks:
+        - T3
+      concurrency: 1
+    - id: W4
+      tasks:
+        - T4
+      concurrency: 1
+validation:
+    - obligation:
+        artifact: specification
+        id: VAL-1
+      gate: corpus-iso-integrity
+      tier: integration
+      evidence:
+        artifact: verification-result
+        id: VR-VAL-1
+    - obligation:
+        artifact: specification
+        id: VAL-2
+      gate: corpus-boundary-profiles
+      tier: integration
+      evidence:
+        artifact: verification-result
+        id: VR-VAL-2
+    - obligation:
+        artifact: specification
+        id: VAL-3
+      gate: corpus-reproducibility
+      tier: project
+      evidence:
+        artifact: verification-result
+        id: VR-VAL-3
+    - obligation:
+        artifact: specification
+        id: VAL-4
+      gate: corpus-capital-registry
+      tier: component
+      evidence:
+        artifact: verification-result
+        id: VR-VAL-4
+    - obligation:
+        artifact: specification
+        id: VAL-5
+      gate: corpus-protected-features
+      tier: integration
+      evidence:
+        artifact: verification-result
+        id: VR-VAL-5
+deviation_policy: p1-corpus-local-how-v1
+estimate:
+    unit: agent-hour
+    low: 6
+    likely: 8
+    high: 10
+    confidence: medium
+    basis: The compiler and model are greenfield; the bounded uncertainty is explicit reconciliation of small territories, disputed profile variants, and multi-capital overrides.

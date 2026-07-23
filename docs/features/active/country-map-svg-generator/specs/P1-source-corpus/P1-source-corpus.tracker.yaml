@@ -4,11 +4,12 @@ spec: P1
 slug: source-corpus
 title: Versioned Country Geometry Corpus
 state: ready
-revision: 2
+revision: 9
 updated_by: teamlead
-updated_at: "2026-07-23T16:36:03Z"
-last_event_id: transition-c2c31ed9536f5bbf
-input_digest: 82fa3417f88a30e3a5d1f3990880c511af2f09048b93a6089c642d1587d45fce
+updated_at: "2026-07-23T16:57:57Z"
+last_event_id: plan-accept-3b0a947c9019406c
+input_digest: 20d54aab0446fc969d0041a9d77abcfc0f4b3bc3f5380284811fe7a97c05d317
+current_plan: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/plans/PLAN-001/P1-source-corpus.PLAN-001.plan.md
 runs: []
 findings: []
-next_action: Continue with spec-begin.
+next_action: Refresh execution readiness, then begin the spec and its first run.
