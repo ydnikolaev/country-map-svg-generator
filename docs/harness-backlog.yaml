@@ -1,8 +1,15 @@
 version: 1
 kind: harness-feedback-backlog
 project: country-map-svg-generator
-revision: 2
+revision: 3
 operations:
+    - version: 1
+      id: feedback-add-5aefa882568b0051
+      kind: feedback-add
+      input_digest: 6b06d46919103b8781648e53227916fc02cbbd1dec77f392aeeb1eeb640d9f17
+      result_id: FND-81C53E8EF0EE
+      result_revision: 3
+      recorded_at: "2026-07-23T17:37:00Z"
     - version: 1
       id: feedback-add-7250ea81199fbe42
       kind: feedback-add
@@ -38,6 +45,27 @@ findings:
       state: new
       created_at: "2026-07-23T16:34:50Z"
       updated_at: "2026-07-23T16:34:50Z"
+    - id: FND-81C53E8EF0EE
+      scope: mate
+      severity: medium
+      area: agent-dispatch
+      summary: Auditor brief permits an audit candidate write but native auditor role is read-only
+      observed: BRIEF-005 allowed the audit candidate path, but the native Codex auditor role sandbox was read-only, so the coordinator had to materialize the auditor proposal before sealing it.
+      expected: A dispatched auditor with an allowlisted audit-candidate path can materialize its sealed proposal or the protocol explicitly assigns that write to the coordinator.
+      fingerprint: 81c53e8ef0ee0fdfd96752f9ce5a03bdd7096f5d57814f81e62642bf2a157676
+      project: country-map-svg-generator
+      mate_release: v1.4.1
+      provider: codex
+      evidence:
+        - kind: brief
+          locator: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/runs/RUN-001/agents/BRIEF-005.agent-dispatch-brief.yaml
+        - kind: config
+          locator: .codex/agents/auditor.toml
+        - kind: result
+          locator: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/runs/RUN-001/agents/RESULT-005.agent-dispatch-result.yaml
+      state: new
+      created_at: "2026-07-23T17:37:00Z"
+      updated_at: "2026-07-23T17:37:00Z"
     - id: FND-9A2B22724307
       scope: mate
       severity: medium
