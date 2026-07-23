@@ -10,3 +10,12 @@ resources:
         - planning
       owner: teamlead
       updated: "2026-07-23"
+    - id: CTX-P1-SPEC
+      kind: specification
+      title: P1 source corpus specification
+      path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/P1-source-corpus.spec.md
+      status: current
+      required_at:
+        - implementation
+      owner: teamlead
+      updated: "2026-07-23"

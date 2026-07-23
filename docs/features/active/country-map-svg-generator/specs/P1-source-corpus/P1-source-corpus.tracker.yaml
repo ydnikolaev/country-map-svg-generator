@@ -3,13 +3,17 @@ epic: country-map-svg-generator
 spec: P1
 slug: source-corpus
 title: Versioned Country Geometry Corpus
-state: ready
-revision: 9
+state: in_progress
+revision: 10
 updated_by: teamlead
-updated_at: "2026-07-23T16:57:57Z"
-last_event_id: plan-accept-3b0a947c9019406c
-input_digest: 20d54aab0446fc969d0041a9d77abcfc0f4b3bc3f5380284811fe7a97c05d317
+updated_at: "2026-07-23T17:00:48Z"
+last_event_id: run-start-221244ac0c5d6eb4-run
+input_digest: 511c053f6ae857730679173c634327e553ec0d6cfe485560b85107debda10662
 current_plan: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/plans/PLAN-001/P1-source-corpus.PLAN-001.plan.md
-runs: []
+active_run: RUN-001
+runs:
+    - id: RUN-001
+      plan: PLAN-001
+      status: running
 findings: []
-next_action: Refresh execution readiness, then begin the spec and its first run.
+next_action: Execute RUN-001 within the accepted brief; pass, fail, interrupt, or cancel it with evidence.

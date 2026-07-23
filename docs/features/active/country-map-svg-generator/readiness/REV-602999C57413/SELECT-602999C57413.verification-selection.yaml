@@ -1,0 +1,13 @@
+version: 1
+kind: verification-selection
+id: SELECT-602999C57413
+epic: country-map-svg-generator
+spec: P1
+run: RUN-001
+status: recorded
+input_digest: 6b5eb9e3424c43658b663d7e48701ed04ef3ae0bd14007f7b5edc20069d5f88c
+topology_digest: c3038f55dd3fa6a253e6753b1f38292cf9fec8ac8902662440b637af5c177f58
+nodes:
+    - run-contract
+reason: readiness gate for spec.begin
+required_ceiling: run-contract
