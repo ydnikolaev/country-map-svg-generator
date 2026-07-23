@@ -9,7 +9,7 @@ spec: "P2"
 status: draft
 profiles: []
 concerns: []
-inputs: ["P2", "PLAN-005", "RUN-004-RESULT", "RUN-005-RESULT", "RESULT-012", "DEC-003", "DEC-004", "AM-001", "AM-002", "CTR-001"]
+inputs: ["P2", "PLAN-005", "RUN-001-RESULT", "RUN-002-RESULT", "RUN-004-RESULT", "RUN-005-RESULT", "RESULT-012", "DEC-003", "DEC-004", "DEC-005", "AM-001", "AM-002", "CTR-001"]
 ---
 # PLAN-006 — Projected-coordinate LOD and fixed-grid source finalization
 
@@ -33,6 +33,20 @@ This successor implements P2 at baseline commit
   `81671b152b43cfa80634840de6d80587927eff415819b4b45c0a09aadf01113d`;
 - DEC-003 `f1002bdfbcf6947d11faa339161445614c2ae93ee340c2f97fa90a4036e7261d`,
   DEC-004 `3efec49a55fe7289ea528233280671e43db5f114c24586c1780dba98ba2667e5`,
+  and refining DEC-005
+  `77d1b69ad5e49ecf8324af4250de8f39f24c3b9547d6001d69c09dc4c06f2bc3`;
+- passed P1 RUN-001
+  `de1aacd394ec4a00fdfedd6aae532c53663ce60f00dbddb23d795c0a59a8ce90`
+  and remediation RUN-002
+  `eb64507d5b9c108bb25492c8d2091c3335ca968e73485571783e62f302b99282`;
+- verified P1 product checkpoint
+  `ed4fdca23965b6aa0c0fc1b8e4c449e79f2d45ee`, tree
+  `1a6bfca82d26027956f92e28c9cd479c277faba5`;
+- exact P1 manifest SHA-256
+  `227374e94910f078623b3c643085d39fa094b4e1ae20a0ffc01cb2d4a19ee616`
+  and geometry SHA-256
+  `f3d5d80ac8b9650cb75f68f46593c24476a979855875842bc3274d9d928e7744`;
+- accepted layout amendments
   AM-001 `ab284fd6e2a79c4ef7a8c45ab05fe807d217ce7a8a178be354a44d26ef4ac80a`
   and AM-002 `ec2203d7132e467c7b1519d765c4790d583c29691311aad208a2ce6092523487`;
 - P1 corpus identity
@@ -119,13 +133,14 @@ Selection-only diagnostics execute steps 1–5. They may skip command
 serialization but may not report a tier that production would reject at
 `q=0.01`.
 
-Source fallback remains provenance tier `source`, derived from exact retained
-P1, but it no longer pointwise-rounds the unsimplified ring. It materializes a
-deterministic fitted-space reduction through the existing validated Go
-simplification path. Make the tolerance search q-aware: accept a candidate only
-when `q=0.01` canonicalization, final topology, protected retention and final
-symmetric deviation pass. Begin at the coarsest permitted simplification after
-reserving the derived maximum grid displacement `q/sqrt(2)`, then move
+Under DEC-005, source fallback remains provenance tier `source`, derived from
+exact retained P1, but it no longer pointwise-rounds the unsimplified ring. It
+materializes a deterministic fitted-space reduction through the existing
+validated Go simplification path and records explicit `source_reduced`
+finalization provenance. Make the tolerance search q-aware: accept a candidate
+only when `q=0.01` canonicalization, final topology, protected retention and
+final symmetric deviation pass. Begin at the coarsest permitted simplification
+after reserving the derived maximum grid displacement `q/sqrt(2)`, then move
 monotonically toward finer representations. Never exceed the resolved visual
 tolerance; typed exhaustion is terminal.
 
