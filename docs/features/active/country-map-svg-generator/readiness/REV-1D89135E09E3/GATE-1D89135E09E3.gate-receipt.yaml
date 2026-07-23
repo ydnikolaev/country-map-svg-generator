@@ -1,0 +1,24 @@
+version: 1
+kind: gate-receipt
+id: GATE-1D89135E09E3
+epic: country-map-svg-generator
+spec: P2
+status: recorded
+input_digest: 92c7844ff71eadf5f6769fbd454c888f5a6ce9a5078a16290047136d0c9290a2
+subject:
+    artifact: plan-manifest
+    id: PLAN-005
+    path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/plans/candidates/PLAN-005/P2-geometry-pipeline.PLAN-005.plan-manifest.yaml
+    sha256: 66c89d4844eb0d4042f124ad77274d4b4346ba93427da482142983b02780ab79
+producer_role: verification-runner
+principal: teamlead
+result: pass
+gate: project-ceiling
+attempt_ids:
+    - ATTEMPT-1D89135E09E3
+evidence:
+    - artifact: verification-result
+      id: VERIFY-1D89135E09E3
+      path: docs/features/active/country-map-svg-generator/readiness/REV-1D89135E09E3/VERIFY-1D89135E09E3.verification-result.yaml
+      sha256: 5a4747c4db1a26a34920678fa01d2387f6606f5f9abffd58085bef4b6d7ebd9e
+      verdict: pass
