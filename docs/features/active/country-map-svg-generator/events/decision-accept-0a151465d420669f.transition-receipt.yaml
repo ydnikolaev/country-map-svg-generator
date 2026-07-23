@@ -1,0 +1,25 @@
+version: 1
+kind: transition-receipt
+id: decision-accept-0a151465d420669f
+epic: country-map-svg-generator
+status: recorded
+input_digest: f970044daadae9878cf698d5fdce1427529fa910924e63308926b338d7a8ad24
+subject:
+    artifact: decision
+    id: DEC-005
+    path: docs/features/active/country-map-svg-generator/decisions/candidates/DEC-005/country-map-svg-generator.DEC-005-q-aware-source-fallback.decision.md
+    sha256: 63a55df64c08531ad89b99d63165fca41153c78dfddfb45baeb7ec1050f8f0aa
+producer_role: lifecycle-engine
+principal: teamlead
+result: pass
+machine: decision
+event: accept
+from: draft
+to: accepted
+inputs:
+    - artifact: decision
+      id: DEC-005
+      path: docs/features/active/country-map-svg-generator/decisions/candidates/DEC-005/country-map-svg-generator.DEC-005-q-aware-source-fallback.decision.md
+      sha256: 63a55df64c08531ad89b99d63165fca41153c78dfddfb45baeb7ec1050f8f0aa
+predecessor: 63a55df64c08531ad89b99d63165fca41153c78dfddfb45baeb7ec1050f8f0aa
+successor: 77d1b69ad5e49ecf8324af4250de8f39f24c3b9547d6001d69c09dc4c06f2bc3
