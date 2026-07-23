@@ -1,0 +1,9 @@
+{
+  "expectations": [
+    {"alpha2": "CN", "un_geometry_id": "geo-219b4dc2e9b65c0531a17bc720badedb3e9eff0265df5a4ef380dba7da2f49f2", "de_facto_geometry_id": "geo-e74d60cf38d89b0bdac8cd48b05ae4fcadc6d3194cb4c95e5cd0dd906ddc33e8"},
+    {"alpha2": "CY", "un_geometry_id": "geo-ea39f523134d18aff6536caa94268e94ecf18ed50542ede9e2ce91fec4d80f16", "de_facto_geometry_id": "geo-c9877083e0158735cd3d7fad1c01fe84c74a603d9229fbb2d09314e86ecccf93"},
+    {"alpha2": "IL", "un_geometry_id": "geo-da6a6c11619b5c92a4245714d54e9a0fe9be65529fc204e9a944da5de8b1ed2f", "de_facto_geometry_id": "geo-511e6b21a65c6725c89eb88e6e6bcadf430bb5d3a9e5b248b7cbda2d8e37bcc2"},
+    {"alpha2": "IN", "un_geometry_id": "geo-c5bf1d1cc94463dcae3c6123ac1385fefed8883258c3cc7ddb18de6fe6059143", "de_facto_geometry_id": "geo-490c45be3be0547c4bf2b99a8ff54262a5c59e3647fc8725ebbc4bc9177bd432"},
+    {"alpha2": "RU", "un_geometry_id": "geo-0ecaec385bf37de21bcc17468f32b224fbdb3cc262e009a08fc68a25dab0c377", "de_facto_geometry_id": "geo-08425a00146a135ad5f5344deebfd13fd87206ad90b12d983d3b8917435f247f"}
+  ]
+}

@@ -86,6 +86,12 @@ type Corpus struct {
 	Coverage   Coverage   `json:"coverage"`
 }
 
+type ProfileExpectation struct {
+	Alpha2          string `json:"alpha2"`
+	UNGeometryID    string `json:"un_geometry_id"`
+	DeFactoGeometry string `json:"de_facto_geometry_id"`
+}
+
 type DiagnosticError struct {
 	Source    string
 	Entity    string

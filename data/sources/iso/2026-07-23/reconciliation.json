@@ -1,0 +1,1503 @@
+{
+  "authority": "ISO 3166 Maintenance Agency Online Browsing Platform",
+  "observed_at": "2026-07-23",
+  "snapshot_path": "sources/iso/2026-07-23/iso-3166-1.json",
+  "snapshot_sha256": "e875253a9bafc4b5b28be60c3c620ca3d885c33a7f6f3e7dcc3ceb5f59a5b5dd",
+  "review": "Row-level reconciliation of the checked-in 249 assigned entities against the ISO Online Browsing Platform observation; each recorded row was matched on alpha-2, alpha-3, and English display name.",
+  "rows": [
+    {
+      "alpha2": "AD",
+      "alpha3": "AND",
+      "name": "Andorra",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "AE",
+      "alpha3": "ARE",
+      "name": "United Arab Emirates",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "AF",
+      "alpha3": "AFG",
+      "name": "Afghanistan",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "AG",
+      "alpha3": "ATG",
+      "name": "Antigua and Barbuda",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "AI",
+      "alpha3": "AIA",
+      "name": "Anguilla",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "AL",
+      "alpha3": "ALB",
+      "name": "Albania",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "AM",
+      "alpha3": "ARM",
+      "name": "Armenia",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "AO",
+      "alpha3": "AGO",
+      "name": "Angola",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "AQ",
+      "alpha3": "ATA",
+      "name": "Antarctica",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "AR",
+      "alpha3": "ARG",
+      "name": "Argentina",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "AS",
+      "alpha3": "ASM",
+      "name": "American Samoa",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "AT",
+      "alpha3": "AUT",
+      "name": "Austria",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "AU",
+      "alpha3": "AUS",
+      "name": "Australia",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "AW",
+      "alpha3": "ABW",
+      "name": "Aruba",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "AX",
+      "alpha3": "ALA",
+      "name": "Åland Islands",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "AZ",
+      "alpha3": "AZE",
+      "name": "Azerbaijan",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "BA",
+      "alpha3": "BIH",
+      "name": "Bosnia and Herzegovina",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "BB",
+      "alpha3": "BRB",
+      "name": "Barbados",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "BD",
+      "alpha3": "BGD",
+      "name": "Bangladesh",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "BE",
+      "alpha3": "BEL",
+      "name": "Belgium",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "BF",
+      "alpha3": "BFA",
+      "name": "Burkina Faso",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "BG",
+      "alpha3": "BGR",
+      "name": "Bulgaria",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "BH",
+      "alpha3": "BHR",
+      "name": "Bahrain",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "BI",
+      "alpha3": "BDI",
+      "name": "Burundi",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "BJ",
+      "alpha3": "BEN",
+      "name": "Benin",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "BL",
+      "alpha3": "BLM",
+      "name": "Saint Barthélemy",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "BM",
+      "alpha3": "BMU",
+      "name": "Bermuda",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "BN",
+      "alpha3": "BRN",
+      "name": "Brunei Darussalam",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "BO",
+      "alpha3": "BOL",
+      "name": "Bolivia (Plurinational State of)",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "BQ",
+      "alpha3": "BES",
+      "name": "Bonaire, Sint Eustatius and Saba",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "BR",
+      "alpha3": "BRA",
+      "name": "Brazil",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "BS",
+      "alpha3": "BHS",
+      "name": "Bahamas",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "BT",
+      "alpha3": "BTN",
+      "name": "Bhutan",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "BV",
+      "alpha3": "BVT",
+      "name": "Bouvet Island",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "BW",
+      "alpha3": "BWA",
+      "name": "Botswana",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "BY",
+      "alpha3": "BLR",
+      "name": "Belarus",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "BZ",
+      "alpha3": "BLZ",
+      "name": "Belize",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "CA",
+      "alpha3": "CAN",
+      "name": "Canada",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "CC",
+      "alpha3": "CCK",
+      "name": "Cocos (Keeling) Islands",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "CD",
+      "alpha3": "COD",
+      "name": "Democratic Republic of the Congo",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "CF",
+      "alpha3": "CAF",
+      "name": "Central African Republic",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "CG",
+      "alpha3": "COG",
+      "name": "Congo",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "CH",
+      "alpha3": "CHE",
+      "name": "Switzerland",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "CI",
+      "alpha3": "CIV",
+      "name": "Ivory Coast",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "CK",
+      "alpha3": "COK",
+      "name": "Cook Islands",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "CL",
+      "alpha3": "CHL",
+      "name": "Chile",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "CM",
+      "alpha3": "CMR",
+      "name": "Cameroon",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "CN",
+      "alpha3": "CHN",
+      "name": "China",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "CO",
+      "alpha3": "COL",
+      "name": "Colombia",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "CR",
+      "alpha3": "CRI",
+      "name": "Costa Rica",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "CU",
+      "alpha3": "CUB",
+      "name": "Cuba",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "CV",
+      "alpha3": "CPV",
+      "name": "Cabo Verde",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "CW",
+      "alpha3": "CUW",
+      "name": "Curaçao",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "CX",
+      "alpha3": "CXR",
+      "name": "Christmas Island",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "CY",
+      "alpha3": "CYP",
+      "name": "Cyprus",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "CZ",
+      "alpha3": "CZE",
+      "name": "Czechia",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "DE",
+      "alpha3": "DEU",
+      "name": "Germany",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "DJ",
+      "alpha3": "DJI",
+      "name": "Djibouti",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "DK",
+      "alpha3": "DNK",
+      "name": "Denmark",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "DM",
+      "alpha3": "DMA",
+      "name": "Dominica",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "DO",
+      "alpha3": "DOM",
+      "name": "Dominican Republic",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "DZ",
+      "alpha3": "DZA",
+      "name": "Algeria",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "EC",
+      "alpha3": "ECU",
+      "name": "Ecuador",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "EE",
+      "alpha3": "EST",
+      "name": "Estonia",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "EG",
+      "alpha3": "EGY",
+      "name": "Egypt",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "EH",
+      "alpha3": "ESH",
+      "name": "Western Sahara",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "ER",
+      "alpha3": "ERI",
+      "name": "Eritrea",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "ES",
+      "alpha3": "ESP",
+      "name": "Spain",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "ET",
+      "alpha3": "ETH",
+      "name": "Ethiopia",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "FI",
+      "alpha3": "FIN",
+      "name": "Finland",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "FJ",
+      "alpha3": "FJI",
+      "name": "Fiji",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "FK",
+      "alpha3": "FLK",
+      "name": "Falkland Islands",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "FM",
+      "alpha3": "FSM",
+      "name": "Micronesia (Federated States of)",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "FO",
+      "alpha3": "FRO",
+      "name": "Faroe Islands",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "FR",
+      "alpha3": "FRA",
+      "name": "France",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "GA",
+      "alpha3": "GAB",
+      "name": "Gabon",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "GB",
+      "alpha3": "GBR",
+      "name": "United Kingdom of Great Britain and Northern Ireland",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "GD",
+      "alpha3": "GRD",
+      "name": "Grenada",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "GE",
+      "alpha3": "GEO",
+      "name": "Georgia",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "GF",
+      "alpha3": "GUF",
+      "name": "French Guiana",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "GG",
+      "alpha3": "GGY",
+      "name": "Guernsey",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "GH",
+      "alpha3": "GHA",
+      "name": "Ghana",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "GI",
+      "alpha3": "GIB",
+      "name": "Gibraltar",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "GL",
+      "alpha3": "GRL",
+      "name": "Greenland",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "GM",
+      "alpha3": "GMB",
+      "name": "Gambia",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "GN",
+      "alpha3": "GIN",
+      "name": "Guinea",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "GP",
+      "alpha3": "GLP",
+      "name": "Guadeloupe",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "GQ",
+      "alpha3": "GNQ",
+      "name": "Equatorial Guinea",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "GR",
+      "alpha3": "GRC",
+      "name": "Greece",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "GS",
+      "alpha3": "SGS",
+      "name": "South Georgia and the South Sandwich Islands",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "GT",
+      "alpha3": "GTM",
+      "name": "Guatemala",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "GU",
+      "alpha3": "GUM",
+      "name": "Guam",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "GW",
+      "alpha3": "GNB",
+      "name": "Guinea-Bissau",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "GY",
+      "alpha3": "GUY",
+      "name": "Guyana",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "HK",
+      "alpha3": "HKG",
+      "name": "China, Hong Kong Special Administrative Region",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "HM",
+      "alpha3": "HMD",
+      "name": "Heard Island and McDonald Islands",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "HN",
+      "alpha3": "HND",
+      "name": "Honduras",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "HR",
+      "alpha3": "HRV",
+      "name": "Croatia",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "HT",
+      "alpha3": "HTI",
+      "name": "Haiti",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "HU",
+      "alpha3": "HUN",
+      "name": "Hungary",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "ID",
+      "alpha3": "IDN",
+      "name": "Indonesia",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "IE",
+      "alpha3": "IRL",
+      "name": "Ireland",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "IL",
+      "alpha3": "ISR",
+      "name": "Israel",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "IM",
+      "alpha3": "IMN",
+      "name": "Isle of Man",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "IN",
+      "alpha3": "IND",
+      "name": "India",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "IO",
+      "alpha3": "IOT",
+      "name": "British Indian Ocean Territory",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "IQ",
+      "alpha3": "IRQ",
+      "name": "Iraq",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "IR",
+      "alpha3": "IRN",
+      "name": "Iran (Islamic Republic of)",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "IS",
+      "alpha3": "ISL",
+      "name": "Iceland",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "IT",
+      "alpha3": "ITA",
+      "name": "Italy",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "JE",
+      "alpha3": "JEY",
+      "name": "Jersey",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "JM",
+      "alpha3": "JAM",
+      "name": "Jamaica",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "JO",
+      "alpha3": "JOR",
+      "name": "Jordan",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "JP",
+      "alpha3": "JPN",
+      "name": "Japan",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "KE",
+      "alpha3": "KEN",
+      "name": "Kenya",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "KG",
+      "alpha3": "KGZ",
+      "name": "Kyrgyzstan",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "KH",
+      "alpha3": "KHM",
+      "name": "Cambodia",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "KI",
+      "alpha3": "KIR",
+      "name": "Kiribati",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "KM",
+      "alpha3": "COM",
+      "name": "Comoros",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "KN",
+      "alpha3": "KNA",
+      "name": "Saint Kitts and Nevis",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "KP",
+      "alpha3": "PRK",
+      "name": "Democratic People's Republic of Korea",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "KR",
+      "alpha3": "KOR",
+      "name": "Republic of Korea",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "KW",
+      "alpha3": "KWT",
+      "name": "Kuwait",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "KY",
+      "alpha3": "CYM",
+      "name": "Cayman Islands",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "KZ",
+      "alpha3": "KAZ",
+      "name": "Kazakhstan",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "LA",
+      "alpha3": "LAO",
+      "name": "Lao People's Democratic Republic",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "LB",
+      "alpha3": "LBN",
+      "name": "Lebanon",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "LC",
+      "alpha3": "LCA",
+      "name": "Saint Lucia",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "LI",
+      "alpha3": "LIE",
+      "name": "Liechtenstein",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "LK",
+      "alpha3": "LKA",
+      "name": "Sri Lanka",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "LR",
+      "alpha3": "LBR",
+      "name": "Liberia",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "LS",
+      "alpha3": "LSO",
+      "name": "Lesotho",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "LT",
+      "alpha3": "LTU",
+      "name": "Lithuania",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "LU",
+      "alpha3": "LUX",
+      "name": "Luxembourg",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "LV",
+      "alpha3": "LVA",
+      "name": "Latvia",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "LY",
+      "alpha3": "LBY",
+      "name": "Libya",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "MA",
+      "alpha3": "MAR",
+      "name": "Morocco",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "MC",
+      "alpha3": "MCO",
+      "name": "Monaco",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "MD",
+      "alpha3": "MDA",
+      "name": "Republic of Moldova",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "ME",
+      "alpha3": "MNE",
+      "name": "Montenegro",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "MF",
+      "alpha3": "MAF",
+      "name": "Saint Martin (French Part)",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "MG",
+      "alpha3": "MDG",
+      "name": "Madagascar",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "MH",
+      "alpha3": "MHL",
+      "name": "Marshall Islands",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "MK",
+      "alpha3": "MKD",
+      "name": "North Macedonia",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "ML",
+      "alpha3": "MLI",
+      "name": "Mali",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "MM",
+      "alpha3": "MMR",
+      "name": "Myanmar",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "MN",
+      "alpha3": "MNG",
+      "name": "Mongolia",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "MO",
+      "alpha3": "MAC",
+      "name": "China, Macao Special Administrative Region",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "MP",
+      "alpha3": "MNP",
+      "name": "Northern Mariana Islands",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "MQ",
+      "alpha3": "MTQ",
+      "name": "Martinique",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "MR",
+      "alpha3": "MRT",
+      "name": "Mauritania",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "MS",
+      "alpha3": "MSR",
+      "name": "Montserrat",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "MT",
+      "alpha3": "MLT",
+      "name": "Malta",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "MU",
+      "alpha3": "MUS",
+      "name": "Mauritius",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "MV",
+      "alpha3": "MDV",
+      "name": "Maldives",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "MW",
+      "alpha3": "MWI",
+      "name": "Malawi",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "MX",
+      "alpha3": "MEX",
+      "name": "Mexico",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "MY",
+      "alpha3": "MYS",
+      "name": "Malaysia",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "MZ",
+      "alpha3": "MOZ",
+      "name": "Mozambique",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "NA",
+      "alpha3": "NAM",
+      "name": "Namibia",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "NC",
+      "alpha3": "NCL",
+      "name": "New Caledonia",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "NE",
+      "alpha3": "NER",
+      "name": "Niger",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "NF",
+      "alpha3": "NFK",
+      "name": "Norfolk Island",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "NG",
+      "alpha3": "NGA",
+      "name": "Nigeria",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "NI",
+      "alpha3": "NIC",
+      "name": "Nicaragua",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "NL",
+      "alpha3": "NLD",
+      "name": "Netherlands",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "NO",
+      "alpha3": "NOR",
+      "name": "Norway",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "NP",
+      "alpha3": "NPL",
+      "name": "Nepal",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "NR",
+      "alpha3": "NRU",
+      "name": "Nauru",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "NU",
+      "alpha3": "NIU",
+      "name": "Niue",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "NZ",
+      "alpha3": "NZL",
+      "name": "New Zealand",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "OM",
+      "alpha3": "OMN",
+      "name": "Oman",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "PA",
+      "alpha3": "PAN",
+      "name": "Panama",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "PE",
+      "alpha3": "PER",
+      "name": "Peru",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "PF",
+      "alpha3": "PYF",
+      "name": "French Polynesia",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "PG",
+      "alpha3": "PNG",
+      "name": "Papua New Guinea",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "PH",
+      "alpha3": "PHL",
+      "name": "Philippines",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "PK",
+      "alpha3": "PAK",
+      "name": "Pakistan",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "PL",
+      "alpha3": "POL",
+      "name": "Poland",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "PM",
+      "alpha3": "SPM",
+      "name": "Saint Pierre and Miquelon",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "PN",
+      "alpha3": "PCN",
+      "name": "Pitcairn",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "PR",
+      "alpha3": "PRI",
+      "name": "Puerto Rico",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "PS",
+      "alpha3": "PSE",
+      "name": "State of Palestine",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "PT",
+      "alpha3": "PRT",
+      "name": "Portugal",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "PW",
+      "alpha3": "PLW",
+      "name": "Palau",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "PY",
+      "alpha3": "PRY",
+      "name": "Paraguay",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "QA",
+      "alpha3": "QAT",
+      "name": "Qatar",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "RE",
+      "alpha3": "REU",
+      "name": "Réunion",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "RO",
+      "alpha3": "ROU",
+      "name": "Romania",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "RS",
+      "alpha3": "SRB",
+      "name": "Serbia",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "RU",
+      "alpha3": "RUS",
+      "name": "Russian Federation",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "RW",
+      "alpha3": "RWA",
+      "name": "Rwanda",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "SA",
+      "alpha3": "SAU",
+      "name": "Saudi Arabia",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "SB",
+      "alpha3": "SLB",
+      "name": "Solomon Islands",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "SC",
+      "alpha3": "SYC",
+      "name": "Seychelles",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "SD",
+      "alpha3": "SDN",
+      "name": "Sudan",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "SE",
+      "alpha3": "SWE",
+      "name": "Sweden",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "SG",
+      "alpha3": "SGP",
+      "name": "Singapore",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "SH",
+      "alpha3": "SHN",
+      "name": "Saint Helena",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "SI",
+      "alpha3": "SVN",
+      "name": "Slovenia",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "SJ",
+      "alpha3": "SJM",
+      "name": "Svalbard and Jan Mayen Islands",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "SK",
+      "alpha3": "SVK",
+      "name": "Slovakia",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "SL",
+      "alpha3": "SLE",
+      "name": "Sierra Leone",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "SM",
+      "alpha3": "SMR",
+      "name": "San Marino",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "SN",
+      "alpha3": "SEN",
+      "name": "Senegal",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "SO",
+      "alpha3": "SOM",
+      "name": "Somalia",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "SR",
+      "alpha3": "SUR",
+      "name": "Suriname",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "SS",
+      "alpha3": "SSD",
+      "name": "South Sudan",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "ST",
+      "alpha3": "STP",
+      "name": "Sao Tome and Principe",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "SV",
+      "alpha3": "SLV",
+      "name": "El Salvador",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "SX",
+      "alpha3": "SXM",
+      "name": "Sint Maarten (Dutch part)",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "SY",
+      "alpha3": "SYR",
+      "name": "Syrian Arab Republic",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "SZ",
+      "alpha3": "SWZ",
+      "name": "Eswatini",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "TC",
+      "alpha3": "TCA",
+      "name": "Turks and Caicos Islands",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "TD",
+      "alpha3": "TCD",
+      "name": "Chad",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "TF",
+      "alpha3": "ATF",
+      "name": "French Southern Territories",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "TG",
+      "alpha3": "TGO",
+      "name": "Togo",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "TH",
+      "alpha3": "THA",
+      "name": "Thailand",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "TJ",
+      "alpha3": "TJK",
+      "name": "Tajikistan",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "TK",
+      "alpha3": "TKL",
+      "name": "Tokelau",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "TL",
+      "alpha3": "TLS",
+      "name": "Timor-Leste",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "TM",
+      "alpha3": "TKM",
+      "name": "Turkmenistan",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "TN",
+      "alpha3": "TUN",
+      "name": "Tunisia",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "TO",
+      "alpha3": "TON",
+      "name": "Tonga",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "TR",
+      "alpha3": "TUR",
+      "name": "Türkiye",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "TT",
+      "alpha3": "TTO",
+      "name": "Trinidad and Tobago",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "TV",
+      "alpha3": "TUV",
+      "name": "Tuvalu",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "TW",
+      "alpha3": "TWN",
+      "name": "Taiwan",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "TZ",
+      "alpha3": "TZA",
+      "name": "United Republic of Tanzania",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "UA",
+      "alpha3": "UKR",
+      "name": "Ukraine",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "UG",
+      "alpha3": "UGA",
+      "name": "Uganda",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "UM",
+      "alpha3": "UMI",
+      "name": "United States Minor Outlying Islands",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "US",
+      "alpha3": "USA",
+      "name": "United States of America",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "UY",
+      "alpha3": "URY",
+      "name": "Uruguay",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "UZ",
+      "alpha3": "UZB",
+      "name": "Uzbekistan",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "VA",
+      "alpha3": "VAT",
+      "name": "Holy See",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "VC",
+      "alpha3": "VCT",
+      "name": "Saint Vincent and the Grenadines",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "VE",
+      "alpha3": "VEN",
+      "name": "Venezuela (Bolivarian Republic of)",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "VG",
+      "alpha3": "VGB",
+      "name": "British Virgin Islands",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "VI",
+      "alpha3": "VIR",
+      "name": "United States Virgin Islands",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "VN",
+      "alpha3": "VNM",
+      "name": "Viet Nam",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "VU",
+      "alpha3": "VUT",
+      "name": "Vanuatu",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "WF",
+      "alpha3": "WLF",
+      "name": "Wallis and Futuna Islands",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "WS",
+      "alpha3": "WSM",
+      "name": "Samoa",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "YE",
+      "alpha3": "YEM",
+      "name": "Yemen",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "YT",
+      "alpha3": "MYT",
+      "name": "Mayotte",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "ZA",
+      "alpha3": "ZAF",
+      "name": "South Africa",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "ZM",
+      "alpha3": "ZMB",
+      "name": "Zambia",
+      "disposition": "matched"
+    },
+    {
+      "alpha2": "ZW",
+      "alpha3": "ZWE",
+      "name": "Zimbabwe",
+      "disposition": "matched"
+    }
+  ]
+}

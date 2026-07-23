@@ -10,6 +10,15 @@
       "transformation": "reviewed alpha-2, alpha-3 and English-name snapshot; sorted by alpha-2"
     },
     {
+      "id": "iso-3166-1-reconciliation-2026-07-23",
+      "path": "sources/iso/2026-07-23/reconciliation.json",
+      "origin": "local-review:iso-obp-reconciliation",
+      "upstream_version": "observed 2026-07-23",
+      "license": "Review metadata; underlying ISO country codes are free-of-charge use",
+      "sha256": "40b19650643df05d81190a5897c91bb14470ce0717eadbc2b1b714cd1249be30",
+      "transformation": "row-level reviewed reconciliation bound to the checked-in ISO snapshot digest"
+    },
+    {
       "id": "natural-earth-admin0-iso-5.1.1",
       "path": "sources/natural-earth/5.1.1/ne_10m_admin_0_countries_iso.geojson",
       "origin": "https://github.com/nvkelso/natural-earth-vector/blob/v5.1.2/geojson/ne_10m_admin_0_countries_iso.geojson",

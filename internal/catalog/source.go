@@ -24,6 +24,22 @@ type isoEntity struct {
 	Name   string `json:"name"`
 }
 
+type isoReconciliation struct {
+	Authority      string                 `json:"authority"`
+	ObservedAt     string                 `json:"observed_at"`
+	SnapshotPath   string                 `json:"snapshot_path"`
+	SnapshotSHA256 string                 `json:"snapshot_sha256"`
+	Review         string                 `json:"review"`
+	Rows           []isoReconciliationRow `json:"rows"`
+}
+
+type isoReconciliationRow struct {
+	Alpha2      string `json:"alpha2"`
+	Alpha3      string `json:"alpha3"`
+	Name        string `json:"name"`
+	Disposition string `json:"disposition"`
+}
+
 type receiptFile struct {
 	Receipts []Receipt `json:"receipts"`
 }
@@ -86,6 +102,40 @@ func loadISO(path string) ([]isoEntity, error) {
 		seen2[entity.Alpha2], seen3[entity.Alpha3] = true, true
 	}
 	return snapshot.Entities, nil
+}
+
+func loadISOReconciliation(dataRoot, path string, entities []isoEntity) error {
+	var attestation isoReconciliation
+	if err := decodeStrict(path, &attestation); err != nil {
+		return err
+	}
+	if attestation.Authority == "" || attestation.ObservedAt == "" || attestation.Review == "" ||
+		filepath.ToSlash(attestation.SnapshotPath) != isoPath || !digestPattern.MatchString(attestation.SnapshotSHA256) {
+		return diagnostic(path, "-", "metadata", "iso-reconciliation-bound", "complete authority, review, snapshot path and digest are required")
+	}
+	snapshotBytes, err := os.ReadFile(filepath.Join(dataRoot, filepath.FromSlash(attestation.SnapshotPath)))
+	if err != nil {
+		return diagnostic(path, "-", "snapshot_path", "iso-reconciliation-bound", "%v", err)
+	}
+	sum := sha256.Sum256(snapshotBytes)
+	if hex.EncodeToString(sum[:]) != attestation.SnapshotSHA256 {
+		return diagnostic(path, "-", "snapshot_sha256", "iso-reconciliation-bound", "snapshot digest mismatch")
+	}
+	if len(attestation.Rows) != len(entities) || len(attestation.Rows) != 249 {
+		return diagnostic(path, "-", "rows", "iso-reconciliation-249", "got %d rows", len(attestation.Rows))
+	}
+	seen := map[string]bool{}
+	for i, row := range attestation.Rows {
+		if seen[row.Alpha2] {
+			return diagnostic(path, row.Alpha2, "rows", "iso-reconciliation-unique", "duplicate row")
+		}
+		seen[row.Alpha2] = true
+		entity := entities[i]
+		if row.Alpha2 != entity.Alpha2 || row.Alpha3 != entity.Alpha3 || row.Name != entity.Name || row.Disposition != "matched" {
+			return diagnostic(path, row.Alpha2, "rows", "iso-reconciliation-match", "row %d does not attest the bound snapshot", i)
+		}
+	}
+	return nil
 }
 
 func loadAndVerifyReceipts(dataRoot string) ([]Receipt, error) {

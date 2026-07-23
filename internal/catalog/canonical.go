@@ -6,6 +6,7 @@ import (
 	"encoding/hex"
 	"encoding/json"
 	"fmt"
+	"io"
 )
 
 func CanonicalJSON(value any) ([]byte, error) {
@@ -27,17 +28,19 @@ func geometryIdentity(coordinates MultiPolygon) (string, error) {
 	return "geo-" + hex.EncodeToString(sum[:]), nil
 }
 
-func CorpusIdentity(manifest Manifest, geometries []Geometry) (string, error) {
+func CorpusIdentity(manifest Manifest, geometries []Geometry, receipts []Receipt, coverage Coverage) (string, error) {
 	manifest.Identity = ""
-	m, err := CanonicalJSON(manifest)
+	envelope := struct {
+		Manifest   Manifest   `json:"manifest"`
+		Geometries []Geometry `json:"geometries"`
+		Receipts   []Receipt  `json:"receipts"`
+		Coverage   Coverage   `json:"coverage"`
+	}{manifest, geometries, receipts, coverage}
+	m, err := CanonicalJSON(envelope)
 	if err != nil {
 		return "", err
 	}
-	g, err := CanonicalJSON(geometries)
-	if err != nil {
-		return "", err
-	}
-	sum := sha256.Sum256(append(m, g...))
+	sum := sha256.Sum256(m)
 	return "sha256:" + hex.EncodeToString(sum[:]), nil
 }
 
@@ -67,6 +70,9 @@ func DecodeCorpus(files map[string][]byte) (*Corpus, error) {
 		"receipts.json":   &corpus.Receipts,
 		"coverage.json":   &corpus.Coverage,
 	}
+	if len(files) != len(targets) {
+		return nil, fmt.Errorf("corpus file set must contain exactly %d authoritative files", len(targets))
+	}
 	for name, target := range targets {
 		b, ok := files[name]
 		if !ok {
@@ -76,6 +82,17 @@ func DecodeCorpus(files map[string][]byte) (*Corpus, error) {
 		dec.DisallowUnknownFields()
 		if err := dec.Decode(target); err != nil {
 			return nil, fmt.Errorf("%s: %w", name, err)
+		}
+		var trailing any
+		if err := dec.Decode(&trailing); err != io.EOF {
+			return nil, fmt.Errorf("%s: non-canonical trailing data", name)
+		}
+		canonical, err := CanonicalJSON(target)
+		if err != nil {
+			return nil, err
+		}
+		if !bytes.Equal(canonical, b) {
+			return nil, fmt.Errorf("%s: published bytes are not canonical", name)
 		}
 	}
 	if err := Validate(&corpus); err != nil {

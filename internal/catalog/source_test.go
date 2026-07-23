@@ -96,3 +96,45 @@ func TestSourceStrictJSONRejectsTrailingValue(t *testing.T) {
 		t.Fatalf("expected trailing JSON rejection, got %v", err)
 	}
 }
+
+func TestISOReconciliationRealAttestation(t *testing.T) {
+	entities, err := loadISO(filepath.Join(testDataRoot(t), filepath.FromSlash(isoPath)))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err := loadISOReconciliation(testDataRoot(t), filepath.Join(testDataRoot(t), filepath.FromSlash(isoReconciliationPath)), entities); err != nil {
+		t.Fatal(err)
+	}
+}
+
+func TestISOReconciliationMutationsFailClosed(t *testing.T) {
+	root := testDataRoot(t)
+	entities, err := loadISO(filepath.Join(root, filepath.FromSlash(isoPath)))
+	if err != nil {
+		t.Fatal(err)
+	}
+	var original isoReconciliation
+	if err := decodeStrict(filepath.Join(root, filepath.FromSlash(isoReconciliationPath)), &original); err != nil {
+		t.Fatal(err)
+	}
+	tests := map[string]func(*isoReconciliation){
+		"missing":    func(a *isoReconciliation) { a.Rows = a.Rows[:248] },
+		"duplicate":  func(a *isoReconciliation) { a.Rows[248] = a.Rows[247] },
+		"mismatched": func(a *isoReconciliation) { a.Rows[0].Alpha3 = "ZZZ" },
+		"unbound":    func(a *isoReconciliation) { a.SnapshotSHA256 = strings.Repeat("0", 64) },
+	}
+	for name, mutate := range tests {
+		t.Run(name, func(t *testing.T) {
+			attestation := original
+			attestation.Rows = append([]isoReconciliationRow(nil), original.Rows...)
+			mutate(&attestation)
+			path := filepath.Join(t.TempDir(), "reconciliation.json")
+			if err := writeJSON(path, attestation); err != nil {
+				t.Fatal(err)
+			}
+			if err := loadISOReconciliation(root, path, entities); err == nil || !strings.Contains(err.Error(), "iso-reconciliation-") {
+				t.Fatalf("expected reconciliation rejection, got %v", err)
+			}
+		})
+	}
+}
