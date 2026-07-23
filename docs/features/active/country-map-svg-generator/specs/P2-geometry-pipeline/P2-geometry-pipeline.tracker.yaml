@@ -4,11 +4,11 @@ spec: P2
 slug: geometry-pipeline
 title: Soft-Organic Geometry Pipeline
 state: ready
-revision: 2
+revision: 3
 updated_by: teamlead
-updated_at: "2026-07-23T18:24:06Z"
+updated_at: "2026-07-23T18:25:36Z"
 last_event_id: transition-f114c2b131828ef9
-input_digest: 8c1e1a26a893db7dcdb677341835ee782e8fe69136c2537e6e28f03ef042ea9c
+input_digest: fc9dbc9bed8dcb1408bb5aa90add71db4532b6f4215fe283b6e433a5f1fe79d7
 runs: []
 findings: []
-next_action: Continue with spec-begin.
+next_action: agent-dispatch:agent-dispatch-brief/BRIEF-001#48241f40004011bfc560c1b9508e8c891d33e12df56a684b784e63c6f0a93ba6

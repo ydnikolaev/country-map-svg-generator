@@ -1,0 +1,47 @@
+version: 1
+kind: agent-dispatch-brief
+id: BRIEF-001
+epic: country-map-svg-generator
+spec: P2
+status: issued
+input_digest: 6360edd952a982078f038aa48251c22a2ba9cd2d86eb8d3a903ef64eb61e1170
+role: implementation-planner
+provider: codex
+binding_mode: native
+dispatch_route: named-role
+role_contract:
+    reference: installed-role/implementation-planner
+    path: .codex/agents/implementation-planner.toml
+    sha256: 3ddae02828f8d331cf28f98200f1279232a6e660e79c6128fc10985cbf01f52b
+    reason: installed provider role contract
+    freshness: current
+issuer: teamlead
+grant: edit
+capability: implementation-planning
+semantic_tier: reasoning
+context:
+    - reference: specification/P2
+      path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/P2-geometry-pipeline.spec.md
+      sha256: 9cfdf6bff8a5b49559fbbcfd0679517891b27087c7d587b2fbd51646760aa74f
+      reason: dispatch context
+      freshness: current
+objective: Produce a complete executable PLAN-001 for the P2 soft-organic geometry pipeline on the completed P1 corpus. Ground the Go library choices in current official docs and repo code; cover centered equal-area projection, fit/orientation, deterministic ring normalization, card/hero simplification, bounded softening without topology damage, protected-feature retention, marker projection, data overrides, D3 golden fixtures, visual/structural evidence, exact ownership/waves/gates/rollback/deviation policy. Preserve presentation separation and offline runtime.
+writes:
+    - docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/plans/candidates/PLAN-001
+forbidden:
+    - .git
+    - .mate
+    - data
+    - internal
+validation:
+    - mate plan validate country-map-svg-generator P2 PLAN-001 --json
+completion_schema:
+    - blockers
+    - deviations
+    - evidence
+    - outcome
+    - plan
+    - summary
+expected_outputs: []
+budget: 2
+resume_anchor: Return a complete P2 PLAN-001 proposal plus manifest-relevant task/wave/validation mapping, library rationale with primary-source evidence, exact paths, gates and blockers. Coordinator materializes, validates, records, and accepts.

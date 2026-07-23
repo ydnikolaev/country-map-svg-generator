@@ -1,0 +1,35 @@
+version: 1
+kind: plan-manifest
+id: PLAN-001
+epic: country-map-svg-generator
+spec: P2
+status: draft
+input_digest: f5c8ae8657e38daa84e50c28bd09c896f46b7df017fb8d94f17e0b36467e931f
+plan_id: PLAN-001
+baseline:
+    repository: project
+    commit: 86f7bddd3fa2069c5e0481aa49607f42587c723f
+    tree: b1dd7209e9745403b911f7e4894f4c89e73da412
+inputs:
+    - reference: solution-architecture/CTX-ARCH
+      path: docs/features/active/country-map-svg-generator/architecture/country-map-svg-generator.solution-architecture.md
+      sha256: 5325da7358596b56c9dc6f65d3b6af3801174257503a332334a77a9c71433947
+      reason: required at planning for spec P2 by context registry
+      freshness: current
+    - reference: specification/P2
+      path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/P2-geometry-pipeline.spec.md
+      sha256: 9cfdf6bff8a5b49559fbbcfd0679517891b27087c7d587b2fbd51646760aa74f
+      reason: normative specification
+      freshness: current
+coverage: []
+tasks: []
+waves: []
+validation: []
+deviation_policy: ""
+estimate:
+    unit: ""
+    low: 0
+    likely: 0
+    high: 0
+    confidence: ""
+    basis: ""
