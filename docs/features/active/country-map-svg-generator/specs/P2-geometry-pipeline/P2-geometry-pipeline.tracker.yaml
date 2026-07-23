@@ -3,12 +3,12 @@ epic: country-map-svg-generator
 spec: P2
 slug: geometry-pipeline
 title: Soft-Organic Geometry Pipeline
-state: draft
-revision: 1
-updated_by: operator
-updated_at: "2026-07-23T15:58:28Z"
-last_event_id: spec-add-434b8fb8452bfee7
-input_digest: 434b8fb8452bfee7efb7d8a2ec3c9846659a63ce55220c1b9ba7c58ab6950993
+state: ready
+revision: 2
+updated_by: teamlead
+updated_at: "2026-07-23T18:24:06Z"
+last_event_id: transition-f114c2b131828ef9
+input_digest: 8c1e1a26a893db7dcdb677341835ee782e8fe69136c2537e6e28f03ef042ea9c
 runs: []
 findings: []
-next_action: Author the specification and its validation obligations.
+next_action: Continue with spec-begin.

@@ -1,0 +1,12 @@
+version: 1
+kind: verification-selection
+id: SELECT-29FB24300D07
+epic: country-map-svg-generator
+spec: P2
+status: recorded
+input_digest: b88edab1dc82ce5fdbefc36dc7596a9a9fdf83231039bd557eac48ae1ac5d1c1
+topology_digest: 95fc3aa6223f259e946760eb45ad8704ee6a86c5646f41f33babf437bea8ab22
+nodes:
+    - spec-contract
+reason: readiness gate for spec.accept-readiness
+required_ceiling: spec-contract

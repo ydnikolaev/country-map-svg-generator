@@ -1,0 +1,29 @@
+version: 1
+kind: readiness-receipt
+id: REV-29FB24300D07
+epic: country-map-svg-generator
+spec: P2
+status: recorded
+input_digest: b88edab1dc82ce5fdbefc36dc7596a9a9fdf83231039bd557eac48ae1ac5d1c1
+subject:
+    artifact: spec-tracker
+    id: P2
+    path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/P2-geometry-pipeline.tracker.yaml
+    sha256: b88edab1dc82ce5fdbefc36dc7596a9a9fdf83231039bd557eac48ae1ac5d1c1
+producer_role: readiness-producer
+principal: teamlead
+result: pass
+risk_policy: elevated
+capabilities:
+    - artifact: provider-capability-receipt
+      id: CAP-29FB24300D07
+      path: docs/features/active/country-map-svg-generator/readiness/REV-29FB24300D07/CAP-29FB24300D07.provider-capability-receipt.yaml
+      sha256: 0d82c320d8cc36f8bc84a325794e7fca0f71cf70167b4c152360b20d967bc8ba
+      verdict: pass
+gates:
+    - artifact: gate-receipt
+      id: GATE-29FB24300D07
+      path: docs/features/active/country-map-svg-generator/readiness/REV-29FB24300D07/GATE-29FB24300D07.gate-receipt.yaml
+      sha256: 2176b08a271b3d02420e4ea6cffed73bb11e9701dde63edd4fe4eeb400dcd83a
+      verdict: pass
+authorized_next: spec.accept_readiness

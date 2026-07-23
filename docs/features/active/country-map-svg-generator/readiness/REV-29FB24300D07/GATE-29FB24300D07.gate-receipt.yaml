@@ -1,0 +1,24 @@
+version: 1
+kind: gate-receipt
+id: GATE-29FB24300D07
+epic: country-map-svg-generator
+spec: P2
+status: recorded
+input_digest: b88edab1dc82ce5fdbefc36dc7596a9a9fdf83231039bd557eac48ae1ac5d1c1
+subject:
+    artifact: spec-tracker
+    id: P2
+    path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/P2-geometry-pipeline.tracker.yaml
+    sha256: b88edab1dc82ce5fdbefc36dc7596a9a9fdf83231039bd557eac48ae1ac5d1c1
+producer_role: verification-runner
+principal: teamlead
+result: pass
+gate: spec-contract
+attempt_ids:
+    - ATTEMPT-29FB24300D07
+evidence:
+    - artifact: verification-result
+      id: VERIFY-29FB24300D07
+      path: docs/features/active/country-map-svg-generator/readiness/REV-29FB24300D07/VERIFY-29FB24300D07.verification-result.yaml
+      sha256: f2f77334cf8ab914fb5e068f634afb9f4e4b1db3ac78e04c741fea5329aa0346
+      verdict: pass
