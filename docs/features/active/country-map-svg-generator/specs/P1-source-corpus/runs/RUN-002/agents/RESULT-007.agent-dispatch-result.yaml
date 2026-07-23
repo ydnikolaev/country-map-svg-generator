@@ -1,0 +1,32 @@
+version: 1
+kind: agent-dispatch-result
+id: RESULT-007
+epic: country-map-svg-generator
+spec: P1
+run: RUN-002
+status: passed
+input_digest: d8245e8a5c2f4e1ed59f52f4526f99c0fc6c40b089c6a5f5d7c4697994df14e6
+previous:
+    artifact: agent-dispatch-brief
+    id: BRIEF-007
+    path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/runs/RUN-002/agents/BRIEF-007.agent-dispatch-brief.yaml
+    sha256: 63dd840c72729e24569b403492a4630c6e6f6c9ea00a0a1f4cfed05138f45009
+brief:
+    artifact: agent-dispatch-brief
+    id: BRIEF-007
+    path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/runs/RUN-002/agents/BRIEF-007.agent-dispatch-brief.yaml
+    sha256: 63dd840c72729e24569b403492a4630c6e6f6c9ea00a0a1f4cfed05138f45009
+principal: codex-p1-auditor-2
+provider_task_ref: p1-reaudit
+outcome: passed
+summary: 'Fresh independent auditor completed AUD-002 and recommended adjust: product remediation at ed4fdca closes F-001/F-002/F-003/F-004/F-006/F-007, including real second/third-destination rollback probes; only high lifecycle evidence allocation finding F-005-R2 remains and requires no product change.'
+changed_paths: []
+outputs:
+    - artifact: audit
+      id: AUD-002
+      path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/audits/AUD-002/P1-source-corpus.AUD-002-implementation.audit.md
+      sha256: 5c3fa16baba13eeb15fbaf9e810ea6574294bd318c14f6eae2c67a7a677673b7
+verification: []
+deviations: []
+feedback: []
+resume_anchor: Record AUD-002 adjust verdict with F-005-R2=high and route lifecycle-only same-plan evidence rematerialization; no product code rerun is indicated.

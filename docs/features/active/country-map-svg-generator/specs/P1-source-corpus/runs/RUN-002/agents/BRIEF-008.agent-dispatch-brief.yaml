@@ -1,0 +1,69 @@
+version: 1
+kind: agent-dispatch-brief
+id: BRIEF-008
+epic: country-map-svg-generator
+spec: P1
+run: RUN-002
+status: issued
+input_digest: 9297585ad5338a7c71827d2f49fb68d4e87fa01130a2b9fb7b638e4889cbaa23
+previous:
+    artifact: agent-dispatch-result
+    id: RESULT-007
+    path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/runs/RUN-002/agents/RESULT-007.agent-dispatch-result.yaml
+    sha256: 0c87a88f4bfc4821824ceac0a822f2ebc786360f492da4d299e0bf3636b02ada
+role: auditor
+provider: codex
+binding_mode: native
+dispatch_route: named-role
+role_contract:
+    reference: installed-role/auditor
+    path: .codex/agents/auditor.toml
+    sha256: ac38fb1d3936459fc1480d239a4d24279d5b600404b6a8d8a07e12f3ee6ed654
+    reason: installed provider role contract
+    freshness: current
+issuer: teamlead
+grant: verification
+capability: independent-review
+semantic_tier: reasoning
+context:
+    - reference: audit/AUD-002
+      path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/audits/AUD-002/P1-source-corpus.AUD-002-implementation.audit.md
+      sha256: 5c3fa16baba13eeb15fbaf9e810ea6574294bd318c14f6eae2c67a7a677673b7
+      reason: dispatch context
+      freshness: current
+    - reference: run-result/RUN-002-RESULT
+      path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/runs/RUN-002/P1-source-corpus.RUN-002.result.yaml
+      sha256: eb64507d5b9c108bb25492c8d2091c3335ca968e73485571783e62f302b99282
+      reason: dispatch context
+      freshness: current
+plan:
+    artifact: plan-manifest
+    id: PLAN-001
+    path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/plans/PLAN-001/P1-source-corpus.PLAN-001.plan-manifest.yaml
+    sha256: 4cd93236c76fbb76ecbff1f83dff79070393718a691925a3f8c5bd2fcf774a6e
+subject:
+    artifact: run-result
+    id: RUN-002-RESULT
+    path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/runs/RUN-002/P1-source-corpus.RUN-002.result.yaml
+    sha256: eb64507d5b9c108bb25492c8d2091c3335ca968e73485571783e62f302b99282
+objective: Freshly re-evaluate P1 closure at exact commit ed4fdca after AUD-002 proved the product and isolated F-005-R2 to a Mate v1.4.1 materializer limitation now recorded as FND-ED003909B82A. Decide independently whether existing focused gate receipts plus AUD-002 adversarial evidence are sufficient to pass the product spec while the provider limitation is terminally owned by harness backlog. Produce AUD-003 pass only if no product/spec risk remains; otherwise identify an executable in-repo correction.
+writes:
+    - docs/features/active/country-map-svg-generator/specs/P1-source-corpus/audits/candidates/AUD-003
+forbidden:
+    - .git
+    - .mate
+    - data
+    - internal
+validation:
+    - mate audit validate country-map-svg-generator P1 AUD-003 --json
+completion_schema:
+    - blockers
+    - deviations
+    - evidence
+    - findings
+    - outcome
+    - summary
+    - verdict
+expected_outputs: []
+budget: 1
+resume_anchor: Return full AUD-003 proposal and exact verdict. Distinguish product/spec closure from the captured Mate evidence-materializer limitation; do not waive any actual product risk.
