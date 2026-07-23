@@ -1,0 +1,18 @@
+version: 1
+kind: verification-attempt
+id: ATTEMPT-B1422596744A
+epic: country-map-svg-generator
+spec: P1
+run: RUN-001
+status: pass
+input_digest: 584a50596264719de226fc30421948508a8251fbecae96a1cf77f21cddf9ced7
+selection_id: SELECT-B1422596744A
+attempt: 1
+started_at: "2026-07-23T17:19:54.336099Z"
+finished_at: "2026-07-23T17:19:57.312394Z"
+results:
+    - node: corpus-iso-integrity
+      verdict: pass
+      exit_code: 0
+      output_hash: 0545cafe3ebb2b9e1fd36cd4a2a7e208f9992b5c75442a932caa73e14a55779d
+      duration_ms: 2976

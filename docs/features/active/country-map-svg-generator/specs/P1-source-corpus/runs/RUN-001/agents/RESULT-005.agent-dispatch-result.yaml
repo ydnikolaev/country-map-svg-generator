@@ -1,0 +1,32 @@
+version: 1
+kind: agent-dispatch-result
+id: RESULT-005
+epic: country-map-svg-generator
+spec: P1
+run: RUN-001
+status: passed
+input_digest: 1c082b99dd0de66f3f6f8aeb8e3f6cf453e343fad1979c1d392978d155c455cc
+previous:
+    artifact: agent-dispatch-brief
+    id: BRIEF-005
+    path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/runs/RUN-001/agents/BRIEF-005.agent-dispatch-brief.yaml
+    sha256: 985a6fb219c78bef8c295fdf396fce01780f10fb576b0e6b48b15ef1ffb1395c
+brief:
+    artifact: agent-dispatch-brief
+    id: BRIEF-005
+    path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/runs/RUN-001/agents/BRIEF-005.agent-dispatch-brief.yaml
+    sha256: 985a6fb219c78bef8c295fdf396fce01780f10fb576b0e6b48b15ef1ffb1395c
+principal: codex-p1-auditor-1
+provider_task_ref: p1-audit
+outcome: passed
+summary: 'Fresh independent auditor completed AUD-001 and recommended block: content identity omits published components, profile oracle is absent, Indonesia protected anchor is outside geometry, and bounded same-plan corrections are required before closure.'
+changed_paths: []
+outputs:
+    - artifact: audit
+      id: AUD-001
+      path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/audits/AUD-001/P1-source-corpus.AUD-001-implementation.audit.md
+      sha256: da0f7b477e6d044ddb5cedf66b16c41ab8703bc9cfc6c10ccccabc7ba5033be6
+verification: []
+deviations: []
+feedback: []
+resume_anchor: Record the exact block verdict with findings F-001 through F-007 and route same-plan remediation.

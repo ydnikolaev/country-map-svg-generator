@@ -1,0 +1,55 @@
+version: 1
+kind: transition-receipt
+id: run-start-1e59d5728afed77e-run
+epic: country-map-svg-generator
+spec: P1
+run: RUN-002
+status: recorded
+input_digest: c4557148606f313079c14ae3827df28d4238b6bc8935737ce75af7a47f18d884
+subject:
+    artifact: run-brief
+    id: RUN-002
+    path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/runs/candidates/RUN-002/P1-source-corpus.RUN-002.brief.md
+    sha256: 12d7a801931284d9280b4936bba4d228b3788709b6e3adca97c1dbe42f582867
+producer_role: lifecycle-engine
+principal: teamlead
+result: pass
+machine: run
+event: start
+from: prepared
+to: running
+inputs:
+    - artifact: accepted-plan-revision
+      id: PLAN-001
+      path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/plans/PLAN-001/P1-source-corpus.PLAN-001.plan.md
+      sha256: 4e39f29252ac88caf43144e625c1cbff18111720f7cb1a3fffde2d3e7ed82a27
+    - artifact: advisor-receipt
+      id: ADV-001
+      path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/audits/AUD-001/P1-source-corpus.ADV-001.advisor-receipt.yaml
+      sha256: d8e0df1d67b89a48924ffc7443d52bc62225dafd519ee22b8b5620618bc97b2a
+    - artifact: audit
+      id: AUD-001
+      path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/audits/AUD-001/P1-source-corpus.AUD-001-implementation.audit.md
+      sha256: da0f7b477e6d044ddb5cedf66b16c41ab8703bc9cfc6c10ccccabc7ba5033be6
+    - artifact: context-doctrine-pack
+      id: CTX-RUN-002
+      path: docs/features/active/country-map-svg-generator/readiness/CTX-RUN-002.context-pack.yaml
+      sha256: 5f5d7fcb829c078920e9dd3a49ec1161492822b0018c7229a31fb51da160f657
+    - artifact: plan-manifest
+      id: PLAN-001
+      path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/plans/PLAN-001/P1-source-corpus.PLAN-001.plan-manifest.yaml
+      sha256: 4cd93236c76fbb76ecbff1f83dff79070393718a691925a3f8c5bd2fcf774a6e
+    - artifact: readiness-receipt
+      id: REV-D6EB2AA4AC19
+      path: docs/features/active/country-map-svg-generator/readiness/REV-D6EB2AA4AC19/REV-D6EB2AA4AC19.readiness.yaml
+      sha256: 57fa94d439b435349d5422fb265cecca20f6c59e0848e8559bd8d5d92fd8223d
+    - artifact: run-brief
+      id: RUN-002
+      path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/runs/candidates/RUN-002/P1-source-corpus.RUN-002.brief.md
+      sha256: 12d7a801931284d9280b4936bba4d228b3788709b6e3adca97c1dbe42f582867
+    - artifact: run-result
+      id: RUN-001-RESULT
+      path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/runs/RUN-001/P1-source-corpus.RUN-001.result.yaml
+      sha256: de1aacd394ec4a00fdfedd6aae532c53663ce60f00dbddb23d795c0a59a8ce90
+predecessor: 12d7a801931284d9280b4936bba4d228b3788709b6e3adca97c1dbe42f582867
+successor: 421beec840df234809d647da69e0caaeeeebfae0c9c27ecadf695612d1b67624

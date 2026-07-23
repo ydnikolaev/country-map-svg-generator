@@ -1,0 +1,121 @@
+version: 1
+kind: agent-dispatch-result
+id: RESULT-004
+epic: country-map-svg-generator
+spec: P1
+run: RUN-001
+status: passed
+input_digest: c22cbafbd79c08424c53811359238e7ef11ee038cc2b54807a8818c2b441576d
+previous:
+    artifact: agent-dispatch-brief
+    id: BRIEF-004
+    path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/runs/RUN-001/agents/BRIEF-004.agent-dispatch-brief.yaml
+    sha256: 2d846792238e110c2716eef73be95eeac9511498b63ca1de5ed50413d5e4e2d3
+brief:
+    artifact: agent-dispatch-brief
+    id: BRIEF-004
+    path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/runs/RUN-001/agents/BRIEF-004.agent-dispatch-brief.yaml
+    sha256: 2d846792238e110c2716eef73be95eeac9511498b63ca1de5ed50413d5e4e2d3
+principal: codex-p1-coder-1
+provider_task_ref: p1-implement
+outcome: passed
+summary: 'Implemented committed P1 corpus at 6f5d5fdd73c4bfbdc13202afec7432e2ae24c974: 249 entities, both boundary profiles, 283 geometries, 212 capital records, protected-feature metadata, deterministic embedded corpus d52557c62d119da3c447acf39817a6eff6fe8fbc7d70db9ebe6aa9dd49c16c4f; all declared verification gates passed.'
+changed_paths:
+    - path: Makefile
+      sha256: ef1c4adf390699900c2e11f6331281e9f3ab29141e98fae6372368665eba8925
+    - path: data/corpus/v1/coverage.json
+      sha256: 1a24396e52ae7015e55906afc38a13496767bebdfe035a53a562203ecf9aba79
+    - path: data/corpus/v1/geometries.json
+      sha256: f3d5d80ac8b9650cb75f68f46593c24476a979855875842bc3274d9d928e7744
+    - path: data/corpus/v1/manifest.json
+      sha256: 98b2b70bd4184bdfdcf606704d1c1e6f19ddb051248a856918388c09b00afb0c
+    - path: data/corpus/v1/receipts.json
+      sha256: 7ce01a094a6d024e0275644ea63d69dc72f51c9439d8319f3c39893c28bad85f
+    - path: data/policy/boundary-fallbacks.json
+      sha256: 5080e804701ec55e48e5a47b2578b4d0e2e7ae6fe4eb984d9b854edca87dbaee
+    - path: data/policy/capital-overrides.json
+      sha256: 5164c7afc53c6b3cf6d1dbd1e5849a3901319354e5fe9248f8efeead9a2d8163
+    - path: data/policy/protected-features.json
+      sha256: 5e10e97385e83612129815a2899a8105948462c7dbab6156317269980378b10e
+    - path: data/reports/v1/compare.json
+      sha256: 196cfcb538d6365684b502dbfb18a172a47972d97a2af1c58ac274accaf42ab9
+    - path: data/sources/iso/2026-07-23/iso-3166-1.json
+      sha256: e875253a9bafc4b5b28be60c3c620ca3d885c33a7f6f3e7dcc3ceb5f59a5b5dd
+    - path: data/sources/natural-earth/5.1.1/ne_10m_admin_0_countries.geojson
+      sha256: 239eec57ac17f100a11e2536cffc56752c318b50ae765b0918ff7aab4ce8f255
+    - path: data/sources/natural-earth/5.1.1/ne_10m_admin_0_countries_iso.geojson
+      sha256: 60eb10aa951f5872507c9436937508b09be4b43dc9fa7aad7644f23ef12e1cad
+    - path: data/sources/natural-earth/5.1.2/ne_10m_populated_places_simple.geojson
+      sha256: fd3fa867a320cbd5c5b6bb5bc550afeec2939fb2cef688e508007282a55ac42f
+    - path: data/sources/receipts.json
+      sha256: 46ff8fce8d1c74b14bbfc75724499601708e9bdf3a2d5c6b99f26e85122bdae4
+    - path: go.mod
+      sha256: 0f7876a2b0f5ae7eed418c11d73823f0ed62507260be06af119f4a9287fa2cc5
+    - path: internal/catalog/canonical.go
+      sha256: 3cf574bb8c5a952c35d961ac0401b9c3a66fc7a4731e381b77f149ac58ee94a2
+    - path: internal/catalog/canonical_test.go
+      sha256: 673b83c46ab561fe5aaf951d05aacec460e56850faba9671c6c3b16da50edc56
+    - path: internal/catalog/cmd/corpuscompile/main.go
+      sha256: 74888456e259c1f5d10b910fff1f9c41c47fa85b9a62e39567f6bfe6af264618
+    - path: internal/catalog/compare.go
+      sha256: e0a70397df66653a6fff4ce4a8a852875be1150c1aed5b2bb2ca9d7e66008ce7
+    - path: internal/catalog/compare_test.go
+      sha256: 05982ec79dd48d5d677fbb9103ab7b56970a57affca2e85187a6919e0fa6890e
+    - path: internal/catalog/compile.go
+      sha256: 7aa8f52a4e3f4f38628e2fd1676f911ccad293aeaf2bc10eb37f685a6ab121da
+    - path: internal/catalog/compile_test.go
+      sha256: ee736e7f026889959ad3c0ad3a9b7ae4552a0eb84c09440caed76c1250e149c2
+    - path: internal/catalog/embedded.go
+      sha256: 0962c432c838a7eaad97ff0c4bd365f10f0e98003bbf6bc6d30865b0483a6f49
+    - path: internal/catalog/embedded_gen.go
+      sha256: 9af87bb972d0af88003b71d54b26b789dcb9eed65a61b1eecb93b75dba6d798f
+    - path: internal/catalog/fullcatalog_test.go
+      sha256: 3362f43dbc6c1f13477a97b9e5816ed76476be25f10ce061914a46ef8ca8acf4
+    - path: internal/catalog/geojson.go
+      sha256: bbf0213d257d122be838cea776c79d3d2c30531e6f2418b852bea423a989dbbe
+    - path: internal/catalog/geojson_test.go
+      sha256: 24e0b517231394b286b83d6d6a60994d5db4bdfde627a509fb8451b8232a889e
+    - path: internal/catalog/model.go
+      sha256: 6f413e7f3f6639c5f5f3b340088b87947647f681a304b38bd62cf03c5a51a415
+    - path: internal/catalog/model_test.go
+      sha256: a1e19eeee1a3176dc0a1ddaaeafcd54d106b4c521a288bd830f49b8bc2d7dd80
+    - path: internal/catalog/mutations_test.go
+      sha256: e93599b8a3770e716d637801d8072f2d590cadb192a8a94dff9a3f97712963de
+    - path: internal/catalog/source.go
+      sha256: 02d38148347753cd1522b44e8439d259fe62ab690a6cb4c4775fc4a1f6ec537e
+    - path: internal/catalog/source_test.go
+      sha256: 0838ab85620e6a1e0837cec40307924f45b62a3c0efafcd9359cb22c5aa5ca77
+    - path: internal/catalog/validate.go
+      sha256: b6e67471c08abbc32dfd01b8a950daeb188e09ba85253081b4991b9b17f5d3f7
+    - path: internal/catalog/validate_test.go
+      sha256: 8e4cd58971d15075591b65461b5746331fd428e0a9d19ba09656c3ec6d15b388
+outputs: []
+verification:
+    - artifact: verification-result
+      id: VERIFY-15C4E9E8C062
+      path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/runs/RUN-001/gates/GATE-15C4E9E8C062/VERIFY-15C4E9E8C062.verification-result.yaml
+      sha256: 52ff8c84f224cfec8d31c05cf96e4da30fbfaac8f96951ed6fd0116bedf88df4
+      verdict: pass
+    - artifact: verification-result
+      id: VERIFY-44575E0FAE54
+      path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/runs/RUN-001/gates/GATE-44575E0FAE54/VERIFY-44575E0FAE54.verification-result.yaml
+      sha256: 50ef8f7a5f8a01e324dd5362f2c90b09f3c693528615dabf547bc813770fedb2
+      verdict: pass
+    - artifact: verification-result
+      id: VERIFY-8C57C39363F0
+      path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/runs/RUN-001/gates/GATE-8C57C39363F0/VERIFY-8C57C39363F0.verification-result.yaml
+      sha256: 8e616c306652c97a8e8ea718d376f32e4a93aa48bd9a9c85d664ac9766bf7aa8
+      verdict: pass
+    - artifact: verification-result
+      id: VERIFY-B1422596744A
+      path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/runs/RUN-001/gates/GATE-B1422596744A/VERIFY-B1422596744A.verification-result.yaml
+      sha256: 458f1eb1a64afb27931a101c67bb659ccc895c52e8bfe8e14ed2b418699fc183
+      verdict: pass
+    - artifact: verification-result
+      id: VERIFY-D2A731EF57A3
+      path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/runs/RUN-001/gates/GATE-D2A731EF57A3/VERIFY-D2A731EF57A3.verification-result.yaml
+      sha256: 81a316e9af5896bcdab8108795a91d278de8ead41e68e07f0cf5a2a4db3be5d7
+      verdict: pass
+deviations: []
+feedback: []
+resume_anchor: Coordinator will finish RUN-001 with GATE-8C57C39363F0, then dispatch a fresh independent auditor.

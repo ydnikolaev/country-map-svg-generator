@@ -1,0 +1,48 @@
+version: 1
+kind: advisor-receipt
+id: ADV-001
+epic: country-map-svg-generator
+spec: P1
+run: RUN-001
+status: recorded
+input_digest: d661e444071b1f16eb4eca0689a4334128baed0c0f0dc5863361fd52f580ffe8
+subject:
+    artifact: audit
+    id: AUD-001
+    path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/audits/AUD-001/P1-source-corpus.AUD-001-implementation.audit.md
+    sha256: da0f7b477e6d044ddb5cedf66b16c41ab8703bc9cfc6c10ccccabc7ba5033be6
+producer_role: independent-auditor
+principal: codex-p1-auditor-1
+result: fail
+risk_policy: elevated
+independence: independent-review
+findings:
+    - id: F-001
+      severity: blocking
+      evidence: See the exact sealed audit finding.
+      action: same-plan
+    - id: F-002
+      severity: blocking
+      evidence: See the exact sealed audit finding.
+      action: same-plan
+    - id: F-003
+      severity: blocking
+      evidence: See the exact sealed audit finding.
+      action: same-plan
+    - id: F-004
+      severity: high
+      evidence: See the exact sealed audit finding.
+      action: same-plan
+    - id: F-005
+      severity: high
+      evidence: See the exact sealed audit finding.
+      action: same-plan
+    - id: F-006
+      severity: high
+      evidence: See the exact sealed audit finding.
+      action: same-plan
+    - id: F-007
+      severity: medium
+      evidence: See the exact sealed audit finding.
+      action: same-plan
+verdict: block

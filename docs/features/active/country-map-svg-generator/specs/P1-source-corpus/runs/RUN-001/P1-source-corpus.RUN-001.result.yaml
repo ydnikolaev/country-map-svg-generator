@@ -1,0 +1,39 @@
+version: 1
+kind: run-result
+id: RUN-001-RESULT
+epic: country-map-svg-generator
+spec: P1
+run: RUN-001
+status: passed
+input_digest: 66c482097ecce2c3fed9cde6adaa173981e97ae08e9419d3080a39e401616d7c
+plan_id: PLAN-001
+readiness_id: REV-602999C57413
+outcome: passed
+revision:
+    repository: country-map-svg-generator
+    commit: 6f5d5fdd73c4bfbdc13202afec7432e2ae24c974
+    tree: 9de827a0a57d7d4f8eed1fac978f9d0582648652
+evidence:
+    - artifact: run-brief
+      id: RUN-001
+      path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/runs/RUN-001/P1-source-corpus.RUN-001.brief.md
+      sha256: bb1f681077b3d7d6f76ff57cde35ff45849af347de8c64270e624b7e51488614
+      verdict: pass
+    - artifact: transition-receipt
+      id: run-start-221244ac0c5d6eb4-run
+      path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/runs/RUN-001/events/run-start-221244ac0c5d6eb4-run.transition-receipt.yaml
+      sha256: 9ef8107176a92ec88a1ef119e64c7787ea68c8549c64104c872589bf15ae4e76
+      verdict: pass
+    - artifact: agent-dispatch-result
+      id: RESULT-004
+      path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/runs/RUN-001/agents/RESULT-004.agent-dispatch-result.yaml
+      sha256: 5cf61d8dc1f956b82ba161228e6b7135b9e2350c8dac4e4357357a90cfa8e4fb
+      verdict: pass
+    - artifact: gate-receipt
+      id: GATE-8C57C39363F0
+      path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/runs/RUN-001/gates/GATE-8C57C39363F0/GATE-8C57C39363F0.gate-receipt.yaml
+      sha256: aa6e8377fe79c118a1088e1a42723b09d7f8dae2fa84c689b2500418718f6613
+      verdict: pass
+deviations: []
+followups: []
+next_action: Run the independent implementation audit.

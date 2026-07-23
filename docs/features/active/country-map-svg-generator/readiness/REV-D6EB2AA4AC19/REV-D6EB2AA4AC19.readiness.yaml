@@ -1,0 +1,30 @@
+version: 1
+kind: readiness-receipt
+id: REV-D6EB2AA4AC19
+epic: country-map-svg-generator
+spec: P1
+run: RUN-002
+status: recorded
+input_digest: 43f57305459be50f693d8936989ba3211c8c33d290cd3c1866a19c3e40521f4a
+subject:
+    artifact: run-brief
+    id: RUN-002
+    path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/runs/candidates/RUN-002/P1-source-corpus.RUN-002.brief.md
+    sha256: 12d7a801931284d9280b4936bba4d228b3788709b6e3adca97c1dbe42f582867
+producer_role: readiness-producer
+principal: teamlead
+result: pass
+risk_policy: elevated
+capabilities:
+    - artifact: provider-capability-receipt
+      id: CAP-D6EB2AA4AC19
+      path: docs/features/active/country-map-svg-generator/readiness/REV-D6EB2AA4AC19/CAP-D6EB2AA4AC19.provider-capability-receipt.yaml
+      sha256: ab360b6cec6818e79c22f516fd1c6412bd1c9110d153ae4005003630d4dd51b9
+      verdict: pass
+gates:
+    - artifact: gate-receipt
+      id: GATE-D6EB2AA4AC19
+      path: docs/features/active/country-map-svg-generator/readiness/REV-D6EB2AA4AC19/GATE-D6EB2AA4AC19.gate-receipt.yaml
+      sha256: 85a70638f6c9bfe99fb791074221240fdad44b049ded7c97cd5c66bf4e2b7f96
+      verdict: pass
+authorized_next: spec.begin

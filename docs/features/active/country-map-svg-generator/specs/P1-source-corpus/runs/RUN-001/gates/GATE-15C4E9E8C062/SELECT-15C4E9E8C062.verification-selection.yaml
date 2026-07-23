@@ -1,0 +1,13 @@
+version: 1
+kind: verification-selection
+id: SELECT-15C4E9E8C062
+epic: country-map-svg-generator
+spec: P1
+run: RUN-001
+status: recorded
+input_digest: bb1f681077b3d7d6f76ff57cde35ff45849af347de8c64270e624b7e51488614
+topology_digest: 2fb4f2d273b55b1904b006d13d31f01902f25c85fa30b7cc2e919a0d124d4f52
+nodes:
+    - corpus-boundary-profiles
+reason: lifecycle gate for run-brief
+required_ceiling: corpus-boundary-profiles

@@ -1,0 +1,92 @@
+version: 1
+kind: agent-dispatch-brief
+id: BRIEF-004
+epic: country-map-svg-generator
+spec: P1
+run: RUN-001
+status: issued
+input_digest: c2d72c53aa457a956c972d32c8f931b830e7828b2bb28b02cfcbcb2870ffdbfd
+role: coder
+provider: codex
+binding_mode: native
+dispatch_route: named-role
+role_contract:
+    reference: installed-role/coder
+    path: .codex/agents/coder.toml
+    sha256: e5078656ace1b8785d676e1410b701d4c8ebd31b129a54cce0d3813adfe99f10
+    reason: installed provider role contract
+    freshness: current
+issuer: teamlead
+grant: edit
+capability: edit
+semantic_tier: standard
+context:
+    - reference: context-doctrine-pack/CTX-RUN-001
+      path: docs/features/active/country-map-svg-generator/readiness/CTX-RUN-001.context-pack.yaml
+      sha256: 57a6a6f4e08fec174bf0c3bad4f47121c13cb4d63c8757f5f59a6647f48a82fd
+      reason: dispatch context
+      freshness: current
+plan:
+    artifact: plan-manifest
+    id: PLAN-001
+    path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/plans/PLAN-001/P1-source-corpus.PLAN-001.plan-manifest.yaml
+    sha256: 4cd93236c76fbb76ecbff1f83dff79070393718a691925a3f8c5bd2fcf774a6e
+readiness:
+    artifact: readiness-receipt
+    id: REV-602999C57413
+    path: docs/features/active/country-map-svg-generator/readiness/REV-602999C57413/REV-602999C57413.readiness.yaml
+    sha256: 5f8631da46befc7793646265c5aaa9862cb036a0fbff8f90e51b1eacee8b3039
+subject:
+    artifact: run-brief
+    id: RUN-001
+    path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/runs/RUN-001/P1-source-corpus.RUN-001.brief.md
+    sha256: bb1f681077b3d7d6f76ff57cde35ff45849af347de8c64270e624b7e51488614
+objective: Implement the complete accepted P1 RUN-001 source corpus inside its exact write envelope, including pinned sources, deterministic corpus v1, embedded bundle, all VAL-1 through VAL-5 teeth, focused checks, one atomic product commit, and a bounded structured handoff.
+writes:
+    - Makefile
+    - data/corpus/v1
+    - data/policy
+    - data/reports/v1
+    - data/sources
+    - go.mod
+    - go.sum
+    - internal/catalog/canonical.go
+    - internal/catalog/canonical_test.go
+    - internal/catalog/cmd/corpuscompile
+    - internal/catalog/compare.go
+    - internal/catalog/compare_test.go
+    - internal/catalog/compile.go
+    - internal/catalog/compile_test.go
+    - internal/catalog/embedded.go
+    - internal/catalog/embedded_gen.go
+    - internal/catalog/fullcatalog_test.go
+    - internal/catalog/geojson.go
+    - internal/catalog/geojson_test.go
+    - internal/catalog/model.go
+    - internal/catalog/model_test.go
+    - internal/catalog/mutations_test.go
+    - internal/catalog/source.go
+    - internal/catalog/source_test.go
+    - internal/catalog/testdata/compile
+    - internal/catalog/testdata/mutations
+    - internal/catalog/testdata/source
+    - internal/catalog/validate.go
+    - internal/catalog/validate_test.go
+forbidden:
+    - .git
+    - .mate
+validation:
+    - GOWORK=off go test ./internal/catalog/... -count=1
+    - make check
+    - make gen-check
+completion_schema:
+    - blockers
+    - changed_paths
+    - deviations
+    - evidence
+    - outcome
+    - summary
+    - verification
+expected_outputs: []
+budget: 6
+resume_anchor: Return the exact implementation commit, changed paths, focused verification outputs, deviations, skipped work, feedback handles, and any blocker; coordinator owns run finish and lifecycle.

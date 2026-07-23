@@ -4,16 +4,48 @@ spec: P1
 slug: source-corpus
 title: Versioned Country Geometry Corpus
 state: in_progress
-revision: 10
+revision: 17
 updated_by: teamlead
-updated_at: "2026-07-23T17:00:48Z"
-last_event_id: run-start-221244ac0c5d6eb4-run
-input_digest: 511c053f6ae857730679173c634327e553ec0d6cfe485560b85107debda10662
+updated_at: "2026-07-23T17:36:41Z"
+last_event_id: run-start-1e59d5728afed77e-run
+input_digest: b0180cf9d20ed1b641f3b8363c793a370246801a7fd5ea49953bcd4b1f86c1dc
 current_plan: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/plans/PLAN-001/P1-source-corpus.PLAN-001.plan.md
-active_run: RUN-001
+active_run: RUN-002
 runs:
     - id: RUN-001
       plan: PLAN-001
+      status: passed
+      result: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/runs/RUN-001/P1-source-corpus.RUN-001.result.yaml
+    - id: RUN-002
+      plan: PLAN-001
       status: running
-findings: []
-next_action: Execute RUN-001 within the accepted brief; pass, fail, interrupt, or cancel it with evidence.
+findings:
+    - id: F-001
+      status: open
+      destination: same-plan
+      reference: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/audits/AUD-001/P1-source-corpus.ADV-001.advisor-receipt.yaml
+    - id: F-002
+      status: open
+      destination: same-plan
+      reference: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/audits/AUD-001/P1-source-corpus.ADV-001.advisor-receipt.yaml
+    - id: F-003
+      status: open
+      destination: same-plan
+      reference: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/audits/AUD-001/P1-source-corpus.ADV-001.advisor-receipt.yaml
+    - id: F-004
+      status: open
+      destination: same-plan
+      reference: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/audits/AUD-001/P1-source-corpus.ADV-001.advisor-receipt.yaml
+    - id: F-005
+      status: open
+      destination: same-plan
+      reference: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/audits/AUD-001/P1-source-corpus.ADV-001.advisor-receipt.yaml
+    - id: F-006
+      status: open
+      destination: same-plan
+      reference: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/audits/AUD-001/P1-source-corpus.ADV-001.advisor-receipt.yaml
+    - id: F-007
+      status: open
+      destination: same-plan
+      reference: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/audits/AUD-001/P1-source-corpus.ADV-001.advisor-receipt.yaml
+next_action: Execute RUN-002 within the accepted brief; pass, fail, interrupt, or cancel it with evidence.

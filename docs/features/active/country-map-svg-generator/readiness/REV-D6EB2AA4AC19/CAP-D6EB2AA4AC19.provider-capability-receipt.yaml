@@ -1,0 +1,27 @@
+version: 1
+kind: provider-capability-receipt
+id: CAP-D6EB2AA4AC19
+epic: country-map-svg-generator
+spec: P1
+run: RUN-002
+status: recorded
+input_digest: 43f57305459be50f693d8936989ba3211c8c33d290cd3c1866a19c3e40521f4a
+subject:
+    artifact: run-brief
+    id: RUN-002
+    path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/runs/candidates/RUN-002/P1-source-corpus.RUN-002.brief.md
+    sha256: 12d7a801931284d9280b4936bba4d228b3788709b6e3adca97c1dbe42f582867
+producer_role: readiness-producer
+principal: teamlead
+result: pass
+slot: verification-runner
+capability: execute-verification
+disposition: native
+semantic_tier: standard
+session_id: root-20260723-country-map
+output_digest: b9ab1e542ffe2cd18af4a9f39cd75284bdc35e3b4ef760b887706449bc33196a
+write_set_digest: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+provider_evidence:
+    command: "mate\x1Frun\x1Fvalidate\x1Fcountry-map-svg-generator\x1FP1\x1FRUN-002\x1F--json"
+    provider: codex
+    target: spec.begin
