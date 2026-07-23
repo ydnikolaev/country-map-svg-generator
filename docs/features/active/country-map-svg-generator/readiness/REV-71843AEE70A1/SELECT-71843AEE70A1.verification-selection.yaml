@@ -1,0 +1,11 @@
+version: 1
+kind: verification-selection
+id: SELECT-71843AEE70A1
+epic: country-map-svg-generator
+status: recorded
+input_digest: 885a17f145574d530487f1e07569f05c72fd715261e778de545b2bfc684debc9
+topology_digest: 692d39fdb3180a0fe5211d36577a7ed14badb3b9837722a0355b0a79d839e816
+nodes:
+    - amendment-contract
+reason: readiness gate for amendment.accept
+required_ceiling: amendment-contract

@@ -1,0 +1,27 @@
+version: 1
+kind: agent-dispatch-result
+id: RESULT-001
+epic: country-map-svg-generator
+spec: P2
+status: cancelled
+input_digest: 2fd4b06ef70ac83ef0d7ac5694e47e15851f47e9601f9f2778141677635f566a
+previous:
+    artifact: agent-dispatch-brief
+    id: BRIEF-001
+    path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/agents/BRIEF-001.agent-dispatch-brief.yaml
+    sha256: 48241f40004011bfc560c1b9508e8c891d33e12df56a684b784e63c6f0a93ba6
+brief:
+    artifact: agent-dispatch-brief
+    id: BRIEF-001
+    path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/agents/BRIEF-001.agent-dispatch-brief.yaml
+    sha256: 48241f40004011bfc560c1b9508e8c891d33e12df56a684b784e63c6f0a93ba6
+principal: codex-p2-planner-1
+provider_task_ref: p2-planner
+outcome: cancelled
+summary: 'Planner proposal was superseded before plan acceptance by owner clarification AM-001: default output must use the country natural projected aspect ratio, while arbitrary width-by-height remains an explicit distortion-free containing frame.'
+changed_paths: []
+outputs: []
+verification: []
+deviations: []
+feedback: []
+resume_anchor: Invalidate P2 readiness, validate the amended specification, issue fresh readiness, and replan against AM-001 before implementation.

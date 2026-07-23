@@ -1,0 +1,31 @@
+version: 1
+kind: agent-dispatch-result
+id: RESULT-002
+epic: country-map-svg-generator
+spec: P2
+status: failed
+input_digest: 482b334520285ce6bb90db2ebd623436c321ea81e39e71aa6b8cdcde3b73fed0
+previous:
+    artifact: agent-dispatch-brief
+    id: BRIEF-002
+    path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/agents/BRIEF-002.agent-dispatch-brief.yaml
+    sha256: 45d3f4a0e8b197090eb3f697710544d67b79a5544d8de3b179794c83104d33f3
+brief:
+    artifact: agent-dispatch-brief
+    id: BRIEF-002
+    path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/agents/BRIEF-002.agent-dispatch-brief.yaml
+    sha256: 45d3f4a0e8b197090eb3f697710544d67b79a5544d8de3b179794c83104d33f3
+principal: codex-p2-replanner-1
+provider_task_ref: p2-replanner
+outcome: failed
+summary: 'Planner found PLAN-001 technically executable but requested bounded traceability corrections: exact REQ/AC rows, fitted-geometry long-side preset semantics, fitted-scale mutations, explicit disappearance accounting, and CTR-001/CTR-002 naming.'
+changed_paths: []
+outputs:
+    - artifact: implementation-plan
+      id: PLAN-001
+      path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/plans/candidates/PLAN-001/P2-geometry-pipeline.PLAN-001.plan.md
+      sha256: 69324f9108c3860dd0954de775060d10f7ef86e84def6ae4247bf58151c8424e
+verification: []
+deviations: []
+feedback: []
+resume_anchor: Apply RESULT-002 corrections, validate PLAN-001, issue a fresh planner brief, and require a ready result before sealing.

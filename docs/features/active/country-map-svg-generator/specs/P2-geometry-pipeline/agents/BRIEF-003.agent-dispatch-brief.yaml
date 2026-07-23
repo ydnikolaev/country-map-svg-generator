@@ -1,0 +1,59 @@
+version: 1
+kind: agent-dispatch-brief
+id: BRIEF-003
+epic: country-map-svg-generator
+spec: P2
+status: issued
+input_digest: 443e2caccf4ec00e87308b8bff3b6d7ebb5d70869d4a8c217d2ea4784d49fcaf
+previous:
+    artifact: agent-dispatch-result
+    id: RESULT-002
+    path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/agents/RESULT-002.agent-dispatch-result.yaml
+    sha256: 64211c79f859e50e57a6411d7e8f14b7262e0ea2478db2a9c73ac262610c0474
+role: implementation-planner
+provider: codex
+binding_mode: native
+dispatch_route: named-role
+role_contract:
+    reference: installed-role/implementation-planner
+    path: .codex/agents/implementation-planner.toml
+    sha256: 3ddae02828f8d331cf28f98200f1279232a6e660e79c6128fc10985cbf01f52b
+    reason: installed provider role contract
+    freshness: current
+issuer: teamlead
+grant: edit
+capability: implementation-planning
+semantic_tier: reasoning
+context:
+    - reference: amendment/AM-001
+      path: docs/features/active/country-map-svg-generator/amendments/AM-001/country-map-svg-generator.AM-001-natural-aspect-layout.amendment.md
+      sha256: ab284fd6e2a79c4ef7a8c45ab05fe807d217ce7a8a178be354a44d26ef4ac80a
+      reason: dispatch context
+      freshness: current
+    - reference: implementation-plan/PLAN-001
+      path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/plans/candidates/PLAN-001/P2-geometry-pipeline.PLAN-001.plan.md
+      sha256: 5aa3a25c14c4dd6b6dc3972a51f2753092bb3da0d4eea4c62483bf87cfe428ff
+      reason: dispatch context
+      freshness: current
+    - reference: specification/P2
+      path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/P2-geometry-pipeline.spec.md
+      sha256: 4fb4535e74ee072d9db6ecc6e1ee92e667ac9c78f35a8adbf342c7b93d1c2741
+      reason: dispatch context
+      freshness: current
+objective: 'Perform final read-only acceptance review of corrected P2 PLAN-001. Verify RESULT-002 corrections: exact REQ/AC traceability, fitted-geometry long-side preset semantics, T1/T2 ownership, RU/CL-or-AR/AU natural ratios, uniform centered contain frames, fitted-scale mutations, disappearance accounting, CTR-001/CTR-002 names, and matching deviation policy. Mate canonical amendment bodies are immutable proposal snapshots; current AM-001 authority is the verified tracker/transition chain. Return ready only if executable and complete.'
+writes: []
+forbidden:
+    - .git
+    - .mate
+validation:
+    - mate plan validate country-map-svg-generator P2 PLAN-001 --json
+completion_schema:
+    - blockers
+    - deviations
+    - evidence
+    - outcome
+    - plan
+    - summary
+expected_outputs: []
+budget: 1
+resume_anchor: Record RESULT-003, then seal and accept PLAN-001 if ready.

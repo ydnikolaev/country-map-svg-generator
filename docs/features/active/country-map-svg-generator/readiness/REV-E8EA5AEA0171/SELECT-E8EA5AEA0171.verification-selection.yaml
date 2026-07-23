@@ -1,0 +1,11 @@
+version: 1
+kind: verification-selection
+id: SELECT-E8EA5AEA0171
+epic: country-map-svg-generator
+status: recorded
+input_digest: 5686c234b54b8454874765c87c44d3629d504b7dece497d38b4caed3f0a041f4
+topology_digest: 4f52a06f45cbf16520b8045533f643b165fc38a9b1e512e36c0ccb4d498be852
+nodes:
+    - amended-spec-diff
+reason: readiness gate for amendment.apply
+required_ceiling: amended-spec-diff

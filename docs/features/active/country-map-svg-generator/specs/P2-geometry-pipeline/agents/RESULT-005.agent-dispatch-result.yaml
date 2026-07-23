@@ -1,0 +1,31 @@
+version: 1
+kind: agent-dispatch-result
+id: RESULT-005
+epic: country-map-svg-generator
+spec: P2
+status: no-result
+input_digest: 89960f9c8d77e14f7189f9228baa978b9a16db29c98fd097ea728f0c4812dffc
+previous:
+    artifact: agent-dispatch-brief
+    id: BRIEF-005
+    path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/agents/BRIEF-005.agent-dispatch-brief.yaml
+    sha256: f506511dc0769d205da142ca91e26efc38843635b0435a25f359280e157efb34
+brief:
+    artifact: agent-dispatch-brief
+    id: BRIEF-005
+    path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/agents/BRIEF-005.agent-dispatch-brief.yaml
+    sha256: f506511dc0769d205da142ca91e26efc38843635b0435a25f359280e157efb34
+principal: codex-p2-final-planner-1
+provider_task_ref: p2-final-planner
+outcome: no-result
+summary: Semantic review returned ready, but sealing exposed that post-AM-001 reviewer corrections were not yet in the canonical planning context; the planner result cannot honestly be recorded as passing until those normative bytes are governed.
+changed_paths: []
+outputs:
+    - artifact: implementation-plan
+      id: PLAN-001
+      path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/plans/candidates/PLAN-001/P2-geometry-pipeline.PLAN-001.plan.md
+      sha256: 5aa3a25c14c4dd6b6dc3972a51f2753092bb3da0d4eea4c62483bf87cfe428ff
+verification: []
+deviations: []
+feedback: []
+resume_anchor: Govern the reviewer corrections as AM-002, refresh P2 planning context, then issue a final planner brief against the sealable manifest.

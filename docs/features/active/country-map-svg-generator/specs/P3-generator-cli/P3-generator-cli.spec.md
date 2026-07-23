@@ -9,7 +9,7 @@ spec: "P3"
 status: draft
 profiles: []
 concerns: []
-inputs: ["DISC-006", "ARCH-001", "DEC-003"]
+inputs: ["DISC-006", "ARCH-001", "DEC-003", "AM-001"]
 ---
 # P3 — Agent-First SVG Generator CLI
 
@@ -36,7 +36,8 @@ CSS, and every batch carries a machine-readable manifest.
 In scope: versioned YAML/JSON config, inheritance and overrides, embedded presets
 and schemas, CLI commands, human/JSON diagnostics, five base visual styles,
 standalone/themed-inline delivery, optional markers, subtle animation hooks, minimal
-SVG serialization, transactional output and generation manifest.
+SVG serialization, generic natural/fixed-frame layout controls, transactional
+output and generation manifest.
 
 Out of scope: interactive TUI for MVP, browser editor, hosted API, raster export,
 custom JavaScript animation, arbitrary SVG template injection, source/corpus
@@ -48,7 +49,9 @@ The primary operator is an AI agent, so the CLI must be fully headless and
 self-describing. Inline SVG can inherit `currentColor` and CSS custom properties;
 an SVG loaded through `<img>` cannot consume host-page theme variables, while an
 SVG mask can efficiently decorate repeated cards. The owner wants only slight,
-optional motion. The mate Go CLI profile is active and governs binary-level E2E.
+optional motion. AM-001 makes natural-aspect `tight` the geometry default and
+retains arbitrary dimensions as an explicit distortion-free `contain` frame. The
+mate Go CLI profile is active and governs binary-level E2E.
 
 ## Requirements and invariants
 
@@ -66,6 +69,7 @@ optional motion. The mate Go CLI profile is active and governs binary-level E2E.
 | REQ-10 | Generation can target one ISO, an explicit set or the full catalog; it stages outputs, validates all selected assets, then publishes atomically with CTR-006. |
 | REQ-11 | Normal execution is offline and resolves embedded corpus, presets and schemas without Node, Python, GDAL or auxiliary files. |
 | REQ-12 | Exit classes and JSON diagnostics distinguish usage/config, data, rendering, validation, budget and filesystem failures and name remediation context. |
+| REQ-13 | Config and CLI expose the general P2 layout contract: `tight` accepts a rendered long-side or maximum-box constraint and derives natural viewBox proportions; `contain` accepts any safe finite positive frame, preserves one uniform scale and centers unused space. `card` and `hero` are overrideable presets, not hard-coded size or aspect modes. |
 | INV-1 | A successful batch is deterministic and atomically published; a failed batch leaves the previous successful output unchanged. |
 
 ## Interfaces data and behavior
@@ -76,6 +80,9 @@ Example configuration shape:
 schema: country-map/v1
 extends: site-default
 profile: card
+layout:
+  mode: tight
+  longSide: 160
 delivery: themed-inline
 style: bold-soft
 tokens:
@@ -85,6 +92,7 @@ tokens:
 countries:
   US:
     profile: hero
+    layout: { mode: contain, width: 720, height: 420 }
     marker: { mode: capital }
 ```
 
@@ -125,13 +133,14 @@ No client-site framework dependency is permitted.
 | VAL-5 | REQ-10, REQ-11 | run `init → validate → generate → inspect` against one shared temp tree with network unavailable | Go-profile ordered binary E2E; asserts outputs, manifest, exit and no network | P3 / W3 complete |
 | VAL-6 | REQ-10 | force one selected-country failure during batch publication | E2E; prior output remains byte-identical and staging is diagnosed | P3 / W3 complete |
 | VAL-7 | all | build tested executable with `GOWORK=off` | build gate; ambient workspace cannot satisfy dependencies | P3 / W3 complete |
+| VAL-8 | REQ-2, REQ-3, REQ-13 | generate wide, tall and near-square countries with natural long-side sizing, then tiny/huge portrait/landscape/square fixed frames | config+CLI E2E; exact viewBox/layout diagnostics, uniform-scale and no-distortion assertions; invalid dimensions fail before output | P3 / W3 complete |
 
 ## Acceptance criteria
 
 | ID | Covers | Criterion | Evidence |
 | --- | --- | --- | --- |
 | AC-1 | US-1, REQ-1, REQ-2, REQ-3, REQ-12 | An agent can initialize, validate, explain and generate using JSON/flags only; invalid input is typed and actionable. | command-matrix E2E |
-| AC-2 | US-2, REQ-2, REQ-4, REQ-5, REQ-6, REQ-7 | One portable preset expresses the owner's brand and a country override changes only its declared dimensions. | config/golden fixtures |
+| AC-2 | US-2, REQ-2, REQ-4, REQ-5, REQ-6, REQ-7, REQ-13 | One portable preset expresses the owner's brand; a country override can select natural long-side sizing or any safe containing frame; only declared dimensions change and geometry is never stretched. | config/golden fixtures |
 | AC-3 | US-3, REQ-6, REQ-8 | Inline output reacts to host CSS tokens and respects reduced motion without path edits or JS. | P3 hook fixture; final browser proof P4 |
 | AC-4 | US-4, REQ-9, REQ-10, REQ-11 | Built binary generates selected assets and a deterministic manifest twice while offline. | ordered E2E digest receipt |
 | AC-5 | US-5, REQ-8, REQ-9 | Structural validator rejects unsafe SVG and accessible/decorative metadata modes serialize predictably. | mutation receipt |
@@ -159,6 +168,7 @@ DEC-001 elevated review to break. No unresolved question blocks P3.
 
 ## Amendments
 
-None.
+AM-001 is accepted and binding: natural-aspect `tight` is the default layout;
+arbitrary width-by-height uses explicit distortion-free `contain`.
 
 <!-- MATE:extensions — generated by composition from selected profiles and concerns -->

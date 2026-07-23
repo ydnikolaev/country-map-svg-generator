@@ -1,0 +1,12 @@
+version: 1
+kind: verification-selection
+id: SELECT-DE115DE3E595
+epic: country-map-svg-generator
+spec: P2
+status: recorded
+input_digest: a90cc6dab7da10148244d37cbff134d8ee05b30198f6dcf3b2659ee3c738cde0
+topology_digest: a13cb7595fbad8b7d17773c964abe7dfb70443a13fc71b7e23833df3c54564a0
+nodes:
+    - plan-contract
+reason: readiness gate for plan.accept
+required_ceiling: plan-contract

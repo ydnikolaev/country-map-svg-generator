@@ -3,7 +3,7 @@ kind: plan-manifest
 id: PLAN-001
 epic: country-map-svg-generator
 spec: P2
-status: draft
+status: accepted
 input_digest: 5d3783820848f0ea0d960ac8ffa3fbc4af0089bd5f27f3c311bb683a83949adf
 plan_id: PLAN-001
 baseline:

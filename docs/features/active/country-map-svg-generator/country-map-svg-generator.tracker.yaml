@@ -2,11 +2,11 @@ version: 1
 epic: country-map-svg-generator
 title: Country Map SVG Generator
 state: in_progress
-revision: 19
+revision: 29
 updated_by: teamlead
-updated_at: "2026-07-23T16:35:46Z"
-last_event_id: transition-e89f6e93e8a4d2ad
-input_digest: a99148431be29dce849d084ae201d049da839d0af424e7a50d80e6f73a12305e
+updated_at: "2026-07-23T19:35:11Z"
+last_event_id: amendment-verify-e5c554f3b19bb51c
+input_digest: ef48a590d788bdb366231f5bb144a44af0bc3521c403c49e17aeb8a550d2cb6c
 specs:
     - id: P1
       slug: source-corpus
@@ -32,7 +32,30 @@ dependencies:
       to: P4
     - from: P3
       to: P5
-next_action: Continue with spec-dispatch.
+amendments:
+    - id: AM-001
+      slug: natural-aspect-layout
+      state: verified
+      body: docs/features/active/country-map-svg-generator/amendments/AM-001/country-map-svg-generator.AM-001-natural-aspect-layout.amendment.md
+      body_sha256: ab284fd6e2a79c4ef7a8c45ab05fe807d217ce7a8a178be354a44d26ef4ac80a
+      revision: 5
+      last_event_id: amendment-verify-13bc602ad3535819
+      impact_scope: declared
+      affected_specs:
+        - P2
+    - id: AM-002
+      slug: layout-contract-closure
+      state: verified
+      body: docs/features/active/country-map-svg-generator/amendments/AM-002/country-map-svg-generator.AM-002-layout-contract-closure.amendment.md
+      body_sha256: ec2203d7132e467c7b1519d765c4790d583c29691311aad208a2ce6092523487
+      revision: 5
+      last_event_id: amendment-verify-e5c554f3b19bb51c
+      impact_scope: declared
+      affected_specs:
+        - P2
+        - P3
+        - P4
+next_action: Recompute affected readiness after amendment AM-002.
 discovery:
     state: completed
     revision: 11

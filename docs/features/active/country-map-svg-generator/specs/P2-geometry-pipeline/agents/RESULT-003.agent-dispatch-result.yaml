@@ -1,0 +1,31 @@
+version: 1
+kind: agent-dispatch-result
+id: RESULT-003
+epic: country-map-svg-generator
+spec: P2
+status: no-result
+input_digest: 829e11a5c3ffb4661b27582017b265519180373ef69f01a39f3e29fad138d217
+previous:
+    artifact: agent-dispatch-brief
+    id: BRIEF-003
+    path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/agents/BRIEF-003.agent-dispatch-brief.yaml
+    sha256: a55e996d61dfb410b654a0446fc5cc72a55faf0d3b7cdd325996e733b42e2d28
+brief:
+    artifact: agent-dispatch-brief
+    id: BRIEF-003
+    path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/agents/BRIEF-003.agent-dispatch-brief.yaml
+    sha256: a55e996d61dfb410b654a0446fc5cc72a55faf0d3b7cdd325996e733b42e2d28
+principal: codex-p2-final-planner-1
+provider_task_ref: p2-final-planner
+outcome: no-result
+summary: Structural plan validation passed, but the planner was interrupted before completing semantic acceptance and returned no conclusive result.
+changed_paths: []
+outputs:
+    - artifact: implementation-plan
+      id: PLAN-001
+      path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/plans/candidates/PLAN-001/P2-geometry-pipeline.PLAN-001.plan.md
+      sha256: 5aa3a25c14c4dd6b6dc3972a51f2753092bb3da0d4eea4c62483bf87cfe428ff
+verification: []
+deviations: []
+feedback: []
+resume_anchor: Issue a fresh final planner brief and allow semantic comparison to complete.

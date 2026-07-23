@@ -1,0 +1,18 @@
+version: 1
+kind: advisor-receipt
+id: ADV-002
+epic: country-map-svg-generator
+status: recorded
+input_digest: c6ffba73653e6b11c04d416e8982b81526dcf25b1503ee8baa38d52669610f20
+subject:
+    artifact: epic-tracker
+    id: country-map-svg-generator
+    path: docs/features/active/country-map-svg-generator/country-map-svg-generator.tracker.yaml
+    sha256: 5abce53ec73a415467e6e81e936f791747ab9312dd25b30c5e28a70fbe423359
+producer_role: independent-reviewer
+principal: codex-am002-advisor-2
+result: pass
+risk_policy: elevated
+independence: independent-review
+findings: []
+verdict: pass

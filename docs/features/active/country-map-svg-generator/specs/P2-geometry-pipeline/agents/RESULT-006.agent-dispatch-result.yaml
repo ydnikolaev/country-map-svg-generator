@@ -1,0 +1,31 @@
+version: 1
+kind: agent-dispatch-result
+id: RESULT-006
+epic: country-map-svg-generator
+spec: P2
+status: passed
+input_digest: aaf4ccfb4983552925859fa8ce6b546aaf4c956f7a364be504264c772bd38ecc
+previous:
+    artifact: agent-dispatch-brief
+    id: BRIEF-006
+    path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/agents/BRIEF-006.agent-dispatch-brief.yaml
+    sha256: 066f3416b79031466d931a7394501bcbbd479bac0dd20989a14333c832d1aab4
+brief:
+    artifact: agent-dispatch-brief
+    id: BRIEF-006
+    path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/agents/BRIEF-006.agent-dispatch-brief.yaml
+    sha256: 066f3416b79031466d931a7394501bcbbd479bac0dd20989a14333c832d1aab4
+principal: codex-p2-final-planner-1
+provider_task_ref: p2-final-planner
+outcome: passed
+summary: 'Sealed PLAN-001 is ready: exact hashes match, validation reports sealed=true, CTR-001/CTR-002 are canonical, write leases are sorted, and prior semantic acceptance remains intact.'
+changed_paths: []
+outputs:
+    - artifact: plan-manifest
+      id: PLAN-001
+      path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/plans/candidates/PLAN-001/P2-geometry-pipeline.PLAN-001.plan-manifest.yaml
+      sha256: a90cc6dab7da10148244d37cbff134d8ee05b30198f6dcf3b2659ee3c738cde0
+verification: []
+deviations: []
+feedback: []
+resume_anchor: Issue plan.accept readiness and accept PLAN-001 with RESULT-006.

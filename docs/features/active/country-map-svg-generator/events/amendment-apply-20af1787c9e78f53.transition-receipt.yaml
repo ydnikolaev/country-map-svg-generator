@@ -1,0 +1,37 @@
+version: 1
+kind: transition-receipt
+id: amendment-apply-20af1787c9e78f53
+epic: country-map-svg-generator
+status: recorded
+input_digest: 7a82c50704ebd0ff98c310ad5f591d15b967d25d401aea15e22c90a04e2032c5
+subject:
+    artifact: epic-tracker
+    id: country-map-svg-generator
+    path: docs/features/active/country-map-svg-generator/country-map-svg-generator.tracker.yaml
+    sha256: 40c00695ec9da4d5df0cbf7de949af8eb91e4f20d4b9801e97a577d5ca0b670a
+producer_role: lifecycle-engine
+principal: teamlead
+result: pass
+machine: amendment
+event: apply
+from: accepted
+to: applied
+inputs:
+    - artifact: amendment
+      id: AM-001
+      path: docs/features/active/country-map-svg-generator/amendments/AM-001/country-map-svg-generator.AM-001-natural-aspect-layout.amendment.md
+      sha256: ab284fd6e2a79c4ef7a8c45ab05fe807d217ce7a8a178be354a44d26ef4ac80a
+    - artifact: epic-tracker
+      id: country-map-svg-generator
+      path: docs/features/active/country-map-svg-generator/country-map-svg-generator.tracker.yaml
+      sha256: 40c00695ec9da4d5df0cbf7de949af8eb91e4f20d4b9801e97a577d5ca0b670a
+    - artifact: readiness-receipt
+      id: REV-866C94558EB7
+      path: docs/features/active/country-map-svg-generator/readiness/REV-866C94558EB7/REV-866C94558EB7.readiness.yaml
+      sha256: 4dd33dc42bd8cef3d03e4dee04d1368c7ff55a09518a47d933e88f5fb4431e5e
+    - artifact: specification
+      id: P2
+      path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/P2-geometry-pipeline.spec.md
+      sha256: aebf85f377d85415da41558e57176bc611c3192fdf6481055c31ad343971b272
+predecessor: 40c00695ec9da4d5df0cbf7de949af8eb91e4f20d4b9801e97a577d5ca0b670a
+successor: 12d0e6e67a2f911ef0699e25e6c7fac7a03f1fe017f95f339cec2bd6956f1879

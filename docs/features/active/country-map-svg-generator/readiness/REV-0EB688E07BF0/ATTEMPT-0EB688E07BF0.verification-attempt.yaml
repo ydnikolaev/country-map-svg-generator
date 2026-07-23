@@ -1,0 +1,16 @@
+version: 1
+kind: verification-attempt
+id: ATTEMPT-0EB688E07BF0
+epic: country-map-svg-generator
+status: pass
+input_digest: aefd556716d62c10e530acd9f4491c5f45f682cd0c6a9cdb72187e7b1a03e24b
+selection_id: SELECT-0EB688E07BF0
+attempt: 1
+started_at: "2026-07-23T19:34:10.60613Z"
+finished_at: "2026-07-23T19:34:10.62985Z"
+results:
+    - node: amendment-contract
+      verdict: pass
+      exit_code: 0
+      output_hash: b40da41ee6bc739c1cdb8b494eb3b0f5d27603df181e69d32d22e07bee648b6e
+      duration_ms: 23

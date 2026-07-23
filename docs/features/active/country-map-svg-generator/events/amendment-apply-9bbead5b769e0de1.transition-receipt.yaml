@@ -1,0 +1,45 @@
+version: 1
+kind: transition-receipt
+id: amendment-apply-9bbead5b769e0de1
+epic: country-map-svg-generator
+status: recorded
+input_digest: dcd91a98c286049051d186f0fb04876253eb308e10988d072ce9368ed5c99bcf
+subject:
+    artifact: epic-tracker
+    id: country-map-svg-generator
+    path: docs/features/active/country-map-svg-generator/country-map-svg-generator.tracker.yaml
+    sha256: f0cd989f2e99b0ebe1548ad85b1272dd38858a9c363bd23a20cb8e2e4f73180f
+producer_role: lifecycle-engine
+principal: teamlead
+result: pass
+machine: amendment
+event: apply
+from: accepted
+to: applied
+inputs:
+    - artifact: amendment
+      id: AM-002
+      path: docs/features/active/country-map-svg-generator/amendments/AM-002/country-map-svg-generator.AM-002-layout-contract-closure.amendment.md
+      sha256: ec2203d7132e467c7b1519d765c4790d583c29691311aad208a2ce6092523487
+    - artifact: epic-tracker
+      id: country-map-svg-generator
+      path: docs/features/active/country-map-svg-generator/country-map-svg-generator.tracker.yaml
+      sha256: f0cd989f2e99b0ebe1548ad85b1272dd38858a9c363bd23a20cb8e2e4f73180f
+    - artifact: readiness-receipt
+      id: REV-E8EA5AEA0171
+      path: docs/features/active/country-map-svg-generator/readiness/REV-E8EA5AEA0171/REV-E8EA5AEA0171.readiness.yaml
+      sha256: 778c736198aeff02d9a57d342d362f175ddbb79e8e96c2cc5578a9719b3d9951
+    - artifact: specification
+      id: P2
+      path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/P2-geometry-pipeline.spec.md
+      sha256: 4fb4535e74ee072d9db6ecc6e1ee92e667ac9c78f35a8adbf342c7b93d1c2741
+    - artifact: specification
+      id: P3
+      path: docs/features/active/country-map-svg-generator/specs/P3-generator-cli/P3-generator-cli.spec.md
+      sha256: 7ebe0595e890a242496bb005a7ef913db7e1f43d13e3b28477aa581fb9d4a5d6
+    - artifact: specification
+      id: P4
+      path: docs/features/active/country-map-svg-generator/specs/P4-site-delivery/P4-site-delivery.spec.md
+      sha256: 1cd3ad333a83494a3818de9a3799ca84d9eb0a94567e8c99ba3acb4f65cfd170
+predecessor: f0cd989f2e99b0ebe1548ad85b1272dd38858a9c363bd23a20cb8e2e4f73180f
+successor: 5abce53ec73a415467e6e81e936f791747ab9312dd25b30c5e28a70fbe423359

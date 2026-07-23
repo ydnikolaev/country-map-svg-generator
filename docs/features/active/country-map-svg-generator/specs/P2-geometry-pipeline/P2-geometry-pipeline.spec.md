@@ -18,14 +18,16 @@ inputs: ["DISC-006", "ARCH-001", "DEC-003"]
 Every corpus entity can be transformed into deterministic, visually balanced,
 presentation-free geometry for `hero` and `card`. The result preserves country
 identity at its intended size, softens mechanical edges without fabricating
-geography, fits a stable viewBox, and supplies optional projected marker positions.
+geography, derives a stable natural-aspect viewBox by default, can opt into a
+fixed containing frame without distortion, and supplies optional projected marker
+positions.
 
 ## User stories and stakeholders
 
 | ID | Story |
 | --- | --- |
 | US-1 | As a visitor, I see a recognizable, elegant country silhouette rather than noisy GIS detail. |
-| US-2 | As a site developer, I receive geometry already fitted for its use scale and do not tune individual SVG paths. |
+| US-2 | As a site developer, I receive geometry in the country's natural projected proportions by default, can request any fixed containing frame when layout requires it, and do not tune individual SVG paths. |
 | US-3 | As a producer, I can override exceptional countries without forking the pipeline. |
 | US-4 | As a maintainer, I can compare Go output with a trusted projection/path oracle and detect topology damage. |
 
@@ -52,8 +54,8 @@ narrow and independently testable.
 
 | ID | Requirement |
 | --- | --- |
-| REQ-1 | Geometry is centered with a per-entity equal-area projection and fitted into a deterministic profile viewBox with declared padding. |
-| REQ-2 | `card` and `hero` use independently configurable tolerances; defaults target their accepted CSS sizes and byte budgets. |
+| REQ-1 | Geometry is centered with a per-entity equal-area projection and uniformly fitted without distortion. Default `tight` layout derives the viewBox aspect ratio from projected geometry plus declared padding; explicit `contain` layout accepts any safe finite `width × height`, preserves geometry proportions, centers it and leaves unused frame area transparent. |
+| REQ-2 | `card` and `hero` are configurable named presets over the general engine, not engine modes. Their defaults specify intended rendered long-side scale, padding, tolerances and byte budgets; callers may use arbitrary natural or fixed-frame sizes. |
 | REQ-3 | Simplification preserves ring validity, winding semantics, non-empty identity geometry and P1 protected features. |
 | REQ-4 | Softening is conservative, bounded and deterministic; it cannot move a point beyond a declared profile tolerance or introduce self-intersection. |
 | REQ-5 | Tiny unprotected features may be removed by explicit area/visibility policy; removals are inspectable per entity. |
@@ -64,10 +66,14 @@ narrow and independently testable.
 
 ## Interfaces data and behavior
 
-Input is one P1 entity/profile record plus a geometry profile and resolved
-per-country overrides. Output is CTR-002: normalized path data, deterministic
-viewBox, component/ring metadata, removal diagnostics and optional marker points.
-It contains no colors, classes, XML or CSS.
+Input is one P1 entity/profile record plus a geometry profile, a layout request,
+and resolved per-country overrides. Layout is either `tight`, with a long-side or
+maximum-box constraint from which the natural viewBox dimensions are derived, or
+`contain`, with an explicit finite positive frame. Both apply one uniform scale
+and never stretch geometry. Output is CTR-002: normalized path data, deterministic
+viewBox, natural projected aspect ratio, fit transform, component/ring metadata,
+resolved layout mode, effective rendered geometry scale, removal diagnostics and
+optional marker points. It contains no colors, classes, XML or CSS.
 
 Failures distinguish invalid source geometry, projection failure, topology damage,
 empty result, protected-feature loss, marker anomaly and exceeded override bounds.
@@ -91,7 +97,7 @@ dependency.
 | --- | --- | --- | --- | --- |
 | VAL-1 | REQ-1, REQ-8 | compare representative continents, islands, antimeridian and polar entities with pinned D3 fixtures | integration golden; bounded numeric delta and byte-stable rerun | P2 / W2 complete |
 | VAL-2 | REQ-3, REQ-4 | feed self-intersection, winding, protected-island and near-collapse mutations | unit+integration; each invalid mutation fails or preserves named feature | P2 / W2 complete |
-| VAL-3 | REQ-2, REQ-5 | run hero/card fixtures at intended rasterized sizes | visual+structural; removal report and recognizable approved baselines | P2 / W2 complete |
+| VAL-3 | REQ-1, REQ-2, REQ-5 | run hero/card fixtures at intended rasterized long-side sizes; compare an elongated geometry in multiple `contain` frames | visual+structural; removal report and recognizable approved baselines; resolved quality remains a function of fitted geometry scale rather than the frame's shorter side | P2 / W2 complete |
 | VAL-4 | REQ-6 | apply bounded valid and invalid country overrides | unit; valid changes only named dimension, out-of-range fails | P2 / W2 complete |
 | VAL-5 | REQ-7 | project inside, edge and implausible-outside markers | integration; same transform and typed anomaly behavior | P2 / W2 complete |
 
@@ -100,7 +106,7 @@ dependency.
 | ID | Covers | Criterion | Evidence |
 | --- | --- | --- | --- |
 | AC-1 | US-1, REQ-2, REQ-3, REQ-4, REQ-5 | Approved representative card/hero silhouettes remain recognizable, balanced and free of visible topology artifacts. | raster comparison sheet plus structural receipt |
-| AC-2 | US-2, REQ-1, REQ-8 | Every representative output fits its viewBox and repeated runs are byte-equivalent. | golden receipt |
+| AC-2 | US-2, REQ-1, REQ-2, REQ-8 | Every representative `tight` output follows the projected country aspect ratio; every `contain` output fits its arbitrary frame without distortion; quality follows effective fitted scale rather than unused frame space; repeated runs are byte-equivalent. | golden receipt |
 | AC-3 | US-3, REQ-6 | Named exceptional countries are expressible through bounded data overrides, not code forks. | override fixtures |
 | AC-4 | US-4, REQ-3, REQ-4 | Mutation tests prove invalid topology and protected-feature loss cannot pass silently. | teeth receipt |
 
@@ -128,6 +134,13 @@ without an amendment.
 
 ## Amendments
 
-None.
+### AM-001 — Natural-aspect layout and explicit fixed frames
+
+Accepted owner clarification on 2026-07-23: the default SVG viewBox follows the
+projected geometry's own proportions (wide Russia, tall Chile/Argentina,
+near-square Australia). `card` and `hero` provide scale/quality defaults rather
+than fixed aspect ratios. An explicit arbitrary `width × height` remains available
+as a containing frame and must preserve proportions. Quality is calibrated from
+the actually rendered geometry scale, not the frame's shorter side.
 
 <!-- MATE:extensions — generated by composition from selected profiles and concerns -->

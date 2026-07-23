@@ -1,0 +1,31 @@
+version: 1
+kind: agent-dispatch-result
+id: RESULT-004
+epic: country-map-svg-generator
+spec: P2
+status: failed
+input_digest: 0798e97bd9312d954e19e484cc21fcedbbc61908e23531fe365814a1caca4031
+previous:
+    artifact: agent-dispatch-brief
+    id: BRIEF-004
+    path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/agents/BRIEF-004.agent-dispatch-brief.yaml
+    sha256: 9102804553d3bb5d3b2770eaabbba1975afeffd2489adfbac44735cc272e407f
+brief:
+    artifact: agent-dispatch-brief
+    id: BRIEF-004
+    path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/agents/BRIEF-004.agent-dispatch-brief.yaml
+    sha256: 9102804553d3bb5d3b2770eaabbba1975afeffd2489adfbac44735cc272e407f
+principal: codex-p2-final-planner-1
+provider_task_ref: p2-final-planner
+outcome: failed
+summary: Semantic review passed every item except two manifest strings using CTR-1/CTR-2 instead of canonical CTR-001/CTR-002.
+changed_paths: []
+outputs:
+    - artifact: implementation-plan
+      id: PLAN-001
+      path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/plans/candidates/PLAN-001/P2-geometry-pipeline.PLAN-001.plan.md
+      sha256: 5aa3a25c14c4dd6b6dc3972a51f2753092bb3da0d4eea4c62483bf87cfe428ff
+verification: []
+deviations: []
+feedback: []
+resume_anchor: Correct the two manifest identifiers, validate, and issue final BRIEF-005.

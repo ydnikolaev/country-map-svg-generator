@@ -1,0 +1,16 @@
+version: 1
+kind: verification-attempt
+id: ATTEMPT-866C94558EB7
+epic: country-map-svg-generator
+status: pass
+input_digest: 264a28a71091b66cbdd9ff8699c56257983e64846adde1d241c71ff7d6d07caa
+selection_id: SELECT-866C94558EB7
+attempt: 1
+started_at: "2026-07-23T18:51:49.467712Z"
+finished_at: "2026-07-23T18:51:49.501505Z"
+results:
+    - node: amended-spec-diff
+      verdict: pass
+      exit_code: 0
+      output_hash: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+      duration_ms: 33

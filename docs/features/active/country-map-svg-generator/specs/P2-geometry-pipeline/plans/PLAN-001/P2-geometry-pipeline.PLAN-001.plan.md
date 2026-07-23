@@ -2,11 +2,11 @@
 # SCAFFOLDED by mate from a versioned governed template; AUTHORABLE INSTANCE.
 schema_version: "1.2.0"
 template_version: "1.2.0"
-kind: "implementation-plan"
+kind: "accepted-plan-revision"
 id: "PLAN-001"
 epic: "country-map-svg-generator"
 spec: "P2"
-status: draft
+status: accepted
 profiles: []
 concerns: []
 inputs: ["P2"]
