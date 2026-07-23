@@ -1,0 +1,120 @@
+version: 1
+kind: agent-dispatch-brief
+id: BRIEF-012
+epic: country-map-svg-generator
+spec: P2
+run: RUN-005
+status: issued
+input_digest: 61c88e4e2951dcd5b48da276cfd53fd22c1fd895a90f014ca79582caffdf8e93
+role: coder
+provider: codex
+binding_mode: native
+dispatch_route: named-role
+role_contract:
+    reference: installed-role/coder
+    path: .codex/agents/coder.toml
+    sha256: e5078656ace1b8785d676e1410b701d4c8ebd31b129a54cce0d3813adfe99f10
+    reason: installed provider role contract
+    freshness: current
+issuer: teamlead
+grant: edit
+capability: edit
+semantic_tier: standard
+context:
+    - reference: context-doctrine-pack/CTX-RUN-007
+      path: docs/features/active/country-map-svg-generator/readiness/CTX-RUN-007.context-pack.yaml
+      sha256: 94a6c4c57fd62c4dd452e0ec82cb2feb448467c5720cad7d8b4b770a6c9dadaa
+      reason: dispatch context
+      freshness: current
+plan:
+    artifact: plan-manifest
+    id: PLAN-005
+    path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/plans/PLAN-005/P2-geometry-pipeline.PLAN-005.plan-manifest.yaml
+    sha256: 2b6c6fb31af581f0afdf8b6c2701c51d6fcac533c3b8fae360f1931762a5a491
+readiness:
+    artifact: readiness-receipt
+    id: REV-7766BA2DE569
+    path: docs/features/active/country-map-svg-generator/readiness/REV-7766BA2DE569/REV-7766BA2DE569.readiness.yaml
+    sha256: 99310c958831c1599bba8fbb76abbda97a8e440e6b7a216a0f631296c1e7e38b
+subject:
+    artifact: run-brief
+    id: RUN-005
+    path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-005/P2-geometry-pipeline.RUN-005.brief.md
+    sha256: 6277c536a04881395feef85402f481cc9e20e4634607cb2ba43b3862b8b01d40
+objective: Execute PLAN-005 T0 only. Preserve all RUN-004 code and guards; change only versioned relative_ratio within [0.010,0.012], test 0.011 first, and rerun minimal AQ card+hero production paths. If both yield valid paths within 2500/8000, continue representative then all-corpus brake and visual sheet; otherwise search monotonically only up to 0.012 and stop. Keep floor 0.80, 64/256, thresholds 240/700, q=0.01, topology/serializer/softening semantics and generic budgets unchanged. Do not commit or start T1.
+writes:
+    - go.mod
+    - go.sum
+    - internal/geometry/adapter.go
+    - internal/geometry/adapter_test.go
+    - internal/geometry/cmd/lodbuild
+    - internal/geometry/diagnostic.go
+    - internal/geometry/fit.go
+    - internal/geometry/fit_test.go
+    - internal/geometry/lod.go
+    - internal/geometry/lod/tool
+    - internal/geometry/lod/v1.recipe.json
+    - internal/geometry/lod_test.go
+    - internal/geometry/marker.go
+    - internal/geometry/marker_test.go
+    - internal/geometry/math.go
+    - internal/geometry/model.go
+    - internal/geometry/model_test.go
+    - internal/geometry/normalize.go
+    - internal/geometry/normalize_test.go
+    - internal/geometry/override.go
+    - internal/geometry/override_test.go
+    - internal/geometry/overrides
+    - internal/geometry/path.go
+    - internal/geometry/path_test.go
+    - internal/geometry/pipeline.go
+    - internal/geometry/pipeline_test.go
+    - internal/geometry/preset.go
+    - internal/geometry/preset_test.go
+    - internal/geometry/presets
+    - internal/geometry/projection.go
+    - internal/geometry/projection_test.go
+    - internal/geometry/retain.go
+    - internal/geometry/retain_test.go
+    - internal/geometry/serialize.go
+    - internal/geometry/serialize_test.go
+    - internal/geometry/simplify.go
+    - internal/geometry/simplify_test.go
+    - internal/geometry/soften.go
+    - internal/geometry/soften_test.go
+    - internal/geometry/testdata/lod-spike
+forbidden:
+    - .git
+    - .mate
+    - Makefile
+    - cmd
+    - data
+    - docs
+    - internal/catalog
+    - internal/geometry/approval_test.go
+    - internal/geometry/integration_test.go
+    - internal/geometry/lod/v1.compact.json
+    - internal/geometry/lod/v1.manifest.json
+    - internal/geometry/lod/v1.standard.json
+    - internal/geometry/lod_build_test.go
+    - internal/geometry/lod_generated.go
+    - internal/geometry/mutations_test.go
+    - internal/geometry/oracle_test.go
+    - internal/geometry/testdata/approval
+    - internal/geometry/testdata/d3
+    - internal/geometry/testdata/mutations
+validation:
+    - GOCACHE=/private/tmp/country-map-go-cache GOWORK=off go test ./internal/geometry -run 'Test(AutoQuality|PresetPolicy|ExplicitQuality|Serialize|Topology|Projection)' -count=1
+    - GOCACHE=/private/tmp/country-map-go-cache GOWORK=off go test ./internal/geometry/... -count=1
+    - GOCACHE=/private/tmp/country-map-go-cache GOWORK=off go test ./internal/geometry/cmd/lodbuild -run '^TestLODAQMinimalProduction$' -count=1 -v
+completion_schema:
+    - blockers
+    - changed_paths
+    - deviations
+    - evidence
+    - outcome
+    - summary
+    - verification
+expected_outputs: []
+budget: 8
+resume_anchor: Return exact ratio, AQ card/hero tiers/deviations/tolerances/path bytes/fallbacks/runtime, then representative/all-corpus maxima and visual locator only if early probes pass. Do not commit, mutate lifecycle or start T1.
