@@ -1,0 +1,24 @@
+version: 1
+kind: gate-receipt
+id: GATE-AD923CC915FE
+epic: country-map-svg-generator
+spec: P1
+status: recorded
+input_digest: 1812764641d78f416d0a03d865d16538dd53ca416d9d7b88a4783993f5f0bb61
+subject:
+    artifact: spec-tracker
+    id: P1
+    path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/P1-source-corpus.tracker.yaml
+    sha256: 1812764641d78f416d0a03d865d16538dd53ca416d9d7b88a4783993f5f0bb61
+producer_role: verification-runner
+principal: teamlead
+result: pass
+gate: project-preflight
+attempt_ids:
+    - ATTEMPT-AD923CC915FE
+evidence:
+    - artifact: verification-result
+      id: VERIFY-AD923CC915FE
+      path: docs/features/active/country-map-svg-generator/readiness/REV-AD923CC915FE/VERIFY-AD923CC915FE.verification-result.yaml
+      sha256: d32472f7e5f921d2ec6a11df59cc69f0d06f1b1dec31aac60cc90fb0478c00f6
+      verdict: pass

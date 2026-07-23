@@ -1,0 +1,26 @@
+version: 1
+kind: provider-capability-receipt
+id: CAP-AD923CC915FE
+epic: country-map-svg-generator
+spec: P1
+status: recorded
+input_digest: 1812764641d78f416d0a03d865d16538dd53ca416d9d7b88a4783993f5f0bb61
+subject:
+    artifact: spec-tracker
+    id: P1
+    path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/P1-source-corpus.tracker.yaml
+    sha256: 1812764641d78f416d0a03d865d16538dd53ca416d9d7b88a4783993f5f0bb61
+producer_role: readiness-producer
+principal: teamlead
+result: pass
+slot: verification-runner
+capability: execute-verification
+disposition: native
+semantic_tier: standard
+session_id: root-20260723-country-map
+output_digest: 2f04b33dc9eba3787521f1ea486b3fdf944d3be593a973b996fd4c09d9fe398b
+write_set_digest: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+provider_evidence:
+    command: "mate\x1Fspec\x1Fvalidate\x1Fcountry-map-svg-generator\x1FP1\x1F--stage\x1Fdraft\x1F--json"
+    provider: codex
+    target: spec.accept-readiness

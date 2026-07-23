@@ -1,0 +1,29 @@
+version: 1
+kind: readiness-receipt
+id: REV-AD923CC915FE
+epic: country-map-svg-generator
+spec: P1
+status: recorded
+input_digest: 1812764641d78f416d0a03d865d16538dd53ca416d9d7b88a4783993f5f0bb61
+subject:
+    artifact: spec-tracker
+    id: P1
+    path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/P1-source-corpus.tracker.yaml
+    sha256: 1812764641d78f416d0a03d865d16538dd53ca416d9d7b88a4783993f5f0bb61
+producer_role: readiness-producer
+principal: teamlead
+result: pass
+risk_policy: elevated
+capabilities:
+    - artifact: provider-capability-receipt
+      id: CAP-AD923CC915FE
+      path: docs/features/active/country-map-svg-generator/readiness/REV-AD923CC915FE/CAP-AD923CC915FE.provider-capability-receipt.yaml
+      sha256: 9fe7ff7b6725161cd3145dadcc7c67da4d1d8d2847859849c51b7d30d2f1cc9a
+      verdict: pass
+gates:
+    - artifact: gate-receipt
+      id: GATE-AD923CC915FE
+      path: docs/features/active/country-map-svg-generator/readiness/REV-AD923CC915FE/GATE-AD923CC915FE.gate-receipt.yaml
+      sha256: a24b467dd02532083352cdd86d9191f8f4f7acab9fd1b36041f6ae2b44f22a0c
+      verdict: pass
+authorized_next: spec.accept_readiness

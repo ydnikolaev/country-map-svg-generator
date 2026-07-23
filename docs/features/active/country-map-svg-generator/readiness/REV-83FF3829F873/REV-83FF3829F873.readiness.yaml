@@ -1,0 +1,28 @@
+version: 1
+kind: readiness-receipt
+id: REV-83FF3829F873
+epic: country-map-svg-generator
+status: recorded
+input_digest: 76e9fa08b986bd99401afc60d5e526896ce1a4657c7020584cf1f9b01af36ec0
+subject:
+    artifact: epic-tracker
+    id: country-map-svg-generator
+    path: docs/features/active/country-map-svg-generator/country-map-svg-generator.tracker.yaml
+    sha256: 76e9fa08b986bd99401afc60d5e526896ce1a4657c7020584cf1f9b01af36ec0
+producer_role: readiness-producer
+principal: teamlead
+result: pass
+risk_policy: elevated
+capabilities:
+    - artifact: provider-capability-receipt
+      id: CAP-83FF3829F873
+      path: docs/features/active/country-map-svg-generator/readiness/REV-83FF3829F873/CAP-83FF3829F873.provider-capability-receipt.yaml
+      sha256: 3a9d881dde4fe35daa20b3d2e5aeb7bf8d7365ab3284e70ca5bb02b7267895f5
+      verdict: pass
+gates:
+    - artifact: gate-receipt
+      id: GATE-83FF3829F873
+      path: docs/features/active/country-map-svg-generator/readiness/REV-83FF3829F873/GATE-83FF3829F873.gate-receipt.yaml
+      sha256: 5c2dd8dc61b168439363166ea06023421175126df1ad018a554fc92831ecb07b
+      verdict: pass
+authorized_next: epic.begin

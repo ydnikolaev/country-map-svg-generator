@@ -1,0 +1,30 @@
+version: 1
+kind: transition-receipt
+id: transition-c2c31ed9536f5bbf
+epic: country-map-svg-generator
+spec: P1
+status: recorded
+input_digest: 82fa3417f88a30e3a5d1f3990880c511af2f09048b93a6089c642d1587d45fce
+subject:
+    artifact: spec-tracker
+    id: P1
+    path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/P1-source-corpus.tracker.yaml
+    sha256: 1812764641d78f416d0a03d865d16538dd53ca416d9d7b88a4783993f5f0bb61
+producer_role: lifecycle-engine
+principal: teamlead
+result: pass
+machine: spec
+event: accept-readiness
+from: draft
+to: ready
+inputs:
+    - artifact: readiness-receipt
+      id: REV-AD923CC915FE
+      path: docs/features/active/country-map-svg-generator/readiness/REV-AD923CC915FE/REV-AD923CC915FE.readiness.yaml
+      sha256: 29911da034a2d21dc86cfb9df1416151c43fffce763ffd6b2418b761d1e343c3
+    - artifact: spec-tracker
+      id: P1
+      path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/P1-source-corpus.tracker.yaml
+      sha256: 1812764641d78f416d0a03d865d16538dd53ca416d9d7b88a4783993f5f0bb61
+predecessor: 1812764641d78f416d0a03d865d16538dd53ca416d9d7b88a4783993f5f0bb61
+successor: f96e99d4e724c7f8553672c49dcc9ec28b5a3c5c90260c868de0eda5d7d02a26

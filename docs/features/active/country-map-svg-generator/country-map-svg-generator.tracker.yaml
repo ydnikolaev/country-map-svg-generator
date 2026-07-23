@@ -1,12 +1,12 @@
 version: 1
 epic: country-map-svg-generator
 title: Country Map SVG Generator
-state: draft
-revision: 17
-updated_by: operator
-updated_at: "2026-07-23T16:24:38Z"
-last_event_id: country-map-discovery-complete-v3
-input_digest: 28b18c930912cff32da69b2e063d60e2f14a5d56e885efbd7f5e54f541fa1718
+state: in_progress
+revision: 19
+updated_by: teamlead
+updated_at: "2026-07-23T16:35:46Z"
+last_event_id: transition-e89f6e93e8a4d2ad
+input_digest: a99148431be29dce849d084ae201d049da839d0af424e7a50d80e6f73a12305e
 specs:
     - id: P1
       slug: source-corpus
@@ -32,7 +32,7 @@ dependencies:
       to: P4
     - from: P3
       to: P5
-next_action: Continue with epic-planner.
+next_action: Continue with spec-dispatch.
 discovery:
     state: completed
     revision: 11

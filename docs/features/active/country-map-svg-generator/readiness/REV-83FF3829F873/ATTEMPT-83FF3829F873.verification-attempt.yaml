@@ -1,0 +1,16 @@
+version: 1
+kind: verification-attempt
+id: ATTEMPT-83FF3829F873
+epic: country-map-svg-generator
+status: pass
+input_digest: 1ba583ff14bbbafdc36f05cce76baf5612d89fff18b9655f413f7bae1e551b9d
+selection_id: SELECT-83FF3829F873
+attempt: 1
+started_at: "2026-07-23T16:35:40.665556Z"
+finished_at: "2026-07-23T16:35:40.704875Z"
+results:
+    - node: project-preflight
+      verdict: pass
+      exit_code: 0
+      output_hash: 76d359e15f4274e4267df4ae5232c8ce4dd40e6ffb8ec09a5951e1a14c99d3df
+      duration_ms: 39

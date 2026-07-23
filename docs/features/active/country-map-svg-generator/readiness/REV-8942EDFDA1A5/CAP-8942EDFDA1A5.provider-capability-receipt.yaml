@@ -1,0 +1,25 @@
+version: 1
+kind: provider-capability-receipt
+id: CAP-8942EDFDA1A5
+epic: country-map-svg-generator
+status: recorded
+input_digest: a6a957f978220fd1b1f568f02dd3cfdf62c977ecac923f75304febd3534c4aca
+subject:
+    artifact: epic-tracker
+    id: country-map-svg-generator
+    path: docs/features/active/country-map-svg-generator/country-map-svg-generator.tracker.yaml
+    sha256: a6a957f978220fd1b1f568f02dd3cfdf62c977ecac923f75304febd3534c4aca
+producer_role: readiness-producer
+principal: teamlead
+result: pass
+slot: verification-runner
+capability: execute-verification
+disposition: native
+semantic_tier: standard
+session_id: root-20260723-country-map
+output_digest: 80850bb9e8d33afb87664d7a4e9a015f8b20f644752687a44fbe56b3224b36f8
+write_set_digest: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+provider_evidence:
+    command: "mate\x1Fepic\x1Fvalidate\x1Fcountry-map-svg-generator\x1F--stage\x1Fdraft\x1F--json"
+    provider: codex
+    target: epic.accept-readiness

@@ -3,12 +3,12 @@ epic: country-map-svg-generator
 spec: P1
 slug: source-corpus
 title: Versioned Country Geometry Corpus
-state: draft
-revision: 1
-updated_by: operator
-updated_at: "2026-07-23T15:58:28Z"
-last_event_id: spec-add-c98082eccda63dd4
-input_digest: c98082eccda63dd469039103ea0ca37ab8626296f3fbd543a6a27a2c12b2ee38
+state: ready
+revision: 2
+updated_by: teamlead
+updated_at: "2026-07-23T16:36:03Z"
+last_event_id: transition-c2c31ed9536f5bbf
+input_digest: 82fa3417f88a30e3a5d1f3990880c511af2f09048b93a6089c642d1587d45fce
 runs: []
 findings: []
-next_action: Author the specification and its validation obligations.
+next_action: Continue with spec-begin.

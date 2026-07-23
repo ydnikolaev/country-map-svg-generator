@@ -1,0 +1,11 @@
+version: 1
+kind: verification-selection
+id: SELECT-83FF3829F873
+epic: country-map-svg-generator
+status: recorded
+input_digest: 76e9fa08b986bd99401afc60d5e526896ce1a4657c7020584cf1f9b01af36ec0
+topology_digest: 928054c26088456b80f4aff271fe76cd474bb5fbd6de36b906f291eef7458fb0
+nodes:
+    - project-preflight
+reason: readiness gate for epic.begin
+required_ceiling: project-preflight
