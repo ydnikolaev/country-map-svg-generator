@@ -1,0 +1,72 @@
+version: 1
+kind: agent-dispatch-brief
+id: BRIEF-006
+epic: country-map-svg-generator
+spec: P1
+run: RUN-002
+status: issued
+input_digest: d5bf59603a6f521deebad06ef7d2675f5590db8bac12fc857a2b1f351c3eef68
+role: coder
+provider: codex
+binding_mode: native
+dispatch_route: named-role
+role_contract:
+    reference: installed-role/coder
+    path: .codex/agents/coder.toml
+    sha256: e5078656ace1b8785d676e1410b701d4c8ebd31b129a54cce0d3813adfe99f10
+    reason: installed provider role contract
+    freshness: current
+issuer: teamlead
+grant: edit
+capability: edit
+semantic_tier: standard
+context:
+    - reference: context-doctrine-pack/CTX-RUN-002
+      path: docs/features/active/country-map-svg-generator/readiness/CTX-RUN-002.context-pack.yaml
+      sha256: 5f5d7fcb829c078920e9dd3a49ec1161492822b0018c7229a31fb51da160f657
+      reason: dispatch context
+      freshness: current
+plan:
+    artifact: plan-manifest
+    id: PLAN-001
+    path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/plans/PLAN-001/P1-source-corpus.PLAN-001.plan-manifest.yaml
+    sha256: 4cd93236c76fbb76ecbff1f83dff79070393718a691925a3f8c5bd2fcf774a6e
+readiness:
+    artifact: readiness-receipt
+    id: REV-D6EB2AA4AC19
+    path: docs/features/active/country-map-svg-generator/readiness/REV-D6EB2AA4AC19/REV-D6EB2AA4AC19.readiness.yaml
+    sha256: 57fa94d439b435349d5422fb265cecca20f6c59e0848e8559bd8d5d92fd8223d
+subject:
+    artifact: run-brief
+    id: RUN-002
+    path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/runs/RUN-002/P1-source-corpus.RUN-002.brief.md
+    sha256: 421beec840df234809d647da69e0caaeeeebfae0c9c27ecadf695612d1b67624
+objective: 'Remediate AUD-001 findings F-001 through F-007 inside RUN-002: authoritative whole-set identity and validation, atomic publication, exact profile oracle, protected-anchor containment, full capital overrides, row-level ISO reconciliation attestation, adversarial teeth, regeneration, verification, and one atomic product commit.'
+writes:
+    - Makefile
+    - data/corpus/v1
+    - data/policy
+    - data/reports/v1
+    - data/sources
+    - go.mod
+    - go.sum
+    - internal/catalog
+forbidden:
+    - .git
+    - .mate
+    - docs
+validation:
+    - GOWORK=off go test ./internal/catalog/... -count=1
+    - make check
+    - make gen-check
+completion_schema:
+    - blockers
+    - changed_paths
+    - deviations
+    - evidence
+    - outcome
+    - summary
+    - verification
+expected_outputs: []
+budget: 6
+resume_anchor: Return the exact remediation commit; map F-001 through F-007 to changed paths and adversarial evidence; report focused and full verification, deviations, feedback handles, and blockers. Coordinator owns lifecycle and audit.
