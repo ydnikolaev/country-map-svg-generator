@@ -1,0 +1,41 @@
+version: 1
+kind: agent-dispatch-result
+id: RESULT-011
+epic: country-map-svg-generator
+spec: P2
+run: RUN-004
+status: blocked
+input_digest: a558700ff4f939329f56efd58d8f8ba961d943891c55445685b475cc352034c0
+previous:
+    artifact: agent-dispatch-brief
+    id: BRIEF-011
+    path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-004/agents/BRIEF-011.agent-dispatch-brief.yaml
+    sha256: 2598efb7c46863eefa5a77802561a6ea2dbd1c2cee505b21da3fabac19f9bc87
+brief:
+    artifact: agent-dispatch-brief
+    id: BRIEF-011
+    path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-004/agents/BRIEF-011.agent-dispatch-brief.yaml
+    sha256: 2598efb7c46863eefa5a77802561a6ea2dbd1c2cee505b21da3fabac19f9bc87
+principal: codex-p2-t0-coder
+provider_task_ref: p2-coder
+outcome: blocked
+summary: Versioned scale-relative quality policy is implemented, but AQ card and hero exhaust the accepted ratio range before path output; source q=0.01 fallback remains topology-invalid.
+changed_paths:
+    - path: internal/geometry/cmd/lodbuild/main_test.go
+      sha256: 83832da65073352c59496c91674869e13fe517df6275536a832b1ecd97e3c827
+    - path: internal/geometry/model_test.go
+      sha256: bfc37339da87071488470950428ce59691a69de6de57c8df932957063af419ee
+    - path: internal/geometry/pipeline.go
+      sha256: 520a69249c6f75e93a8d887fcb4c2556bc35a7ccdc696705336554173156e4db
+    - path: internal/geometry/preset.go
+      sha256: da0d46c3941635f29c903fd515c25140cd39aaf9f0d9daea741ec1b18dc94f38
+    - path: internal/geometry/preset_test.go
+      sha256: 06583ea70aea45e2134867a7809b7308b2b74c3b0213ecf4e97c8b131d98e27d
+    - path: internal/geometry/presets/v1.json
+      sha256: d163ce65b4a96af88d9ffc4e8d98c3d39137ba0b9c0bc88cd6e2eb298872667a
+outputs: []
+verification: []
+deviations: []
+feedback: []
+blocked_reason: At maximum ratio 0.010, AQ card witness 1.2804229983137465 exceeds 1.28 and hero witness 6.498361937568921 exceeds 6.4; both source fixed-grid fallbacks self-intersect.
+resume_anchor: Interrupt RUN-004 and invalidate PLAN-004. Before any wider ratio successor, add a test-only exact maximum-deviation diagnostic for AQ card/hero and use the measured bound to define one global visual calibration; preserve production guard semantics, q=0.01, budgets and tiers.

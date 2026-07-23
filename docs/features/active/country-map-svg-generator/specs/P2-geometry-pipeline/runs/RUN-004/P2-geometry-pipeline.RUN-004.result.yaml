@@ -1,0 +1,34 @@
+version: 1
+kind: run-result
+id: RUN-004-RESULT
+epic: country-map-svg-generator
+spec: P2
+run: RUN-004
+status: interrupted
+input_digest: 2bd1847e16b5b7e8de10d01eb4bad8fefc5c2ee64eba7388452745faa4660f1b
+plan_id: PLAN-004
+readiness_id: REV-773432FB305D
+outcome: blocked
+revision:
+    repository: project
+    commit: 37fc492467ae7f2f31d6446977755902a029fee0
+    tree: d151f86646383906148ab9891bd71c9ed6f175e6
+evidence:
+    - artifact: run-brief
+      id: RUN-004
+      path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-004/P2-geometry-pipeline.RUN-004.brief.md
+      sha256: b777511d7e6ca3ef563eec2701e7ad2379ff66c8ebed9c5dc8658dc09c8005d0
+      verdict: pass
+    - artifact: transition-receipt
+      id: run-start-ce153b8ce63c31cc-run
+      path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-004/events/run-start-ce153b8ce63c31cc-run.transition-receipt.yaml
+      sha256: a2a797b4517f923296189a523406e923ae0cbf92fe1195c6cfe7e11cc10a40b3
+      verdict: pass
+    - artifact: agent-dispatch-result
+      id: RESULT-011
+      path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-004/agents/RESULT-011.agent-dispatch-result.yaml
+      sha256: 0ad0785e43b1270363aca173fc51b354721eb1d3e1ddd5c47ddccabe0371e791
+      verdict: blocked
+deviations: []
+followups: []
+next_action: Invalidate PLAN-004. Measure exact test-only AQ card/hero maximum deviation without changing production short-circuit semantics, then decide one bounded global visual ratio successor; preserve q=0.01, tiers, budgets and all guards.
