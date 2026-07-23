@@ -1,8 +1,15 @@
 version: 1
 kind: harness-feedback-backlog
 project: country-map-svg-generator
-revision: 3
+revision: 4
 operations:
+    - version: 1
+      id: feedback-add-27604b086c5309d9
+      kind: feedback-add
+      input_digest: 5e34369bcef06e40c2245684fe7ac149a7a2ceb6a0e9d6ddf2046f8c21fb24ef
+      result_id: FND-ED003909B82A
+      result_revision: 4
+      recorded_at: "2026-07-23T18:13:38Z"
     - version: 1
       id: feedback-add-5aefa882568b0051
       kind: feedback-add
@@ -86,3 +93,26 @@ findings:
       state: new
       created_at: "2026-07-23T16:46:38Z"
       updated_at: "2026-07-23T16:46:38Z"
+    - id: FND-ED003909B82A
+      scope: mate
+      severity: high
+      area: evidence-execution
+      summary: Coverage evidence materializer cannot bind non-VAL obligations to focused gates
+      observed: Mate compileDeclaredEvidence forcibly assigns every non-validation coverage row to the single project-tier gate. RUN-002 therefore generated all US/REQ/AC/INV evidence from corpus-reproducibility even though focused ISO/profile/capital/protected receipts exist, and immutable evidence cannot be rematerialized with different bytes.
+      expected: A coordinator can bind US/REQ/AC/INV evidence to the focused gate or composite gate that actually proves each obligation, without mutating accepted immutable artifacts.
+      fingerprint: ed003909b82acaf5be309088e1ec19e15fd9ade4afa0f10b9c81a6643d941373
+      project: country-map-svg-generator
+      mate_release: v1.4.1
+      provider: mate
+      evidence:
+        - kind: audit
+          locator: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/audits/AUD-002/P1-source-corpus.AUD-002-implementation.audit.md
+        - kind: evidence
+          locator: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/runs/RUN-002/evidence/VR-REQ-1-P1-RUN-002.verification-result.yaml
+        - kind: focused-gate
+          locator: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/runs/RUN-002/gates/GATE-EE3514765774/GATE-EE3514765774.gate-receipt.yaml
+        - kind: plan
+          locator: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/plans/PLAN-001/P1-source-corpus.PLAN-001.plan-manifest.yaml
+      state: new
+      created_at: "2026-07-23T18:13:38Z"
+      updated_at: "2026-07-23T18:13:38Z"
