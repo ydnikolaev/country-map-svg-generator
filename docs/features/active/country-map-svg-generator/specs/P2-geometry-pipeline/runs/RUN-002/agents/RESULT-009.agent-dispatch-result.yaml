@@ -1,0 +1,41 @@
+version: 1
+kind: agent-dispatch-result
+id: RESULT-009
+epic: country-map-svg-generator
+spec: P2
+run: RUN-002
+status: blocked
+input_digest: d2b47596bf91f105ad5d0b018b847479281bce844305b75f8a4bfcda51d6d559
+previous:
+    artifact: agent-dispatch-brief
+    id: BRIEF-009
+    path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-002/agents/BRIEF-009.agent-dispatch-brief.yaml
+    sha256: d2b365c14b52474b15c304449ee48a7985f96f1fca6cb713b19e052bd1311852
+brief:
+    artifact: agent-dispatch-brief
+    id: BRIEF-009
+    path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-002/agents/BRIEF-009.agent-dispatch-brief.yaml
+    sha256: d2b365c14b52474b15c304449ee48a7985f96f1fca6cb713b19e052bd1311852
+principal: codex-p2-t0-coder
+provider_task_ref: p2-coder
+outcome: blocked
+summary: T0 produced deterministic all-283 LOD candidates but the full-corpus brake cannot pass before runtime topology tolerance and protected restoration exist.
+changed_paths:
+    - path: internal/geometry/cmd/lodbuild/main.go
+      sha256: 996406736cabf8736ba62d0cb82d367ca1190c7c58afbd0a5c1259dfa504ac97
+    - path: internal/geometry/cmd/lodbuild/main_test.go
+      sha256: 66c7c2d16dde292fbce42948b995dccc8b75199b52ef2521517c83854992a247
+    - path: internal/geometry/lod/tool/build.mjs
+      sha256: f293f204d368bbad23378d9549c450075d4d393431af244ba68e33f7fc1cccea
+    - path: internal/geometry/lod/tool/package-lock.json
+      sha256: f767a2f3f0dd03ec2eb68dce69d735e21791fdc299e740c2d054234e56fb1832
+    - path: internal/geometry/lod/tool/package.json
+      sha256: ae0bc1f007549d666389f4c981620c45470e3df08c48882b3726a161cd5fa6e6
+    - path: internal/geometry/lod/v1.recipe.json
+      sha256: 4312fe80e06320c2a1e83617e56cfb9986e41b738f2bf7521d3e5b5ec180797f
+outputs: []
+verification: []
+deviations: []
+feedback: []
+blocked_reason: AQ exposes numerical endpoint-touch rejection; ID exposes T0 depending on protected restoration planned only after T1. No visual or hard-budget acceptance is honest.
+resume_anchor: Resume teamlead from mate agent result status.

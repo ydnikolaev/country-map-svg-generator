@@ -1,0 +1,34 @@
+version: 1
+kind: run-result
+id: RUN-002-RESULT
+epic: country-map-svg-generator
+spec: P2
+run: RUN-002
+status: interrupted
+input_digest: ae8a8c477980c31defd01f8178ef772913b21ecc86dd7486727b801f7f9c5525
+plan_id: PLAN-002
+readiness_id: REV-C00BB1507A7E
+outcome: blocked
+revision:
+    repository: project
+    commit: 1c9b4ec0aa527bfb1ef416acf8be5cbbf2295f92
+    tree: 14bcc5e331c41bfa37026bfd88427b8ac010b366
+evidence:
+    - artifact: run-brief
+      id: RUN-002
+      path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-002/P2-geometry-pipeline.RUN-002.brief.md
+      sha256: 2e7eb4ba6a3e84450c966b898d19ef6183da8aa2cc4d9519b9804ae079bc3157
+      verdict: pass
+    - artifact: transition-receipt
+      id: run-start-101413fdf7f0c45e-run
+      path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-002/events/run-start-101413fdf7f0c45e-run.transition-receipt.yaml
+      sha256: f17d410d01d309ac37f76738e150d1dc8252f9ec379ffc1ee58a7be81c0b92c7
+      verdict: pass
+    - artifact: agent-dispatch-result
+      id: RESULT-009
+      path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-002/agents/RESULT-009.agent-dispatch-result.yaml
+      sha256: bdfc33a0e6d925a7fc8d18ad6c0dd471cc0844341e7a3b102565923c995010ed
+      verdict: blocked
+deviations: []
+followups: []
+next_action: Resume or replan from this immutable checkpoint.
