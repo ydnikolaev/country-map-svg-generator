@@ -1,0 +1,25 @@
+version: 1
+kind: transition-receipt
+id: decision-accept-7a5a51b3a6fea65e
+epic: country-map-svg-generator
+status: recorded
+input_digest: b0440b50bc069fb44b22cb734ccd54c517395c2c931ca69239b0529189bf334c
+subject:
+    artifact: decision
+    id: DEC-004
+    path: docs/features/active/country-map-svg-generator/decisions/candidates/DEC-004/country-map-svg-generator.DEC-004-precomputed-lod-runtime-boundary.decision.md
+    sha256: 71ed197c23131d311352057229b8dc8af7adead44504d0ab06ed3073251616f3
+producer_role: lifecycle-engine
+principal: owner-delegate
+result: pass
+machine: decision
+event: accept
+from: draft
+to: accepted
+inputs:
+    - artifact: decision
+      id: DEC-004
+      path: docs/features/active/country-map-svg-generator/decisions/candidates/DEC-004/country-map-svg-generator.DEC-004-precomputed-lod-runtime-boundary.decision.md
+      sha256: 71ed197c23131d311352057229b8dc8af7adead44504d0ab06ed3073251616f3
+predecessor: 71ed197c23131d311352057229b8dc8af7adead44504d0ab06ed3073251616f3
+successor: 3efec49a55fe7289ea528233280671e43db5f114c24586c1780dba98ba2667e5
