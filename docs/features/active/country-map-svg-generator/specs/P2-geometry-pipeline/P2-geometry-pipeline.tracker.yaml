@@ -4,12 +4,13 @@ spec: P2
 slug: geometry-pipeline
 title: Soft-Organic Geometry Pipeline
 state: in_progress
-revision: 29
+revision: 30
 updated_by: teamlead
-updated_at: "2026-07-23T21:39:21Z"
-last_event_id: plan-supersede-63c06528718159f1
-input_digest: 6c43a84887f6de3f8b2e213bfcd95e457caaf9734aba0a6bee57ee881d42ff27
+updated_at: "2026-07-23T21:41:58Z"
+last_event_id: run-start-b986ce213c2fbcce-run
+input_digest: 60f84d1b2713a32f57776f770053e1aef6b2ec98e5a4d3ee3a440866c1047380
 current_plan: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/plans/PLAN-003/P2-geometry-pipeline.PLAN-003.plan.md
+active_run: RUN-003
 runs:
     - id: RUN-001
       plan: PLAN-001
@@ -19,5 +20,8 @@ runs:
       plan: PLAN-002
       status: interrupted
       result: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-002/P2-geometry-pipeline.RUN-002.result.yaml
+    - id: RUN-003
+      plan: PLAN-003
+      status: running
 findings: []
-next_action: mate run scaffold country-map-svg-generator P2 RUN-NNN
+next_action: Execute RUN-003 within the accepted brief; pass, fail, interrupt, or cancel it with evidence.
