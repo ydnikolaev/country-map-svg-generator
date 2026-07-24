@@ -1,0 +1,35 @@
+version: 1
+kind: work-item-mutation-receipt
+id: work-item-add-dc6fee95e87da173
+project: country-map-svg-generator
+claim:
+    project: country-map-svg-generator
+    item_id: WKI-490046152C71
+    item_revision: 1
+    registry_revision: 3
+    mutation: add-capture
+    operation_id: work-item-add-dc6fee95e87da173
+    actor: teamlead
+    timestamp: "2026-07-24T21:02:53Z"
+    inputs:
+        - name: registry
+          value: 5bc2ffea7f1f811c1ab145b3cb41e0cd76a8fe2ff08c66e8dfc7dd65233a64be
+        - name: request
+          value: dc6fee95e87da1739a0928137a959849c0d8c7b877a3bfebf7c09f848903f14f
+        - name: source
+          value: specification#P2#docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/P2-geometry-pipeline.spec.md#3a9be62003fb6daa63130a600d5a01511074bb25d57011ec1ea9f568c1a027e0
+    input_digest: fa7ea2722580b81850dd90873473258e01cca082a3dd4cb183d6eede7143af2e
+    result: captured
+    next_action: Show the owner the Chile and United States cards from the T3 proof render and take the framing decision
+    predecessor_registry:
+        kind: sha256
+        digest: 5bc2ffea7f1f811c1ab145b3cb41e0cd76a8fe2ff08c66e8dfc7dd65233a64be
+    predecessor_receipt:
+        kind: work-item-mutation-receipt
+        id: work-item-add-63ecdb3c364686eb
+        path: docs/features/events/work-item-add-63ecdb3c364686eb.work-item-mutation-receipt.yaml
+        sha256: 18179c90a4b44d88a2a53215252b07b93fc0f9130b42f55b0335279d540bc8f0
+    event: capture
+    from: absent
+    to: captured
+successor_registry_sha256: 0174a863b30157f8733dfbf6d2a7b9e92cb20f2b708f7af607fb9cccc61cb507

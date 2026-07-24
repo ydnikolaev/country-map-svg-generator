@@ -1,0 +1,35 @@
+version: 1
+kind: work-item-mutation-receipt
+id: work-item-add-63ecdb3c364686eb
+project: country-map-svg-generator
+claim:
+    project: country-map-svg-generator
+    item_id: WKI-C83B0B9EB4EE
+    item_revision: 1
+    registry_revision: 2
+    mutation: add-capture
+    operation_id: work-item-add-63ecdb3c364686eb
+    actor: teamlead
+    timestamp: "2026-07-24T21:02:24Z"
+    inputs:
+        - name: registry
+          value: 38fca4da19260649776958edb94d59953461ce0e2dc4d24640cc2fc46d617f15
+        - name: request
+          value: 63ecdb3c364686eb9705a44647e96d769b677cc9e3c457fff25f33290a62bf56
+        - name: source
+          value: specification#P2#docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/P2-geometry-pipeline.spec.md#3a9be62003fb6daa63130a600d5a01511074bb25d57011ec1ea9f568c1a027e0
+    input_digest: 206bfc93ab4f71185bada19b64ea8caa4d8b2ac85886bab9d0d42921414854cc
+    result: captured
+    next_action: Re-run the ladder sweep for RU alone with per-attempt rejection logging enabled and read why rungs 512-32 fail
+    predecessor_registry:
+        kind: sha256
+        digest: 38fca4da19260649776958edb94d59953461ce0e2dc4d24640cc2fc46d617f15
+    predecessor_receipt:
+        kind: work-item-mutation-receipt
+        id: work-item-add-efa776a80bdc3a29
+        path: docs/features/events/work-item-add-efa776a80bdc3a29.work-item-mutation-receipt.yaml
+        sha256: 13db07bb2aa7196dfaccaf6a23b32d49d2c959407996e5e3518680580e81985c
+    event: capture
+    from: absent
+    to: captured
+successor_registry_sha256: 5bc2ffea7f1f811c1ab145b3cb41e0cd76a8fe2ff08c66e8dfc7dd65233a64be
