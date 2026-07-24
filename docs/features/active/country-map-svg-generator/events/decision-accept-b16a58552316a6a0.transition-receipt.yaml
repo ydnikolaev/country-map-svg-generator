@@ -1,0 +1,25 @@
+version: 1
+kind: transition-receipt
+id: decision-accept-b16a58552316a6a0
+epic: country-map-svg-generator
+status: recorded
+input_digest: 20d79ecd542148cde398875937a200ce4b147378af59e56af9bd183e56ca6f0b
+subject:
+    artifact: decision
+    id: DEC-009
+    path: docs/features/active/country-map-svg-generator/decisions/candidates/DEC-009/country-map-svg-generator.DEC-009-ladder-fallback-and-unrenderable-policy.decision.md
+    sha256: 7f2b72bc8722d3c98fb5331e89390dae30b3ed8982219a98df83c2eb8827f0c8
+producer_role: lifecycle-engine
+principal: product-owner
+result: pass
+machine: decision
+event: accept
+from: draft
+to: accepted
+inputs:
+    - artifact: decision
+      id: DEC-009
+      path: docs/features/active/country-map-svg-generator/decisions/candidates/DEC-009/country-map-svg-generator.DEC-009-ladder-fallback-and-unrenderable-policy.decision.md
+      sha256: 7f2b72bc8722d3c98fb5331e89390dae30b3ed8982219a98df83c2eb8827f0c8
+predecessor: 7f2b72bc8722d3c98fb5331e89390dae30b3ed8982219a98df83c2eb8827f0c8
+successor: fcf278e787dd1cf17ee16185c01c8231fbbd0864547246056cc20035025a00fb
