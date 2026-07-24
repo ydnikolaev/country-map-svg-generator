@@ -4,12 +4,11 @@ spec: P2
 slug: geometry-pipeline
 title: Soft-Organic Geometry Pipeline
 state: in_progress
-revision: 67
-updated_by: operator
-updated_at: "2026-07-24T02:10:40Z"
-last_event_id: run-interrupt-0e205672fd1f1ce6
-input_digest: 388ed249558f2f1111220ba42cdfd58184ef98fc2778188f26065c25f9cf679b
-current_plan: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/plans/PLAN-008/P2-geometry-pipeline.PLAN-008.plan.md
+revision: 68
+updated_by: teamlead
+updated_at: "2026-07-24T02:11:12Z"
+last_event_id: plan-invalidate-6c9e289eef42429d
+input_digest: 6c141c3786fd59ace23221dcde1ab50bdfcd3bdac1ba77d093755f5b7cf556a9
 runs:
     - id: RUN-001
       plan: PLAN-001
@@ -48,4 +47,4 @@ runs:
       status: interrupted
       result: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-009/P2-geometry-pipeline.RUN-009.result.yaml
 findings: []
-next_action: Invalidate PLAN-008 from RUN-009-RESULT, then author DEC-004 successor planning around the precomputed compact-table acceptance mismatch without weakening the frozen quality contract.
+next_action: mate plan scaffold country-map-svg-generator P2 PLAN-NNN
