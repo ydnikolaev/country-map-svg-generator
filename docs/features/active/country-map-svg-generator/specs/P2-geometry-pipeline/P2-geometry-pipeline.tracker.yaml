@@ -4,13 +4,12 @@ spec: P2
 slug: geometry-pipeline
 title: Soft-Organic Geometry Pipeline
 state: in_progress
-revision: 99
+revision: 101
 updated_by: teamlead
-updated_at: "2026-07-24T06:30:47Z"
-last_event_id: run-start-a8c574adeb365ac4-run
-input_digest: a6a932afd20405f3c029ca3f577bd03d27c2bb7631f98b5d1dbbae666b03531b
+updated_at: "2026-07-24T06:39:56Z"
+last_event_id: run-interrupt-f67528a23050257a
+input_digest: e2931f3bdebebad9b14366e9719a8b6f1c8cc9d3315429349297c93d1dfd722b
 current_plan: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/plans/PLAN-010/P2-geometry-pipeline.PLAN-010.plan.md
-active_run: RUN-016
 runs:
     - id: RUN-001
       plan: PLAN-001
@@ -74,6 +73,7 @@ runs:
       result: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-015/P2-geometry-pipeline.RUN-015.result.yaml
     - id: RUN-016
       plan: PLAN-010
-      status: running
+      status: interrupted
+      result: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-016/P2-geometry-pipeline.RUN-016.result.yaml
 findings: []
-next_action: agent-dispatch:agent-dispatch-brief/BRIEF-024#c678dc8f18c47fcbdac6f2aa9dbd730b40b7fce07cd3f95e2b9626b7f62a7598
+next_action: Scaffold a governed diagnostic successor that reproduces SH component 0 at every frozen v2 resolution and distinguishes lineage/projection loss from a candidate-source recipe contradiction before replanning.

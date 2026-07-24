@@ -1,0 +1,29 @@
+version: 1
+kind: agent-dispatch-result
+id: RESULT-024
+epic: country-map-svg-generator
+spec: P2
+run: RUN-016
+status: blocked
+input_digest: 9b7e5b0658677fdb8d1985893aff9c96efe53ba9444d259f6f3dca7dc9da7d30
+previous:
+    artifact: agent-dispatch-brief
+    id: BRIEF-024
+    path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-016/agents/BRIEF-024.agent-dispatch-brief.yaml
+    sha256: c678dc8f18c47fcbdac6f2aa9dbd730b40b7fce07cd3f95e2b9626b7f62a7598
+brief:
+    artifact: agent-dispatch-brief
+    id: BRIEF-024
+    path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-016/agents/BRIEF-024.agent-dispatch-brief.yaml
+    sha256: c678dc8f18c47fcbdac6f2aa9dbd730b40b7fce07cd3f95e2b9626b7f62a7598
+principal: p2-coder
+provider_task_ref: p2_coder
+outcome: blocked
+summary: RUN-016 exhausted every frozen v2 compact resolution for the first sorted geometry; SH loses visible source component 0 even at resolution 512. The bounded prototype was fully reverted and frozen runtime/builder hashes were restored.
+changed_paths: []
+outputs: []
+verification: []
+deviations: []
+feedback: []
+blocked_reason: The frozen v2 recipe has no compact candidate for geo-0a336e9d4ea30c295a4611bf7f13a0c6bbd8cad41c0440ad503c1c68c63e4ec7 that preserves SH visible component 0 for both consumers. A candidate-source or recipe successor is required; current policy forbids false subscale omission, budget relaxation or consumer-specific branching.
+resume_anchor: Interrupt RUN-016 with zero product changes. Independently reproduce the SH component-0 boundary in a governed diagnostic successor, then obtain an accepted PLAN-010 successor before changing recipe/candidate-source semantics.
