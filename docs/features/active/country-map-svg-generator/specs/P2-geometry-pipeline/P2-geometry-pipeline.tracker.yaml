@@ -4,12 +4,11 @@ spec: P2
 slug: geometry-pipeline
 title: Soft-Organic Geometry Pipeline
 state: in_progress
-revision: 61
+revision: 62
 updated_by: teamlead
-updated_at: "2026-07-24T01:28:01Z"
-last_event_id: run-interrupt-d360b3ff5e6d69e5
-input_digest: e5ba7121407640bc1dbd7f1b4fe88e18e689fff1c33e9718544842a1e82803ce
-current_plan: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/plans/PLAN-007/P2-geometry-pipeline.PLAN-007.plan.md
+updated_at: "2026-07-24T01:28:40Z"
+last_event_id: plan-invalidate-9d44716a1ce526ec
+input_digest: cf5d9bd752189ad6020abf696ea3cabe133f33081f0c37391ea5a9dddd8e4666
 runs:
     - id: RUN-001
       plan: PLAN-001
@@ -44,4 +43,4 @@ runs:
       status: interrupted
       result: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-008/P2-geometry-pipeline.RUN-008.result.yaml
 findings: []
-next_action: Invalidate PLAN-007 from RUN-008-RESULT, then scaffold a successor that preserves global phase repair and separates unlimited source validity from production LOD byte budgets.
+next_action: mate plan scaffold country-map-svg-generator P2 PLAN-NNN
