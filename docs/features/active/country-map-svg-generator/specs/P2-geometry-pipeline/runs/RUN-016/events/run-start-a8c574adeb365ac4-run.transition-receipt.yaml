@@ -1,0 +1,39 @@
+version: 1
+kind: transition-receipt
+id: run-start-a8c574adeb365ac4-run
+epic: country-map-svg-generator
+spec: P2
+run: RUN-016
+status: recorded
+input_digest: 66e5ae304cbada15d70a2c57e64d9dc644319120a71d8dde48f3532f9b34bbc4
+subject:
+    artifact: run-brief
+    id: RUN-016
+    path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/candidates/RUN-016/P2-geometry-pipeline.RUN-016.brief.md
+    sha256: f76a410bfc5ab64643b03078bc84a00c3a41071f56391852eb8dc2a0e33389a2
+producer_role: lifecycle-engine
+principal: teamlead
+result: pass
+machine: run
+event: start
+from: prepared
+to: running
+inputs:
+    - artifact: accepted-plan-revision
+      id: PLAN-010
+      path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/plans/PLAN-010/P2-geometry-pipeline.PLAN-010.plan.md
+      sha256: a81da84fc3881068ad0520a3746f3276c18df87a48f10e83d5463fb03fb1db63
+    - artifact: context-doctrine-pack
+      id: CTX-RUN-018
+      path: docs/features/active/country-map-svg-generator/readiness/CTX-RUN-018.context-pack.yaml
+      sha256: 907ca2d90c1cf4cd91bfb1897a9160511c4ee8621d93ffda3d643d3935789df8
+    - artifact: readiness-receipt
+      id: REV-C3DEE45C8195
+      path: docs/features/active/country-map-svg-generator/readiness/REV-C3DEE45C8195/REV-C3DEE45C8195.readiness.yaml
+      sha256: 2959478c003077fd07d9bff7547b61156091c17164a4f3971b577347cae88006
+    - artifact: run-brief
+      id: RUN-016
+      path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/candidates/RUN-016/P2-geometry-pipeline.RUN-016.brief.md
+      sha256: f76a410bfc5ab64643b03078bc84a00c3a41071f56391852eb8dc2a0e33389a2
+predecessor: f76a410bfc5ab64643b03078bc84a00c3a41071f56391852eb8dc2a0e33389a2
+successor: a140f5f40cc5642285500df2ab4b13adff7d81df45aea68c313ac2886a4009bb

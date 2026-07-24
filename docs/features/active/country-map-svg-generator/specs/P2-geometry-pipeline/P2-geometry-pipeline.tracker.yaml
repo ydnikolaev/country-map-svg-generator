@@ -4,12 +4,13 @@ spec: P2
 slug: geometry-pipeline
 title: Soft-Organic Geometry Pipeline
 state: in_progress
-revision: 97
+revision: 98
 updated_by: teamlead
-updated_at: "2026-07-24T06:25:07Z"
-last_event_id: p2-run015-v1-ladder-blocked
-input_digest: 70bbc026c0c9e4b430a0367edb1f3a5e83545e75a027b81f98d0cd9233878b39
+updated_at: "2026-07-24T06:29:22Z"
+last_event_id: run-start-a8c574adeb365ac4-run
+input_digest: fdf741cb33bab88009a1c765bb9f330ac1d71c2685133252b3d224a8124d4f6f
 current_plan: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/plans/PLAN-010/P2-geometry-pipeline.PLAN-010.plan.md
+active_run: RUN-016
 runs:
     - id: RUN-001
       plan: PLAN-001
@@ -71,5 +72,8 @@ runs:
       plan: PLAN-010
       status: interrupted
       result: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-015/P2-geometry-pipeline.RUN-015.result.yaml
+    - id: RUN-016
+      plan: PLAN-010
+      status: running
 findings: []
-next_action: Scaffold a PLAN-010 T0A integration successor that derives a temporary all-283 v2 ladder from the frozen recipe, integrates requested-band protected visibility in runtime with rotation-safe finalization, and preserves representative hashes.
+next_action: Execute RUN-016 within the accepted brief; pass, fail, interrupt, or cancel it with evidence.
