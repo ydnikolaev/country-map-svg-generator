@@ -1,0 +1,12 @@
+version: 1
+kind: verification-selection
+id: SELECT-7B46E7E9CC2A
+epic: country-map-svg-generator
+spec: P2
+status: recorded
+input_digest: 600dc91b96c63a2ee0a82f2e39443f6795b90a00f7ad6337306e877dc1ddbff2
+topology_digest: 9fbfe7397eb0c12074200be554fb7ab6936f6a8d19f76df18032d21dee8894eb
+nodes:
+    - plan-candidate-validation
+reason: readiness gate for plan.accept
+required_ceiling: plan-candidate-validation

@@ -1,0 +1,17 @@
+version: 1
+kind: verification-attempt
+id: ATTEMPT-7B46E7E9CC2A
+epic: country-map-svg-generator
+spec: P2
+status: pass
+input_digest: d693b0b0444dcfbc19dae40f172e449b8e8f58b26ab2674ac02cd1df0d2b8915
+selection_id: SELECT-7B46E7E9CC2A
+attempt: 1
+started_at: "2026-07-24T01:53:20.966152Z"
+finished_at: "2026-07-24T01:53:21.600306Z"
+results:
+    - node: plan-candidate-validation
+      verdict: pass
+      exit_code: 0
+      output_hash: 34bb118f9cad97043fdaf73745f346a4d5fbbdf15b6d48af9c889980f4f2757b
+      duration_ms: 634
