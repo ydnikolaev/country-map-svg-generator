@@ -1,0 +1,41 @@
+version: 1
+kind: agent-dispatch-result
+id: RESULT-021
+epic: country-map-svg-generator
+spec: P2
+run: RUN-013
+status: passed
+input_digest: 0584a47ec90087aae312f4703d4b7f81827531626b39c1823283f42493a748dc
+previous:
+    artifact: agent-dispatch-brief
+    id: BRIEF-021
+    path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-013/agents/BRIEF-021.agent-dispatch-brief.yaml
+    sha256: a0e2a9e52f02ac06a18c186b691d87165caf9e1d1938b5012c3a8d7a73540954
+brief:
+    artifact: agent-dispatch-brief
+    id: BRIEF-021
+    path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-013/agents/BRIEF-021.agent-dispatch-brief.yaml
+    sha256: a0e2a9e52f02ac06a18c186b691d87165caf9e1d1938b5012c3a8d7a73540954
+principal: p2-coder
+provider_task_ref: p2_coder
+outcome: passed
+summary: RUN-013 added a strict versioned data-only additive group-anchor seam, preserved every RUN-012 artifact byte with empty default data, and passed all selected T0A gates; ready for coordinator-owned visual approval.
+changed_paths:
+    - path: internal/geometry/cmd/lodbuild/representative.go
+      sha256: 346a17244da53602ebbe440e9b11588b5b004dd8d1b83ef71d4f2a723d4bb37b
+    - path: internal/geometry/override.go
+      sha256: a96f66732fcd8f2e070091426e1ba644188639246873f6322ad559ebec36853c
+    - path: internal/geometry/override_test.go
+      sha256: 0a4710d3259595e41b8f0e4cf21a506898705afb2917f8203a082d067c311405
+    - path: internal/geometry/overrides/group-anchors.v1.json
+      sha256: 6f6cd32a3e2843cff9bce5059a379ab7d428446e909ddcd60830adeaf117b661
+outputs: []
+verification:
+    - artifact: verification-result
+      id: VERIFY-458D4D778A57
+      path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-013/gates/GATE-458D4D778A57/VERIFY-458D4D778A57.verification-result.yaml
+      sha256: dcbdb31fe6a9518188dbe731e7c195340b60e796c8e8b691882f9a0bfe500b9d
+      verdict: pass
+deviations: []
+feedback: []
+resume_anchor: Coordinator must obtain explicit owner approval of compact/standard contribution thresholds 110/900, global IoU/recall .40/.42, and sheet cf1e568c93646047791b45a329e50a1308683e8c3aae03ee0944654db3718f9f before RUN-013 finish or T0B.

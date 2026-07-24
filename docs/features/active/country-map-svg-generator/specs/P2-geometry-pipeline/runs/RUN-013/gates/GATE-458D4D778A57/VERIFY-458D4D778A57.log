@@ -1,0 +1,8 @@
+ok  	github.com/yuranikolaev/country-map-svg-generator/internal/geometry	4.070s
+ok  	github.com/yuranikolaev/country-map-svg-generator/internal/geometry/cmd/lodbuild	0.834s
+f2c9cd32e806985be55193e564942e716bb42c72e01d7405c976ddf36666d56f  /private/tmp/country-map-run013-gate-a.QntN7w/silhouette-oracle.v1.json
+da3ff9d331df37882bb2ed4159e9f14ef2aaeedf2b9fcff9e77c79fed4d751c5  /private/tmp/country-map-run013-gate-a.QntN7w/v2.recipe.json
+b2c467b08fb32603a312918da05ce83da355499fb8cba7f9e73c5a8e916995da  /private/tmp/country-map-run013-gate-a.QntN7w/representative.manifest.json
+cf1e568c93646047791b45a329e50a1308683e8c3aae03ee0944654db3718f9f  /private/tmp/country-map-run013-gate-a.QntN7w/representative.contact-sheet.svg
+fcc1bc307509d55aa281591f1cce0d0e78f73f323a41fc6d78e665a56c2dfd10  /private/tmp/country-map-run013-gate-a.QntN7w/representative.machine-receipt.json
+00d49e60ee0f74bf243bd68b70ecdcbc674f4b1fc83f8efa21cd3317aacb1f5f  /private/tmp/country-map-run013-gate-a.QntN7w/indonesia-boundary.json

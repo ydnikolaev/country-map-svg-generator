@@ -1,0 +1,18 @@
+version: 1
+kind: verification-attempt
+id: ATTEMPT-458D4D778A57
+epic: country-map-svg-generator
+spec: P2
+run: RUN-013
+status: pass
+input_digest: 92de537a49aa96e5d8a6b96111216cf78ad53a50927f49d41058b2a84dc90e7c
+selection_id: SELECT-458D4D778A57
+attempt: 1
+started_at: "2026-07-24T05:46:24.983842Z"
+finished_at: "2026-07-24T05:48:57.575327Z"
+results:
+    - node: geometry-regression-protected-visibility-and-scale-ladder-brake
+      verdict: pass
+      exit_code: 0
+      output_hash: aae025d26810b209a4f5e2a518778149f9082c9a4c82321e6658e8223cd7ac8b
+      duration_ms: 152591
