@@ -1,0 +1,35 @@
+version: 1
+kind: work-item-mutation-receipt
+id: work-item-add-76aa6520995dc385
+project: country-map-svg-generator
+claim:
+    project: country-map-svg-generator
+    item_id: WKI-B05B4B4287A2
+    item_revision: 1
+    registry_revision: 6
+    mutation: add-capture
+    operation_id: work-item-add-76aa6520995dc385
+    actor: teamlead
+    timestamp: "2026-07-24T22:51:38Z"
+    inputs:
+        - name: registry
+          value: 8e5a63c57eddc1da31d16cc886ae8bca645f6465d16176d8dc33a1318f2313e0
+        - name: request
+          value: 76aa6520995dc38518424af957dd4b70810481ab389b75e6741a7c2a93a855bc
+        - name: source
+          value: specification#P2#docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/P2-geometry-pipeline.spec.md#3a9be62003fb6daa63130a600d5a01511074bb25d57011ec1ea9f568c1a027e0
+    input_digest: ef50f5b944d56e9baaaaf098368f940b9ebb6e8319807d5c4fcb4cc200c6da12
+    result: captured
+    next_action: Replace the wall-clock assertions in lodbuild main_test.go with work counters, then drop -p 1 from the Makefile and confirm the suite stays green
+    predecessor_registry:
+        kind: sha256
+        digest: 8e5a63c57eddc1da31d16cc886ae8bca645f6465d16176d8dc33a1318f2313e0
+    predecessor_receipt:
+        kind: work-item-mutation-receipt
+        id: work-item-triage-473abf742a4ffdf8
+        path: docs/features/events/work-item-triage-473abf742a4ffdf8.work-item-mutation-receipt.yaml
+        sha256: 1b5d9a8e8d538d994cd298ecdc7a7b0984d10aaf9e0461777c27ddc770f391dc
+    event: capture
+    from: absent
+    to: captured
+successor_registry_sha256: 451a7d81c81d804d827de9fce3f19493cdd1b352ebfd4aafa5825570587937cc

@@ -1,13 +1,13 @@
 version: 1
 kind: work-item-registry
 project: country-map-svg-generator
-revision: 5
+revision: 6
 head_receipt:
     kind: work-item-mutation-receipt
-    id: work-item-triage-473abf742a4ffdf8
-    path: docs/features/events/work-item-triage-473abf742a4ffdf8.work-item-mutation-receipt.yaml
-    claim_sha256: b309a8ce4328afdef5c1d0167053be591e386ab97a246851495054b269e380f1
-updated_at: "2026-07-24T21:46:13Z"
+    id: work-item-add-76aa6520995dc385
+    path: docs/features/events/work-item-add-76aa6520995dc385.work-item-mutation-receipt.yaml
+    claim_sha256: 4c7179b19b4151f2ef40a8e94528b3e2cc694c232fbcf465c456e3425a0fb360
+updated_at: "2026-07-24T22:51:38Z"
 items:
     - id: WKI-490046152C71
       fingerprint: 490046152c71b060bafa56b799f6862959f842e62fb3df542e49ab30a640f22d
@@ -107,6 +107,48 @@ items:
           claim_sha256: 318ce1de447703a334445d7a3f65e60a8a54492f442c1a7534e60287b433e953
       created_at: "2026-07-24T19:53:28Z"
       updated_at: "2026-07-24T19:53:28Z"
+      revision: 1
+    - id: WKI-B05B4B4287A2
+      fingerprint: b05b4b4287a265e00b0cb84557e34750d0286f65dd84f1bf500742d36669e49b
+      scope: project
+      title: make check runs serially because wall-clock brakes flake under parallel load
+      problem: 'Several tests assert wall-clock brakes — a 30s post-build micro-brake in lodbuild, a 10s per-generation bound, a 30s build bound — which exist to catch a runaway search, the failure mode behind the twenty interrupted runs. They were reliable while the suite was light. After T3 and T4 the geometry package takes 322s (a 197s full-catalog shipped gate plus a 48s mutation tooth plus a 28s offline ladder gate) and lodbuild takes 373s (a 175s Node rebuild plus a 75s sampled characterization), so running packages in parallel makes those brakes measure CPU contention rather than the code: lodbuild''s micro-brake was observed at 34.5s alongside the geometry package and comfortably under 30s on its own. Makefile check now passes -p 1, which makes the brakes meaningful again at the cost of running roughly the sum of the packages — about 12 minutes — instead of the slowest one.'
+      expected_outcome: The brakes are expressed in work done rather than seconds — candidate evaluations, phase attempts, Mapshaper invocations — so they measure the runaway-search behaviour they were written for and are immune to scheduling. Parallel package execution is then restored and make check drops back toward the slowest package rather than the sum.
+      status: captured
+      owner: teamlead
+      priority_band: normal
+      effort_band: medium
+      next_action: Replace the wall-clock assertions in lodbuild main_test.go with work counters, then drop -p 1 from the Makefile and confirm the suite stays green
+      observations:
+        - id: OBS-76AA6520995D
+          source:
+            artifact: specification
+            id: P2
+            path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/P2-geometry-pipeline.spec.md
+            sha256: 3a9be62003fb6daa63130a600d5a01511074bb25d57011ec1ea9f568c1a027e0
+          actor: teamlead
+          evidence: []
+          observed_at: "2026-07-24T22:51:38Z"
+      decisions:
+        - revision: 1
+          actor: teamlead
+          from: absent
+          to: captured
+          rationale: Capture the durable work item
+          decided_at: "2026-07-24T22:51:38Z"
+          receipt:
+            kind: work-item-mutation-receipt
+            id: work-item-add-76aa6520995dc385
+            path: docs/features/events/work-item-add-76aa6520995dc385.work-item-mutation-receipt.yaml
+            claim_sha256: 4c7179b19b4151f2ef40a8e94528b3e2cc694c232fbcf465c456e3425a0fb360
+      relationships: []
+      mutation_receipts:
+        - kind: work-item-mutation-receipt
+          id: work-item-add-76aa6520995dc385
+          path: docs/features/events/work-item-add-76aa6520995dc385.work-item-mutation-receipt.yaml
+          claim_sha256: 4c7179b19b4151f2ef40a8e94528b3e2cc694c232fbcf465c456e3425a0fb360
+      created_at: "2026-07-24T22:51:38Z"
+      updated_at: "2026-07-24T22:51:38Z"
       revision: 1
     - id: WKI-C83B0B9EB4EE
       fingerprint: c83b0b9eb4ee141596061d6c2332c9e712ceb292d86a8c82a8f399268fad2279

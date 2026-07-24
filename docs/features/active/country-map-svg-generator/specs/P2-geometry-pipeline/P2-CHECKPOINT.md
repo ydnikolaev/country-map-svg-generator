@@ -43,6 +43,9 @@ measurement is worthless. Do not re-diagnose from a sample.
   country literal); intermediate rungs added between 80 and 64.
 - **DEC-010** accepted (`45385fb`) — the owner accepts the typed no-artifact
   outcome for HR/de_facto/compact. See the closed decision below.
+- **DEC-011** accepted (`5be32b7`) — framing stays full-claim; a second named
+  mode is required but its definition is deferred to the T5 contact sheet;
+  cropping is an explicit seam over the selected candidate, owned by P3.
 - **AM-005** verified (`ADV-006` pass, independently recomputed) — the oracle-gate
   fix. Supersedes AM-003/AM-004 in text.
 - **AM-003, AM-004** stuck in `applied`, fencing P2 and P3. **Confirmed
@@ -211,29 +214,95 @@ typed no_artifact, **0 errors, 0 source fallbacks, 0 over the band cap**, 754
 byte-identical to the committed row. The remaining 239 differ because softening
 produced a smaller path that still fits.
 
-Guarded by `TestShippedCatalogServesTheLadder` (~172 s) plus
+Guarded by `TestShippedCatalogServesTheLadder` (~197 s) plus
 `TestShippedPathHoldsTheBandCapAgainstSoftening`. This is the gate that would
 have caught the original 20-run failure: T2's gate proves the artifact is
 internally sound, T3's proves the artifact is what `Generate()` actually serves,
 and the twenty runs failed exactly in the gap between those two claims.
 
+**T3 shipped that gate with a hole, and T4's tooth found it** — see below. Read
+the T4 section before trusting any claim in this one.
+
 `internal/geometry/cmd/svgproof` runs the same sweep and writes real SVG files
 plus an HTML contact sheet. It is not in `make check` — writing ~1000 files is
 not a gate — but it is how a human looks.
 
-## `make check` — 207 passed, 3 failed
+## T4 — done
 
-Baseline was 174/5 before T2, 205/5 after T2. Now **207 passed, 3 failed**: T3
-fixed two of the five and added none.
+**1. The shipped gate had a hole, and closing it is T4's most important change.**
+`TestShippedGateRejectsALadderlessPipeline` drives the gate's own assertions
+against two deliberately broken pipelines. It caught the first shape
+(`publishedLODTable` regressed to nil) on every sampled row — but on the second
+(the ladder loading yet selection not consulting it, so the superseded tier walk
+runs) **40 of 60 rows still satisfied every assertion**. The legacy path reads
+the same stored candidates, so it reports the same band and the same byte
+budget; it merely restores source components and re-judges by raw deviation
+first, producing geometry no oracle saw.
 
-- `geometry`: `TestRepresentativeNaturalRatiosAndArbitraryFrames` — the Chile
-  framing question, now an owner decision (`WKI-490046152C71`). **Do not "fix"
-  this by editing the assertion.**
-- `lodbuild`: `TestLODAQRUProjectionAlignedCheckpoint`, `TestLODSpikeFullCorpus` —
-  pre-existing, T4's work.
+The fix is a provenance discriminator: a ladder candidate computes no raw
+deviation and restores nothing, so `RawDeviation != 0 || len(Restored) != 0`
+means the superseded path ran. With it, both shapes are rejected 60 of 60. **T3's
+commit message and this checkpoint both claimed that gate "would have caught the
+20-run failure" before this was verified** — it would have caught one shape of it.
 
-Full `make check` now costs roughly 7 minutes: the ~175 s Node ladder-rebuild
-determinism gate plus the ~172 s pure-Go shipped-catalog gate. Both earn it.
+**2. `TestRepresentativeNaturalRatiosAndArbitraryFrames` realigned under
+DEC-011.** The old assertion demanded `ratios["CL"] < .75`, i.e. mainland
+framing, which was never a decided contract — it was unreachable while Chile
+failed on the byte budget, so nothing ever tested it. DEC-011 fixes the default
+as full-claim, so the test now asserts the full-claim band and states that a
+value below .75 would mean the deferred second mode appeared by accident.
+
+**3. The two `lodbuild` failures are restated, not deleted.** Both asserted that
+the superseded pre-DEC-006 path succeeds — the v1 tier artifact selected by raw
+boundary deviation — which is the exact claim DEC-006 was accepted for refuting.
+They are now characterizations of that path:
+
+- `TestLODSpikeFullCorpus` keeps its strict determinism check and requires the
+  over-budget set to be non-empty, so DEC-006's motivating evidence cannot be
+  silently outlived by a green test. It is now **sampled, not a full sweep**:
+  every 8th entity plus BD, ~32 of 249. The reason is concrete — once the
+  over-budget outcome stopped being fatal the sweep completed, which meant
+  falling back to the full-detail source path for most of the catalog and
+  pushing the single `lodbuild` package past the **10-minute go test timeout**.
+  Note precisely what the non-empty guard verifies: BD is force-included because
+  it does not fit, so the guard is "BD still does not fit".
+- `TestLODAQRUProjectionAlignedCheckpoint` drops only its tier expectation and
+  keeps the runtime bound, binding errors, coordinate space, grid-phase guards
+  and determinism. A deeper pre-existing bug surfaced once the tier assertion
+  stopped failing first: it compared a full-generate provenance against a
+  selection-only one and required `DeepEqual`, but `ParserRoundTrip` is a
+  render-stage flag that `SelectLODProvenance` never sets. Normalized, with the
+  reason recorded in the test.
+
+## `make check` — green
+
+Baseline was 174 passed / 5 failed before T2, 205/5 after T2, 207/3 after T3.
+**After T4 it is green for the first time in this epic.**
+
+**215 passed, 0 failed, 0 package failures**, measured serially: `catalog` +
+`cmd` 109/0, `geometry` 106/0.
+
+Three things whoever runs it next needs to know:
+
+- **`make check` now passes `-p 1`, and that is load-bearing.** Several tests
+  assert wall-clock brakes (a 30 s post-build micro-brake, a 10 s per-generation
+  bound) that exist to catch a runaway search — the failure mode behind the
+  twenty interrupted runs. With packages in parallel they measure CPU contention
+  instead: `lodbuild`'s micro-brake was observed at **34.5 s alongside the 381 s
+  geometry package** and comfortably under 30 s on its own. Raising the
+  thresholds until they stop flaking would leave the brakes shaped like guards
+  while guarding nothing. Cost: check is now roughly the sum of the packages
+  (~12 min) rather than the slowest. Tracked as `WKI-B05B4B4287A2` — the real fix
+  is to express the brakes in work done rather than seconds.
+- **Summarize package-level failures, not just test-level ones.** A `go test
+  -json` package failure carries no `Test` field, so a test-only filter reports
+  a timed-out package as a clean run. That happened twice during T4 — once
+  `lodbuild` died at 600.4 s and the summary said "26 passed, 0 failed".
+- Both heavy packages sit near the default 10-minute per-package timeout:
+  `geometry` ≈ 322 s (the 197 s shipped-catalog gate plus the 48 s tooth plus the
+  28 s offline ladder gate) and `lodbuild` ≈ 373 s (the 175 s Node rebuild plus
+  the 75 s sampled characterization). Adding another full-catalog sweep to either
+  package will break the build before it fails an assertion.
 
 Note `TestDiagnosticSourceInventoryIsExactAndBiting` is an exact source-file
 inventory gate: **any new file under `internal/geometry` or
@@ -244,7 +313,8 @@ inventory gate: **any new file under `internal/geometry` or
 
 ## OPEN — two findings the T3 render surfaced
 
-Both are captured as durable backlog rows; neither was fixed in T3.
+Both are durable backlog rows. Run `mate backlog list` for current state; this
+section is narrative, the registry is the record.
 
 **`WKI-C83B0B9EB4EE` (high) — Russia renders as a crude blob.** RU/un/standard
 selects rung **24**: 508 bytes of a 7500 cap, 45 points, 1 part, IoU 0.9204.
@@ -256,16 +326,28 @@ fine-to-coarse search rejected every rung from 512 down to 32 for a reason the
 artifact does not record (per-attempt logs are stored only on no_artifact rows).
 The oracle cannot see it: minimum IoU is 0.40. Suspected antimeridian topology
 damage, **unverified**. Diagnosing needs a Mapshaper sweep for RU alone with
-per-attempt logging — T1/T5 work.
+per-attempt logging — T1/T5 work. **Status `accepted`: the owner marked this a
+release blocker.**
 
-**`WKI-490046152C71` (owner) — mainland or full claim?** The viewBox is fitted to
-the whole projected source before any candidate is chosen, so it reserves space
-for components the silhouette may deliberately not draw. Chile spans 43.0° of
-longitude via Easter Island, Salas y Gómez and Juan Fernández against 13.5° for
-the mainland, so it renders against one edge of a near-square box; the United
-States does the same via Alaska. **Pre-existing, not a T3 regression** — the AU
-viewBox is identical on the ladder and source paths (126.4×144 both) — visible
-now only because these entities render at all. Decide before T5's contact sheet.
+**`WKI-490046152C71` — framing, now decided in part by DEC-011 and `deferred`.**
+The viewBox is fitted to the whole projected source before any candidate is
+chosen, so it reserves space for components the silhouette may deliberately not
+draw. Chile spans 43.0° of longitude via Easter Island, Salas y Gómez and Juan
+Fernández against 13.5° for the mainland; the United States does the same via
+Alaska. **Pre-existing, not a T3 regression** — the AU viewBox is identical on the
+ladder and source paths (126.4×144 both).
+
+DEC-011 settled the parts that could be settled: the default stays full-claim, a
+second named mode is a product requirement, and cropping is an explicit seam over
+the *selected candidate* rather than an automatic heuristic. What is deferred to
+the T5 contact sheet is only the second mode's definition.
+
+Two measurements from DEC-011 that a future session should not redo. Cropping
+before selection leaves the ladder and fails hard: dropping Alaska and Hawaii and
+calling `Generate()` gives `hard_budget_exceeded` at **40885 bytes against 2500**.
+Cropping the selected candidate instead stays well inside budget — US card 7
+parts → 4 at 1817 of 2200, US hero 17 → 9 at 3137 of 7500, Chile card 9 → 5 at
+1675 of 2200. The seam belongs to P3 or a successor spec, not to P2.
 
 ## CLOSED — Croatia de_facto card (DEC-010, `45385fb`)
 
@@ -278,50 +360,26 @@ bridges them. Option 2 (a DEC-007 group anchor) stays pre-authorized as a *data*
 change if the site later shows the missing card is a material defect — that would
 not reopen DEC-010.
 
-## Next step — T4 (do this first in the new session)
+## Next step — T5 (do this first in the new session)
 
-Three failing tests remain. Two are genuinely stale and one is not.
+`make check` is green and every T4 item is done, so nothing is blocking. T5 is
+the full-catalog SVG proof and the owner contact sheet, and
+`internal/geometry/cmd/svgproof -out <dir>` already produces both — real SVG
+files plus an HTML index.
 
-1. **`lodbuild` — `TestLODAQRUProjectionAlignedCheckpoint` and
-   `TestLODSpikeFullCorpus`.** Pre-existing since the T0A.1 spike. The exact
-   reason was read after T3, not assumed: the checkpoint test builds its **own**
-   v1 tier table (`stage=production_table`) with no `Ladder`, so it takes the
-   legacy branch and is rejected by the superseded predicate —
-   `AQ/hero production tier mismatch ... Fallbacks:[standard:raw_deviation:12.2]`.
-   That is the DEC-006 problem surviving inside the spike harness rather than in
-   production, which T3 fixed. So these are genuinely untouched by T3's ladder
-   path, but they are not "unrelated to the ladder" either: they exercise exactly
-   the predicate the ladder replaced.
+**Resolve `WKI-C83B0B9EB4EE` (Russia) before that sheet reaches the owner.** It
+is now `accepted` rather than merely captured: the owner marked it a release
+blocker. A top-200 country rendering as a crude blob at 7% of its hero byte
+budget is the first thing anyone will notice on a contact sheet, and shipping the
+sheet without it wastes the owner's review.
 
-   The T4 decision is therefore whether the spike harness moves to the oracle
-   predicate or is retired as historical evidence — not whether to move its
-   numbers. `DiagnosticGridPhases` deliberately still reproduces the superseded
-   path and now says so in its doc comment; the same question applies to it.
-2. **`geometry` — `TestRepresentativeNaturalRatiosAndArbitraryFrames`.** Blocked
-   on the owner's framing decision (`WKI-490046152C71`). **Do not edit the
-   assertion to make it pass.** It encodes mainland framing; production frames
-   the full claim. One of the two has to change, and which one is not a test
-   question.
-3. **VAL-6 mutation teeth for the runtime path — partly done, not yet
-   automated.** The shipped gate was hand-mutated at the end of T3 and bites on
-   both regression vectors, with the right message:
+Diagnosing it needs a Mapshaper sweep for RU alone with per-attempt rejection
+logging, so it is a `lodbuild` change, not a runtime one. The artifact records
+per-attempt logs only on `no_artifact` rows, which is why the reason is not
+already on disk.
 
-   - forcing `ladderVerdictApplies` to `return false` →
-     `AD/de_facto/compact: served tier "source", not the committed band — the
-     ladder is not reaching the shipped path`;
-   - regressing `publishedLODTable` to nil → the same failure, plus
-     `TestPublishedTableIsTheCommittedLadder: the published table is not
-     ladder-backed`.
-
-   That is a hand-verification, which by the project's own rule is a gate not yet
-   written. T4 should make it automatic — the cheap shape is a table-driven test
-   that runs the shipped assertions against a deliberately ladder-less table and
-   requires them to fail.
-
-Then T5: full-catalog SVG proof and the owner contact sheet
-(`internal/geometry/cmd/svgproof -out <dir>` already produces both). Resolve
-`WKI-C83B0B9EB4EE` (Russia) before that sheet goes to the owner — a top-200
-country rendering as a blob is the first thing anyone will notice.
+After the sheet lands, the deferred framing decision (`WKI-490046152C71`, deferred
+under DEC-011) is the owner's next call, with all 996 cards on screen.
 
 ## Hard constraints (from accepted decisions — do not violate)
 
