@@ -1,0 +1,27 @@
+version: 1
+kind: provider-capability-receipt
+id: CAP-E3F86A17CCDC
+epic: country-map-svg-generator
+spec: P2
+run: RUN-008
+status: recorded
+input_digest: 3ba0a8ecfe881f13657c78f98b01e276b6ccdb198b7f174b0b86fcefc080d643
+subject:
+    artifact: run-brief
+    id: RUN-008
+    path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/candidates/RUN-008/P2-geometry-pipeline.RUN-008.brief.md
+    sha256: 3ba0a8ecfe881f13657c78f98b01e276b6ccdb198b7f174b0b86fcefc080d643
+producer_role: readiness-producer
+principal: teamlead
+result: pass
+slot: verification-runner
+capability: execute-verification
+disposition: native
+semantic_tier: cheap
+session_id: run008-remediation-bridge
+output_digest: 79eba33cdd42a546e846d9d3768e4cc3a60faca0ddc7de5f58fe1fe18cd38d82
+write_set_digest: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+provider_evidence:
+    command: "/private/tmp/mate-v141-run007.w1Blr5/mate\x1Frun\x1Fvalidate\x1Fcountry-map-svg-generator\x1FP2\x1FRUN-008\x1F--json"
+    provider: codex
+    target: spec.begin

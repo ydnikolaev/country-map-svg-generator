@@ -1,0 +1,21 @@
+version: 1
+kind: verification-result
+id: VERIFY-E3F86A17CCDC
+epic: country-map-svg-generator
+spec: P2
+run: RUN-008
+status: pass
+input_digest: b733f18703854b0a6cbe5c0d2c4d031b28c2ff3ed1e4c22e5255e5dc095537be
+selection_id: SELECT-E3F86A17CCDC
+attempts:
+    - artifact: verification-attempt
+      id: ATTEMPT-E3F86A17CCDC
+      path: docs/features/active/country-map-svg-generator/readiness/REV-E3F86A17CCDC/ATTEMPT-E3F86A17CCDC.verification-attempt.yaml
+      sha256: b733f18703854b0a6cbe5c0d2c4d031b28c2ff3ed1e4c22e5255e5dc095537be
+nodes:
+    - node: run-brief-validation
+      verdict: pass
+      exit_code: 0
+      output_hash: 79eba33cdd42a546e846d9d3768e4cc3a60faca0ddc7de5f58fe1fe18cd38d82
+      duration_ms: 44
+verdict: pass
