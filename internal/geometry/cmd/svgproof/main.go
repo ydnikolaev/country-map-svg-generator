@@ -214,7 +214,10 @@ func contactSheet(rows []proofRow) string {
 	var b strings.Builder
 	b.WriteString(`<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">`)
 	b.WriteString(`<title>Country silhouettes — full catalog</title><style>
-:root{--bg:#0e0f11;--card:#191b1f;--ink:#e9eaec;--dim:#8b9099;--line:#2a2d33;--warn:#d8a657;--bad:#e06c75}
+/* Light is the default ground: a silhouette catalog is read the way an atlas
+   plate is, dark ink on paper. The neutrals carry a slight cool bias so they sit
+   with the ink rather than looking like unconsidered grey. */
+:root{--bg:#f7f7f5;--card:#fff;--ink:#14161a;--dim:#6a7078;--line:#e2e3e6;--warn:#8a5a00;--bad:#b3261e}
 *{box-sizing:border-box}
 body{font:14px/1.5 ui-sans-serif,system-ui,sans-serif;margin:0;padding:28px;background:var(--bg);color:var(--ink)}
 h1{font-size:19px;margin:0 0 4px}
@@ -237,9 +240,13 @@ h1{font-size:19px;margin:0 0 4px}
     border:1px dashed #3a3d44;border-radius:6px}
 #fa:checked~.grid .band-standard,#fb:checked~.grid .band-compact,
 #fc:checked~.grid .ok{display:none}
-@media (prefers-color-scheme:light){
-:root{--bg:#fafafa;--card:#fff;--ink:#16181d;--dim:#6b7280;--line:#e3e5e9}
-.filters input:checked+label{background:#eef0f4;border-color:#c3c8d0}}
+.filters label:focus-visible,label:focus-within{outline:2px solid var(--ink);outline-offset:2px}
+/* Tokens are redefined per theme; components only ever read the tokens, so the
+   viewer's explicit toggle wins over the OS preference in both directions. */
+@media (prefers-color-scheme:dark){
+:root{--bg:#0e0f11;--card:#191b1f;--ink:#e9eaec;--dim:#8b9099;--line:#2a2d33;--warn:#d8a657;--bad:#e06c75}}
+:root[data-theme="dark"]{--bg:#0e0f11;--card:#191b1f;--ink:#e9eaec;--dim:#8b9099;--line:#2a2d33;--warn:#d8a657;--bad:#e06c75}
+:root[data-theme="light"]{--bg:#f7f7f5;--card:#fff;--ink:#14161a;--dim:#6a7078;--line:#e2e3e6;--warn:#8a5a00;--bad:#b3261e}
 </style>`)
 	fmt.Fprintf(&b, `<h1>Country silhouettes — full catalog</h1>
 <div class="sub">Every cell is the shipped <code>Generate()</code> output, inlined. Geometry only — no fill, stroke or colour is baked in.</div>`)
