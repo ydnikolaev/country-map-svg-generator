@@ -1,0 +1,43 @@
+version: 1
+kind: transition-receipt
+id: p2-run013-owner-checkpoint
+epic: country-map-svg-generator
+spec: P2
+run: RUN-013
+status: recorded
+input_digest: 392097c40fa6edd61f6623e7d6708e5f2aab59512de4d87a0397c02445ffac57
+subject:
+    artifact: run-brief
+    id: RUN-013
+    path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-013/P2-geometry-pipeline.RUN-013.brief.md
+    sha256: 8f61489616e829eea816bc741a80707fbe957fe0bc159c3bf5a927cca46aa3bf
+producer_role: lifecycle-engine
+principal: teamlead
+result: pass
+machine: run
+event: interrupt
+from: running
+to: interrupted
+inputs:
+    - artifact: agent-dispatch-result
+      id: RESULT-021
+      path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-013/agents/RESULT-021.agent-dispatch-result.yaml
+      sha256: 6c34549769804c3a0751954d3db9ee3aa271d0b20511ca34c9456d61389082ee
+    - artifact: decision
+      id: DEC-008
+      path: docs/features/active/country-map-svg-generator/decisions/DEC-008/country-map-svg-generator.DEC-008-representative-sheet-approval.decision.md
+      sha256: d92caff0294b08a46cb7d49dfda8e2309918afe0665a6a01d6a82fa55894d3de
+    - artifact: gate-receipt
+      id: GATE-458D4D778A57
+      path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-013/gates/GATE-458D4D778A57/GATE-458D4D778A57.gate-receipt.yaml
+      sha256: 792fd75998656c10ecbd7bfdea760685c8f5880d613574b50210aa421339a0ba
+    - artifact: run-brief
+      id: RUN-013
+      path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-013/P2-geometry-pipeline.RUN-013.brief.md
+      sha256: 8f61489616e829eea816bc741a80707fbe957fe0bc159c3bf5a927cca46aa3bf
+    - artifact: transition-receipt
+      id: run-start-421064ec0d6c2538-run
+      path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-013/events/run-start-421064ec0d6c2538-run.transition-receipt.yaml
+      sha256: 6fb525478fbbd7a18da16b88cdc9d6cd171732e3a472d515f78cf9a257e00c26
+predecessor: 8f61489616e829eea816bc741a80707fbe957fe0bc159c3bf5a927cca46aa3bf
+successor: e919b1e075d79b62ee09fe78fc7baa690357391b1de2d1be9dea05d985426cbf
