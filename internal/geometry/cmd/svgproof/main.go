@@ -32,6 +32,10 @@ type proofRow struct {
 	Parts                         int
 	ViewBoxW, ViewBoxH            float64
 	Note                          string
+
+	// svg is the inlined document, kept out of the JSON record so the machine
+	// evidence stays readable while the human page stays self-contained.
+	svg string `json:"-"`
 }
 
 func main() {
@@ -105,9 +109,10 @@ func run(out, only string) error {
 			row.PathBytes = len(result.Path)
 			row.Parts = strings.Count(result.Path, "M")
 			row.ViewBoxW, row.ViewBoxH = result.ViewBox.Width(), result.ViewBox.Height()
+			row.svg = svgDocument(result)
 			if out != "" {
 				name := fmt.Sprintf("%s.%s.%s.svg", committed.Alpha2, committed.Profile, committed.Band)
-				if err := os.WriteFile(filepath.Join(out, name), []byte(svgDocument(result)), 0o644); err != nil {
+				if err := os.WriteFile(filepath.Join(out, name), []byte(row.svg), 0o644); err != nil {
 					return err
 				}
 			}
@@ -181,36 +186,106 @@ func svgDocument(r geometry.Result) string {
 	return b.String()
 }
 
+// contactSheet writes one self-contained page: every silhouette is inlined, so
+// the file can be opened or sent on its own with no directory around it. Filters
+// are plain CSS radio state rather than script, so it also survives being
+// rendered somewhere that will not run JavaScript.
 func contactSheet(rows []proofRow) string {
-	var b strings.Builder
-	b.WriteString("<!doctype html><meta charset=\"utf-8\"><title>country-map-svg-generator proof</title>")
-	b.WriteString("<style>body{font:13px system-ui;margin:24px;background:#111;color:#eee}" +
-		"h1{font-size:16px}.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px}" +
-		".c{background:#1b1b1b;border-radius:8px;padding:8px;text-align:center}" +
-		".c svg{width:100%;height:110px;fill:#e8e8e8}.m{color:#888;font-size:11px;margin-top:4px}" +
-		".bad{outline:2px solid #c33}.na{color:#c96}</style>")
-	fmt.Fprintf(&b, "<h1>%d cells — shipped Generate() output</h1><div class=\"grid\">", len(rows))
+	rendered, absent, over, fallback := 0, 0, 0, 0
+	budget := map[string][]float64{}
 	for _, row := range rows {
-		cls := "c"
-		if row.SelectedTier == "source" || row.PathBytes > row.BandPathCap {
-			cls += " bad"
-		}
-		fmt.Fprintf(&b, "<div class=\"%s\">", cls)
 		switch row.Outcome {
 		case "rendered":
-			fmt.Fprintf(&b, "<object type=\"image/svg+xml\" data=\"%s.%s.%s.svg\" style=\"width:100%%;height:110px\"></object>",
-				row.Alpha2, row.Profile, row.Band)
-			fmt.Fprintf(&b, "<div><b>%s</b> %s/%s</div><div class=\"m\">rung %s · %d B / %d · tier %s</div>",
-				row.Alpha2, row.Profile, row.Band, row.Selection, row.PathBytes, row.BandPathCap, row.SelectedTier)
+			rendered++
+			if row.PathBytes > row.BandPathCap {
+				over++
+			}
+			if row.SelectedTier == "source" {
+				fallback++
+			}
+			if row.BandPathCap > 0 {
+				budget[row.Band] = append(budget[row.Band], float64(row.PathBytes)/float64(row.BandPathCap))
+			}
 		case "no_artifact":
-			fmt.Fprintf(&b, "<div style=\"height:110px;display:flex;align-items:center;justify-content:center\" class=\"na\">no artifact</div>")
-			fmt.Fprintf(&b, "<div><b>%s</b> %s/%s</div><div class=\"m\">%s</div>", row.Alpha2, row.Profile, row.Band, row.Note)
-		default:
-			fmt.Fprintf(&b, "<div style=\"height:110px;color:#c33\">error</div><div><b>%s</b> %s/%s</div><div class=\"m\">%s</div>",
-				row.Alpha2, row.Profile, row.Band, row.Note)
+			absent++
 		}
-		b.WriteString("</div>")
 	}
-	b.WriteString("</div>")
+
+	var b strings.Builder
+	b.WriteString(`<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">`)
+	b.WriteString(`<title>Country silhouettes — full catalog</title><style>
+:root{--bg:#0e0f11;--card:#191b1f;--ink:#e9eaec;--dim:#8b9099;--line:#2a2d33;--warn:#d8a657;--bad:#e06c75}
+*{box-sizing:border-box}
+body{font:14px/1.5 ui-sans-serif,system-ui,sans-serif;margin:0;padding:28px;background:var(--bg);color:var(--ink)}
+h1{font-size:19px;margin:0 0 4px}
+.sub{color:var(--dim);font-size:13px;margin-bottom:20px}
+.stats{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:22px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px;min-width:118px}
+.stat b{display:block;font-size:20px;font-variant-numeric:tabular-nums}
+.stat span{color:var(--dim);font-size:12px}
+.filters{display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap}
+.filters label{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:6px 14px;cursor:pointer;font-size:13px;color:var(--dim)}
+.filters input{position:absolute;opacity:0;pointer-events:none}
+.filters input:checked+label{color:var(--ink);border-color:#4a5568;background:#22252b}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(158px,1fr));gap:12px}
+.c{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px;text-align:center;overflow:hidden}
+.c svg{width:100%;height:112px;display:block;fill:var(--ink)}
+.c .t{font-weight:600;margin-top:8px;font-size:13px}
+.m{color:var(--dim);font-size:11px;font-variant-numeric:tabular-nums;word-break:break-word}
+.flag{outline:2px solid var(--bad)}
+.na{height:112px;display:flex;align-items:center;justify-content:center;color:var(--warn);font-size:12px;
+    border:1px dashed #3a3d44;border-radius:6px}
+#fa:checked~.grid .band-standard,#fb:checked~.grid .band-compact,
+#fc:checked~.grid .ok{display:none}
+@media (prefers-color-scheme:light){
+:root{--bg:#fafafa;--card:#fff;--ink:#16181d;--dim:#6b7280;--line:#e3e5e9}
+.filters input:checked+label{background:#eef0f4;border-color:#c3c8d0}}
+</style>`)
+	fmt.Fprintf(&b, `<h1>Country silhouettes — full catalog</h1>
+<div class="sub">Every cell is the shipped <code>Generate()</code> output, inlined. Geometry only — no fill, stroke or colour is baked in.</div>`)
+	fmt.Fprintf(&b, `<div class="stats">
+<div class="stat"><b>%d</b><span>rendered</span></div>
+<div class="stat"><b>%d</b><span>no artifact</span></div>
+<div class="stat"><b>%d</b><span>over band cap</span></div>
+<div class="stat"><b>%d</b><span>source fallback</span></div>`, rendered, absent, over, fallback)
+	for _, band := range []string{"compact", "standard"} {
+		used := append([]float64(nil), budget[band]...)
+		if len(used) == 0 {
+			continue
+		}
+		sort.Float64s(used)
+		fmt.Fprintf(&b, `<div class="stat"><b>%.0f%%</b><span>median budget, %s</span></div>`,
+			100*used[len(used)/2], band)
+	}
+	b.WriteString(`</div>`)
+	b.WriteString(`<input type="radio" name="f" id="f0" checked><label for="f0">all</label>
+<input type="radio" name="f" id="fa"><label for="fa">cards only</label>
+<input type="radio" name="f" id="fb"><label for="fb">heroes only</label>
+<input type="radio" name="f" id="fc"><label for="fc">needs a look</label>`)
+	b.WriteString(`<div class="filters"></div><div class="grid">`)
+	for _, row := range rows {
+		flagged := row.Outcome != "rendered" || row.SelectedTier == "source" || row.PathBytes > row.BandPathCap
+		cls := "c band-" + row.Band
+		if flagged {
+			cls += " flag"
+		} else {
+			cls += " ok"
+		}
+		fmt.Fprintf(&b, `<div class="%s">`, cls)
+		switch row.Outcome {
+		case "rendered":
+			b.WriteString(row.svg)
+			fmt.Fprintf(&b, `<div class="t">%s <span class="m">%s</span></div><div class="m">%s · rung %s · %d/%d B</div>`,
+				row.Alpha2, row.Profile, row.Band, row.Selection, row.PathBytes, row.BandPathCap)
+		case "no_artifact":
+			fmt.Fprintf(&b, `<div class="na">no artifact</div><div class="t">%s <span class="m">%s</span></div><div class="m">%s · %s</div>`,
+				row.Alpha2, row.Profile, row.Band, row.Note)
+		default:
+			fmt.Fprintf(&b, `<div class="na" style="color:var(--bad)">error</div><div class="t">%s <span class="m">%s</span></div><div class="m">%s</div>`,
+				row.Alpha2, row.Profile, row.Note)
+		}
+		b.WriteString(`</div>`)
+	}
+	b.WriteString(`</div>`)
 	return b.String()
 }
