@@ -4,13 +4,18 @@ id: PLAN-008
 epic: country-map-svg-generator
 spec: P2
 status: draft
-input_digest: 0315bcf33fad2a25952182a7d516d0640744f5687ad5f2ebdd20e6b7e7c60897
+input_digest: 4ec55ef8f1c9739e37e46e9fa2fea2458984e5cfbad59179336c04cd667ffbb6
 plan_id: PLAN-008
 baseline:
     repository: project
     commit: d219c9bae0434df888d6c4763eb0b19c2e260b91
     tree: 9096ed613412015f3cc86d5f0615ef753b5a399c
 inputs:
+    - reference: implementation-plan/PLAN-008
+      path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/plans/candidates/PLAN-008/P2-geometry-pipeline.PLAN-008.plan.md
+      sha256: ff876e87c8777680a69dee1eb8a87d0b031495b9d5e5663e2dafa02b21b80dc5
+      reason: candidate plan body
+      freshness: current
     - reference: solution-architecture/CTX-ARCH
       path: docs/features/active/country-map-svg-generator/architecture/country-map-svg-generator.solution-architecture.md
       sha256: 5325da7358596b56c9dc6f65d3b6af3801174257503a332334a77a9c71433947
@@ -26,15 +31,309 @@ inputs:
       sha256: 624635498aba7459806c92330f43593a584489f3196a50b59ef9e9444078e211
       reason: machine-approved predecessor invalidation
       freshness: current
-coverage: []
-tasks: []
-waves: []
-validation: []
-deviation_policy: ""
+coverage:
+    - obligation:
+        artifact: specification
+        id: US-1
+      task: T0B
+      evidence:
+        artifact: verification-result
+        id: VR-US-1
+    - obligation:
+        artifact: specification
+        id: US-2
+      task: T0B
+      evidence:
+        artifact: verification-result
+        id: VR-US-2
+    - obligation:
+        artifact: specification
+        id: US-3
+      task: T0B
+      evidence:
+        artifact: verification-result
+        id: VR-US-3
+    - obligation:
+        artifact: specification
+        id: US-4
+      task: T2
+      evidence:
+        artifact: verification-result
+        id: VR-US-4
+    - obligation:
+        artifact: specification
+        id: REQ-1
+      task: T0B
+      evidence:
+        artifact: verification-result
+        id: VR-REQ-1
+    - obligation:
+        artifact: specification
+        id: REQ-2
+      task: T0B
+      evidence:
+        artifact: verification-result
+        id: VR-REQ-2
+    - obligation:
+        artifact: specification
+        id: REQ-3
+      task: T0A
+      evidence:
+        artifact: verification-result
+        id: VR-REQ-3
+    - obligation:
+        artifact: specification
+        id: REQ-4
+      task: T0A
+      evidence:
+        artifact: verification-result
+        id: VR-REQ-4
+    - obligation:
+        artifact: specification
+        id: REQ-5
+      task: T0B
+      evidence:
+        artifact: verification-result
+        id: VR-REQ-5
+    - obligation:
+        artifact: specification
+        id: REQ-6
+      task: T0B
+      evidence:
+        artifact: verification-result
+        id: VR-REQ-6
+    - obligation:
+        artifact: specification
+        id: REQ-7
+      task: T2
+      evidence:
+        artifact: verification-result
+        id: VR-REQ-7
+    - obligation:
+        artifact: specification
+        id: REQ-8
+      task: T0A
+      evidence:
+        artifact: verification-result
+        id: VR-REQ-8
+    - obligation:
+        artifact: specification
+        id: INV-1
+      task: T0B
+      evidence:
+        artifact: verification-result
+        id: VR-INV-1
+    - obligation:
+        artifact: specification
+        id: AC-1
+      task: T2
+      evidence:
+        artifact: verification-result
+        id: VR-AC-1
+    - obligation:
+        artifact: specification
+        id: AC-2
+      task: T2
+      evidence:
+        artifact: verification-result
+        id: VR-AC-2
+    - obligation:
+        artifact: specification
+        id: AC-3
+      task: T2
+      evidence:
+        artifact: verification-result
+        id: VR-AC-3
+    - obligation:
+        artifact: specification
+        id: AC-4
+      task: T2
+      evidence:
+        artifact: verification-result
+        id: VR-AC-4
+    - obligation:
+        artifact: specification
+        id: VAL-1
+      task: T2
+      evidence:
+        artifact: verification-result
+        id: VR-VAL-1
+    - obligation:
+        artifact: specification
+        id: VAL-2
+      task: T0A
+      evidence:
+        artifact: verification-result
+        id: VR-VAL-2
+    - obligation:
+        artifact: specification
+        id: VAL-3
+      task: T0B
+      evidence:
+        artifact: verification-result
+        id: VR-VAL-3
+    - obligation:
+        artifact: specification
+        id: VAL-4
+      task: T2
+      evidence:
+        artifact: verification-result
+        id: VR-VAL-4
+    - obligation:
+        artifact: specification
+        id: VAL-5
+      task: T2
+      evidence:
+        artifact: verification-result
+        id: VR-VAL-5
+tasks:
+    - id: T0A
+      outcome: Align the projection contract, separate geometry selection from rendering and budget enforcement, and pass the RU/AQ production-table micro brake without committing product bytes.
+      depends_on: []
+      writes:
+        - internal/geometry/cmd/lodbuild/main.go
+        - internal/geometry/cmd/lodbuild/main_test.go
+        - internal/geometry/diagnostic.go
+        - internal/geometry/gridphase.go
+        - internal/geometry/gridphase_test.go
+        - internal/geometry/lod.go
+        - internal/geometry/lod/v1.recipe.json
+        - internal/geometry/lod_test.go
+        - internal/geometry/model.go
+        - internal/geometry/model_test.go
+        - internal/geometry/preset.go
+        - internal/geometry/preset_test.go
+        - internal/geometry/presets/v1.json
+        - internal/geometry/projection.go
+        - internal/geometry/projection_test.go
+      owner: lod-selection-micro
+      wave: W0
+    - id: T0B
+      outcome: Integrate the complete geometry foundation, full-corpus and warm-production brakes, public nil seam and owner visuals, then land one clean T0 commit containing the verified T0A and T0B union.
+      depends_on:
+        - T0A
+      writes:
+        - go.mod
+        - go.sum
+        - internal/geometry/adapter.go
+        - internal/geometry/adapter_test.go
+        - internal/geometry/fit.go
+        - internal/geometry/fit_test.go
+        - internal/geometry/lod/tool
+        - internal/geometry/lod_catalog_test.go
+        - internal/geometry/marker.go
+        - internal/geometry/marker_test.go
+        - internal/geometry/math.go
+        - internal/geometry/normalize.go
+        - internal/geometry/normalize_test.go
+        - internal/geometry/override.go
+        - internal/geometry/override_test.go
+        - internal/geometry/overrides
+        - internal/geometry/path.go
+        - internal/geometry/path_test.go
+        - internal/geometry/pipeline.go
+        - internal/geometry/pipeline_test.go
+        - internal/geometry/retain.go
+        - internal/geometry/retain_test.go
+        - internal/geometry/serialize.go
+        - internal/geometry/serialize_test.go
+        - internal/geometry/simplify.go
+        - internal/geometry/simplify_test.go
+        - internal/geometry/soften.go
+        - internal/geometry/soften_test.go
+        - internal/geometry/testdata/lod-spike
+      owner: geometry-foundation-integrator
+      wave: W1
+    - id: T1
+      outcome: Publish deterministic all-283 compact and standard artifacts and activate the public embedded table without modifying T0 files.
+      depends_on:
+        - T0B
+      writes:
+        - internal/geometry/lod/v1.compact.json
+        - internal/geometry/lod/v1.manifest.json
+        - internal/geometry/lod/v1.standard.json
+        - internal/geometry/lod_build_test.go
+        - internal/geometry/lod_generated.go
+      owner: lod-publisher
+      wave: W2
+    - id: T2
+      outcome: Complete D3, topology, layout, protection, budget, override, marker and visual evidence and pass the offline project ceiling.
+      depends_on:
+        - T1
+      writes:
+        - Makefile
+        - internal/geometry/approval_test.go
+        - internal/geometry/integration_test.go
+        - internal/geometry/mutations_test.go
+        - internal/geometry/oracle_test.go
+        - internal/geometry/testdata/approval
+        - internal/geometry/testdata/d3
+        - internal/geometry/testdata/mutations
+      owner: lod-verifier
+      wave: W3
+waves:
+    - id: W0
+      tasks:
+        - T0A
+      concurrency: 1
+    - id: W1
+      tasks:
+        - T0B
+      concurrency: 1
+    - id: W2
+      tasks:
+        - T1
+      concurrency: 1
+    - id: W3
+      tasks:
+        - T2
+      concurrency: 1
+validation:
+    - obligation:
+        artifact: specification
+        id: VAL-1
+      gate: geometry-d3-parity
+      tier: integration
+      evidence:
+        artifact: verification-result
+        id: VR-VAL-1
+    - obligation:
+        artifact: specification
+        id: VAL-2
+      gate: geometry-projection-selection-gridphase-and-budget-teeth
+      tier: integration
+      evidence:
+        artifact: verification-result
+        id: VR-VAL-2
+    - obligation:
+        artifact: specification
+        id: VAL-3
+      gate: geometry-lod-integrated-budget-visual-and-performance-brake
+      tier: project
+      evidence:
+        artifact: verification-result
+        id: VR-VAL-3
+    - obligation:
+        artifact: specification
+        id: VAL-4
+      gate: geometry-overrides
+      tier: component
+      evidence:
+        artifact: verification-result
+        id: VR-VAL-4
+    - obligation:
+        artifact: specification
+        id: VAL-5
+      gate: geometry-markers
+      tier: integration
+      evidence:
+        artifact: verification-result
+        id: VR-VAL-5
+deviation_policy: p2-projection-selection-render-separation-v1
 estimate:
-    unit: ""
-    low: 0
-    likely: 0
-    high: 0
-    confidence: ""
-    basis: ""
+    unit: agent-hour
+    low: 8
+    likely: 12
+    high: 18
+    confidence: low
+    basis: Projection alignment and the RU/AQ production-table micro brake consume 2-4 hours before broad integration; failure stops before the full-corpus cost.
