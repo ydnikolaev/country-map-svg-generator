@@ -263,9 +263,20 @@ func EvaluateSilhouetteCandidate(raw Input, record ProjectedLODGeometry, recipeS
 	}
 	dominant := true
 	fittedCandidate := transformGeometry(projectedCandidate, transform.Scale, transform.TranslateX, transform.TranslateY)
-	if err := validateTopology(fittedCandidate); err != nil {
-		return SilhouetteCandidateEvaluation{}, err
-	}
+	// Topology is judged on the canonical geometry inside the phase loop below,
+	// not here. A pre-canonical check runs at a precision the output never has:
+	// simplification can leave a self-crossing of ~1e-4 in fitted units, four
+	// orders of magnitude below the q=0.01 grid every emitted path is snapped
+	// to, and canonicalization removes it. Rejecting the candidate at this point
+	// discards a representation that would have been valid.
+	//
+	// Measured on RU/un, which is what surfaced this: rungs 512 down to 32 were
+	// all rejected here by the same self-crossing, leaving Russia on rung 24 as a
+	// single 45-point part using 508 of its 7500 hero bytes. Replayed through
+	// canonicalization those same rungs are clean, on-grid and contained, at 39,
+	// 9 and 3 parts. The source geometry is valid at 209 and 214 parts, so the
+	// defect is introduced by simplification and erased by canonicalization —
+	// this check only ever saw it in between.
 	omissions := len(fitted) - len(fittedCandidate)
 	if omissions < 0 {
 		omissions = 0

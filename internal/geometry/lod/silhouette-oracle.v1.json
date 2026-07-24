@@ -5,7 +5,7 @@
   "projection_version": "v1",
   "recipe_version": "v2",
   "rasterizer_path": "internal/geometry/silhouette.go",
-  "rasterizer_sha256": "54ca30df6853110bfcd6ae8c30e75edb8221f730ab5a29b35b54df1734f4b5c7",
+  "rasterizer_sha256": "af021d7cbd524eb1e2156f4a316cb215d62275eea906636dff85b1e669cfe43a",
   "sampling": "pixel_center",
   "fill_rule": "nonzero",
   "antialias": false,

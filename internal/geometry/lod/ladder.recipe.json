@@ -4,7 +4,7 @@
   "source_corpus": "sha256:9d56b4d205eb2f5979e0d1f82d84222946b9f4e12e8a2b7ec09204e2225f2d95",
   "projection_version": "v1",
   "oracle_version": "v1",
-  "oracle_sha256": "f2c9cd32e806985be55193e564942e716bb42c72e01d7405c976ddf36666d56f",
+  "oracle_sha256": "7db7255ba87e6f9f9d71b6dbf4d635a2a76a6046e611ee99212695196810d068",
   "base_recipe_version": "v2",
   "base_recipe_sha256": "da3ff9d331df37882bb2ed4159e9f14ef2aaeedf2b9fcff9e77c79fed4d751c5",
   "mapshaper_version": "0.7.44",

@@ -294,9 +294,22 @@ func generateWithLOD(raw Input, table *LODTable, selectionOnly bool) (Result, er
 				candidateGeometry, restorations = restoreRequiredComponents(fullRequired, fullComponents, candidateGeometry)
 			}
 			shared := sharedSourceVertices(fullRequired, 1e-12)
-			if topologyErr := validateTopologyShared(candidateGeometry, shared); topologyErr != nil {
-				prov.Fallbacks = append(prov.Fallbacks, c.name+":topology:"+errorIdentity(topologyErr))
-				continue
+			// Same boundary as the oracle's: topology is judged on the canonical
+			// geometry, which canonicalizeShared validates on the way out, not
+			// on the pre-canonical fitted coordinates. Simplification can leave a
+			// self-crossing four orders of magnitude below the q=0.01 output grid
+			// that canonicalization then erases; rejecting here would discard a
+			// candidate the build already accepted and fall back to source —
+			// which for Russia meant 101605 bytes against a 2500 ceiling.
+			//
+			// The build and the runtime have to agree on this or the ladder is
+			// selected against one predicate and served against another, which is
+			// the whole class of failure this spec exists to end.
+			if !c.ladder {
+				if topologyErr := validateTopologyShared(candidateGeometry, shared); topologyErr != nil {
+					prov.Fallbacks = append(prov.Fallbacks, c.name+":topology:"+errorIdentity(topologyErr))
+					continue
+				}
 			}
 			if !c.ladder {
 				rawDeviation = matchedBoundaryDeviation(fullRequired, candidateGeometry, quality.Simplification)
