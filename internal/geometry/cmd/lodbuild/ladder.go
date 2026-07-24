@@ -259,18 +259,29 @@ func buildLadder(c *catalog.Corpus, scratch string) (ladderArtifact, error) {
 // DEC-009 orders it. It returns the winning row and its candidate geometry, or
 // a no_artifact row carrying the typed reason and every rejected attempt.
 func evaluateLadderCase(c *catalog.Corpus, alpha2, profile, preset string, band geometry.SilhouetteBand, resolutions []float64, ladder map[string]map[string]catalog.Geometry, projectedByID map[string]geometry.ProjectedLODGeometry, groupAnchors geometry.GroupAnchorSet, recipeSHA string) (ladderRow, *geometry.ProjectedLODGeometry, error) {
+	row, record, _, err := evaluateLadderCaseExplained(c, alpha2, profile, preset, band, resolutions, ladder, projectedByID, groupAnchors, recipeSHA)
+	return row, record, err
+}
+
+// evaluateLadderCaseExplained is the single implementation. It additionally
+// returns every rejected rung even when the case passes, which the committed
+// artifact does not carry: attempts are stored only on no_artifact rows, so a
+// row that passes at a coarse rung records nothing about why the finer rungs
+// lost. That gap is what made Russia's selection unexplainable from the artifact
+// alone.
+func evaluateLadderCaseExplained(c *catalog.Corpus, alpha2, profile, preset string, band geometry.SilhouetteBand, resolutions []float64, ladder map[string]map[string]catalog.Geometry, projectedByID map[string]geometry.ProjectedLODGeometry, groupAnchors geometry.GroupAnchorSet, recipeSHA string) (ladderRow, *geometry.ProjectedLODGeometry, []ladderAttempt, error) {
 	in, err := geometry.InputFromCatalog(c, alpha2, profile, preset)
 	if err != nil {
-		return ladderRow{}, nil, err
+		return ladderRow{}, nil, nil, err
 	}
 	resolved, err := geometry.ApplyPreset(in)
 	if err != nil {
-		return ladderRow{}, nil, err
+		return ladderRow{}, nil, nil, err
 	}
 	resolved.Preset, resolved.MaxPathBytes = "", 0
 	resolved, groupApplication, err := geometry.ApplyGroupAnchors(resolved, groupAnchors, band)
 	if err != nil {
-		return ladderRow{}, nil, err
+		return ladderRow{}, nil, nil, err
 	}
 
 	var attempts []ladderAttempt
@@ -338,12 +349,12 @@ func evaluateLadderCase(c *catalog.Corpus, alpha2, profile, preset string, band 
 		base := projectedByID[resolved.Geometry.ID]
 		base.Geometry = candidateGeometry
 		if row, record, ok := tryCandidate(key, base); ok {
-			return row, &record, nil
+			return row, &record, attempts, nil
 		}
 	}
 	identity := projectedByID[resolved.Geometry.ID]
 	if row, record, ok := tryCandidate(ladderIdentitySelection, identity); ok {
-		return row, &record, nil
+		return row, &record, attempts, nil
 	}
 
 	last := attempts[len(attempts)-1]
@@ -351,7 +362,7 @@ func evaluateLadderCase(c *catalog.Corpus, alpha2, profile, preset string, band 
 		Alpha2: alpha2, Profile: profile, Band: band.ID, Status: "no_artifact",
 		GeometryID: resolved.Geometry.ID, NoArtifactReason: last.Reason, Attempts: attempts,
 	}
-	return row, nil, nil
+	return row, nil, attempts, nil
 }
 
 // marshalLadderArtifact is the single canonical encoding used both to write
@@ -383,6 +394,111 @@ func writeLadderArtifact(path string, a ladderArtifact) error {
 		return err
 	}
 	return os.WriteFile(path, raw, 0o644)
+}
+
+// explainLadder replays the ladder search for one entity and prints every rung
+// with the reason it lost. It exists because the committed artifact records
+// per-attempt logs only on no_artifact rows, so a row that passes at a coarse
+// rung — Russia at 24, spending 508 of 7500 hero bytes — carries no record of
+// why every finer rung was rejected.
+//
+// It is exact, not an approximation: build.mjs simplifies one feature at a time,
+// so running the sweep over a single entity produces the same geometry per rung
+// as running it over the whole catalog. It reuses evaluateLadderCaseExplained
+// rather than reimplementing the search, so what it reports is what the build
+// did.
+func explainLadder(c *catalog.Corpus, alpha2, scratch string) error {
+	root := sourceRoot()
+	oracle, err := geometry.EmbeddedSilhouetteOracle()
+	if err != nil {
+		return err
+	}
+	recipe, recipeSHA, err := loadLadderRecipe(root, c, oracle)
+	if err != nil {
+		return err
+	}
+	groupAnchors, err := geometry.EmbeddedGroupAnchors()
+	if err != nil {
+		return err
+	}
+	if err := os.MkdirAll(scratch, 0o755); err != nil {
+		return err
+	}
+
+	wanted := map[string]bool{}
+	for _, profile := range []string{"un", "de_facto"} {
+		in, inputErr := geometry.InputFromCatalog(c, alpha2, profile, "card")
+		if inputErr != nil {
+			return inputErr
+		}
+		wanted[in.Geometry.ID] = true
+	}
+	contract := geometry.LODProjectionContractV1()
+	projectedByID := map[string]geometry.ProjectedLODGeometry{}
+	var projectedCatalog []catalog.Geometry
+	for _, source := range c.Geometries {
+		if !wanted[source.ID] {
+			continue
+		}
+		record, projectErr := geometry.ProjectLODGeometry(source, contract.Flatness, contract.CoordinatePrecision)
+		if projectErr != nil {
+			return fmt.Errorf("project %s: %w", source.ID, projectErr)
+		}
+		record.SourceCorpus = c.Manifest.Identity
+		record.RecipeSHA256 = recipeSHA
+		projectedByID[source.ID] = record
+		projectedCatalog = append(projectedCatalog, record.Geometry)
+	}
+	if len(projectedCatalog) == 0 {
+		return fmt.Errorf("%s resolves to no geometry", alpha2)
+	}
+	sourcePath := filepath.Join(scratch, "source.geojson")
+	if err := writeSource(sourcePath, projectedCatalog); err != nil {
+		return err
+	}
+
+	ladder := make(map[string]map[string]catalog.Geometry, len(recipe.Resolutions))
+	for i, resolution := range recipe.Resolutions {
+		key := formatResolution(resolution)
+		geoPath := filepath.Join(scratch, fmt.Sprintf("res-%s.geojson", key))
+		script := filepath.Join(root, "internal/geometry/lod/tool/build.mjs")
+		cmd := exec.Command("node", script, sourcePath, geoPath, key, formatResolution(recipe.Weighting))
+		cmd.Dir = root
+		combined, runErr := cmd.CombinedOutput()
+		if runErr != nil {
+			return fmt.Errorf("mapshaper resolution=%s: %w: %s", key, runErr, combined)
+		}
+		outputGeometries, readErr := readOutput(geoPath)
+		if readErr != nil {
+			return fmt.Errorf("read mapshaper output resolution=%s: %w", key, readErr)
+		}
+		byID := make(map[string]catalog.Geometry, len(outputGeometries))
+		for _, g := range outputGeometries {
+			byID[g.ID] = g
+		}
+		ladder[key] = byID
+		fmt.Printf("[explain] mapshaper %2d/%d resolution=%s\n", i+1, len(recipe.Resolutions), key)
+	}
+
+	for _, bp := range []struct {
+		Band   geometry.SilhouetteBand
+		Preset string
+	}{{oracle.Bands[0], "card"}, {oracle.Bands[1], "hero"}} {
+		for _, profile := range []string{"un", "de_facto"} {
+			row, _, attempts, evalErr := evaluateLadderCaseExplained(
+				c, alpha2, profile, bp.Preset, bp.Band, recipe.Resolutions, ladder, projectedByID, groupAnchors, recipeSHA)
+			if evalErr != nil {
+				return fmt.Errorf("%s/%s/%s: %w", alpha2, profile, bp.Band.ID, evalErr)
+			}
+			fmt.Printf("\n=== %s/%s/%s status=%s selection=%s bytes=%d cap=%d iou=%.4f parts=%d points=%d\n",
+				alpha2, profile, bp.Band.ID, row.Status, row.Selection, row.PathBytes, bp.Band.PathCap,
+				row.IoU, row.Parts, row.Points)
+			for _, attempt := range attempts {
+				fmt.Printf("    rejected %-8s %s\n", attempt.Selection, attempt.Reason)
+			}
+		}
+	}
+	return nil
 }
 
 func runLadderBuild(scratch, artifactPath string) error {

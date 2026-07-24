@@ -99,7 +99,22 @@ func main() {
 	timingOut := flag.String("timing-out", "", "diagnostic timing receipt JSON")
 	ladder := flag.Bool("ladder", false, "build the AM-005/DEC-009 committed silhouette ladder artifact")
 	ladderArtifactOut := flag.String("ladder-artifact-out", "", "output path for the ladder artifact JSON (defaults to internal/geometry/lod/ladder.artifact.json)")
+	ladderExplain := flag.String("ladder-explain", "", "replay the ladder search for one alpha2 and print every rejected rung")
 	flag.Parse()
+	if *ladderExplain != "" {
+		if *out == "" {
+			fmt.Fprintln(os.Stderr, "-out is required with -ladder-explain")
+			os.Exit(2)
+		}
+		c, err := catalog.Embedded()
+		if err != nil {
+			fatal(err)
+		}
+		if err := explainLadder(c, *ladderExplain, *out); err != nil {
+			fatal(err)
+		}
+		return
+	}
 	if *ladder {
 		if *out == "" {
 			fmt.Fprintln(os.Stderr, "-out is required with -ladder")
