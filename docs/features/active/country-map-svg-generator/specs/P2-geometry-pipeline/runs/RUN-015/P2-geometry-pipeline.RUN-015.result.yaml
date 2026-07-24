@@ -1,0 +1,34 @@
+version: 1
+kind: run-result
+id: RUN-015-RESULT
+epic: country-map-svg-generator
+spec: P2
+run: RUN-015
+status: interrupted
+input_digest: 70bbc026c0c9e4b430a0367edb1f3a5e83545e75a027b81f98d0cd9233878b39
+plan_id: PLAN-010
+readiness_id: REV-0ACD919F151B
+outcome: blocked
+revision:
+    repository: project
+    commit: 1c563405bad1ea48fd58677312f7b2ec7cf6a207
+    tree: 3c6ca9b54981ffe7e28b6b2bd212f8f356e483f2
+evidence:
+    - artifact: run-brief
+      id: RUN-015
+      path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-015/P2-geometry-pipeline.RUN-015.brief.md
+      sha256: 6f4208a7c0b54bf1ac470cb7a825c1db2210696c6fb0d9508cb6e2380c38658d
+      verdict: pass
+    - artifact: transition-receipt
+      id: p2-run015-runtime-integration-start-run
+      path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-015/events/p2-run015-runtime-integration-start-run.transition-receipt.yaml
+      sha256: ff930fa698638e18ad7c1857adf4dcb1d3aabc5ce208d4893e271dbf4052349c
+      verdict: pass
+    - artifact: agent-dispatch-result
+      id: RESULT-023
+      path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-015/agents/RESULT-023.agent-dispatch-result.yaml
+      sha256: fcdfa41a754e2fb84d1dd61cfb935d3d4a07995bd7499e2f81af148649b7b5b8
+      verdict: blocked
+deviations: []
+followups: []
+next_action: Scaffold a PLAN-010 T0A integration successor that derives a temporary all-283 v2 ladder from the frozen recipe, integrates requested-band protected visibility in runtime with rotation-safe finalization, and preserves representative hashes.

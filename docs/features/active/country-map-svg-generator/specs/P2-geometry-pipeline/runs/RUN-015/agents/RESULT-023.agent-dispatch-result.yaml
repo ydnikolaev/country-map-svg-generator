@@ -1,0 +1,29 @@
+version: 1
+kind: agent-dispatch-result
+id: RESULT-023
+epic: country-map-svg-generator
+spec: P2
+run: RUN-015
+status: blocked
+input_digest: 4ba6f4542450657e3fe4eca3794c053db40d13a838840e4f4c636d1502bbb238
+previous:
+    artifact: agent-dispatch-brief
+    id: BRIEF-023
+    path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-015/agents/BRIEF-023.agent-dispatch-brief.yaml
+    sha256: 8aac68c3b98c73ef5934604570d1c640089ac53d4dafc3f6617222b89faa9a24
+brief:
+    artifact: agent-dispatch-brief
+    id: BRIEF-023
+    path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-015/agents/BRIEF-023.agent-dispatch-brief.yaml
+    sha256: 8aac68c3b98c73ef5934604570d1c640089ac53d4dafc3f6617222b89faa9a24
+principal: p2-coder
+provider_task_ref: p2_coder
+outcome: blocked
+summary: 'RUN-015 proved the frozen v1 ladder cannot satisfy approved compact budgets even after correct automatic policy integration: CA/card compact is 2286 path and 2566 estimated file bytes, with no eligible fallback. The bounded patch was fully reverted.'
+changed_paths: []
+outputs: []
+verification: []
+deviations: []
+feedback: []
+blocked_reason: Runtime integration requires a temporary full-catalog v2 ladder selected from the frozen fine-to-coarse recipe before GenerateWithLOD can consume approved candidates. Requested compact band caps must govern every fallback record; runtime rotation/marker alignment must be evaluated locally rather than adopting zero-rotation maintainer geometry.
+resume_anchor: Interrupt RUN-015 with zero product changes. Start a successor PLAN-010 T0A integration run that builds a temporary all-283 v2 candidate ladder without changing representative outputs, integrates it into runtime policy with rotation-safe evaluation, reruns T0A evidence, then hands exact artifacts to T0B.
