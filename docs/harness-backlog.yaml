@@ -1,7 +1,7 @@
 version: 1
 kind: harness-feedback-backlog
 project: country-map-svg-generator
-revision: 12
+revision: 13
 operations:
     - version: 1
       id: feedback-add-2239ce643f15640e
@@ -17,6 +17,13 @@ operations:
       result_id: FND-ED003909B82A
       result_revision: 4
       recorded_at: "2026-07-23T18:13:38Z"
+    - version: 1
+      id: feedback-add-319e44d3754d4d3f
+      kind: feedback-add
+      input_digest: 88c69ef3159dee5676436f7d594645692251d6da70b98872b4786ec59b98f7c2
+      result_id: FND-CC7A8AAB239A
+      result_revision: 13
+      recorded_at: "2026-07-24T15:25:05Z"
     - version: 1
       id: feedback-add-47c6c3d20fb5a760
       kind: feedback-add
@@ -238,6 +245,24 @@ findings:
       state: new
       created_at: "2026-07-24T14:44:51Z"
       updated_at: "2026-07-24T14:44:51Z"
+    - id: FND-CC7A8AAB239A
+      scope: mate
+      severity: medium
+      area: amendment-lifecycle
+      summary: An applied amendment that fails independent verification has no corrective transition and is stuck in applied
+      observed: 'AM-003 in country-map-svg-generator was proposed, impact-fenced, accepted and applied, then failed independent review with two blocking findings against its factual diagnosis. mate amendment verify correctly refuses the blocking advisor receipt: advisor receipt ADV-003 does not pass and bind the current amendment closure. But mate amendment reject refuses too: illegal amendment transition reject from applied. The amendment is now terminal-but-unverified with no route out, and the only correction available is to author a successor amendment restating the same scope. The applied normative output stays in the specification meanwhile, carrying the exact wording the review blocked.'
+      expected: reject or an equivalent corrective transition should be legal from applied when bound to a blocking advisor receipt, unwinding or superseding the applied normative output. If a successor amendment is deliberately the only correction route, the CLI refusal should say so and the next action should name it, rather than leaving the operator to discover that reject is unavailable and infer the workaround.
+      fingerprint: cc7a8aab239a23188581d52495183951ca1be6bb985ec8d46b7f8bf77a4d5b75
+      project: country-map-svg-generator
+      mate_release: v1.4.1
+      evidence:
+        - kind: advisor-receipt
+          locator: docs/features/active/country-map-svg-generator/readiness/ADV-003.advisor-receipt.yaml
+        - kind: amendment
+          locator: docs/features/active/country-map-svg-generator/amendments/AM-003/country-map-svg-generator.AM-003-byte-budget-attainability.amendment.md
+      state: new
+      created_at: "2026-07-24T15:25:05Z"
+      updated_at: "2026-07-24T15:25:05Z"
     - id: FND-D35B92BE8504
       scope: mate
       severity: medium

@@ -1,0 +1,29 @@
+version: 1
+kind: transition-receipt
+id: amendment-impact-detected-15576226ca89b789
+epic: country-map-svg-generator
+status: recorded
+input_digest: 1ae737cd20a34a623a9581bbed9272a64d0e1174245706c7a5469f24df292add
+subject:
+    artifact: amendment
+    id: AM-004
+    path: docs/features/active/country-map-svg-generator/amendments/AM-004/country-map-svg-generator.AM-004-clamped-deviation-metric.amendment.md
+    sha256: 02fd14952364b0ca7ce9bb0a98d20a0c5b670e94f18e639030545aac09aca471
+producer_role: lifecycle-engine
+principal: teamlead
+result: pass
+machine: amendment
+event: impact-detected
+from: proposed
+to: impacting
+inputs:
+    - artifact: amendment
+      id: AM-004
+      path: docs/features/active/country-map-svg-generator/amendments/AM-004/country-map-svg-generator.AM-004-clamped-deviation-metric.amendment.md
+      sha256: 02fd14952364b0ca7ce9bb0a98d20a0c5b670e94f18e639030545aac09aca471
+    - artifact: epic-tracker
+      id: country-map-svg-generator
+      path: docs/features/active/country-map-svg-generator/country-map-svg-generator.tracker.yaml
+      sha256: 56423d16c8917c45e760829944585220df393ff1f441ee2506b9958d8f56b4b4
+predecessor: 02fd14952364b0ca7ce9bb0a98d20a0c5b670e94f18e639030545aac09aca471
+successor: 8bc3fe4aaddf1d7412eff80f0999b2e4b2311992e5ca1ee64200d507c9c50cf1
