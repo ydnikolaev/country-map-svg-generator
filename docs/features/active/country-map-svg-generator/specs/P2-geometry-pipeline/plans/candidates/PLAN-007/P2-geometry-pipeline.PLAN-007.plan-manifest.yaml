@@ -4,7 +4,7 @@ id: PLAN-007
 epic: country-map-svg-generator
 spec: P2
 status: draft
-input_digest: 0996967eacdb9c52cb09133c93f4b3785cea677990c71e9b6b262b20904bce30
+input_digest: 7173dac04fc36452ab3cf24d35c16bffde29a6c058f9a4c67ca2a54a2f706375
 plan_id: PLAN-007
 baseline:
     repository: project
@@ -30,26 +30,6 @@ inputs:
       path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/events/plan-invalidate-92925103ab7ca205.transition-receipt.yaml
       sha256: f2704508c447a1b38dacc94d318d75e2d3b119c9a070408fbb067efc1e7f9ccb
       reason: machine-approved predecessor invalidation
-      freshness: current
-    - reference: accepted-plan-revision/PLAN-006
-      path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/plans/PLAN-006/P2-geometry-pipeline.PLAN-006.plan.md
-      sha256: 5df964761f2591b49776ca7e93209e2c1dbb45a22e3e6771f0fad2cd7db196d3
-      reason: invalidated predecessor implementation contract
-      freshness: current
-    - reference: run-result/RUN-006-RESULT
-      path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-006/P2-geometry-pipeline.RUN-006.result.yaml
-      sha256: 3d7bf4a812ff64af4509f08ebd9a6186f29e705967afb2add78a9c20e7bdbd6e
-      reason: immutable failed-run evidence
-      freshness: current
-    - reference: agent-dispatch-result/RESULT-013
-      path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-006/agents/RESULT-013.agent-dispatch-result.yaml
-      sha256: f30f3134fb21e9364d2283ddde2aee1889fac6d5abb203733b3b6343cb627a78
-      reason: exact RU and AQ experiment checkpoint
-      freshness: current
-    - reference: decision/DEC-005
-      path: docs/features/active/country-map-svg-generator/decisions/DEC-005/country-map-svg-generator.DEC-005-q-aware-source-fallback.decision.md
-      sha256: 77d1b69ad5e49ecf8324af4250de8f39f24c3b9547d6001d69c09dc4c06f2bc3
-      reason: binding source-finalization boundary and explicit blocker
       freshness: current
 coverage:
     - obligation:
@@ -342,5 +322,5 @@ estimate:
     low: 7
     likely: 11
     high: 16
-    confidence: medium-low
+    confidence: low
     basis: The 1-3 hour RU/AQ bounded phase experiment sharply brakes the remaining uncertainty before broad all-corpus work and requires no dependency or serializer change.
