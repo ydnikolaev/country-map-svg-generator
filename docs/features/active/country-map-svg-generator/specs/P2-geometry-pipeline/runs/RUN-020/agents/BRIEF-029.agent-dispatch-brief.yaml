@@ -1,0 +1,87 @@
+version: 1
+kind: agent-dispatch-brief
+id: BRIEF-029
+epic: country-map-svg-generator
+spec: P2
+run: RUN-020
+status: issued
+input_digest: a4b63a6e1e535f69b8c2c13a691d438658af7bbfd1a6a0515a78d17818ab4c19
+role: coder
+provider: claude
+binding_mode: native
+dispatch_route: named-role
+role_contract:
+    reference: installed-role/coder
+    path: .claude/agents/coder.md
+    sha256: 82aadd702b6b7a05580f2743f9cd346d38e884c4d58004f6532e762562e5665f
+    reason: installed provider role contract
+    freshness: current
+issuer: teamlead
+grant: edit
+capability: edit
+semantic_tier: reasoning
+context:
+    - reference: context-doctrine-pack/CTX-RUN-022
+      path: docs/features/active/country-map-svg-generator/readiness/CTX-RUN-022.context-pack.yaml
+      sha256: baa8ed04a3825f41a86f4d0f20d58b45ac48b4257ec52196fd945481f6cbfd1e
+      reason: dispatch context
+      freshness: current
+plan:
+    artifact: plan-manifest
+    id: PLAN-013
+    path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/plans/PLAN-013/P2-geometry-pipeline.PLAN-013.plan-manifest.yaml
+    sha256: 00e8d0ffd3e5f84d4ae434f2c46e0fa9d87250e177474d283cfc8eae3bed9938
+readiness:
+    artifact: readiness-receipt
+    id: REV-43CB7D203F74
+    path: docs/features/active/country-map-svg-generator/readiness/REV-43CB7D203F74/REV-43CB7D203F74.readiness.yaml
+    sha256: b6e4bbd4113af59fe37ed5293df9d1d9c507a75341864d7b6887b7bf842d4274
+subject:
+    artifact: run-brief
+    id: RUN-020
+    path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-020/P2-geometry-pipeline.RUN-020.brief.md
+    sha256: 9916d15e205c811182f8f88e1e31a20b2e75104446905fd88cf98eed472c0699
+objective: 'Execute RUN-020 T0A only: fold exact serialization and the frozen per-tier byte cap into LOD candidate selection so an over-cap candidate falls back to the first coarser-or-source tier that fits while preserving mandatory silhouette fidelity, correct the two named over-strict tier assertions, retain the terminal ErrBudget for the no-fitting-tier case, and stop with the rebuilt contact sheet for owner approval.'
+writes:
+    - internal/geometry/cmd/lodbuild
+    - internal/geometry/lod.go
+    - internal/geometry/lod_test.go
+forbidden:
+    - .git
+    - .gitignore
+    - .mate
+    - Makefile
+    - cmd
+    - data
+    - docs
+    - go.mod
+    - go.sum
+    - internal/catalog
+    - internal/geometry/approval_test.go
+    - internal/geometry/integration_test.go
+    - internal/geometry/lod
+    - internal/geometry/lod_build_test.go
+    - internal/geometry/lod_catalog_test.go
+    - internal/geometry/mutations_test.go
+    - internal/geometry/oracle_test.go
+    - internal/geometry/pipeline_test.go
+    - internal/geometry/serialize.go
+    - internal/geometry/silhouette.go
+    - internal/geometry/silhouette_test.go
+    - internal/geometry/testdata
+validation:
+    - GOWORK=off go test ./internal/geometry/... -count=1
+    - GOWORK=off go test ./internal/geometry/cmd/lodbuild -count=1
+    - Two byte-identical representative rebuilds with unchanged oracle, v1 recipe and serializer hashes
+    - git diff --name-only eb8689c1 -- internal/geometry
+completion_schema:
+    - blockers
+    - changed_paths
+    - deviations
+    - evidence
+    - outcome
+    - summary
+    - verification
+expected_outputs: []
+budget: 4
+resume_anchor: Record the terminal result with mate agent result record --run RUN-020.
