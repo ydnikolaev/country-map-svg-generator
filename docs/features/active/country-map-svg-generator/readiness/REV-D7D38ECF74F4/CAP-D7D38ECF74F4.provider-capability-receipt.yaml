@@ -1,0 +1,26 @@
+version: 1
+kind: provider-capability-receipt
+id: CAP-D7D38ECF74F4
+epic: country-map-svg-generator
+spec: P2
+status: recorded
+input_digest: f4e85e9868f171a178260b8a8296b323c1274fdac5429cf953758314129e5985
+subject:
+    artifact: plan-manifest
+    id: PLAN-007
+    path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/plans/candidates/PLAN-007/P2-geometry-pipeline.PLAN-007.plan-manifest.yaml
+    sha256: e04c594169655c9530e9ec2f75102ed3033f7d813ebde8ef07c5996d3532941b
+producer_role: readiness-producer
+principal: teamlead
+result: pass
+slot: verification-runner
+capability: execute-verification
+disposition: native
+semantic_tier: reasoning
+session_id: p2-plan007
+output_digest: 3bcbe2396c4e1fdf81f98f0d2ea26dbf2e6e99ee87b63aba923ab6d642b8d76b
+write_set_digest: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+provider_evidence:
+    command: "mate\x1Fplan\x1Fvalidate\x1Fcountry-map-svg-generator\x1FP2\x1FPLAN-007\x1F--json"
+    provider: codex
+    target: plan.accept
