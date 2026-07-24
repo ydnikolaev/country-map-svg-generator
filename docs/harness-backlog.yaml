@@ -1,7 +1,7 @@
 version: 1
 kind: harness-feedback-backlog
 project: country-map-svg-generator
-revision: 5
+revision: 6
 operations:
     - version: 1
       id: feedback-add-27604b086c5309d9
@@ -31,6 +31,13 @@ operations:
       result_id: FND-0159B85A165A
       result_revision: 5
       recorded_at: "2026-07-23T21:05:50Z"
+    - version: 1
+      id: feedback-add-a2b5ca520336f665
+      kind: feedback-add
+      input_digest: e1732dc7da42249a1b0bc944065cae75e18de08cc57c524be83468b592f2a8a1
+      result_id: FND-E6E1451ABF6F
+      result_revision: 6
+      recorded_at: "2026-07-24T00:55:02Z"
     - version: 1
       id: feedback-add-ff16350552dc7dba
       kind: feedback-add
@@ -119,6 +126,26 @@ findings:
       state: new
       created_at: "2026-07-23T16:46:38Z"
       updated_at: "2026-07-23T16:46:38Z"
+    - id: FND-E6E1451ABF6F
+      scope: mate
+      severity: high
+      area: agent-dispatch
+      summary: Legacy dispatch result blocks all new briefs after schema upgrade
+      observed: After restarting with the current Mate binary, both agent brief status and agent brief issue for active P2/RUN-007 fail before dispatch because immutable RESULT-013 lacks newly required findings and its formerly accepted input_digest no longer matches the current complete-result digest. The old result was recorded and committed by the previous Mate contract, so the active run has no CLI path to issue BRIEF-014 without rewriting immutable history.
+      expected: Agent dispatch validation remains backward-compatible with previously accepted immutable result versions, migrates them explicitly, or scopes validation to the active run so a legacy terminal result cannot block new brief issuance.
+      fingerprint: e6e1451abf6f73c122290495a54349eacf2742138a70888b2f6642006d68652b
+      project: country-map-svg-generator
+      mate_release: v1.4.1
+      provider: mate
+      evidence:
+        - kind: repository
+          locator: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/P2-geometry-pipeline.tracker.yaml
+        - kind: result
+          locator: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-006/agents/RESULT-013.agent-dispatch-result.yaml
+          sha256: f30f3134fb21e9364d2283ddde2aee1889fac6d5abb203733b3b6343cb627a78
+      state: new
+      created_at: "2026-07-24T00:55:02Z"
+      updated_at: "2026-07-24T00:55:02Z"
     - id: FND-ED003909B82A
       scope: mate
       severity: high
