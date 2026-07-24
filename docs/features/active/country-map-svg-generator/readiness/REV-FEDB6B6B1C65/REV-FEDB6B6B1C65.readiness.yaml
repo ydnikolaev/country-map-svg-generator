@@ -1,0 +1,30 @@
+version: 1
+kind: readiness-receipt
+id: REV-FEDB6B6B1C65
+epic: country-map-svg-generator
+spec: P2
+run: RUN-010
+status: recorded
+input_digest: 817ac04ce51d8beda6094821688557b0e05c0744dd27e00e6878bbb10b63d534
+subject:
+    artifact: run-brief
+    id: RUN-010
+    path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/candidates/RUN-010/P2-geometry-pipeline.RUN-010.brief.md
+    sha256: 817ac04ce51d8beda6094821688557b0e05c0744dd27e00e6878bbb10b63d534
+producer_role: readiness-producer
+principal: teamlead
+result: pass
+risk_policy: efficient
+capabilities:
+    - artifact: provider-capability-receipt
+      id: CAP-FEDB6B6B1C65
+      path: docs/features/active/country-map-svg-generator/readiness/REV-FEDB6B6B1C65/CAP-FEDB6B6B1C65.provider-capability-receipt.yaml
+      sha256: 72c2b7dc71388c10276f400620a8d9c7c86790be096fccd3e26d74f90630a583
+      verdict: pass
+gates:
+    - artifact: gate-receipt
+      id: GATE-FEDB6B6B1C65
+      path: docs/features/active/country-map-svg-generator/readiness/REV-FEDB6B6B1C65/GATE-FEDB6B6B1C65.gate-receipt.yaml
+      sha256: d96b42f949bc424d7af1fcc6378f54ad58926881206f7ded334ec9d627a6f217
+      verdict: pass
+authorized_next: spec.begin
