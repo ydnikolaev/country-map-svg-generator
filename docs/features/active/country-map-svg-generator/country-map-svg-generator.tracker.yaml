@@ -2,11 +2,11 @@ version: 1
 epic: country-map-svg-generator
 title: Country Map SVG Generator
 state: in_progress
-revision: 37
+revision: 38
 updated_by: teamlead
-updated_at: "2026-07-24T15:30:19Z"
-last_event_id: amendment-apply-c22d8ef3b3c3762f
-input_digest: 981a2713d9ee26f755af5d9ac18780b886be355ba02afa6e780e073bf40f78e8
+updated_at: "2026-07-24T17:05:16Z"
+last_event_id: amendment-propose-f9c7e812ce2bf0c4
+input_digest: dcee13c9dc60855516956caf92c82bb5f53e07832a6f0277ce951c8fb392455a
 specs:
     - id: P1
       slug: source-corpus
@@ -77,7 +77,15 @@ amendments:
       affected_specs:
         - P2
         - P3
-next_action: Resolve amendment AM-004 before affected work continues.
+    - id: AM-005
+      slug: oracle-gated-ladder-selection
+      state: proposed
+      body: docs/features/active/country-map-svg-generator/amendments/AM-005/country-map-svg-generator.AM-005-oracle-gated-ladder-selection.amendment.md
+      body_sha256: 9f1fa37349b3bbfde70190641d8dd29ec6b785f2062144f17a46b64b0371b148
+      revision: 1
+      last_event_id: amendment-propose-f9c7e812ce2bf0c4
+      impact_scope: none
+next_action: Detect and persist the amendment impact closure.
 discovery:
     state: completed
     revision: 11
