@@ -1,0 +1,28 @@
+version: 1
+kind: agent-dispatch-result
+id: RESULT-017
+epic: country-map-svg-generator
+spec: P2
+run: RUN-010
+status: cancelled
+input_digest: d8392ae3e8f121e778d1c6a5f8b117dd22e69e7e8a8f732662c3ecc46d886674
+previous:
+    artifact: agent-dispatch-brief
+    id: BRIEF-017
+    path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-010/agents/BRIEF-017.agent-dispatch-brief.yaml
+    sha256: e362788ac834df73a99587e97979c922ba1d2266a9a1ab337359fb3fb94239cc
+brief:
+    artifact: agent-dispatch-brief
+    id: BRIEF-017
+    path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-010/agents/BRIEF-017.agent-dispatch-brief.yaml
+    sha256: e362788ac834df73a99587e97979c922ba1d2266a9a1ab337359fb3fb94239cc
+principal: codex-p2-t0a
+provider_task_ref: p2_coder
+outcome: cancelled
+summary: Coordinator cancelled before provider dispatch because the write allowlist accidentally included T0A.2 oracle/v2 recipe paths forbidden by the active RUN-010 T0A.1 brief; no agent work or product mutation occurred.
+changed_paths: []
+outputs: []
+verification: []
+deviations: []
+feedback: []
+resume_anchor: Issue a fresh coder brief whose writes are the exact RUN-010 T0A.1 subset; then dispatch only that successor.
