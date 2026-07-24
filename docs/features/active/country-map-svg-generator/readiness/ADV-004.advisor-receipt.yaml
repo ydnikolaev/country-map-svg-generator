@@ -1,0 +1,46 @@
+version: 1
+kind: advisor-receipt
+id: ADV-004
+epic: country-map-svg-generator
+status: recorded
+input_digest: b40e1ae2d98b08e0391473aea2e5eb46f120f4e959692f6230fc25e196199b8c
+subject:
+    artifact: epic-tracker
+    id: country-map-svg-generator
+    path: docs/features/active/country-map-svg-generator/country-map-svg-generator.tracker.yaml
+    sha256: 2702d732de27e15bba9b9abf919903e7a6b9e25fde2c5b60566dd27caf5d82b2
+producer_role: independent-reviewer
+principal: am004-reviewer
+result: fail
+risk_policy: efficient
+independence: independent-review
+findings:
+    - id: F1
+      severity: blocking
+      evidence: See the exact sealed audit finding.
+      action: Resolve before spec closure.
+    - id: F2
+      severity: blocking
+      evidence: See the exact sealed audit finding.
+      action: Resolve before spec closure.
+    - id: F3
+      severity: medium
+      evidence: See the exact sealed audit finding.
+      action: Resolve before spec closure.
+    - id: F4
+      severity: medium
+      evidence: See the exact sealed audit finding.
+      action: Resolve before spec closure.
+    - id: F5
+      severity: medium
+      evidence: See the exact sealed audit finding.
+      action: Resolve before spec closure.
+    - id: F6
+      severity: medium
+      evidence: See the exact sealed audit finding.
+      action: Resolve before spec closure.
+    - id: F7
+      severity: low
+      evidence: See the exact sealed audit finding.
+      action: Resolve before spec closure.
+verdict: block
