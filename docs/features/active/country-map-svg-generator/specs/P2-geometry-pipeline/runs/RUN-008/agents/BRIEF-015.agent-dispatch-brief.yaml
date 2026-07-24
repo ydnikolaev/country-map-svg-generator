@@ -1,0 +1,68 @@
+version: 1
+kind: agent-dispatch-brief
+id: BRIEF-015
+epic: country-map-svg-generator
+spec: P2
+run: RUN-008
+status: issued
+input_digest: 84c1400d39878bf90e2608c2082f6a9cf158b8fb36e1052acfacc12bc9c29db9
+role: coder
+provider: codex
+binding_mode: native
+dispatch_route: named-role
+role_contract:
+    reference: installed-role/coder
+    path: .codex/agents/coder.toml
+    sha256: e5078656ace1b8785d676e1410b701d4c8ebd31b129a54cce0d3813adfe99f10
+    reason: installed provider role contract
+    freshness: current
+issuer: teamlead
+grant: edit
+capability: edit
+semantic_tier: cheap
+context:
+    - reference: context-doctrine-pack/CTX-RUN-010
+      path: docs/features/active/country-map-svg-generator/readiness/CTX-RUN-010.context-pack.yaml
+      sha256: 73b70844f9f16acb827b924ea59740b469ab587ebba15d5ae00f99f9d36ddd50
+      reason: dispatch context
+      freshness: current
+plan:
+    artifact: plan-manifest
+    id: PLAN-007
+    path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/plans/PLAN-007/P2-geometry-pipeline.PLAN-007.plan-manifest.yaml
+    sha256: bdc2f69fb6cc5346e94c45533685d44e11f97b7d156b909da51be1854790338e
+readiness:
+    artifact: readiness-receipt
+    id: REV-E3F86A17CCDC
+    path: docs/features/active/country-map-svg-generator/readiness/REV-E3F86A17CCDC/REV-E3F86A17CCDC.readiness.yaml
+    sha256: 58fc7b5a5413d32b38237ed7c3d33d63fb4e2a16f44edcf72ac6ea43b7e776c2
+subject:
+    artifact: run-brief
+    id: RUN-008
+    path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-008/P2-geometry-pipeline.RUN-008.brief.md
+    sha256: d4412e5f163d9d92f9caa6496ef139d30584e2d28c2afa7dcef6d1b006fe22c3
+objective: 'Read-only remediation bridge: verify exact RUN-007-RESULT and RESULT-014 hashes, confirm the two independent RU/card budget runtimes exceed PLAN-007 10s/30s ceilings and T0b was skipped, then return blocked with zero changed paths. Do not implement, test, commit, mutate lifecycle, or touch product scratch.'
+writes: []
+forbidden:
+    - .git
+    - .mate
+    - Makefile
+    - cmd
+    - data
+    - docs
+    - go.mod
+    - go.sum
+    - internal
+validation:
+    - shasum -a 256 exact RUN-007-RESULT, RESULT-014 and frozen serializer files
+completion_schema:
+    - blockers
+    - changed_paths
+    - deviations
+    - evidence
+    - outcome
+    - summary
+    - verification
+expected_outputs: []
+budget: 1
+resume_anchor: Record blocked RESULT-015, finish RUN-008 interrupted, and invalidate PLAN-007 from RUN-008-RESULT. No product mutation.
