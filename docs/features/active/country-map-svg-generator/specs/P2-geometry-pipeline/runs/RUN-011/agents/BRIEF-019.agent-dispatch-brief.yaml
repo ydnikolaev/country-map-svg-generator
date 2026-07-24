@@ -1,0 +1,91 @@
+version: 1
+kind: agent-dispatch-brief
+id: BRIEF-019
+epic: country-map-svg-generator
+spec: P2
+run: RUN-011
+status: issued
+input_digest: ac0ff71ddcd310f35a1f16bbc7ea678014b33e1fbf47a1a7477da7904b931b5a
+role: coder
+provider: codex
+binding_mode: native
+dispatch_route: named-role
+role_contract:
+    reference: installed-role/coder
+    path: .codex/agents/coder.toml
+    sha256: e5078656ace1b8785d676e1410b701d4c8ebd31b129a54cce0d3813adfe99f10
+    reason: installed provider role contract
+    freshness: current
+issuer: teamlead
+grant: edit
+capability: edit
+semantic_tier: standard
+context:
+    - reference: context-doctrine-pack/CTX-RUN-013
+      path: docs/features/active/country-map-svg-generator/readiness/CTX-RUN-013.context-pack.yaml
+      sha256: ee974b14dc4bba4164644ba8d435d7897bdb9798a26d647a1cc0a3fdb437c723
+      reason: dispatch context
+      freshness: current
+plan:
+    artifact: plan-manifest
+    id: PLAN-009
+    path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/plans/PLAN-009/P2-geometry-pipeline.PLAN-009.plan-manifest.yaml
+    sha256: 7fcaf58708caeba7bba7097132c86b898c8bf74d650b9efc91934cf512698e75
+readiness:
+    artifact: readiness-receipt
+    id: REV-D9245CF83FCE
+    path: docs/features/active/country-map-svg-generator/readiness/REV-D9245CF83FCE/REV-D9245CF83FCE.readiness.yaml
+    sha256: 45fc082f7c3d867e090b2d8e5b4b7ae20980c540a3e559884c7081e933a436dd
+subject:
+    artifact: run-brief
+    id: RUN-011
+    path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-011/P2-geometry-pipeline.RUN-011.brief.md
+    sha256: b7a2e205f0b518462c15bcfdf0d442b73b64f1c7961b71009f4bd770b6602809
+objective: 'Execute RUN-011 T0A.2 only: implement and mutation-test silhouette-oracle/v1, derive and prove the representative budget-first scale ladder, render the exact machine-accepted contact sheet, and stop for owner approval without commit or T0B.'
+writes:
+    - internal/geometry/cmd/lodbuild
+    - internal/geometry/diagnostic.go
+    - internal/geometry/gridphase.go
+    - internal/geometry/gridphase_test.go
+    - internal/geometry/lod.go
+    - internal/geometry/lod/silhouette-oracle.v1.json
+    - internal/geometry/lod/tool/build.mjs
+    - internal/geometry/lod/v1.recipe.json
+    - internal/geometry/lod/v2.recipe.json
+    - internal/geometry/lod_test.go
+    - internal/geometry/model.go
+    - internal/geometry/model_test.go
+    - internal/geometry/preset.go
+    - internal/geometry/preset_test.go
+    - internal/geometry/presets
+    - internal/geometry/projection.go
+    - internal/geometry/projection_test.go
+    - internal/geometry/silhouette.go
+    - internal/geometry/silhouette_test.go
+    - internal/geometry/testdata/silhouette-oracle
+forbidden:
+    - .git
+    - .mate
+    - Makefile
+    - docs
+    - go.mod
+    - go.sum
+    - internal/geometry/lod_build_test.go
+    - internal/geometry/lod_generated.go
+    - internal/geometry/serialize.go
+    - internal/geometry/serialize_test.go
+validation:
+    - Build oracle, recipe, representative manifest and sheet twice; require byte identity, path caps 2200/7500 and complete estimates 2500/8000
+    - GOCACHE=/private/tmp/country-map-go-cache GOWORK=off go test ./internal/geometry -run 'Test(Diagnostic|GridPhase|Projection|LOD|Topology|Protection|Preset|Silhouette|Oracle|Selection|Source)' -count=1
+    - GOCACHE=/private/tmp/country-map-go-cache GOWORK=off go test ./internal/geometry/cmd/lodbuild -count=1
+completion_schema:
+    - blockers
+    - changed_paths
+    - deviations
+    - evidence
+    - outcome
+    - summary
+    - verification
+expected_outputs: []
+budget: 6
+resume_anchor: Return exact RUN-011 T0A.2 machine evidence and contact-sheet paths only. Do not commit, stage, mutate lifecycle, seek owner approval, or start T0B.
