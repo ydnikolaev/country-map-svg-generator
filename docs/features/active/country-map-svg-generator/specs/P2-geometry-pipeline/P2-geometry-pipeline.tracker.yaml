@@ -4,12 +4,13 @@ spec: P2
 slug: geometry-pipeline
 title: Soft-Organic Geometry Pipeline
 state: in_progress
-revision: 101
+revision: 102
 updated_by: teamlead
-updated_at: "2026-07-24T06:39:56Z"
-last_event_id: run-interrupt-f67528a23050257a
-input_digest: e2931f3bdebebad9b14366e9719a8b6f1c8cc9d3315429349297c93d1dfd722b
+updated_at: "2026-07-24T06:42:10Z"
+last_event_id: run-start-8175df80c729fb46-run
+input_digest: 5a320737ecb034b248033c30c67f04afa6ba89d781e402326ecf4e5680655afc
 current_plan: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/plans/PLAN-010/P2-geometry-pipeline.PLAN-010.plan.md
+active_run: RUN-017
 runs:
     - id: RUN-001
       plan: PLAN-001
@@ -75,5 +76,8 @@ runs:
       plan: PLAN-010
       status: interrupted
       result: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-016/P2-geometry-pipeline.RUN-016.result.yaml
+    - id: RUN-017
+      plan: PLAN-010
+      status: running
 findings: []
-next_action: Scaffold a governed diagnostic successor that reproduces SH component 0 at every frozen v2 resolution and distinguishes lineage/projection loss from a candidate-source recipe contradiction before replanning.
+next_action: Execute RUN-017 within the accepted brief; pass, fail, interrupt, or cancel it with evidence.
