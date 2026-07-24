@@ -1,7 +1,7 @@
 version: 1
 kind: harness-feedback-backlog
 project: country-map-svg-generator
-revision: 6
+revision: 7
 operations:
     - version: 1
       id: feedback-add-27604b086c5309d9
@@ -39,6 +39,13 @@ operations:
       result_revision: 6
       recorded_at: "2026-07-24T00:55:02Z"
     - version: 1
+      id: feedback-add-eb109542a0144ade
+      kind: feedback-add
+      input_digest: 4e12a42d2d4c9053a722ff5377e6589963e84c3cfbc104703fa5abac8b864fec
+      result_id: FND-10CCB7CD18A0
+      result_revision: 7
+      recorded_at: "2026-07-24T01:22:03Z"
+    - version: 1
       id: feedback-add-ff16350552dc7dba
       kind: feedback-add
       input_digest: a3dfff995c55a45a4950e6e39edeac54980ccc263efbbe3470c7557eb9108d52
@@ -65,6 +72,26 @@ findings:
       state: new
       created_at: "2026-07-23T21:05:50Z"
       updated_at: "2026-07-23T21:05:50Z"
+    - id: FND-10CCB7CD18A0
+      scope: mate
+      severity: high
+      area: plan-lifecycle
+      summary: Failed run cannot authorize plan invalidation or successor planning
+      observed: P2/RUN-007 finished with terminal status failed after an accepted plan brake proved PLAN-007 violates its 10s/30s ceilings. The documented plan invalidate command says it handles an unexecutable, failed-audit, or interrupted plan, but rejects the exact latest failed RUN-007-RESULT because run-result authority is hard-coded to status=interrupted and outcome=blocked. plan scaffold PLAN-008 then rejects P2 as in_progress because PLAN-007 is not invalidated, leaving no direct successor route from a failed plan experiment.
+      expected: An exact latest terminal failed run that proves its accepted plan unexecutable can authorize plan invalidation and successor planning, or run finish routes this outcome to a documented remediation transition without requiring a synthetic interrupted run.
+      fingerprint: 10ccb7cd18a03e42a5e1d7de6a9d887d50028b0d0528f5fa189ff2a86f9dc491
+      project: country-map-svg-generator
+      mate_release: v1.4.1
+      provider: mate
+      evidence:
+        - kind: repository
+          locator: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/P2-geometry-pipeline.tracker.yaml
+        - kind: result
+          locator: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-007/P2-geometry-pipeline.RUN-007.result.yaml
+          sha256: 4f52fefcae3079403645b93a87a5e0712d97f3849419b50308dd85253f8b433f
+      state: new
+      created_at: "2026-07-24T01:22:03Z"
+      updated_at: "2026-07-24T01:22:03Z"
     - id: FND-67945CF6F3B4
       scope: mate
       severity: low
