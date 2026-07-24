@@ -1,0 +1,34 @@
+version: 1
+kind: run-result
+id: RUN-009-RESULT
+epic: country-map-svg-generator
+spec: P2
+run: RUN-009
+status: interrupted
+input_digest: 388ed249558f2f1111220ba42cdfd58184ef98fc2778188f26065c25f9cf679b
+plan_id: PLAN-008
+readiness_id: REV-D68E2EEAFDF5
+outcome: blocked
+revision:
+    repository: project
+    commit: d666905966d7938d6c1215fdd1f805677e1bf9df
+    tree: 7368a69d811e02b3aea5b4a1d20e7d137d0f9071
+evidence:
+    - artifact: run-brief
+      id: RUN-009
+      path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-009/P2-geometry-pipeline.RUN-009.brief.md
+      sha256: 8539448559193f870f71235707a20a51f7ff3bbd39db2ceed0c34d76c36d7ea9
+      verdict: pass
+    - artifact: transition-receipt
+      id: run-start-4b44f0c49b887051-run
+      path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-009/events/run-start-4b44f0c49b887051-run.transition-receipt.yaml
+      sha256: 9cbcc79fbf4d386bc5f9eeed01ec81b1619bba683dcb71a35a3173e288ada1a1
+      verdict: pass
+    - artifact: agent-dispatch-result
+      id: RESULT-016
+      path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-009/agents/RESULT-016.agent-dispatch-result.yaml
+      sha256: b44793dcc746e5e55018b49762ab88c29d8bcf063ef8afb70cf6e877ef5dd7bc
+      verdict: fail
+deviations: []
+followups: []
+next_action: Invalidate PLAN-008 from RUN-009-RESULT, then author DEC-004 successor planning around the precomputed compact-table acceptance mismatch without weakening the frozen quality contract.
