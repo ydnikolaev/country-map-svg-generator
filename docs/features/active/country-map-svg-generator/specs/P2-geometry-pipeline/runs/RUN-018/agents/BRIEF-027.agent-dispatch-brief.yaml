@@ -1,0 +1,85 @@
+version: 1
+kind: agent-dispatch-brief
+id: BRIEF-027
+epic: country-map-svg-generator
+spec: P2
+run: RUN-018
+status: issued
+input_digest: 9037f18f1274cdb34b274d8dc58aeaf710858c2d975f62f3262578af764013d7
+role: coder
+provider: codex
+binding_mode: native
+dispatch_route: named-role
+role_contract:
+    reference: installed-role/coder
+    path: .codex/agents/coder.toml
+    sha256: e5078656ace1b8785d676e1410b701d4c8ebd31b129a54cce0d3813adfe99f10
+    reason: installed provider role contract
+    freshness: current
+issuer: teamlead
+grant: edit
+capability: edit
+semantic_tier: standard
+context:
+    - reference: context-doctrine-pack/CTX-RUN-020
+      path: docs/features/active/country-map-svg-generator/readiness/CTX-RUN-020.context-pack.yaml
+      sha256: f67d818d1b5b900067a568c8d5ceef92c48f4d029146ddc7bf7af6fb5b360403
+      reason: dispatch context
+      freshness: current
+plan:
+    artifact: plan-manifest
+    id: PLAN-011
+    path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/plans/PLAN-011/P2-geometry-pipeline.PLAN-011.plan-manifest.yaml
+    sha256: 75fba90898b5519fb1578a347e13a9ea79b8d1f7e0de2ca5bfb3c45f6e017e1d
+readiness:
+    artifact: readiness-receipt
+    id: REV-BB44BED48591
+    path: docs/features/active/country-map-svg-generator/readiness/REV-BB44BED48591/REV-BB44BED48591.readiness.yaml
+    sha256: d86ed8f96fddcccbd7c6517a0b277a45acb68806020b8c7468c56a307456bd6d
+subject:
+    artifact: run-brief
+    id: RUN-018
+    path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-018/P2-geometry-pipeline.RUN-018.brief.md
+    sha256: 78bc590362cbc3999dbf92f1603b19c794e353336e4a3858267d09112e450135
+objective: 'Execute RUN-018 T0A only: implement lineage-features/v1 and generic all-consumer mandatory-union reassembly, pass SH/CA/ID/KI and Indonesia brakes, rebuild the unchanged-policy representative matrix twice, and stop with the new machine-approved contact sheet for owner review.'
+writes:
+    - internal/geometry/cmd/lodbuild
+    - internal/geometry/lod/tool/build.mjs
+    - internal/geometry/lod/v2.recipe.json
+    - internal/geometry/silhouette.go
+    - internal/geometry/silhouette_test.go
+    - internal/geometry/testdata/silhouette-oracle
+forbidden:
+    - .git
+    - .mate
+    - data
+    - docs
+    - go.mod
+    - go.sum
+    - internal/catalog
+    - internal/geometry/lod.go
+    - internal/geometry/lod/silhouette-oracle.v1.json
+    - internal/geometry/lod/tool/package-lock.json
+    - internal/geometry/lod/tool/package.json
+    - internal/geometry/lod/v1.recipe.json
+    - internal/geometry/lod_test.go
+    - internal/geometry/overrides
+    - internal/geometry/presets
+    - internal/geometry/serialize.go
+    - internal/geometry/serialize_test.go
+validation:
+    - Exact frozen oracle/serializer hashes and old/new recipe semantic diff
+    - Focused geometry silhouette/component/topology/protection tests plus two byte-identical representative builds
+    - GOCACHE=/private/tmp/country-map-go-cache GOWORK=off go test ./internal/geometry/cmd/lodbuild -count=1
+    - GOCACHE=/private/tmp/country-map-go-cache GOWORK=off go test ./internal/geometry/cmd/lodbuild -run 'Test(SHCandidateLineageDiagnostic|ComponentLineage|MultipartMicroBrake)' -count=1 -v twice
+completion_schema:
+    - blockers
+    - changed_paths
+    - deviations
+    - evidence
+    - outcome
+    - summary
+    - verification
+expected_outputs: []
+budget: 8
+resume_anchor: Return exact RUN-018 changed paths, micro-brake per-band maxima/timings, mutation teeth, new recipe/manifest/sheet/receipt hashes and sheet path. Stop before owner approval, runtime T0B, publication, staging or commit.
