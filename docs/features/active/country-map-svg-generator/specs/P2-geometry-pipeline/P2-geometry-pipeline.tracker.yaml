@@ -4,13 +4,12 @@ spec: P2
 slug: geometry-pipeline
 title: Soft-Organic Geometry Pipeline
 state: in_progress
-revision: 74
-updated_by: teamlead
-updated_at: "2026-07-24T03:59:56Z"
-last_event_id: run-start-cf306807079a59b2-run
-input_digest: 55c095b738efe20927ac3c17d3f3d1eff0b5388ad1daab90a47bd0668deebb90
+revision: 75
+updated_by: operator
+updated_at: "2026-07-24T04:02:43Z"
+last_event_id: run-interrupt-4b6fa2ff71f0cbcc
+input_digest: ba26f667ab5c3120a49fe75d12261f231f77775a3195550b238579b170ff546f
 current_plan: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/plans/PLAN-009/P2-geometry-pipeline.PLAN-009.plan.md
-active_run: RUN-010
 runs:
     - id: RUN-001
       plan: PLAN-001
@@ -50,6 +49,7 @@ runs:
       result: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-009/P2-geometry-pipeline.RUN-009.result.yaml
     - id: RUN-010
       plan: PLAN-009
-      status: running
+      status: interrupted
+      result: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-010/P2-geometry-pipeline.RUN-010.result.yaml
 findings: []
-next_action: agent-dispatch:agent-dispatch-result/RESULT-018#e637a82c748a648814fe74ae5d8ea8723cba4d3c0758beb98c18df46d9b028c5
+next_action: Resume or replan from this immutable checkpoint.
