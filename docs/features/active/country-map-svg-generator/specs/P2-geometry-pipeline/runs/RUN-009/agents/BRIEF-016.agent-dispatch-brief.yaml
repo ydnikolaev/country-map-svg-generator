@@ -1,0 +1,117 @@
+version: 1
+kind: agent-dispatch-brief
+id: BRIEF-016
+epic: country-map-svg-generator
+spec: P2
+run: RUN-009
+status: issued
+input_digest: e8087c775e8ea41da6c2b68009d56c01a46b1f0a13e4a872d4606e93418653d9
+role: coder
+provider: codex
+binding_mode: native
+dispatch_route: named-role
+role_contract:
+    reference: installed-role/coder
+    path: .codex/agents/coder.toml
+    sha256: e5078656ace1b8785d676e1410b701d4c8ebd31b129a54cce0d3813adfe99f10
+    reason: installed provider role contract
+    freshness: current
+issuer: teamlead
+grant: edit
+capability: edit
+semantic_tier: standard
+context:
+    - reference: context-doctrine-pack/CTX-RUN-011
+      path: docs/features/active/country-map-svg-generator/readiness/CTX-RUN-011.context-pack.yaml
+      sha256: 1a93fce428febf6a8ff7d00ba37ac647bcade3a2d1bc2653b3bba83a87db9b33
+      reason: dispatch context
+      freshness: current
+plan:
+    artifact: plan-manifest
+    id: PLAN-008
+    path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/plans/PLAN-008/P2-geometry-pipeline.PLAN-008.plan-manifest.yaml
+    sha256: 3a69993c33f56a965902484e032a526f8c8e3c379a056a866b4a314ccc97989e
+readiness:
+    artifact: readiness-receipt
+    id: REV-D68E2EEAFDF5
+    path: docs/features/active/country-map-svg-generator/readiness/REV-D68E2EEAFDF5/REV-D68E2EEAFDF5.readiness.yaml
+    sha256: c3adaa8b8971cb775a9faa8313a9c5e4ad4fdfdf9881b3d6c5e473f0b36795ec
+subject:
+    artifact: run-brief
+    id: RUN-009
+    path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-009/P2-geometry-pipeline.RUN-009.brief.md
+    sha256: 8539448559193f870f71235707a20a51f7ff3bbd39db2ceed0c34d76c36d7ea9
+objective: 'Execute PLAN-008 T0A only: align the versioned .10 projection contract, separate geometry-only selection from single rendering/budget enforcement, preserve exact global phase repair, rebuild temporary 64/256 tables twice, and run the RU/AQ compact/standard/source micro brake. Stop and return exact evidence even if it passes; no T0B, commit, lifecycle mutation, serializer edit, or publication.'
+writes:
+    - internal/geometry/cmd/lodbuild/main.go
+    - internal/geometry/cmd/lodbuild/main_test.go
+    - internal/geometry/diagnostic.go
+    - internal/geometry/gridphase.go
+    - internal/geometry/gridphase_test.go
+    - internal/geometry/lod.go
+    - internal/geometry/lod/v1.recipe.json
+    - internal/geometry/lod_test.go
+    - internal/geometry/model.go
+    - internal/geometry/model_test.go
+    - internal/geometry/preset.go
+    - internal/geometry/preset_test.go
+    - internal/geometry/presets/v1.json
+    - internal/geometry/projection.go
+    - internal/geometry/projection_test.go
+forbidden:
+    - .git
+    - .mate
+    - Makefile
+    - cmd
+    - data
+    - docs
+    - go.mod
+    - go.sum
+    - internal/catalog
+    - internal/geometry/adapter.go
+    - internal/geometry/adapter_test.go
+    - internal/geometry/fit.go
+    - internal/geometry/fit_test.go
+    - internal/geometry/integration_test.go
+    - internal/geometry/lod/tool
+    - internal/geometry/lod_build_test.go
+    - internal/geometry/lod_catalog_test.go
+    - internal/geometry/lod_generated.go
+    - internal/geometry/marker.go
+    - internal/geometry/marker_test.go
+    - internal/geometry/math.go
+    - internal/geometry/mutations_test.go
+    - internal/geometry/normalize.go
+    - internal/geometry/normalize_test.go
+    - internal/geometry/oracle_test.go
+    - internal/geometry/override.go
+    - internal/geometry/override_test.go
+    - internal/geometry/overrides
+    - internal/geometry/path.go
+    - internal/geometry/path_test.go
+    - internal/geometry/pipeline.go
+    - internal/geometry/pipeline_test.go
+    - internal/geometry/retain.go
+    - internal/geometry/retain_test.go
+    - internal/geometry/serialize.go
+    - internal/geometry/serialize_test.go
+    - internal/geometry/simplify.go
+    - internal/geometry/simplify_test.go
+    - internal/geometry/soften.go
+    - internal/geometry/soften_test.go
+    - internal/geometry/testdata
+validation:
+    - GOCACHE=/private/tmp/country-map-go-cache GOWORK=off go test ./internal/geometry -run 'Test(ProjectionContract|SelectionRender|SourceBudget|GridPhase|SourceFinal|ProjectedLOD|LOD|Topology|Projection)' -count=1
+    - GOCACHE=/private/tmp/country-map-go-cache GOWORK=off go test ./internal/geometry/cmd/lodbuild -run '^TestLODAQRUProjectionAlignedCheckpoint$' -count=1 -v
+    - Two identical temporary rebuild hashes; actual AQ compact/card and standard/hero <=2500/8000; forced-source typed budget failure <=10s without search re-entry; micro <=30s
+completion_schema:
+    - blockers
+    - changed_paths
+    - deviations
+    - evidence
+    - outcome
+    - summary
+    - verification
+expected_outputs: []
+budget: 6
+resume_anchor: Return exact T0A result only. Do not commit or start T0B. Pass waits for coordinator verification and a separate dispatch; failure stops for DEC-004 successor review.
