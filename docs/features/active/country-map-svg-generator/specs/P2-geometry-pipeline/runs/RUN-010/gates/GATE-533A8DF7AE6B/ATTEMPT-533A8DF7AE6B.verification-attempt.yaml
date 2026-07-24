@@ -1,0 +1,18 @@
+version: 1
+kind: verification-attempt
+id: ATTEMPT-533A8DF7AE6B
+epic: country-map-svg-generator
+spec: P2
+run: RUN-010
+status: pass
+input_digest: 128724aee4abb3d985ba8a7f3d73626808f7bf9395c3b86a94096537c0387993
+selection_id: SELECT-533A8DF7AE6B
+attempt: 1
+started_at: "2026-07-24T03:59:27.810177Z"
+finished_at: "2026-07-24T03:59:35.039156Z"
+results:
+    - node: geometry-diagnostic-oracle-and-scale-ladder-brake
+      verdict: pass
+      exit_code: 0
+      output_hash: 2d7026a3234a15e91f4edf6e42a897d9be06b6e39fcd097d720469a367a6be28
+      duration_ms: 7228

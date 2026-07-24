@@ -1,0 +1,21 @@
+version: 1
+kind: verification-result
+id: VR-VAL-2-P2-RUN-010
+epic: country-map-svg-generator
+spec: P2
+run: RUN-010
+status: pass
+input_digest: ca98de1030abdd4b6c9a9842aef7f25f05034d5b534278a7c5c72138ce5cafaf
+selection_id: SELECT-533A8DF7AE6B
+attempts:
+    - artifact: verification-attempt
+      id: ATTEMPT-533A8DF7AE6B
+      path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-010/gates/GATE-533A8DF7AE6B/ATTEMPT-533A8DF7AE6B.verification-attempt.yaml
+      sha256: ca98de1030abdd4b6c9a9842aef7f25f05034d5b534278a7c5c72138ce5cafaf
+nodes:
+    - node: geometry-diagnostic-oracle-and-scale-ladder-brake
+      verdict: pass
+      exit_code: 0
+      output_hash: 2d7026a3234a15e91f4edf6e42a897d9be06b6e39fcd097d720469a367a6be28
+      duration_ms: 7228
+verdict: pass

@@ -1,0 +1,45 @@
+version: 1
+kind: agent-dispatch-result
+id: RESULT-018
+epic: country-map-svg-generator
+spec: P2
+run: RUN-010
+status: passed
+input_digest: 6068de0d66e5781102d1fd95a338308fd7f42f2ac923a9c9090ab04e2fc3c916
+previous:
+    artifact: agent-dispatch-brief
+    id: BRIEF-018
+    path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-010/agents/BRIEF-018.agent-dispatch-brief.yaml
+    sha256: bc956c4cc3120f69856fe4318e058e15d38603bf0a20a92cc9f7f95021edd038
+brief:
+    artifact: agent-dispatch-brief
+    id: BRIEF-018
+    path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-010/agents/BRIEF-018.agent-dispatch-brief.yaml
+    sha256: bc956c4cc3120f69856fe4318e058e15d38603bf0a20a92cc9f7f95021edd038
+principal: codex-p2-t0a
+provider_task_ref: p2_coder
+outcome: passed
+summary: RUN-010 T0A.1 reproduced the exact 268 parameter/phase and 996 catalog rows twice. Final canonical semantic SHA-256 is 220aa8cff32ff85a15c62b45eeff79040b66d4e14401f4fe7b02dbf83aa67249; all contradiction predicates are false with fail-closed AF/un/hero noncompact cap proof. Focused gate and independent audit pass. The inherited full lodbuild package retains superseded PLAN-008 AE-budget/AQ-compact assertions and is explicitly non-blocking for this bounded checkpoint.
+changed_paths:
+    - path: internal/geometry/cmd/lodbuild/diagnostic.go
+      sha256: fe0fdab131ffc5d15611adf058fbf23d74d5dbbd9c0b8774974896e5a7b41a39
+    - path: internal/geometry/cmd/lodbuild/diagnostic_test.go
+      sha256: 4e1dc28c5a1ab151f60854facc4544f86451cb2f5ce025df2a1a3559e46828d7
+    - path: internal/geometry/cmd/lodbuild/main.go
+      sha256: 959fe1850e38e35e83c1aa0e70ce5ffedc1ac0273034f3b8a4ce7398cf56b5aa
+    - path: internal/geometry/diagnostic.go
+      sha256: c68c681b66cfad425f9059cf30725ef2f78290e438bbd04b08c495c5bd1b68e0
+    - path: internal/geometry/gridphase_test.go
+      sha256: a90d1f52061221140f54c68547d0f1333ea9d268bf785a4178b0f63e34b6c351
+    - path: internal/geometry/lod.go
+      sha256: 5d03ca1ff5e5cab55f3c9d77a608c102a5be9666f11e5c788d358f131a3b1006
+outputs: []
+verification:
+    - artifact: verification-result
+      id: VERIFY-533A8DF7AE6B
+      path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-010/gates/GATE-533A8DF7AE6B/VERIFY-533A8DF7AE6B.verification-result.yaml
+      sha256: b6d913896075cbb5d946fae001f6bf067011dd5bce174b1045370555b9476245
+      verdict: pass
+deviations: []
+feedback: []
+resume_anchor: Finish RUN-010 as the passed T0A.1 checkpoint using GATE-533A8DF7AE6B; then start a separate T0A.2 run. Do not commit product bytes before T0B and owner approval.

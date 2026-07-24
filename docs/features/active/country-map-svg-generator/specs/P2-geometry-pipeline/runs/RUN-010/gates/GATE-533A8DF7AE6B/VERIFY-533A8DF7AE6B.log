@@ -1,0 +1,5 @@
+ok  	github.com/yuranikolaev/country-map-svg-generator/internal/geometry/cmd/lodbuild	1.065s
+ok  	github.com/yuranikolaev/country-map-svg-generator/internal/geometry	4.048s
+ok  	github.com/yuranikolaev/country-map-svg-generator/internal/catalog	0.382s [no tests to run]
+ok  	github.com/yuranikolaev/country-map-svg-generator/internal/geometry	0.594s [no tests to run]
+ok  	github.com/yuranikolaev/country-map-svg-generator/internal/geometry/cmd/lodbuild	0.810s [no tests to run]

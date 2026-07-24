@@ -1,0 +1,13 @@
+version: 1
+kind: verification-selection
+id: SELECT-533A8DF7AE6B
+epic: country-map-svg-generator
+spec: P2
+run: RUN-010
+status: recorded
+input_digest: 832a7580503880c5fdd001b685088cb37cb55dc1ce228810af42c96b78de51ac
+topology_digest: 8d9a64ac40a2306826ac3531a76d82e4fba3be6109f546121defd7c2578f05c6
+nodes:
+    - geometry-diagnostic-oracle-and-scale-ladder-brake
+reason: lifecycle gate for run-brief
+required_ceiling: geometry-diagnostic-oracle-and-scale-ladder-brake
