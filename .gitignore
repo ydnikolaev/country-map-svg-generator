@@ -3,3 +3,7 @@
 # Mate runtime state. Governed evidence under docs/features remains tracked.
 .mate/work-locks/
 .mate/work-transactions/
+
+# Maintainer-only ladder build tool. Restored from its pinned lockfile; the Go
+# runtime never depends on it.
+node_modules/

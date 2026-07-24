@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "version": "v2",
+  "source_corpus": "sha256:9d56b4d205eb2f5979e0d1f82d84222946b9f4e12e8a2b7ec09204e2225f2d95",
+  "projection_version": "v1",
+  "oracle_version": "v1",
+  "mapshaper_version": "0.7.44",
+  "algorithm": "weighted_visvalingam",
+  "weighting": 0.7,
+  "candidate_order": "fine_to_coarse",
+  "resolutions": [512, 320, 256, 224, 192, 160, 128, 127, 126, 125, 124, 123, 122, 121, 120, 116, 112, 108, 104, 100, 96, 80, 64, 48, 32, 24, 16, 12, 8],
+  "visibility_policy": "protected-visibility/v1",
+  "representatives": ["RU", "CA", "CN", "AQ", "AE", "ID", "CL", "AR", "AU", "KI", "MC"],
+  "bands": [
+    {"id": "compact", "maximum_effective_scale": 240, "path_cap": 2200, "complete_file_maximum": 2500},
+    {"id": "standard", "maximum_effective_scale": 700, "path_cap": 7500, "complete_file_maximum": 8000}
+  ]
+}

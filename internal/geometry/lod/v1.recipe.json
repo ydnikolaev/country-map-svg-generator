@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "lod_version": "v1",
+  "source_corpus": "sha256:9d56b4d205eb2f5979e0d1f82d84222946b9f4e12e8a2b7ec09204e2225f2d95",
+  "mapshaper": {
+    "version": "0.7.44",
+    "integrity": "sha512-3Cx+IABMXt1G28Y8J7oalW5P5VYyt1vHz5FO+KkV51EHnJioo9h9maO+u+4IyCPZ9Mh1hqchgomFmc68GtFwQQ==",
+    "shasum": "e08fc40d50347698ea07d2f82ead42a98b1c62f0",
+    "algorithm": "weighted_visvalingam",
+    "weighting": 0.7,
+    "intersection_rollback": true,
+    "keep_shapes": true,
+    "clean": true,
+    "planar": true
+  },
+  "projection": {
+    "version": "v1",
+    "coordinate_space": "centered_laea",
+    "build_rotation": 0,
+    "y_axis": "down",
+    "flatness": 0.10,
+    "coordinate_precision": 0.000001
+  },
+  "tiers": {
+    "compact": {"resolution": 64, "maximum_fitted_scale": 240},
+    "standard": {"resolution": 256, "maximum_fitted_scale": 700},
+    "source": {"maximum_fitted_scale": null}
+  },
+  "budgets": {
+    "card": {"hard_path_bytes": 2500, "advisory_path_bytes": 2200},
+    "hero": {"hard_path_bytes": 8000, "advisory_path_bytes": 7500}
+  },
+  "canonical_quantization": 0.01,
+  "maximum_projected_points": 2000000
+}

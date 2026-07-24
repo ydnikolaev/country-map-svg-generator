@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "version": "v1",
+  "p1_corpus": "sha256:9d56b4d205eb2f5979e0d1f82d84222946b9f4e12e8a2b7ec09204e2225f2d95",
+  "projection_version": "v1",
+  "recipe_version": "v2",
+  "rasterizer_path": "internal/geometry/silhouette.go",
+  "rasterizer_sha256": "54ca30df6853110bfcd6ae8c30e75edb8221f730ab5a29b35b54df1734f4b5c7",
+  "sampling": "pixel_center",
+  "fill_rule": "nonzero",
+  "antialias": false,
+  "stroke": false,
+  "color": false,
+  "softening": false,
+  "fit": "natural_uniform",
+  "grid_derivation": "band_long_side_from_reference_aspect",
+  "candidate_order": "fine_to_coarse",
+  "tie_break": "candidate_digest_ascending",
+  "visibility_policy": "protected-visibility/v1",
+  "bands": [
+    {
+      "id": "compact",
+      "maximum_effective_scale": 240,
+      "grid_long_side": 240,
+      "minimum_iou": 0.4,
+      "minimum_recall": 0.42,
+      "path_cap": 2200,
+      "complete_file_maximum": 2500
+      ,"contribution_threshold": 110
+    },
+    {
+      "id": "standard",
+      "maximum_effective_scale": 700,
+      "grid_long_side": 700,
+      "minimum_iou": 0.4,
+      "minimum_recall": 0.42,
+      "path_cap": 7500,
+      "complete_file_maximum": 8000
+      ,"contribution_threshold": 900
+    }
+  ]
+}

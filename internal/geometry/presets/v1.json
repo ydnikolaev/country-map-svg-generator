@@ -1,0 +1,15 @@
+{
+  "version": "v1",
+  "quality_policy": {
+    "version": "v1",
+    "flatness": {"floor": 0.10, "inverse_ratio": 16, "ceiling": 0.30},
+    "simplification": {"floor_px": 0.80, "relative_ratio": 0.012},
+    "softening": {"floor": 0.12, "inverse_ratio": 24, "ceiling": 0.35},
+    "minimum_area": {"floor": 0.50, "inverse_ratio": 112, "ceiling": 1.50},
+    "quantization": 0.01
+  },
+  "presets": [
+    {"name":"card","long_side":128,"padding":8,"advisory_bytes":2200,"max_path_bytes":2500,"reference_sizes":[90,128,160,240]},
+    {"name":"hero","long_side":640,"padding":32,"advisory_bytes":7500,"max_path_bytes":8000,"reference_sizes":[500,640,700]}
+  ]
+}

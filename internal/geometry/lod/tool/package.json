@@ -1,0 +1,10 @@
+{
+  "name": "country-map-lod-builder",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Maintainer-only pinned Mapshaper toolchain for geometry LOD rebuilds",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "mapshaper": "0.7.44"
+  }
+}
