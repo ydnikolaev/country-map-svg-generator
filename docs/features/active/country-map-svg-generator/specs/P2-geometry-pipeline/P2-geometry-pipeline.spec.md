@@ -9,7 +9,7 @@ spec: "P2"
 status: draft
 profiles: []
 concerns: []
-inputs: ["DISC-006", "ARCH-001", "DEC-003", "DEC-004", "DEC-005", "AM-001", "AM-002", "AM-003", "AM-004"]
+inputs: ["DISC-006", "ARCH-001", "DEC-003", "DEC-004", "DEC-005", "DEC-006", "DEC-007", "DEC-008", "DEC-009", "AM-001", "AM-002", "AM-003", "AM-004", "AM-005"]
 ---
 # P2 — Soft-Organic Geometry Pipeline
 
@@ -100,15 +100,22 @@ dependency.
 | VAL-3 | REQ-1, REQ-2, REQ-5 | run hero/card fixtures at intended rasterized long-side sizes; compare an elongated geometry in multiple `contain` frames | visual+structural; removal report and recognizable approved baselines; resolved quality remains a function of fitted geometry scale rather than the frame's shorter side | P2 / W2 complete |
 | VAL-4 | REQ-6 | apply bounded valid and invalid country overrides | unit; valid changes only named dimension, out-of-range fails | P2 / W2 complete |
 | VAL-5 | REQ-7 | project inside, edge and implausible-outside markers | integration; same transform and typed anomaly behavior | P2 / W2 complete |
-| VAL-6 | REQ-2, REQ-3, REQ-8 | drive an archipelagic entity through the production path where the deviation index would otherwise miss its cell; permute component order and perturb a centroid enough to flip the greedy correspondence; walk the tolerance sequence the source search actually takes and record the accepted candidate's pre-quantization deviation at each step | unit+property; the metric returns a finite graded value on the reachable branch, is invariant to component order, and the accepted candidate's deviation does not increase beyond a declared numeric band as the requested tolerance falls, with any simplifier substitution reported as a named outcome; protected-feature loss still fails through the protection check | P2 / W2 complete |
+| VAL-6 | REQ-2, REQ-3, REQ-8 | prove derived-candidate acceptance is the frozen silhouette oracle, DEC-007 protected visibility and the byte caps: reintroducing a raw-deviation gate to the derived path, bypassing the oracle, or restoring source components must each redden a mutation; re-verify every committed ladder row offline in pure Go against the frozen thresholds and bound digests, reddening on a perturbed coordinate, changed threshold, stale corpus/oracle/recipe identity, reordered candidates or suppressed omission; keep raw deviation as the gate on the explicit DEC-005 source path only | unit+property+mutation; oracle-gated derived acceptance, committed-artifact re-verification, and explicit-source integrity as three separate obligations | P2 / W2 complete |
 
-Per AM-004, VAL-6 guards the acceptance path and the search that consumes it as
-two different things. The acceptance metric is a clamped predicate: it is exact
-at or below its limit and it short-circuits above, so it is sound as a pass/fail
-test and unusable as a minimization objective. Any deviation figure carried in
-provenance, evidence or a plan is therefore either at or below its limit or
-produced by an unclamped path; a first-crossing value is never reported as a
-measurement.
+Per AM-005 and DEC-006, VAL-6 guards that automatic derived-candidate acceptance
+is exclusively the frozen silhouette oracle, DEC-007 protected visibility and the
+byte caps, and that the derived path never consults raw full-coastline symmetric
+deviation. Raw deviation remains binding for an explicit `source` or
+custom-quality request under DEC-005, where skipping final validation fails. Per
+DEC-009 the identity candidate is a fallback tried only after every declared
+resolution rung fails, and a band whose candidates cannot satisfy topology at the
+actual fitted scale emits a typed reason and no artifact rather than a silent gap.
+
+The acceptance metric on the explicit-source path is a clamped predicate: exact at
+or below its limit and short-circuiting above, so it is a sound pass/fail test and
+not a measurement. Any deviation figure carried in provenance, evidence or a plan
+is either at or below its limit or produced by an unclamped path; a first-crossing
+value is never reported as a measurement.
 
 Population guards under VAL-1 through VAL-3 report every failing entity with
 counts and distribution; a sweep that stops at its first failure does not satisfy

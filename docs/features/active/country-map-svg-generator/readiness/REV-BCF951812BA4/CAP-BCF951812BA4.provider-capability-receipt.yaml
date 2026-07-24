@@ -1,0 +1,25 @@
+version: 1
+kind: provider-capability-receipt
+id: CAP-BCF951812BA4
+epic: country-map-svg-generator
+status: recorded
+input_digest: e59a487b6ee2b3128c93e0fccbf44b3ad5a3626fd2ad8263e9dbe74e8c8698be
+subject:
+    artifact: epic-tracker
+    id: country-map-svg-generator
+    path: docs/features/active/country-map-svg-generator/country-map-svg-generator.tracker.yaml
+    sha256: 2788d5b56eafe848b3647d0d208c5b4cf830471987833e5b3c719fafb3fea52d
+producer_role: readiness-producer
+principal: teamlead
+result: pass
+slot: verification-runner
+capability: execute-verification
+disposition: native
+semantic_tier: reasoning
+session_id: b2a645f2-9ac6-46a9-a4ca-c87ac24bda88
+output_digest: db735114c7722d7ae6b574429c3526f1a3a1eba024f96258ce05653b254c466c
+write_set_digest: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+provider_evidence:
+    command: "mate\x1Famendment\x1Fstatus\x1Fcountry-map-svg-generator\x1FAM-005\x1F--root\x1F.\x1F--json"
+    provider: claude
+    target: amendment.accept

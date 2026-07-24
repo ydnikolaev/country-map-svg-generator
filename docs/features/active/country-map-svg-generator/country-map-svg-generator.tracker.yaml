@@ -2,11 +2,11 @@ version: 1
 epic: country-map-svg-generator
 title: Country Map SVG Generator
 state: in_progress
-revision: 38
+revision: 41
 updated_by: teamlead
-updated_at: "2026-07-24T17:05:16Z"
-last_event_id: amendment-propose-f9c7e812ce2bf0c4
-input_digest: dcee13c9dc60855516956caf92c82bb5f53e07832a6f0277ce951c8fb392455a
+updated_at: "2026-07-24T17:49:08Z"
+last_event_id: amendment-apply-7f92f963217385b2
+input_digest: 20af7e5bb441176c19da5e3f0b46a587031874bea4e15e4559cdc89f093bd837
 specs:
     - id: P1
       slug: source-corpus
@@ -79,13 +79,16 @@ amendments:
         - P3
     - id: AM-005
       slug: oracle-gated-ladder-selection
-      state: proposed
+      state: applied
       body: docs/features/active/country-map-svg-generator/amendments/AM-005/country-map-svg-generator.AM-005-oracle-gated-ladder-selection.amendment.md
       body_sha256: 9f1fa37349b3bbfde70190641d8dd29ec6b785f2062144f17a46b64b0371b148
-      revision: 1
-      last_event_id: amendment-propose-f9c7e812ce2bf0c4
-      impact_scope: none
-next_action: Detect and persist the amendment impact closure.
+      revision: 4
+      last_event_id: amendment-apply-7f92f963217385b2
+      impact_scope: declared
+      affected_specs:
+        - P2
+        - P3
+next_action: Resolve amendment AM-005 before affected work continues.
 discovery:
     state: completed
     revision: 11

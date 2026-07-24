@@ -1,0 +1,16 @@
+version: 1
+kind: verification-attempt
+id: ATTEMPT-BCF951812BA4
+epic: country-map-svg-generator
+status: pass
+input_digest: 97799c6587e8c6f81fd687f976619583e8dcd6b26117e6ece4c82c07021714b9
+selection_id: SELECT-BCF951812BA4
+attempt: 1
+started_at: "2026-07-24T17:47:41.686942Z"
+finished_at: "2026-07-24T17:47:41.71515Z"
+results:
+    - node: amendment-validation
+      verdict: pass
+      exit_code: 0
+      output_hash: db735114c7722d7ae6b574429c3526f1a3a1eba024f96258ce05653b254c466c
+      duration_ms: 28

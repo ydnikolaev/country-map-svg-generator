@@ -9,7 +9,7 @@ spec: "P3"
 status: draft
 profiles: []
 concerns: []
-inputs: ["DISC-006", "ARCH-001", "DEC-003", "AM-001", "AM-002", "AM-003", "AM-004"]
+inputs: ["DISC-006", "ARCH-001", "DEC-003", "DEC-009", "AM-001", "AM-002", "AM-003", "AM-004", "AM-005"]
 ---
 # P3 — Agent-First SVG Generator CLI
 

@@ -1,0 +1,16 @@
+version: 1
+kind: verification-attempt
+id: ATTEMPT-B032DBFD116A
+epic: country-map-svg-generator
+status: pass
+input_digest: c4becf681e8907a4c8efbe77712a3fb15b0a251746d16297d7e279be719a4be6
+selection_id: SELECT-B032DBFD116A
+attempt: 1
+started_at: "2026-07-24T17:46:21.331518Z"
+finished_at: "2026-07-24T17:46:21.359135Z"
+results:
+    - node: amendment-validation
+      verdict: pass
+      exit_code: 0
+      output_hash: b955a603dc16519b82585b63b9959c1929389e156862bed9d8ed8d311bcbb951
+      duration_ms: 27
