@@ -2,20 +2,53 @@ package geometry
 
 import (
 	"sort"
+	"sync"
 
 	"github.com/yuranikolaev/country-map-svg-generator/internal/catalog"
 )
 
-// publishedLODTable is nil until the generated T1 adapter initializes it.
-// Tests inject tables through GenerateWithLOD and never mutate this seam.
-var publishedLODTable *LODTable
+// The published table is the committed DEC-006/DEC-009 ladder, resolved on
+// first use. Tests inject their own tables through GenerateWithLOD and never
+// mutate this seam.
+//
+// Resolution is lazy for the same reason the ladder parse is: it decodes ~10 MB.
+// A caller that never generates never pays for it, and a failure to resolve is
+// returned rather than panicking at init — a build shipping a ladder that does
+// not bind its own corpus and oracle must fail loudly at the call, not silently
+// fall back to serving source geometry.
+var (
+	publishedOnce  sync.Once
+	publishedTable *LODTable
+	publishedErr   error
+)
+
+func publishedLODTable() (*LODTable, error) {
+	publishedOnce.Do(func() {
+		ladder, err := EmbeddedLadderTable()
+		if err != nil {
+			publishedErr = err
+			return
+		}
+		oracle, err := EmbeddedSilhouetteOracle()
+		if err != nil {
+			publishedErr = err
+			return
+		}
+		publishedTable, publishedErr = ladder.RuntimeTable(oracle)
+	})
+	return publishedTable, publishedErr
+}
 
 func Generate(raw Input) (Result, error) {
 	in, err := validatePublicInput(raw)
 	if err != nil {
 		return Result{}, err
 	}
-	return GenerateWithLOD(in, publishedLODTable)
+	table, err := publishedLODTable()
+	if err != nil {
+		return Result{}, err
+	}
+	return GenerateWithLOD(in, table)
 }
 
 func validatePublicInput(raw Input) (Input, error) {

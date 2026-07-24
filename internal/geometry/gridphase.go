@@ -84,8 +84,21 @@ func geometryContainedBy(g MultiPolygon, bounds Bounds) bool {
 	return true
 }
 
-func validatePhaseProtection(in Input, prj projector, transform Transform, canonical MultiPolygon, minimumParts int) error {
-	if len(canonical) < minimumParts {
+// oracleJudged marks a derived scale-band candidate selected through the
+// DEC-006 silhouette oracle. For such a candidate DEC-007 moved the protection
+// boundary: the raw P1 `minimum_parts` count is replaced by the versioned
+// protected-visibility policy, which keeps the dominant component, the
+// anchor-containing component, and every identity-set member visible at the
+// band's oracle grid — omitting the rest only with explicit
+// `protected_subscale` provenance rather than reclassifying it as unprotected.
+//
+// Applying the raw count here as well is the exact DEC-006 collision DEC-007
+// was accepted to remove: Indonesia's declared 20 parts cannot coexist with the
+// frozen 2200/2500 compact budgets at any generic resolution. The anchor
+// coverage check below is a separate obligation and applies to every candidate.
+// The DEC-005 source path keeps the full declared minimum (DEC-007 item 1).
+func validatePhaseProtection(in Input, prj projector, transform Transform, canonical MultiPolygon, minimumParts int, oracleJudged bool) error {
+	if !oracleJudged && len(canonical) < minimumParts {
 		return fail(ErrProtected, in.Entity.Alpha2, "minimum_parts", "got %d want at least %d", len(canonical), minimumParts)
 	}
 	for _, feature := range in.Entity.Protected {

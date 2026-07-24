@@ -64,7 +64,16 @@ func TestMarkerAnomalyIsVisible(t *testing.T) {
 	}
 }
 
-func TestPublicGenerateNilTableMatchesIsolatedSourceInjection(t *testing.T) {
+// TestPublicGenerateFallsBackToSourceWhenTheLadderHasNoRow pins the
+// LadderAbsent route. A geometry the committed ladder never saw — here a
+// synthetic fixture — must take the unchanged DEC-005 source path and produce
+// exactly what isolated source injection produces.
+//
+// The one field that legitimately differs is RequestedTier. It now records the
+// band the request actually landed in rather than the tier that was served, so
+// a ladder miss is visible in provenance instead of being indistinguishable
+// from a request that never had a band.
+func TestPublicGenerateFallsBackToSourceWhenTheLadderHasNoRow(t *testing.T) {
 	in := squareInput()
 	got, err := Generate(in)
 	if err != nil {
@@ -74,11 +83,16 @@ func TestPublicGenerateNilTableMatchesIsolatedSourceInjection(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if !reflect.DeepEqual(got, injected) {
-		t.Fatalf("public nil seam differs from isolated source injection:\npublic=%+v\ninjected=%+v", got, injected)
+	if got.LOD.RequestedTier != "compact" {
+		t.Fatalf("requested tier=%q want the band the request landed in", got.LOD.RequestedTier)
 	}
-	if got.LOD.RequestedTier != "source" || got.LOD.SelectedTier != "source" || !got.LOD.ParserRoundTrip {
-		t.Fatalf("public seam did not finalize source: %+v", got.LOD)
+	if got.LOD.SelectedTier != "source" || !got.LOD.ParserRoundTrip {
+		t.Fatalf("public seam did not fall back to source: %+v", got.LOD)
+	}
+	normalized := got
+	normalized.LOD.RequestedTier = injected.LOD.RequestedTier
+	if !reflect.DeepEqual(normalized, injected) {
+		t.Fatalf("public seam differs from isolated source injection beyond the requested tier:\npublic=%+v\ninjected=%+v", got, injected)
 	}
 }
 

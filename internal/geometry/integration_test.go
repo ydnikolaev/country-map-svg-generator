@@ -12,7 +12,11 @@ func TestFullCorpusBothProfiles(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	count := 0
+	// DEC-009 and DEC-010: a card band that cannot be drawn at all is a typed
+	// outcome the build recorded, not a generation failure. It is counted here
+	// rather than skipped, so a silent growth in the undrawable set reddens.
+	noArtifact := map[string]bool{}
+	rendered, count := 0, 0
 	for _, e := range c.Manifest.Entities {
 		for _, profile := range []string{"un", "de_facto"} {
 			in, err := InputFromCatalog(c, e.Alpha2, profile, "card")
@@ -20,6 +24,11 @@ func TestFullCorpusBothProfiles(t *testing.T) {
 				t.Fatalf("%s/%s adapter: %v", e.Alpha2, profile, err)
 			}
 			got, err := Generate(in)
+			if IsNoArtifact(err) {
+				noArtifact[e.Alpha2+"/"+profile] = true
+				count++
+				continue
+			}
 			if err != nil {
 				in, _ = ApplyPreset(in)
 				geo, _ := normalize(fromCatalog(in.Geometry.Coordinates))
@@ -39,11 +48,27 @@ func TestFullCorpusBothProfiles(t *testing.T) {
 			if got.Path == "" || got.Metrics.PathBytes != len(got.Path) || got.LayoutMode != LayoutTight {
 				t.Fatalf("%s/%s incomplete", e.Alpha2, profile)
 			}
+			rendered++
 			count++
 		}
 	}
 	if count != c.Manifest.EntityCount*2 {
 		t.Fatalf("processed %d", count)
+	}
+	// The exact committed undrawable card set: UM at both profiles (DEC-009)
+	// and Croatia's de_facto profile (DEC-010). Anything else appearing here is
+	// a regression, and anything disappearing means the ladder changed.
+	want := map[string]bool{"UM/un": true, "UM/de_facto": true, "HR/de_facto": true}
+	if len(noArtifact) != len(want) {
+		t.Fatalf("undrawable cards: got %v want %v", noArtifact, want)
+	}
+	for key := range want {
+		if !noArtifact[key] {
+			t.Fatalf("undrawable cards: got %v want %v", noArtifact, want)
+		}
+	}
+	if rendered != count-len(want) {
+		t.Fatalf("rendered %d of %d processed", rendered, count)
 	}
 }
 

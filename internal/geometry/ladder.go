@@ -272,3 +272,63 @@ func EmbeddedLadderTable() (*LadderTable, error) {
 // tooling recomputes from these rather than re-reading the working tree, so it
 // checks what the binary would actually serve.
 func EmbeddedLadderArtifactJSON() []byte { return ladderArtifactJSON }
+
+// RuntimeTable projects the ladder onto the runtime's LODTable so the existing
+// binding, transform and canonicalization plumbing is reused unchanged. The
+// Compact/Standard maps are populated only for the sake of that plumbing; the
+// Ladder back-pointer is what selection actually consults, because only it can
+// distinguish DEC-009's typed no-artifact outcome from a missing row.
+//
+// The band ceilings come from the oracle the ladder was judged against, not
+// from a constant here: they are the same numbers the build used to decide
+// which band each row belongs to.
+func (t *LadderTable) RuntimeTable(oracle SilhouetteOracle) (*LODTable, error) {
+	if t == nil {
+		return nil, fmt.Errorf("ladder table is nil")
+	}
+	if t.VisibilityPolicy != oracle.VisibilityPolicy {
+		return nil, fmt.Errorf("ladder visibility_policy %q does not bind the oracle policy %q", t.VisibilityPolicy, oracle.VisibilityPolicy)
+	}
+	table := &LODTable{
+		Version:      t.Kind,
+		RecipeSHA256: t.LadderRecipeSHA256,
+		Compact:      map[string]ProjectedLODGeometry{},
+		Standard:     map[string]ProjectedLODGeometry{},
+		Ladder:       t,
+	}
+	for _, band := range oracle.Bands {
+		switch band.ID {
+		case "compact":
+			table.CompactMaximumScale, table.CompactPathCap = band.MaximumEffectiveScale, band.PathCap
+		case "standard":
+			table.StandardMaximumScale, table.StandardPathCap = band.MaximumEffectiveScale, band.PathCap
+		default:
+			return nil, fmt.Errorf("oracle carries unknown band %q", band.ID)
+		}
+	}
+	if table.CompactPathCap <= 0 || table.StandardPathCap <= 0 {
+		return nil, fmt.Errorf("oracle band path caps are not set: compact=%d standard=%d",
+			table.CompactPathCap, table.StandardPathCap)
+	}
+	if table.CompactMaximumScale <= 0 || table.StandardMaximumScale <= table.CompactMaximumScale {
+		return nil, fmt.Errorf("oracle band ceilings are not ordered: compact=%g standard=%g",
+			table.CompactMaximumScale, table.StandardMaximumScale)
+	}
+	for _, row := range t.Rows {
+		if row.Status != string(LadderPass) {
+			continue
+		}
+		record, ok := t.Candidate(row.GeometryID, row.Selection)
+		if !ok {
+			return nil, fmt.Errorf("ladder row %s/%s/%s selects %s with no stored candidate",
+				row.Alpha2, row.Profile, row.Band, row.Selection)
+		}
+		switch row.Band {
+		case "compact":
+			table.Compact[row.GeometryID] = record
+		case "standard":
+			table.Standard[row.GeometryID] = record
+		}
+	}
+	return table, nil
+}

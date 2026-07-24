@@ -284,14 +284,54 @@ func TestParseLadderTableRejectsIncoherentRows(t *testing.T) {
 	}
 }
 
-// TestGenerateStaysSourceOnlyUntilSelectionIsRewritten pins the deliberate T2
-// boundary. The ladder is loadable, but publishedLODTable stays nil: the
-// derived-candidate path in lod.go still gates on matchedBoundaryDeviation and
-// still calls restoreRequiredComponents, both rejected by DEC-006. Wiring the
-// ladder into that predicate would fall back to source on nearly every entity
-// while reporting success. The flip belongs with the selection rewrite.
-func TestGenerateStaysSourceOnlyUntilSelectionIsRewritten(t *testing.T) {
-	if publishedLODTable != nil {
-		t.Fatal("publishedLODTable is wired while lod.go still gates derived candidates on raw deviation")
+// TestPublishedTableIsTheCommittedLadder pins the T3 flip: the shipped table is
+// the committed ladder, its band ceilings come from the oracle rather than a
+// constant, and every passing row is reachable through the runtime maps.
+func TestPublishedTableIsTheCommittedLadder(t *testing.T) {
+	table, err := publishedLODTable()
+	if err != nil {
+		t.Fatal(err)
+	}
+	if table == nil || table.Ladder == nil {
+		t.Fatal("the published table is not ladder-backed")
+	}
+	ladder := embeddedLadder(t)
+	if table.RecipeSHA256 != ladder.LadderRecipeSHA256 {
+		t.Fatalf("published recipe %q does not bind the ladder recipe %q", table.RecipeSHA256, ladder.LadderRecipeSHA256)
+	}
+	oracle, err := EmbeddedSilhouetteOracle()
+	if err != nil {
+		t.Fatal(err)
+	}
+	for _, band := range oracle.Bands {
+		got := table.StandardMaximumScale
+		if band.ID == "compact" {
+			got = table.CompactMaximumScale
+		}
+		if got != band.MaximumEffectiveScale {
+			t.Fatalf("%s ceiling=%g want the oracle's %g", band.ID, got, band.MaximumEffectiveScale)
+		}
+	}
+
+	compact, standard := 0, 0
+	for _, row := range ladder.Rows {
+		if row.Status != string(LadderPass) {
+			continue
+		}
+		switch row.Band {
+		case "compact":
+			if _, ok := table.Compact[row.GeometryID]; !ok {
+				t.Fatalf("%s/%s/compact is not reachable in the published table", row.Alpha2, row.Profile)
+			}
+			compact++
+		case "standard":
+			if _, ok := table.Standard[row.GeometryID]; !ok {
+				t.Fatalf("%s/%s/standard is not reachable in the published table", row.Alpha2, row.Profile)
+			}
+			standard++
+		}
+	}
+	if compact == 0 || standard == 0 {
+		t.Fatalf("published table coverage: compact=%d standard=%d", compact, standard)
 	}
 }

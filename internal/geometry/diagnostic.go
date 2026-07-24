@@ -19,7 +19,21 @@ const (
 	ErrPointLimit    ErrorCode = "point_limit"
 	ErrSerialization ErrorCode = "serialization_failure"
 	ErrBudget        ErrorCode = "hard_budget_exceeded"
+	// ErrNoArtifact is DEC-009's typed outcome for a band that cannot be drawn:
+	// no ladder rung, identity included, satisfies topology, protected
+	// visibility and the frozen byte caps at the fitted scale. It is a decision
+	// the build recorded, not a pipeline failure, and callers are expected to
+	// test for it and render absence deliberately (DEC-010).
+	ErrNoArtifact ErrorCode = "no_artifact"
 )
+
+// IsNoArtifact reports whether err is the DEC-009 typed no-artifact outcome.
+// Consumers use this to tell "this band is deliberately undrawable" apart from
+// "generation failed", which every other error code means.
+func IsNoArtifact(err error) bool {
+	pipelineErr, ok := err.(*PipelineError)
+	return ok && pipelineErr.Code == ErrNoArtifact
+}
 
 type PipelineError struct {
 	Code                   ErrorCode
@@ -43,10 +57,16 @@ type DiagnosticPhaseRow struct {
 	FinalDeviation *float64  `json:"final_deviation,omitempty"`
 }
 
-// DiagnosticGridPhases evaluates an explicit diagnostic phase list with the
-// same canonicalization, topology, protection, containment and final-deviation
-// primitive used by production's immutable 100-phase schedule. It intentionally
-// bypasses only the production candidate raw-deviation short circuit.
+// DiagnosticGridPhases evaluates an explicit diagnostic phase list through the
+// canonicalization, topology, protection, containment and final-deviation
+// primitive over the shared 100-phase schedule.
+//
+// It reproduces the *superseded* pre-DEC-006 derived path — component
+// restoration plus a deviation verdict — because that is the path the T0A.1
+// spike measured and the evidence it produced is only comparable against it.
+// Production no longer selects that way: a ladder candidate is judged by the
+// silhouette oracle at build time and takes neither the restoration nor the
+// deviation gate. Do not read this helper as a mirror of current selection.
 func DiagnosticGridPhases(raw Input, table *LODTable, tier string, phases []GridPhase) ([]DiagnosticPhaseRow, error) {
 	in, err := ApplyPreset(raw)
 	if err != nil {
@@ -117,7 +137,7 @@ func DiagnosticGridPhases(raw Input, table *LODTable, tier string, phases []Grid
 	referenceUnfitted := unfitGeometry(required, transform)
 	rows := make([]DiagnosticPhaseRow, 0, len(phases))
 	for _, phase := range phases {
-		result, err := finalizeGridPhase(candidateUnfitted, referenceUnfitted, transform, viewBox, in, prj, quality, minimumParts, phase)
+		result, err := finalizeGridPhase(candidateUnfitted, referenceUnfitted, transform, viewBox, in, prj, quality, minimumParts, phase, false)
 		row := DiagnosticPhaseRow{Phase: phase}
 		if err != nil {
 			row.Failure = errorIdentity(err)

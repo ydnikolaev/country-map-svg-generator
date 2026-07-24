@@ -51,7 +51,7 @@ func TestGridPhaseExhaustionIsTyped(t *testing.T) {
 		collapsed, collapsed,
 		Transform{Scale: 1}, Bounds{MaxX: 1, MaxY: 1},
 		Input{Entity: catalog.Entity{Alpha2: "ZZ"}}, projector{},
-		Quality{Simplification: 1, Quantization: .01}, 1,
+		Quality{Simplification: 1, Quantization: .01}, 1, false,
 	)
 	var pipelineErr *PipelineError
 	if !errors.As(err, &pipelineErr) || pipelineErr.Code != ErrTopology || pipelineErr.Field != "grid_phase" {

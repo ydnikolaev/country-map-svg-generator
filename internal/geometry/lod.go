@@ -17,9 +17,31 @@ type LODTable struct {
 	RecipeSHA256                              string
 	Compact, Standard                         map[string]ProjectedLODGeometry
 	CompactMaximumScale, StandardMaximumScale float64
-	mu                                        sync.Mutex
-	prepared                                  map[string]preparedLOD
+	// Ladder is set on a published table and nil on a hand-built one. When it
+	// is present, selection is a lookup against the committed DEC-006/DEC-009
+	// ladder rather than a fine-to-coarse tier walk, and the typed no-artifact
+	// outcome becomes reachable.
+	Ladder *LadderTable
+	// Band path caps, carried from the oracle the ladder was judged against.
+	// The ladder guarantees the linear path fits these; the runtime has to hold
+	// the guarantee for whatever representation it finally emits.
+	CompactPathCap, StandardPathCap int
+	mu                              sync.Mutex
+	prepared                        map[string]preparedLOD
 }
+
+// bandPathCap is the frozen path budget for a band, or 0 when the table carries
+// no ladder and therefore makes no such promise.
+func (t *LODTable) bandPathCap(band string) int {
+	switch band {
+	case "compact":
+		return t.CompactPathCap
+	case "standard":
+		return t.StandardPathCap
+	}
+	return 0
+}
+
 type preparedLOD struct {
 	full, projected MultiPolygon
 	prj             projector
@@ -174,20 +196,44 @@ func generateWithLOD(raw Input, table *LODTable, selectionOnly bool) (Result, er
 	type candidate struct {
 		name   string
 		record *ProjectedLODGeometry
+		ladder bool
 	}
 	var candidates []candidate
-	if table != nil {
+	switch {
+	case table == nil:
+		// No table at all: the exact source tier, unchanged.
+	case table.Ladder != nil:
+		// The committed ladder already picked the finest oracle-passing
+		// candidate for this exact band, so exactly one derived candidate is
+		// legal. Serving the standard rung inside a card viewport — which the
+		// pre-DEC-006 tier walk did — is precisely the substitution DEC-006
+		// removed.
+		if requested != "source" && ladderVerdictApplies(in, rotation, quality, artifactProjectionCompatible) {
+			selection, outcome := table.Ladder.Lookup(in.Geometry.ID, requested)
+			switch outcome {
+			case LadderNoArtifact:
+				// DEC-009/DEC-010: a decision the build recorded, not a
+				// failure to route around. Falling back to source here would
+				// emit the oversized silhouette the oracle refused.
+				return Result{}, fail(ErrNoArtifact, in.Entity.Alpha2, requested,
+					"no ladder rung including identity satisfies the %s band: %s", requested, selection.Row.NoArtifactReason)
+			case LadderPass:
+				record := selection.Record
+				candidates = append(candidates, candidate{requested, &record, true})
+			}
+		}
+	default:
 		if requested == "compact" {
 			if g, ok := table.Compact[in.Geometry.ID]; ok {
-				candidates = append(candidates, candidate{"compact", &g})
+				candidates = append(candidates, candidate{"compact", &g, false})
 			}
 			if g, ok := table.Standard[in.Geometry.ID]; ok {
-				candidates = append(candidates, candidate{"standard", &g})
+				candidates = append(candidates, candidate{"standard", &g, false})
 			}
 		}
 		if requested == "standard" {
 			if g, ok := table.Standard[in.Geometry.ID]; ok {
-				candidates = append(candidates, candidate{"standard", &g})
+				candidates = append(candidates, candidate{"standard", &g, false})
 			}
 		}
 	}
@@ -197,6 +243,7 @@ func generateWithLOD(raw Input, table *LODTable, selectionOnly bool) (Result, er
 		Quantization: quality.Quantization, Projection: projectionPolicy,
 	}
 	var selected, canonical MultiPolygon
+	selectedCeiling := in.MaxPathBytes
 	selectedTransform, selectedViewBox := tr, vb
 	retainedProtected := map[int][]string{}
 	for i, component := range fullComponents {
@@ -235,22 +282,33 @@ func generateWithLOD(raw Input, table *LODTable, selectionOnly bool) (Result, er
 				prov.Fallbacks = append(prov.Fallbacks, c.name+":binding:"+errorIdentity(bindingErr))
 				continue
 			}
-			fittedLOD := transformGeometry(projectedLOD, tr.Scale, tr.TranslateX, tr.TranslateY)
-			candidateGeometry, restorations = restoreRequiredComponents(fullRequired, fullComponents, fittedLOD)
+			candidateGeometry = transformGeometry(projectedLOD, tr.Scale, tr.TranslateX, tr.TranslateY)
+			if !c.ladder {
+				// The pre-DEC-006 derived path: inject full-detail source
+				// components the candidate dropped, then judge the result by
+				// raw boundary deviation. Both are exactly what DEC-006
+				// replaced with the silhouette oracle, so a ladder candidate
+				// gets neither — its omissions were judged deliberately at
+				// build time and restoring them would serve geometry no oracle
+				// ever saw.
+				candidateGeometry, restorations = restoreRequiredComponents(fullRequired, fullComponents, candidateGeometry)
+			}
 			shared := sharedSourceVertices(fullRequired, 1e-12)
 			if topologyErr := validateTopologyShared(candidateGeometry, shared); topologyErr != nil {
 				prov.Fallbacks = append(prov.Fallbacks, c.name+":topology:"+errorIdentity(topologyErr))
 				continue
 			}
-			rawDeviation = matchedBoundaryDeviation(fullRequired, candidateGeometry, quality.Simplification)
-			if !finite(rawDeviation) || rawDeviation > quality.Simplification {
-				prov.Fallbacks = append(prov.Fallbacks, fmt.Sprintf("%s:raw_deviation:%g", c.name, rawDeviation))
-				continue
+			if !c.ladder {
+				rawDeviation = matchedBoundaryDeviation(fullRequired, candidateGeometry, quality.Simplification)
+				if !finite(rawDeviation) || rawDeviation > quality.Simplification {
+					prov.Fallbacks = append(prov.Fallbacks, fmt.Sprintf("%s:raw_deviation:%g", c.name, rawDeviation))
+					continue
+				}
 			}
 			phaseResult, phaseErr := finalizeGridPhases(
 				unfitGeometry(candidateGeometry, tr),
 				unfitGeometry(fullRequired, tr),
-				tr, vb, in, prj, quality, minimumParts,
+				tr, vb, in, prj, quality, minimumParts, c.ladder,
 			)
 			if phaseErr != nil {
 				prov.Fallbacks = append(prov.Fallbacks, c.name+":phase:"+errorIdentity(phaseErr))
@@ -262,8 +320,22 @@ func generateWithLOD(raw Input, table *LODTable, selectionOnly bool) (Result, er
 			attemptedPhase, selectedPhase = phaseResult.AttemptedPhase, phaseResult.SelectedPhase
 			phaseAttempts = phaseResult.Attempts
 		}
+		// A ladder candidate carries the oracle's promise that its linear path
+		// fits the band's frozen path cap. Softening is a runtime-only
+		// representation choice the oracle never judged, and on small compact
+		// geometries it inflates the path several-fold — enough to clear the
+		// band cap while still sitting under the preset's larger complete-file
+		// maximum. Holding the softened variant to the band cap keeps the
+		// guarantee the ladder was built to make; the DEC-005 source path,
+		// which promises nothing of the kind, is unaffected.
+		renderCeiling := in.MaxPathBytes
+		if c.ladder {
+			if cap := table.bandPathCap(c.name); cap > 0 && (renderCeiling == 0 || cap < renderCeiling) {
+				renderCeiling = cap
+			}
+		}
 		if candidateIndex != len(candidates)-1 {
-			if _, _, _, budgetErr := renderLODRepresentation(candidateCanonical, quality, in.MaxPathBytes); budgetErr != nil {
+			if _, _, _, budgetErr := renderLODRepresentation(candidateCanonical, quality, renderCeiling); budgetErr != nil {
 				if pipelineErr, ok := budgetErr.(*PipelineError); ok && pipelineErr.Code == ErrBudget {
 					prov.Fallbacks = append(prov.Fallbacks, c.name+":hard_budget:"+pipelineErr.Message)
 				} else {
@@ -273,6 +345,7 @@ func generateWithLOD(raw Input, table *LODTable, selectionOnly bool) (Result, er
 			}
 		}
 		selected, canonical = candidateGeometry, candidateCanonical
+		selectedCeiling = renderCeiling
 		selectedTransform, selectedViewBox = candidateTransform, candidateViewBox
 		prov.SelectedTier, prov.Restored = c.name, restorations
 		prov.RawDeviation, prov.FinalDeviation, prov.MaximumDeviation = rawDeviation, finalDeviation, finalDeviation
@@ -292,7 +365,7 @@ func generateWithLOD(raw Input, table *LODTable, selectionOnly bool) (Result, er
 	if selectionOnly {
 		return Result{Entity: in.Entity.Alpha2, Profile: in.Profile, Preset: in.Preset, EffectiveScale: effective, LOD: prov}, nil
 	}
-	cmds, path, renderDiagnostics, err := renderLODRepresentation(canonical, quality, in.MaxPathBytes)
+	cmds, path, renderDiagnostics, err := renderLODRepresentation(canonical, quality, selectedCeiling)
 	if err != nil {
 		return Result{}, err
 	}
@@ -350,6 +423,34 @@ func renderLODRepresentation(canonical MultiPolygon, quality Quality, maximumByt
 		return nil, "", diagnostics, fail(ErrBudget, "", "max_path_bytes", "linear path bytes %d exceed hard maximum %d", len(path), maximumBytes)
 	}
 	return commands, path, diagnostics, nil
+}
+
+// ladderVerdictApplies reports whether the committed ladder's verdict was
+// earned under conditions this request actually reproduces. The build judged
+// every row through EvaluateSilhouetteCandidate at rotation 0, under the v1
+// projection contract, at the automatic quality for the fitted scale, and with
+// the caller's byte ceiling cleared. A request that changes any of those is a
+// different question than the one the oracle answered, so it takes the
+// unchanged DEC-005 source path instead of inheriting an answer that was never
+// about it.
+//
+// This is deliberately one named predicate rather than conditions scattered
+// through the candidate loop: it is the seam that decides whether a committed
+// oracle verdict may be trusted, and it has to be reviewable in one place.
+func ladderVerdictApplies(in Input, rotation float64, quality Quality, artifactProjectionCompatible bool) bool {
+	if !artifactProjectionCompatible {
+		return false // an explicit flatness rebuilds the projection the ladder was built in
+	}
+	if rotation != 0 {
+		return false // the ladder was built and judged at rotation 0
+	}
+	if in.Override != nil && in.Override.Quality != nil {
+		return false // an explicit quality replaces the AutoQuality the oracle used
+	}
+	if !in.Quality.Auto && in.Quality.Quantization > 0 && in.Quality.Flatness > 0 {
+		return false // likewise for an explicit request quality
+	}
+	return quality.Auto || quality.Quantization > 0
 }
 
 func errorIdentity(err error) string {
@@ -446,7 +547,7 @@ func finalizeSourceLOD(full MultiPolygon, protected map[int][]string, quality Qu
 		}
 		phaseResult, err := finalizeGridPhases(
 			unfitGeometry(reduced, base), unfittedFull,
-			base, viewBox, in, prj, quality, minimumParts,
+			base, viewBox, in, prj, quality, minimumParts, false,
 		)
 		result.PhaseAttempts += phaseResult.Attempts
 		result.AttemptedPhase = phaseResult.AttemptedPhase
@@ -474,13 +575,13 @@ type phaseLODResult struct {
 	Attempts                      int
 }
 
-func finalizeGridPhases(candidateUnfitted, referenceUnfitted MultiPolygon, base Transform, viewBox Bounds, in Input, prj projector, quality Quality, minimumParts int) (phaseLODResult, error) {
+func finalizeGridPhases(candidateUnfitted, referenceUnfitted MultiPolygon, base Transform, viewBox Bounds, in Input, prj projector, quality Quality, minimumParts int, oracleJudged bool) (phaseLODResult, error) {
 	var result phaseLODResult
 	var failures []string
 	for _, phase := range gridPhaseSchedule() {
 		result.Attempts++
 		result.AttemptedPhase = phase
-		attempt, err := finalizeGridPhase(candidateUnfitted, referenceUnfitted, base, viewBox, in, prj, quality, minimumParts, phase)
+		attempt, err := finalizeGridPhase(candidateUnfitted, referenceUnfitted, base, viewBox, in, prj, quality, minimumParts, phase, oracleJudged)
 		if err != nil {
 			failures = append(failures, fmt.Sprintf("(%0.3f,%0.3f):%s", phase.X, phase.Y, gridPhaseFailure(err)))
 			continue
@@ -493,7 +594,13 @@ func finalizeGridPhases(candidateUnfitted, referenceUnfitted MultiPolygon, base 
 	return result, fail(ErrTopology, in.Entity.Alpha2, "grid_phase", "exhausted %d phases: %v", result.Attempts, failures)
 }
 
-func finalizeGridPhase(candidateUnfitted, referenceUnfitted MultiPolygon, base Transform, viewBox Bounds, in Input, prj projector, quality Quality, minimumParts int, phase GridPhase) (phaseLODResult, error) {
+// oracleJudged marks a candidate whose fidelity was already decided at build
+// time by the DEC-006 silhouette oracle. Such a candidate still has to pass
+// every structural check here — canonicalization, structure, on-grid,
+// containment and protection — but not the raw boundary-deviation gate, which
+// DEC-006 replaced as the fidelity boundary. The DEC-005 source path keeps that
+// gate: it is the path's own acceptance criterion, and nothing else judges it.
+func finalizeGridPhase(candidateUnfitted, referenceUnfitted MultiPolygon, base Transform, viewBox Bounds, in Input, prj projector, quality Quality, minimumParts int, phase GridPhase, oracleJudged bool) (phaseLODResult, error) {
 	result := phaseLODResult{Attempts: 1, AttemptedPhase: phase, SelectedPhase: phase}
 	transform := composeGridPhase(base, phase)
 	candidate := materializeGridPhase(candidateUnfitted, transform)
@@ -512,12 +619,12 @@ func finalizeGridPhase(candidateUnfitted, referenceUnfitted MultiPolygon, base T
 	if !geometryContainedBy(canonical, shiftedViewBox) {
 		return result, fail(ErrTopology, in.Entity.Alpha2, "containment", "canonical geometry exceeds shifted viewBox")
 	}
-	if err := validatePhaseProtection(in, prj, transform, canonical, minimumParts); err != nil {
+	if err := validatePhaseProtection(in, prj, transform, canonical, minimumParts, oracleJudged); err != nil {
 		return result, fail(ErrProtected, in.Entity.Alpha2, "protection", "%s", errorIdentity(err))
 	}
 	finalDeviation := matchedBoundaryDeviation(reference, canonical, quality.Simplification)
 	result.FinalDeviation = finalDeviation
-	if !finite(finalDeviation) || finalDeviation > quality.Simplification {
+	if !oracleJudged && (!finite(finalDeviation) || finalDeviation > quality.Simplification) {
 		return result, fail(ErrTopology, in.Entity.Alpha2, "final_deviation", "%g", finalDeviation)
 	}
 	result.Geometry, result.Canonical = candidate, canonical
