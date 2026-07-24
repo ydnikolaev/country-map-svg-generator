@@ -1,0 +1,33 @@
+version: 1
+kind: work-item-mutation-receipt
+id: work-item-triage-4c23ee6172de0011
+project: country-map-svg-generator
+claim:
+    project: country-map-svg-generator
+    item_id: WKI-C83B0B9EB4EE
+    item_revision: 2
+    registry_revision: 4
+    mutation: triage-accept
+    operation_id: work-item-triage-4c23ee6172de0011
+    actor: product-owner
+    timestamp: "2026-07-24T21:29:58Z"
+    inputs:
+        - name: registry
+          value: 0174a863b30157f8733dfbf6d2a7b9e92cb20f2b708f7af607fb9cccc61cb507
+        - name: request
+          value: 4c23ee6172de0011bc3a5164618ea641eaeddcc388215c3511e4d8935b2d8101
+    input_digest: 6757b5672730c09e70d89166925ce95c09b8e1618b88c496f5062d5146b1d6b2
+    result: accepted
+    next_action: Route, defer, or dispose WKI-C83B0B9EB4EE with mate backlog.
+    predecessor_registry:
+        kind: sha256
+        digest: 0174a863b30157f8733dfbf6d2a7b9e92cb20f2b708f7af607fb9cccc61cb507
+    predecessor_receipt:
+        kind: work-item-mutation-receipt
+        id: work-item-add-dc6fee95e87da173
+        path: docs/features/events/work-item-add-dc6fee95e87da173.work-item-mutation-receipt.yaml
+        sha256: 411912efacc7ce05336fcfbf78bd7f50e69200063f261f2781016d6e76a8d451
+    event: accept
+    from: captured
+    to: accepted
+successor_registry_sha256: 262737aeba78a8f000d33120e28c04a515fc5d7afeebd798854f6b0b7eace911

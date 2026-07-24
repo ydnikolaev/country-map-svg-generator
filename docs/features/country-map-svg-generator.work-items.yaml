@@ -1,13 +1,13 @@
 version: 1
 kind: work-item-registry
 project: country-map-svg-generator
-revision: 3
+revision: 5
 head_receipt:
     kind: work-item-mutation-receipt
-    id: work-item-add-dc6fee95e87da173
-    path: docs/features/events/work-item-add-dc6fee95e87da173.work-item-mutation-receipt.yaml
-    claim_sha256: d95ab297add98b8d59e10a2dd03658d0f7773460d4b9d52df03e6436218c8c36
-updated_at: "2026-07-24T21:02:53Z"
+    id: work-item-triage-473abf742a4ffdf8
+    path: docs/features/events/work-item-triage-473abf742a4ffdf8.work-item-mutation-receipt.yaml
+    claim_sha256: b309a8ce4328afdef5c1d0167053be591e386ab97a246851495054b269e380f1
+updated_at: "2026-07-24T21:46:13Z"
 items:
     - id: WKI-490046152C71
       fingerprint: 490046152c71b060bafa56b799f6862959f842e62fb3df542e49ab30a640f22d
@@ -15,11 +15,11 @@ items:
       title: Does a card frame the mainland or the full UN claim including remote territories?
       problem: The viewBox is fitted to the whole projected source before any candidate is chosen (lod.go, fitGeometry over the full geometry), so it reserves space for components the silhouette may deliberately not draw. Chile's UN geometry spans 43.0 degrees of longitude because of Easter Island (-109.45), Salas y Gomez (-105.47) and the Juan Fernandez group (-80.7, -80.1); the mainland alone spans 13.5 degrees. Rendered, Chile sits against one edge of a near-square frame with most of the box empty. The United States shows the same effect via Alaska and Hawaii. This behaviour is identical before and after the T3 ladder wiring — the AU viewBox is 126.4x144 on both the ladder and source paths — so it is pre-existing, not a regression. It is visible now only because these entities finally render at all instead of failing on the byte budget. TestRepresentativeNaturalRatiosAndArbitraryFrames asserts ratios[CL] < 0.75, which encodes mainland framing, and is one of the known failing tests.
       expected_outcome: 'The owner decides the framing rule for a decorative card: frame the full claim as today, frame the drawn silhouette, or frame a primary landmass with a generic rule that carries no country literal. The decision then either realigns the natural-ratio test or changes the fit, and it belongs before T5''s owner contact sheet since that is where every such frame becomes visible at once.'
-      status: captured
+      status: deferred
       owner: product-owner
       priority_band: normal
       effort_band: medium
-      next_action: Show the owner the Chile and United States cards from the T3 proof render and take the framing decision
+      next_action: Accept or dispose WKI-490046152C71 with mate backlog.
       observations:
         - id: OBS-DC6FEE95E87D
           source:
@@ -42,15 +42,30 @@ items:
             id: work-item-add-dc6fee95e87da173
             path: docs/features/events/work-item-add-dc6fee95e87da173.work-item-mutation-receipt.yaml
             claim_sha256: d95ab297add98b8d59e10a2dd03658d0f7773460d4b9d52df03e6436218c8c36
+        - revision: 2
+          actor: product-owner
+          from: captured
+          to: deferred
+          rationale: 'Deferred to the T5 contact sheet by DEC-011. The owner will define the second framing mode with all 996 cards on screen rather than from hypothetical rules; three candidate automatic rules were each measured to fail on a real case. Nothing is lost by waiting: DEC-011 fixes the default as full-claim and routes the crop seam to P3, and that seam is needed for either answer.'
+          decided_at: "2026-07-24T21:46:13Z"
+          receipt:
+            kind: work-item-mutation-receipt
+            id: work-item-triage-473abf742a4ffdf8
+            path: docs/features/events/work-item-triage-473abf742a4ffdf8.work-item-mutation-receipt.yaml
+            claim_sha256: b309a8ce4328afdef5c1d0167053be591e386ab97a246851495054b269e380f1
       relationships: []
       mutation_receipts:
         - kind: work-item-mutation-receipt
           id: work-item-add-dc6fee95e87da173
           path: docs/features/events/work-item-add-dc6fee95e87da173.work-item-mutation-receipt.yaml
           claim_sha256: d95ab297add98b8d59e10a2dd03658d0f7773460d4b9d52df03e6436218c8c36
+        - kind: work-item-mutation-receipt
+          id: work-item-triage-473abf742a4ffdf8
+          path: docs/features/events/work-item-triage-473abf742a4ffdf8.work-item-mutation-receipt.yaml
+          claim_sha256: b309a8ce4328afdef5c1d0167053be591e386ab97a246851495054b269e380f1
       created_at: "2026-07-24T21:02:53Z"
-      updated_at: "2026-07-24T21:02:53Z"
-      revision: 1
+      updated_at: "2026-07-24T21:46:13Z"
+      revision: 2
     - id: WKI-6638BACD6E20
       fingerprint: 6638bacd6e20c897a1d38d7caccc21e961ba4a3d93f5bda58d19b1e17e445309
       scope: project
@@ -99,11 +114,11 @@ items:
       title: Russia selects ladder rung 24 and uses 7% of its hero byte budget
       problem: 'In the committed ladder, RU/un/standard selects rung 24 — 508 bytes of a 7500 cap, 45 points, 1 part, IoU 0.9204 — and RU/un/compact selects the same rung at 437 of 2200. Rendered, Russia is a crude blob while Italy at the same band spends 6829 of 7500. Russia is the only anomaly of its kind: exactly 14 committed rows select a rung at or below 64, and the other 12 (CA, GR, AX, DK, FK, HK) sit at 68-98% of their byte budget, i.e. coarse because they hit the cap. Russia is coarse while leaving 93% of the hero budget unspent, which means the fine-to-coarse search rejected every rung from 512 down to 32 for a reason the artifact does not record (per-attempt logs are stored only on no_artifact rows). The oracle cannot see this: minimum IoU is 0.40 and Russia scores 0.92, so a crude blob passes the acceptance predicate comfortably. Suspected cause is the antimeridian crossing damaging topology at finer rungs, unverified.'
       expected_outcome: The rejection reasons for RU rungs 512 through 32 are measured (needs a Mapshaper sweep, so it is T1/T5 territory rather than T3), the root cause is named, and either Russia selects a finer rung or the coarse selection is recorded as a understood, accepted outcome. A top-200 entity rendering as a blob at 7% of budget is not shippable without one of those two.
-      status: captured
+      status: accepted
       owner: teamlead
       priority_band: high
       effort_band: medium
-      next_action: Re-run the ladder sweep for RU alone with per-attempt rejection logging enabled and read why rungs 512-32 fail
+      next_action: Route, defer, or dispose WKI-C83B0B9EB4EE with mate backlog.
       observations:
         - id: OBS-63ECDB3C3646
           source:
@@ -126,13 +141,28 @@ items:
             id: work-item-add-63ecdb3c364686eb
             path: docs/features/events/work-item-add-63ecdb3c364686eb.work-item-mutation-receipt.yaml
             claim_sha256: b61f2fbdb4e29633a26271c2ddd0e54abd055c186ab498603a20ff15d77a414b
+        - revision: 2
+          actor: product-owner
+          from: captured
+          to: accepted
+          rationale: 'Owner instruction: this is a release blocker. A top-200 country rendering as a crude blob at 7% of its hero byte budget cannot ship. Accepted for work before release rather than left as a captured observation.'
+          decided_at: "2026-07-24T21:29:58Z"
+          receipt:
+            kind: work-item-mutation-receipt
+            id: work-item-triage-4c23ee6172de0011
+            path: docs/features/events/work-item-triage-4c23ee6172de0011.work-item-mutation-receipt.yaml
+            claim_sha256: f7cf1f9d174c9c8a03b3553e4ee9952f260a59461d8bf3a9f4e4963e56c3919a
       relationships: []
       mutation_receipts:
         - kind: work-item-mutation-receipt
           id: work-item-add-63ecdb3c364686eb
           path: docs/features/events/work-item-add-63ecdb3c364686eb.work-item-mutation-receipt.yaml
           claim_sha256: b61f2fbdb4e29633a26271c2ddd0e54abd055c186ab498603a20ff15d77a414b
+        - kind: work-item-mutation-receipt
+          id: work-item-triage-4c23ee6172de0011
+          path: docs/features/events/work-item-triage-4c23ee6172de0011.work-item-mutation-receipt.yaml
+          claim_sha256: f7cf1f9d174c9c8a03b3553e4ee9952f260a59461d8bf3a9f4e4963e56c3919a
       created_at: "2026-07-24T21:02:24Z"
-      updated_at: "2026-07-24T21:02:24Z"
-      revision: 1
+      updated_at: "2026-07-24T21:29:58Z"
+      revision: 2
 archives: []

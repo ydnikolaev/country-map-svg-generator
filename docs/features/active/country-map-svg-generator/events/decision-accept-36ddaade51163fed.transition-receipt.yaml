@@ -1,0 +1,25 @@
+version: 1
+kind: transition-receipt
+id: decision-accept-36ddaade51163fed
+epic: country-map-svg-generator
+status: recorded
+input_digest: f1c85082edd1f4cfb2355cffe4cda79a1671c19ee2de1a2d19b69f1778ac8fab
+subject:
+    artifact: decision
+    id: DEC-011
+    path: docs/features/active/country-map-svg-generator/decisions/candidates/DEC-011/country-map-svg-generator.DEC-011-framing-modes-and-crop-seam.decision.md
+    sha256: de655f95cb349a345979aab4358cb0bbf0c17f9b32469f175c0ab1f39d7ee09d
+producer_role: lifecycle-engine
+principal: product-owner
+result: pass
+machine: decision
+event: accept
+from: draft
+to: accepted
+inputs:
+    - artifact: decision
+      id: DEC-011
+      path: docs/features/active/country-map-svg-generator/decisions/candidates/DEC-011/country-map-svg-generator.DEC-011-framing-modes-and-crop-seam.decision.md
+      sha256: de655f95cb349a345979aab4358cb0bbf0c17f9b32469f175c0ab1f39d7ee09d
+predecessor: de655f95cb349a345979aab4358cb0bbf0c17f9b32469f175c0ab1f39d7ee09d
+successor: e15d046d786fcc60e40d4d127a9c805a58cf836159ffb30e3ab2000f3abf61ea

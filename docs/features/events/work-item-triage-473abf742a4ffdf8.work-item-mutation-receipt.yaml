@@ -1,0 +1,33 @@
+version: 1
+kind: work-item-mutation-receipt
+id: work-item-triage-473abf742a4ffdf8
+project: country-map-svg-generator
+claim:
+    project: country-map-svg-generator
+    item_id: WKI-490046152C71
+    item_revision: 2
+    registry_revision: 5
+    mutation: triage-defer
+    operation_id: work-item-triage-473abf742a4ffdf8
+    actor: product-owner
+    timestamp: "2026-07-24T21:46:13Z"
+    inputs:
+        - name: registry
+          value: 262737aeba78a8f000d33120e28c04a515fc5d7afeebd798854f6b0b7eace911
+        - name: request
+          value: 473abf742a4ffdf81db679adc57425647c844b9221910384b9692c5db3214a37
+    input_digest: 114adc313b77fd106a9e563db8859d9d70b20e8bdd9c81abd1367160b88c13e1
+    result: deferred
+    next_action: Accept or dispose WKI-490046152C71 with mate backlog.
+    predecessor_registry:
+        kind: sha256
+        digest: 262737aeba78a8f000d33120e28c04a515fc5d7afeebd798854f6b0b7eace911
+    predecessor_receipt:
+        kind: work-item-mutation-receipt
+        id: work-item-triage-4c23ee6172de0011
+        path: docs/features/events/work-item-triage-4c23ee6172de0011.work-item-mutation-receipt.yaml
+        sha256: 5aba573c397f76edb5b8f95dcb5380de6e5067404bae43d7c2aab82738c18591
+    event: defer
+    from: captured
+    to: deferred
+successor_registry_sha256: 8e5a63c57eddc1da31d16cc886ae8bca645f6465d16176d8dc33a1318f2313e0
