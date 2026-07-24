@@ -1,0 +1,31 @@
+version: 1
+kind: work-item-mutation-receipt
+id: work-item-add-efa776a80bdc3a29
+project: country-map-svg-generator
+claim:
+    project: country-map-svg-generator
+    item_id: WKI-6638BACD6E20
+    item_revision: 1
+    registry_revision: 1
+    mutation: add-capture
+    operation_id: work-item-add-efa776a80bdc3a29
+    actor: teamlead
+    timestamp: "2026-07-24T19:53:28Z"
+    inputs:
+        - name: registry
+          value: absent
+        - name: request
+          value: efa776a80bdc3a29edeb39da9cfcee01a6287b85454d5e1dea130c7b4eeb2df0
+        - name: source
+          value: specification#P2#docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/P2-geometry-pipeline.spec.md#3a9be62003fb6daa63130a600d5a01511074bb25d57011ec1ea9f568c1a027e0
+    input_digest: 30e170e6fafe4eb657564845f05bbd629b26cae145e8b8f595d8e7b5b74e1cde
+    result: captured
+    next_action: Measure a realistic single-SVG CLI invocation during T3 and choose between accepting the cost and per-geometry lazy decode
+    predecessor_registry:
+        kind: absent-v1
+    predecessor_receipt:
+        kind: absent-v1
+    event: capture
+    from: absent
+    to: captured
+successor_registry_sha256: 38fca4da19260649776958edb94d59953461ce0e2dc4d24640cc2fc46d617f15

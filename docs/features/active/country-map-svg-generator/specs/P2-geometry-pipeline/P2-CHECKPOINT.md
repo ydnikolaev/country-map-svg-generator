@@ -86,10 +86,13 @@ dry-run, then used for DEC-010).
   the oracle predicate: 986 pass / 10 fail. The ground truth.
 - `readiness/T0-identity-fallback.evaluation.tsv` (sha `48beef14…`) — identity
   candidate evaluation; recomputes byte-identical.
-- `internal/geometry/cmd/t0sweep`, `t0identity` live in the T0 git worktree at
-  `/private/tmp/claude-501/…/b2a645f2-…/scratchpad/t0` (detached HEAD `f03c7fe`),
-  **verified still present** as of this session. If it is ever gone, rebuild from
-  `f03c7fe`.
+- `internal/geometry/cmd/t0sweep`, `t0identity` live in a git worktree at
+  `/private/tmp/claude-501/…/b2a645f2-…/scratchpad/t0` (detached HEAD `f03c7fe`).
+  It is still on disk and still registered in `git worktree list`, but that path
+  is **a dead session's scratchpad** — session-scoped and orphaned, so it can
+  vanish on cleanup without warning. Treat `f03c7fe` as the real source of truth
+  and rebuild the worktree from it when T5 needs those tools; do not depend on
+  the path surviving.
 
 ## T1 — done and independently verified (commit `36e1043`)
 
@@ -191,7 +194,9 @@ Rewrite `lod.go` selection to lookup-and-verify against `LadderTable`, and flip
    (`lod.go:245-246`, `518-520`). They are the superseded predicate.
 3. Route explicit source / >700 effective scale to the unchanged DEC-005 path.
 4. Weigh the 707 ms first-load cost for a one-SVG CLI invocation. Per-geometry
-   lazy decode is the obvious lever if it matters; decide deliberately.
+   lazy decode is the obvious lever if it matters; decide deliberately. Tracked
+   as `WKI-6638BACD6E20` (`mate backlog show`), which is the durable record —
+   this checkpoint is not.
 5. **Emit real SVGs for a sample of top-200 countries as the empirical proof.**
    Tests passing is not the same as the product working.
 

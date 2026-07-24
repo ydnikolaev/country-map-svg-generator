@@ -1,0 +1,54 @@
+version: 1
+kind: work-item-registry
+project: country-map-svg-generator
+revision: 1
+head_receipt:
+    kind: work-item-mutation-receipt
+    id: work-item-add-efa776a80bdc3a29
+    path: docs/features/events/work-item-add-efa776a80bdc3a29.work-item-mutation-receipt.yaml
+    claim_sha256: 318ce1de447703a334445d7a3f65e60a8a54492f442c1a7534e60287b433e953
+updated_at: "2026-07-24T19:53:28Z"
+items:
+    - id: WKI-6638BACD6E20
+      fingerprint: 6638bacd6e20c897a1d38d7caccc21e961ba4a3d93f5bda58d19b1e17e445309
+      scope: project
+      title: Ladder first-load costs 707 ms per process; decide lazy per-geometry decode in T3
+      problem: EmbeddedLadderTable decodes the whole ~10 MB committed ladder artifact (996 rows, 283 candidate geometries) on first use, measured at 707 ms. It is behind sync.Once, so a long-lived process pays it once, and the linker drops the embed entirely when unreferenced (lodbuild stays 15.32 MB; a consumer calling the loader grows to 24.78 MB). But the P3 product is an agent-driven CLI that generates one SVG per invocation, and that invocation would pay the full 707 ms to decode 996 rows in order to use one. No accepted decision sets a startup budget, so this is a deliberate design call, not a violation.
+      expected_outcome: T3 weighs the cost when it wires publishedLODTable and either accepts 707 ms with a recorded rationale or lands a lazy per-geometry decode so a single-entity run touches only its own rows and candidate. Either way the choice is explicit and measured, not inherited.
+      status: captured
+      owner: teamlead
+      priority_band: normal
+      effort_band: medium
+      next_action: Measure a realistic single-SVG CLI invocation during T3 and choose between accepting the cost and per-geometry lazy decode
+      observations:
+        - id: OBS-EFA776A80BDC
+          source:
+            artifact: specification
+            id: P2
+            path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/P2-geometry-pipeline.spec.md
+            sha256: 3a9be62003fb6daa63130a600d5a01511074bb25d57011ec1ea9f568c1a027e0
+          actor: teamlead
+          evidence: []
+          observed_at: "2026-07-24T19:53:28Z"
+      decisions:
+        - revision: 1
+          actor: teamlead
+          from: absent
+          to: captured
+          rationale: Capture the durable work item
+          decided_at: "2026-07-24T19:53:28Z"
+          receipt:
+            kind: work-item-mutation-receipt
+            id: work-item-add-efa776a80bdc3a29
+            path: docs/features/events/work-item-add-efa776a80bdc3a29.work-item-mutation-receipt.yaml
+            claim_sha256: 318ce1de447703a334445d7a3f65e60a8a54492f442c1a7534e60287b433e953
+      relationships: []
+      mutation_receipts:
+        - kind: work-item-mutation-receipt
+          id: work-item-add-efa776a80bdc3a29
+          path: docs/features/events/work-item-add-efa776a80bdc3a29.work-item-mutation-receipt.yaml
+          claim_sha256: 318ce1de447703a334445d7a3f65e60a8a54492f442c1a7534e60287b433e953
+      created_at: "2026-07-24T19:53:28Z"
+      updated_at: "2026-07-24T19:53:28Z"
+      revision: 1
+archives: []
