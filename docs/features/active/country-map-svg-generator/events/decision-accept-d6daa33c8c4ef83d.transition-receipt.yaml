@@ -1,0 +1,25 @@
+version: 1
+kind: transition-receipt
+id: decision-accept-d6daa33c8c4ef83d
+epic: country-map-svg-generator
+status: recorded
+input_digest: 1de95b9339e4a19a7775efb218f6310ea780971ad89e26c58081cd338e54e81d
+subject:
+    artifact: decision
+    id: DEC-010
+    path: docs/features/active/country-map-svg-generator/decisions/candidates/DEC-010/country-map-svg-generator.DEC-010-croatia-de-facto-card-no-artifact.decision.md
+    sha256: 87531917293db0fbb9f1d396b28d84b6aff993e10597dd0d60ff05bd64a51bab
+producer_role: lifecycle-engine
+principal: product-owner
+result: pass
+machine: decision
+event: accept
+from: draft
+to: accepted
+inputs:
+    - artifact: decision
+      id: DEC-010
+      path: docs/features/active/country-map-svg-generator/decisions/candidates/DEC-010/country-map-svg-generator.DEC-010-croatia-de-facto-card-no-artifact.decision.md
+      sha256: 87531917293db0fbb9f1d396b28d84b6aff993e10597dd0d60ff05bd64a51bab
+predecessor: 87531917293db0fbb9f1d396b28d84b6aff993e10597dd0d60ff05bd64a51bab
+successor: ce74605b46531aed51b0d43391e50c22e7c2954fd4568374a304bd3ced169d9a
