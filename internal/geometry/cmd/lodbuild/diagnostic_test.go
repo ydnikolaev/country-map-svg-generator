@@ -117,6 +117,7 @@ func TestDiagnosticSourceInventoryIsExactAndBiting(t *testing.T) {
 	postDiagnosticAdditions := []string{
 		"internal/geometry/cmd/lodbuild/ladder.go",
 		"internal/geometry/cmd/lodbuild/representative.go",
+		"internal/geometry/ladder.go",
 		"internal/geometry/silhouette.go",
 	}
 	additionSet := make(map[string]bool, len(postDiagnosticAdditions))
