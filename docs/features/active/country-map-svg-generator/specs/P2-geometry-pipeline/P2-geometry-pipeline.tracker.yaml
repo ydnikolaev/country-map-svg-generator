@@ -4,13 +4,12 @@ spec: P2
 slug: geometry-pipeline
 title: Soft-Organic Geometry Pipeline
 state: in_progress
-revision: 56
+revision: 57
 updated_by: teamlead
-updated_at: "2026-07-24T01:19:17Z"
-last_event_id: run-start-fe89ab72036f3d1d-run
-input_digest: b526cbfd049ede4187ce091338f1140f90afdc7b3f72376289be4c6b46ec0a95
+updated_at: "2026-07-24T01:19:56Z"
+last_event_id: run-fail-915404745ff49a94
+input_digest: f7ff5c9f246afdfa2158306d557b357cb602fae23732a1019dcae6f217065337
 current_plan: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/plans/PLAN-007/P2-geometry-pipeline.PLAN-007.plan.md
-active_run: RUN-007
 runs:
     - id: RUN-001
       plan: PLAN-001
@@ -38,6 +37,7 @@ runs:
       result: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-006/P2-geometry-pipeline.RUN-006.result.yaml
     - id: RUN-007
       plan: PLAN-007
-      status: running
+      status: failed
+      result: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-007/P2-geometry-pipeline.RUN-007.result.yaml
 findings: []
-next_action: agent-dispatch:agent-dispatch-result/RESULT-014#c79b3c753e18fd1f6e3096424db66b06790497eca15bbf03c2b15a12baf1b59f
+next_action: Invalidate PLAN-007 from the failed grid-phase performance brake and scaffold a successor that preserves the phase repair while separating source representation proof from forced-source card byte-budget policy.
