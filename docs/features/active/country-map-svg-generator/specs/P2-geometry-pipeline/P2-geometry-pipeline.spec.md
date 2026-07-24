@@ -100,6 +100,13 @@ dependency.
 | VAL-3 | REQ-1, REQ-2, REQ-5 | run hero/card fixtures at intended rasterized long-side sizes; compare an elongated geometry in multiple `contain` frames | visual+structural; removal report and recognizable approved baselines; resolved quality remains a function of fitted geometry scale rather than the frame's shorter side | P2 / W2 complete |
 | VAL-4 | REQ-6 | apply bounded valid and invalid country overrides | unit; valid changes only named dimension, out-of-range fails | P2 / W2 complete |
 | VAL-5 | REQ-7 | project inside, edge and implausible-outside markers | integration; same transform and typed anomaly behavior | P2 / W2 complete |
+| VAL-6 | REQ-2, REQ-3, REQ-8 | exercise the boundary-deviation acceptance metric directly: mismatched component and ring counts, permuted component order, a perturbation that would flip a proximity-based correspondence, and a descending sweep of the simplification tolerance across the resolution ladder for continental, archipelagic, fjord-coast and polar entities | unit+property; the metric returns a finite graded value for every comparison, is invariant to component order, and never reports a larger deviation for a smaller simplification tolerance; protected-feature loss still fails through the protection check | P2 / W0 complete |
+
+Per AM-003, VAL-6 guards the properties the source-tier tolerance search assumes
+about its own acceptance metric. Population guards under VAL-1 through VAL-3
+report every failing entity with counts and distribution; a sweep that stops at
+its first failure does not satisfy them, because the first failure is a function
+of iteration order and hides both the magnitude and every later assertion.
 
 ## Acceptance criteria
 

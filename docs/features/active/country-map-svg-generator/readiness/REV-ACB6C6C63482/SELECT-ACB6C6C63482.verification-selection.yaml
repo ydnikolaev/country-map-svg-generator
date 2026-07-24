@@ -1,0 +1,11 @@
+version: 1
+kind: verification-selection
+id: SELECT-ACB6C6C63482
+epic: country-map-svg-generator
+status: recorded
+input_digest: 318ce672882a36a2f98a254c29521d57f5c7b13f9a1b7742e8fa8ba811a113fa
+topology_digest: f5a0d02e082e5e1b1a78c917b666f1b0c071c4963cc56f05548e8cb802c147ca
+nodes:
+    - amendment-validation
+reason: readiness gate for amendment.accept
+required_ceiling: amendment-validation

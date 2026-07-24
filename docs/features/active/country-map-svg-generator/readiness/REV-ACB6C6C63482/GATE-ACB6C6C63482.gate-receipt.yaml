@@ -1,0 +1,23 @@
+version: 1
+kind: gate-receipt
+id: GATE-ACB6C6C63482
+epic: country-map-svg-generator
+status: recorded
+input_digest: 318ce672882a36a2f98a254c29521d57f5c7b13f9a1b7742e8fa8ba811a113fa
+subject:
+    artifact: epic-tracker
+    id: country-map-svg-generator
+    path: docs/features/active/country-map-svg-generator/country-map-svg-generator.tracker.yaml
+    sha256: 464cf02344da0ab4af41d9c48f0e7daa3178c799812020d86d25927a759d1812
+producer_role: verification-runner
+principal: teamlead
+result: pass
+gate: amendment-validation
+attempt_ids:
+    - ATTEMPT-ACB6C6C63482
+evidence:
+    - artifact: verification-result
+      id: VERIFY-ACB6C6C63482
+      path: docs/features/active/country-map-svg-generator/readiness/REV-ACB6C6C63482/VERIFY-ACB6C6C63482.verification-result.yaml
+      sha256: e4c80faf692f89d3491357dff2da6c753e6ef6abf252796975d8dc1009efc99d
+      verdict: pass
