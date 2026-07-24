@@ -1,0 +1,35 @@
+version: 1
+kind: agent-dispatch-result
+id: RESULT-025
+epic: country-map-svg-generator
+spec: P2
+run: RUN-017
+status: passed
+input_digest: 8f26d5b09621629f21dc3179aa153ac53849fafd1e1944ac1cb98f9370f19eb2
+previous:
+    artifact: agent-dispatch-brief
+    id: BRIEF-025
+    path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-017/agents/BRIEF-025.agent-dispatch-brief.yaml
+    sha256: 40888b5fbe108ce40064fc2ec1d3a92ae488eb2252907fc2ba2d5453d090ff19
+brief:
+    artifact: agent-dispatch-brief
+    id: BRIEF-025
+    path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-017/agents/BRIEF-025.agent-dispatch-brief.yaml
+    sha256: 40888b5fbe108ce40064fc2ec1d3a92ae488eb2252907fc2ba2d5453d090ff19
+principal: p2-coder
+provider_task_ref: p2_coder
+outcome: passed
+summary: 'RUN-017 reproduced SH component loss at all 29 frozen v2 resolutions and isolated the earliest failure to canonical Mapshaper generation: four projected source polygons become one four-point Polygon; parser and oracle are correct. Two runs produced semantic digest 94b756629056505eb85d0af568a44d478173b79b0aa8bf3613567c7f87179c54.'
+changed_paths:
+    - path: internal/geometry/cmd/lodbuild/sh_diagnostic_test.go
+      sha256: b9e7a56d0494ee2d6d2adc286b6edfe7e7fb3ff9d05b0ec9fc8ab1400e9f86f5
+outputs: []
+verification:
+    - artifact: verification-result
+      id: VERIFY-97AD98297B52
+      path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-017/gates/GATE-97AD98297B52/VERIFY-97AD98297B52.verification-result.yaml
+      sha256: bf7d12739a44d02e05d051d42722b57e67c605c773781c61e4c10bc9db01280e
+      verdict: pass
+deviations: []
+feedback: []
+resume_anchor: Close RUN-017 using GATE-97AD98297B52, then govern a component-aware candidate-source plan successor; do not change oracle/parser thresholds.

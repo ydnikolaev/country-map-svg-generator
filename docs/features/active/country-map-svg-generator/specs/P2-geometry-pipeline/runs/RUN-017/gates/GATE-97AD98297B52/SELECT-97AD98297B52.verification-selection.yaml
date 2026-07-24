@@ -1,0 +1,13 @@
+version: 1
+kind: verification-selection
+id: SELECT-97AD98297B52
+epic: country-map-svg-generator
+spec: P2
+run: RUN-017
+status: recorded
+input_digest: a47ca69c28eeaffe612f44f74b90a6efdfb87839c8c02996dae2194b48c98f73
+topology_digest: a23162e8d6fe344716cba755fdaf6c65636fa78e47290bfe2f66e95d92ae567f
+nodes:
+    - geometry-regression-protected-visibility-and-scale-ladder-brake
+reason: lifecycle gate for run-brief
+required_ceiling: geometry-regression-protected-visibility-and-scale-ladder-brake

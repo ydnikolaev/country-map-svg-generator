@@ -4,13 +4,12 @@ spec: P2
 slug: geometry-pipeline
 title: Soft-Organic Geometry Pipeline
 state: in_progress
-revision: 103
+revision: 105
 updated_by: teamlead
-updated_at: "2026-07-24T06:42:47Z"
-last_event_id: run-start-8175df80c729fb46-run
-input_digest: ec09eeeea6a6c988aa434b4a587988de7c72e9e5f4f0861baa5fbc1b8662e43d
+updated_at: "2026-07-24T06:50:53Z"
+last_event_id: run-interrupt-92137fad42054802
+input_digest: d59c8b24d5b9f65a2f145888aa2e71f05f1427bbba9235bd925a94dbd9ea304d
 current_plan: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/plans/PLAN-010/P2-geometry-pipeline.PLAN-010.plan.md
-active_run: RUN-017
 runs:
     - id: RUN-001
       plan: PLAN-001
@@ -78,6 +77,7 @@ runs:
       result: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-016/P2-geometry-pipeline.RUN-016.result.yaml
     - id: RUN-017
       plan: PLAN-010
-      status: running
+      status: interrupted
+      result: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-017/P2-geometry-pipeline.RUN-017.result.yaml
 findings: []
-next_action: agent-dispatch:agent-dispatch-brief/BRIEF-025#40888b5fbe108ce40064fc2ec1d3a92ae488eb2252907fc2ba2d5453d090ff19
+next_action: Invalidate PLAN-010 for candidate-source incompleteness and author a successor that splits projected MultiPolygon components into lineage-keyed temporary features before pinned simplification, deterministically reassembles them, reruns representative approval, then resumes full-catalog integration.

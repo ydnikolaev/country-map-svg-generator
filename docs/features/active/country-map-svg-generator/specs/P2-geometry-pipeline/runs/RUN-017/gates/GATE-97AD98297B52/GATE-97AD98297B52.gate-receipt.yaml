@@ -1,0 +1,30 @@
+version: 1
+kind: gate-receipt
+id: GATE-97AD98297B52
+epic: country-map-svg-generator
+spec: P2
+run: RUN-017
+status: recorded
+input_digest: a47ca69c28eeaffe612f44f74b90a6efdfb87839c8c02996dae2194b48c98f73
+subject:
+    artifact: run-brief
+    id: RUN-017
+    path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-017/P2-geometry-pipeline.RUN-017.brief.md
+    sha256: a47ca69c28eeaffe612f44f74b90a6efdfb87839c8c02996dae2194b48c98f73
+producer_role: verification-runner
+principal: teamlead
+result: pass
+gate: geometry-regression-protected-visibility-and-scale-ladder-brake
+attempt_ids:
+    - ATTEMPT-97AD98297B52
+evidence:
+    - artifact: verification-result
+      id: VERIFY-97AD98297B52
+      path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-017/gates/GATE-97AD98297B52/VERIFY-97AD98297B52.verification-result.yaml
+      sha256: bf7d12739a44d02e05d051d42722b57e67c605c773781c61e4c10bc9db01280e
+      verdict: pass
+    - artifact: verification-result
+      id: VR-VAL-2-P2-RUN-017
+      path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-017/evidence/VR-VAL-2-P2-RUN-017.verification-result.yaml
+      sha256: f5ae2ba8c29712afcae60d88a13168b80ad4b851db141d32b53ac74c2d83940b
+      verdict: pass
