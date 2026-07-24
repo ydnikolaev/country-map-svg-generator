@@ -1,13 +1,13 @@
 version: 1
 kind: work-item-registry
 project: country-map-svg-generator
-revision: 6
+revision: 7
 head_receipt:
     kind: work-item-mutation-receipt
-    id: work-item-add-76aa6520995dc385
-    path: docs/features/events/work-item-add-76aa6520995dc385.work-item-mutation-receipt.yaml
-    claim_sha256: 4c7179b19b4151f2ef40a8e94528b3e2cc694c232fbcf465c456e3425a0fb360
-updated_at: "2026-07-24T22:51:38Z"
+    id: work-item-dispose-e8b3e9a3d5a4cae9
+    path: docs/features/events/work-item-dispose-e8b3e9a3d5a4cae9.work-item-mutation-receipt.yaml
+    claim_sha256: 31eda38d4c3e2c44d619229385f8594ff6bda6a5d5556f7e9ab678dde24ce1d4
+updated_at: "2026-07-24T23:34:02Z"
 items:
     - id: WKI-490046152C71
       fingerprint: 490046152c71b060bafa56b799f6862959f842e62fb3df542e49ab30a640f22d
@@ -156,11 +156,11 @@ items:
       title: Russia selects ladder rung 24 and uses 7% of its hero byte budget
       problem: 'In the committed ladder, RU/un/standard selects rung 24 — 508 bytes of a 7500 cap, 45 points, 1 part, IoU 0.9204 — and RU/un/compact selects the same rung at 437 of 2200. Rendered, Russia is a crude blob while Italy at the same band spends 6829 of 7500. Russia is the only anomaly of its kind: exactly 14 committed rows select a rung at or below 64, and the other 12 (CA, GR, AX, DK, FK, HK) sit at 68-98% of their byte budget, i.e. coarse because they hit the cap. Russia is coarse while leaving 93% of the hero budget unspent, which means the fine-to-coarse search rejected every rung from 512 down to 32 for a reason the artifact does not record (per-attempt logs are stored only on no_artifact rows). The oracle cannot see this: minimum IoU is 0.40 and Russia scores 0.92, so a crude blob passes the acceptance predicate comfortably. Suspected cause is the antimeridian crossing damaging topology at finer rungs, unverified.'
       expected_outcome: The rejection reasons for RU rungs 512 through 32 are measured (needs a Mapshaper sweep, so it is T1/T5 territory rather than T3), the root cause is named, and either Russia selects a finer rung or the coarse selection is recorded as a understood, accepted outcome. A top-200 entity rendering as a blob at 7% of budget is not shippable without one of those two.
-      status: accepted
+      status: done
       owner: teamlead
       priority_band: high
       effort_band: medium
-      next_action: Route, defer, or dispose WKI-C83B0B9EB4EE with mate backlog.
+      next_action: No further mutation is legal.
       observations:
         - id: OBS-63ECDB3C3646
           source:
@@ -194,6 +194,17 @@ items:
             id: work-item-triage-4c23ee6172de0011
             path: docs/features/events/work-item-triage-4c23ee6172de0011.work-item-mutation-receipt.yaml
             claim_sha256: f7cf1f9d174c9c8a03b3553e4ee9952f260a59461d8bf3a9f4e4963e56c3919a
+        - revision: 3
+          actor: teamlead
+          from: accepted
+          to: done
+          rationale: 'Closed by DEC-012. Root cause was not Russia-specific: the acceptance predicate judged topology on pre-canonical fitted coordinates, rejecting a self-crossing of ~1e-4 that the pipeline''s own q=0.01 canonicalization erases. Fixed on both the oracle and the runtime side so build and serve agree, and the ladder was rebuilt through its full binding chain. RU/un/standard moved from rung 24 at 508 bytes and 1 part to rung 224 at 6577 bytes and 16 parts; RU/un/compact from 24 to 80. Exactly 2 of 996 rows changed, which confirms Russia was the sole victim. All gates green against the rebuilt artifact.'
+          decided_at: "2026-07-24T23:34:02Z"
+          receipt:
+            kind: work-item-mutation-receipt
+            id: work-item-dispose-e8b3e9a3d5a4cae9
+            path: docs/features/events/work-item-dispose-e8b3e9a3d5a4cae9.work-item-mutation-receipt.yaml
+            claim_sha256: 31eda38d4c3e2c44d619229385f8594ff6bda6a5d5556f7e9ab678dde24ce1d4
       relationships: []
       mutation_receipts:
         - kind: work-item-mutation-receipt
@@ -204,7 +215,16 @@ items:
           id: work-item-triage-4c23ee6172de0011
           path: docs/features/events/work-item-triage-4c23ee6172de0011.work-item-mutation-receipt.yaml
           claim_sha256: f7cf1f9d174c9c8a03b3553e4ee9952f260a59461d8bf3a9f4e4963e56c3919a
+        - kind: work-item-mutation-receipt
+          id: work-item-dispose-e8b3e9a3d5a4cae9
+          path: docs/features/events/work-item-dispose-e8b3e9a3d5a4cae9.work-item-mutation-receipt.yaml
+          claim_sha256: 31eda38d4c3e2c44d619229385f8594ff6bda6a5d5556f7e9ab678dde24ce1d4
+      disposition_receipt:
+        kind: work-item-mutation-receipt
+        id: work-item-dispose-e8b3e9a3d5a4cae9
+        path: docs/features/events/work-item-dispose-e8b3e9a3d5a4cae9.work-item-mutation-receipt.yaml
+        claim_sha256: 31eda38d4c3e2c44d619229385f8594ff6bda6a5d5556f7e9ab678dde24ce1d4
       created_at: "2026-07-24T21:02:24Z"
-      updated_at: "2026-07-24T21:29:58Z"
-      revision: 2
+      updated_at: "2026-07-24T23:34:02Z"
+      revision: 3
 archives: []

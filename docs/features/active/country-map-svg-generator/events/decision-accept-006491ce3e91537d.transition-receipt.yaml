@@ -1,0 +1,25 @@
+version: 1
+kind: transition-receipt
+id: decision-accept-006491ce3e91537d
+epic: country-map-svg-generator
+status: recorded
+input_digest: a2a9404058886c9c65cf4b86c14b49be4d527ef3da44f6f9f8c94430f0a1b2ef
+subject:
+    artifact: decision
+    id: DEC-012
+    path: docs/features/active/country-map-svg-generator/decisions/candidates/DEC-012/country-map-svg-generator.DEC-012-topology-judged-after-canonicalization.decision.md
+    sha256: 9023534a6d8415ef48d5b2d2b2026a85293ba977e99c2b284fa5157cf2bc3c37
+producer_role: lifecycle-engine
+principal: product-owner
+result: pass
+machine: decision
+event: accept
+from: draft
+to: accepted
+inputs:
+    - artifact: decision
+      id: DEC-012
+      path: docs/features/active/country-map-svg-generator/decisions/candidates/DEC-012/country-map-svg-generator.DEC-012-topology-judged-after-canonicalization.decision.md
+      sha256: 9023534a6d8415ef48d5b2d2b2026a85293ba977e99c2b284fa5157cf2bc3c37
+predecessor: 9023534a6d8415ef48d5b2d2b2026a85293ba977e99c2b284fa5157cf2bc3c37
+successor: 68c68949fed9603825c958e2c127527efd95e8332d1c7dd666e52d305ad2286d

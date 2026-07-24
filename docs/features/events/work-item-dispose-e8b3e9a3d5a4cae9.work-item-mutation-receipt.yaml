@@ -1,0 +1,33 @@
+version: 1
+kind: work-item-mutation-receipt
+id: work-item-dispose-e8b3e9a3d5a4cae9
+project: country-map-svg-generator
+claim:
+    project: country-map-svg-generator
+    item_id: WKI-C83B0B9EB4EE
+    item_revision: 3
+    registry_revision: 7
+    mutation: dispose-complete
+    operation_id: work-item-dispose-e8b3e9a3d5a4cae9
+    actor: teamlead
+    timestamp: "2026-07-24T23:34:02Z"
+    inputs:
+        - name: registry
+          value: 451a7d81c81d804d827de9fce3f19493cdd1b352ebfd4aafa5825570587937cc
+        - name: request
+          value: e8b3e9a3d5a4cae9fcdb0dec2a9045dda6a81733e0b1d29b013bad80edd73585
+    input_digest: 6a9f5d913e5ae742089f3abef1bb1b7982c34e32e122376224dc2fb5a8784ad5
+    result: done
+    next_action: No further mutation is legal.
+    predecessor_registry:
+        kind: sha256
+        digest: 451a7d81c81d804d827de9fce3f19493cdd1b352ebfd4aafa5825570587937cc
+    predecessor_receipt:
+        kind: work-item-mutation-receipt
+        id: work-item-add-76aa6520995dc385
+        path: docs/features/events/work-item-add-76aa6520995dc385.work-item-mutation-receipt.yaml
+        sha256: e7fa6b7cf3913f60440cc82c9ba003694e83c0ea88f81b2c45afa8a22e60aa41
+    event: complete
+    from: accepted
+    to: done
+successor_registry_sha256: 6a6fd303f8ab3f7d71d569eced89d9319f27b98c54c22206baff3a7a78aabc55
