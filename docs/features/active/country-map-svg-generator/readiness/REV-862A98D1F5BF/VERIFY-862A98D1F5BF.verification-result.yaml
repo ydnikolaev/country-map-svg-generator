@@ -1,0 +1,21 @@
+version: 1
+kind: verification-result
+id: VERIFY-862A98D1F5BF
+epic: country-map-svg-generator
+spec: P2
+run: RUN-019
+status: pass
+input_digest: 32ee89541303c6a44bf39e4c8ffe59f57f64cc1eae5cca526c39acf46eeee930
+selection_id: SELECT-862A98D1F5BF
+attempts:
+    - artifact: verification-attempt
+      id: ATTEMPT-862A98D1F5BF
+      path: docs/features/active/country-map-svg-generator/readiness/REV-862A98D1F5BF/ATTEMPT-862A98D1F5BF.verification-attempt.yaml
+      sha256: 32ee89541303c6a44bf39e4c8ffe59f57f64cc1eae5cca526c39acf46eeee930
+nodes:
+    - node: run-brief-validation
+      verdict: pass
+      exit_code: 0
+      output_hash: e602a4dd8de342095ba9eb8cc6d7549f43248aabc14e4950b8cff167da84dc80
+      duration_ms: 53
+verdict: pass

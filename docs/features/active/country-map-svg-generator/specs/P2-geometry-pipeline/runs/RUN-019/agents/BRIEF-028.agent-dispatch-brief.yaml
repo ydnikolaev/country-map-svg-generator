@@ -1,0 +1,86 @@
+version: 1
+kind: agent-dispatch-brief
+id: BRIEF-028
+epic: country-map-svg-generator
+spec: P2
+run: RUN-019
+status: issued
+input_digest: ed5ae683f40655c27970d64c77450989bd304173ca0baac2433269b452e379f1
+role: coder
+provider: codex
+binding_mode: native
+dispatch_route: named-role
+role_contract:
+    reference: installed-role/coder
+    path: .codex/agents/coder.toml
+    sha256: e5078656ace1b8785d676e1410b701d4c8ebd31b129a54cce0d3813adfe99f10
+    reason: installed provider role contract
+    freshness: current
+issuer: teamlead
+grant: edit
+capability: edit
+semantic_tier: standard
+context:
+    - reference: context-doctrine-pack/CTX-RUN-021
+      path: docs/features/active/country-map-svg-generator/readiness/CTX-RUN-021.context-pack.yaml
+      sha256: eabe804f68b2073aad9e946dec5df8e9edf5c403ba010c9d5175051a2ce87d67
+      reason: dispatch context
+      freshness: current
+plan:
+    artifact: plan-manifest
+    id: PLAN-012
+    path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/plans/PLAN-012/P2-geometry-pipeline.PLAN-012.plan-manifest.yaml
+    sha256: ffef18b60ff1487b940c3f931a4bdc14206136b2e9042487d75fa8deee128f1a
+readiness:
+    artifact: readiness-receipt
+    id: REV-862A98D1F5BF
+    path: docs/features/active/country-map-svg-generator/readiness/REV-862A98D1F5BF/REV-862A98D1F5BF.readiness.yaml
+    sha256: acfa380daf0be8df75f42028dfb0142d44903fd4636234247a6db1963cd38e59
+subject:
+    artifact: run-brief
+    id: RUN-019
+    path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-019/P2-geometry-pipeline.RUN-019.brief.md
+    sha256: 6a6865a3b5afc2e6e264ef360e4d2f8202e1853fa6ca15aac911e27af5792b2c
+objective: 'Execute RUN-019 T0A only: implement pinned variable-resolution lineage-features/v2, pass synthetic/SH/CA/ID/KI/Indonesia brakes, rebuild representative artifacts twice, and stop with the machine-approved contact sheet for owner review.'
+writes:
+    - internal/geometry/cmd/lodbuild
+    - internal/geometry/lod/tool/build.mjs
+    - internal/geometry/lod/v2.recipe.json
+    - internal/geometry/silhouette.go
+    - internal/geometry/silhouette_test.go
+    - internal/geometry/testdata/silhouette-oracle
+forbidden:
+    - .git
+    - .mate
+    - data
+    - docs
+    - go.mod
+    - go.sum
+    - internal/catalog
+    - internal/geometry/lod.go
+    - internal/geometry/lod/silhouette-oracle.v1.json
+    - internal/geometry/lod/tool/package-lock.json
+    - internal/geometry/lod/tool/package.json
+    - internal/geometry/lod/v1.recipe.json
+    - internal/geometry/lod_test.go
+    - internal/geometry/overrides
+    - internal/geometry/presets
+    - internal/geometry/serialize.go
+    - internal/geometry/serialize_test.go
+validation:
+    - Focused geometry silhouette/component/topology/protection tests and two byte-identical representative builds
+    - Frozen oracle/v1-recipe/serializer hashes and exact v2 semantic diff
+    - GOCACHE=/private/tmp/country-map-go-cache GOWORK=off go test ./internal/geometry/cmd/lodbuild -count=1
+    - Pinned Mapshaper 0.7.44 variable semantics control plus constant/inverted/invalid-size teeth
+    - SH all-resolution both-consumer/band brake and CA/ID/KI/Indonesia budget brake
+completion_schema:
+    - blockers
+    - changed_paths
+    - deviations
+    - evidence
+    - outcome
+    - summary
+    - verification
+expected_outputs: []
+budget: 8
+resume_anchor: Return exact changed paths, synthetic/SH/worst-multipart evidence, timings, mutation teeth, new recipe/manifest/receipt/sheet hashes and sheet path. Stop before owner approval, T0B/runtime, publication, staging or commit.

@@ -1,0 +1,60 @@
+version: 1
+kind: agent-dispatch-result
+id: RESULT-028
+epic: country-map-svg-generator
+spec: P2
+run: RUN-019
+status: blocked
+input_digest: 30e14be1bfedce26b2f569d4db06c34a058d1d94e1b6cab5f00fd87b99989da3
+previous:
+    artifact: agent-dispatch-brief
+    id: BRIEF-028
+    path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-019/agents/BRIEF-028.agent-dispatch-brief.yaml
+    sha256: 3dfb390722f2dc3752482bd9c68cb090e0b596d48e8d26697d8a8aea459215a7
+brief:
+    artifact: agent-dispatch-brief
+    id: BRIEF-028
+    path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-019/agents/BRIEF-028.agent-dispatch-brief.yaml
+    sha256: 3dfb390722f2dc3752482bd9c68cb090e0b596d48e8d26697d8a8aea459215a7
+principal: p2-coder
+provider_task_ref: p2_coder
+outcome: blocked
+summary: 'RUN-019 T0A coder produced leased outputs but the mandatory machine gate fails on two geometry invariants; run.finish pass not reachable. Footprint isolated by artifact-hash (frozen oracle f2c9cd32 intact) + mtime, not git-diff: checkout fully untracked at baseline.'
+changed_paths:
+    - path: internal/geometry/cmd/lodbuild/diagnostic.go
+      sha256: fe0fdab131ffc5d15611adf058fbf23d74d5dbbd9c0b8774974896e5a7b41a39
+    - path: internal/geometry/cmd/lodbuild/diagnostic_test.go
+      sha256: 4e8d5ab52db36284cb5dfd699b553372b293913aac07282cdf9a71cff521dd51
+    - path: internal/geometry/cmd/lodbuild/main.go
+      sha256: b9877f1f49d7ad0a88354c08210eec93728c3a94184ff40fde43c8a957c67667
+    - path: internal/geometry/cmd/lodbuild/main_test.go
+      sha256: 09a543b3c4f1944c73f3178ff42859a9a66929a6c55a8e037a018baf77f78ea6
+    - path: internal/geometry/cmd/lodbuild/representative.go
+      sha256: 346a17244da53602ebbe440e9b11588b5b004dd8d1b83ef71d4f2a723d4bb37b
+    - path: internal/geometry/cmd/lodbuild/sh_diagnostic_test.go
+      sha256: b9e7a56d0494ee2d6d2adc286b6edfe7e7fb3ff9d05b0ec9fc8ab1400e9f86f5
+    - path: internal/geometry/lod/tool/build.mjs
+      sha256: 7b6f7c2638453a230de6a3a9a9363a8a538e8f51a64c7f4ce8d66242a058d1fe
+    - path: internal/geometry/lod/v2.recipe.json
+      sha256: da3ff9d331df37882bb2ed4159e9f14ef2aaeedf2b9fcff9e77c79fed4d751c5
+    - path: internal/geometry/silhouette.go
+      sha256: 54ca30df6853110bfcd6ae8c30e75edb8221f730ab5a29b35b54df1734f4b5c7
+    - path: internal/geometry/silhouette_test.go
+      sha256: a5460db464dffc9eb24a34dddca60d22f9248025babd16807e90ed3a81769b4b
+    - path: internal/geometry/testdata/silhouette-oracle/representative.contact-sheet.svg
+      sha256: cf1e568c93646047791b45a329e50a1308683e8c3aae03ee0944654db3718f9f
+    - path: internal/geometry/testdata/silhouette-oracle/representative.machine-receipt.json
+      sha256: fcc1bc307509d55aa281591f1cce0d0e78f73f323a41fc6d78e665a56c2dfd10
+    - path: internal/geometry/testdata/silhouette-oracle/representative.manifest.json
+      sha256: b2c467b08fb32603a312918da05ce83da355499fb8cba7f9e73c5a8e916995da
+    - path: internal/geometry/testdata/silhouette-oracle/silhouette-oracle.v1.json
+      sha256: f2c9cd32e806985be55193e564942e716bb42c72e01d7405c976ddf36666d56f
+    - path: internal/geometry/testdata/silhouette-oracle/v2.recipe.json
+      sha256: da3ff9d331df37882bb2ed4159e9f14ef2aaeedf2b9fcff9e77c79fed4d751c5
+outputs: []
+verification: []
+deviations: []
+feedback: []
+findings: []
+blocked_reason: 'Required gate `go test ./internal/geometry/cmd/lodbuild -count=1` FAILS: TestLODSpikeFullCorpus AE/un/card hard_budget_exceeded (linear path bytes 5910 > 2500 hard max); TestLODAQRUProjectionAlignedCheckpoint AQ/card production tier mismatch (requested compact, selected source; compact+standard raw_deviation exceed tolerance). Failing invariants (byte budget, tier selection) are unresolvable within RUN-019 forbidden actions (no budget/threshold calibration, no country literal/branch).'
+resume_anchor: Resume teamlead from mate agent result status.

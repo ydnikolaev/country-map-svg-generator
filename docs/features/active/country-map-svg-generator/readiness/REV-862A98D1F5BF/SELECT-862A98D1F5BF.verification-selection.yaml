@@ -1,0 +1,13 @@
+version: 1
+kind: verification-selection
+id: SELECT-862A98D1F5BF
+epic: country-map-svg-generator
+spec: P2
+run: RUN-019
+status: recorded
+input_digest: 4f2770beb9616a5a1acb84ed0bfc8f7f34ea9b1c0f5ea3ac79d52c1d9658900f
+topology_digest: b603f2fe534675d4ca1f4cae2a7999ba58cf730ebd364cc6dd2388e474dab5fe
+nodes:
+    - run-brief-validation
+reason: readiness gate for spec.begin
+required_ceiling: run-brief-validation

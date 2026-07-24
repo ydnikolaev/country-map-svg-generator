@@ -1,0 +1,34 @@
+version: 1
+kind: run-result
+id: RUN-018-RESULT
+epic: country-map-svg-generator
+spec: P2
+run: RUN-018
+status: interrupted
+input_digest: 05531a06ecbc39fd6be9114b12641d94fa1912542c8768f6c3154b20be40f48e
+plan_id: PLAN-011
+readiness_id: REV-BB44BED48591
+outcome: blocked
+revision:
+    repository: project
+    commit: 8bfeeae9f46fd5a93daf7ee2aaf86356cc468891
+    tree: 33a25c074df75e9382c8de2099ebbb054f8894f1
+evidence:
+    - artifact: run-brief
+      id: RUN-018
+      path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-018/P2-geometry-pipeline.RUN-018.brief.md
+      sha256: 78bc590362cbc3999dbf92f1603b19c794e353336e4a3858267d09112e450135
+      verdict: pass
+    - artifact: transition-receipt
+      id: run-start-cf4fc349f4381547-run
+      path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-018/events/run-start-cf4fc349f4381547-run.transition-receipt.yaml
+      sha256: 1da5103c92113c95af03fd60d5f52606006339a22bde39ba560903f4c8124e89
+      verdict: pass
+    - artifact: agent-dispatch-result
+      id: RESULT-027
+      path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-018/agents/RESULT-027.agent-dispatch-result.yaml
+      sha256: af33d1730556bcf2cc4d3349ff1010882141c9554c1d6c94c7e86751da69cae6
+      verdict: blocked
+deviations: []
+followups: []
+next_action: Invalidate PLAN-011 using RUN-018-RESULT, then govern a minimal component-relative simplification successor. Preserve frozen oracle, budgets, projections, serializer and runtime boundaries; forbid country branches and threshold relaxation.

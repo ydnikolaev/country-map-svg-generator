@@ -1,0 +1,16 @@
+version: 1
+kind: context-doctrine-pack
+id: CTX-RUN-021
+epic: country-map-svg-generator
+spec: P2
+run: RUN-019
+status: issued
+input_digest: a03688ab0e0b46463f286cf05d5250505c0a492595e3c21cb0ab1cd563b30c99
+sources:
+    - reference: specification/CTX-P1-SPEC
+      path: docs/features/active/country-map-svg-generator/specs/P1-source-corpus/P1-source-corpus.spec.md
+      sha256: a2dd6817331c8da19775f66de49b7aa4526651f06292f8254606c3b3fe3ea3bd
+      reason: required at implementation by context registry
+      freshness: current
+pack_digest: 45373313ebfaaf1e755c15669f1a3b43ea8637c98e6d2a266d96d1cbd38c4da3
+load_required: true

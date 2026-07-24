@@ -1,0 +1,29 @@
+version: 1
+kind: agent-dispatch-result
+id: RESULT-027
+epic: country-map-svg-generator
+spec: P2
+run: RUN-018
+status: blocked
+input_digest: 4b1a205033bdc955dd4c1f258a5f621e50163fc62432809bc5e028f4041b534a
+previous:
+    artifact: agent-dispatch-brief
+    id: BRIEF-027
+    path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-018/agents/BRIEF-027.agent-dispatch-brief.yaml
+    sha256: f12fd13f3e0e5a531089a731fa3b9328c1eae207d579511a9c4696ec20bd13bf
+brief:
+    artifact: agent-dispatch-brief
+    id: BRIEF-027
+    path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-018/agents/BRIEF-027.agent-dispatch-brief.yaml
+    sha256: f12fd13f3e0e5a531089a731fa3b9328c1eae207d579511a9c4696ec20bd13bf
+principal: p2-coder
+provider_task_ref: p2_coder
+outcome: blocked
+summary: 'RUN-018 proved lineage-features/v1 restores all four SH component identities, but source component 0 remains a triangle at every frozen resolution and fails mandatory fidelity: recall 0.41904286516503403 below 0.5, IoU 0.4162379919429811. The bounded attempt was fully rolled back; CA/ID/KI and representative generation did not run.'
+changed_paths: []
+outputs: []
+verification: []
+deviations: []
+feedback: []
+blocked_reason: Country-relative simplification cannot preserve mandatory SH component 0 under the frozen resolution ladder and command semantics; a successor must permit component-relative simplification or explicitly amend another frozen contract.
+resume_anchor: Close RUN-018 as blocked, invalidate PLAN-011 using its run result, then govern a minimal component-relative simplification successor without country branches, threshold relaxation, budget changes or runtime expansion.
