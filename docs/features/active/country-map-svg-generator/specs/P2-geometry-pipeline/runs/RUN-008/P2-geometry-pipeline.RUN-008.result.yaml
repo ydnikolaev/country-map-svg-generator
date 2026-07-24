@@ -1,0 +1,34 @@
+version: 1
+kind: run-result
+id: RUN-008-RESULT
+epic: country-map-svg-generator
+spec: P2
+run: RUN-008
+status: interrupted
+input_digest: e5ba7121407640bc1dbd7f1b4fe88e18e689fff1c33e9718544842a1e82803ce
+plan_id: PLAN-007
+readiness_id: REV-E3F86A17CCDC
+outcome: blocked
+revision:
+    repository: project
+    commit: a74480f152f70ce34c0aa2beb44fb3ad3df6105a
+    tree: 8cf376cc99f81b00e9dc5b009a5bd5db012566e5
+evidence:
+    - artifact: run-brief
+      id: RUN-008
+      path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-008/P2-geometry-pipeline.RUN-008.brief.md
+      sha256: d4412e5f163d9d92f9caa6496ef139d30584e2d28c2afa7dcef6d1b006fe22c3
+      verdict: pass
+    - artifact: transition-receipt
+      id: run-start-a14c3f1fc929c504-run
+      path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-008/events/run-start-a14c3f1fc929c504-run.transition-receipt.yaml
+      sha256: e6524edfb6bf9fa48ce457a2048a5bb6bffbc12333cf6118a5c20737bd752e97
+      verdict: pass
+    - artifact: agent-dispatch-result
+      id: RESULT-015
+      path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-008/agents/RESULT-015.agent-dispatch-result.yaml
+      sha256: fc15cc94e75c4b67e4d7263032ca224f6d2d50f62ff3fed2de05f3d661a5815f
+      verdict: blocked
+deviations: []
+followups: []
+next_action: Invalidate PLAN-007 from RUN-008-RESULT, then scaffold a successor that preserves global phase repair and separates unlimited source validity from production LOD byte budgets.

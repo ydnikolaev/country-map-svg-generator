@@ -4,13 +4,12 @@ spec: P2
 slug: geometry-pipeline
 title: Soft-Organic Geometry Pipeline
 state: in_progress
-revision: 60
+revision: 61
 updated_by: teamlead
-updated_at: "2026-07-24T01:27:25Z"
-last_event_id: run-start-a14c3f1fc929c504-run
-input_digest: 7b76016e6b1f5ef52538fcb0f45a2085c81bacdfe740ead4b2711d2e84520314
+updated_at: "2026-07-24T01:28:01Z"
+last_event_id: run-interrupt-d360b3ff5e6d69e5
+input_digest: e5ba7121407640bc1dbd7f1b4fe88e18e689fff1c33e9718544842a1e82803ce
 current_plan: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/plans/PLAN-007/P2-geometry-pipeline.PLAN-007.plan.md
-active_run: RUN-008
 runs:
     - id: RUN-001
       plan: PLAN-001
@@ -42,6 +41,7 @@ runs:
       result: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-007/P2-geometry-pipeline.RUN-007.result.yaml
     - id: RUN-008
       plan: PLAN-007
-      status: running
+      status: interrupted
+      result: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-008/P2-geometry-pipeline.RUN-008.result.yaml
 findings: []
-next_action: agent-dispatch:agent-dispatch-result/RESULT-015#fc15cc94e75c4b67e4d7263032ca224f6d2d50f62ff3fed2de05f3d661a5815f
+next_action: Invalidate PLAN-007 from RUN-008-RESULT, then scaffold a successor that preserves global phase repair and separates unlimited source validity from production LOD byte budgets.
