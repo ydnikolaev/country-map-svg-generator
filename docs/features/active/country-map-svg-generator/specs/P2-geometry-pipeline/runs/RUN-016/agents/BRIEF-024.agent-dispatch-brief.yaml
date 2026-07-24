@@ -1,0 +1,79 @@
+version: 1
+kind: agent-dispatch-brief
+id: BRIEF-024
+epic: country-map-svg-generator
+spec: P2
+run: RUN-016
+status: issued
+input_digest: 53f809b310b7a206eeba79c48e9c930d74c01b84a835dcecb1dd3f39e6f729a4
+role: coder
+provider: codex
+binding_mode: native
+dispatch_route: named-role
+role_contract:
+    reference: installed-role/coder
+    path: .codex/agents/coder.toml
+    sha256: e5078656ace1b8785d676e1410b701d4c8ebd31b129a54cce0d3813adfe99f10
+    reason: installed provider role contract
+    freshness: current
+issuer: teamlead
+grant: edit
+capability: edit
+semantic_tier: standard
+context:
+    - reference: context-doctrine-pack/CTX-RUN-018
+      path: docs/features/active/country-map-svg-generator/readiness/CTX-RUN-018.context-pack.yaml
+      sha256: 907ca2d90c1cf4cd91bfb1897a9160511c4ee8621d93ffda3d643d3935789df8
+      reason: dispatch context
+      freshness: current
+plan:
+    artifact: plan-manifest
+    id: PLAN-010
+    path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/plans/PLAN-010/P2-geometry-pipeline.PLAN-010.plan-manifest.yaml
+    sha256: fdd0cdfa0c545410f102eb460fef80b57d3b03484a2fc0b1cb423975a7fff59d
+readiness:
+    artifact: readiness-receipt
+    id: REV-C3DEE45C8195
+    path: docs/features/active/country-map-svg-generator/readiness/REV-C3DEE45C8195/REV-C3DEE45C8195.readiness.yaml
+    sha256: 2959478c003077fd07d9bff7547b61156091c17164a4f3971b577347cae88006
+subject:
+    artifact: run-brief
+    id: RUN-016
+    path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-016/P2-geometry-pipeline.RUN-016.brief.md
+    sha256: a140f5f40cc5642285500df2ab4b13adff7d81df45aea68c313ac2886a4009bb
+objective: 'Execute RUN-016 only: build a deterministic temporary all-283 v2 ladder from the frozen oracle/recipe, integrate requested-band rotation-safe protected visibility into automatic GenerateWithLOD, make inherited production checkpoints green, and preserve all representative hashes.'
+writes:
+    - internal/geometry/cmd/lodbuild
+    - internal/geometry/cmd/lodbuild/main.go
+    - internal/geometry/cmd/lodbuild/main_test.go
+    - internal/geometry/lod.go
+    - internal/geometry/lod_test.go
+forbidden:
+    - .git
+    - .mate
+    - docs
+    - go.mod
+    - go.sum
+    - internal/catalog
+    - internal/geometry/lod
+    - internal/geometry/serialize.go
+    - internal/geometry/serialize_test.go
+    - internal/geometry/silhouette.go
+    - internal/geometry/silhouette_test.go
+    - internal/geometry/testdata
+validation:
+    - Build representative artifacts twice and require exact five frozen hashes plus Indonesia 120/121 boundary
+    - Build the temporary all-283 v2 table twice, require identical digests, all 996 requested-band outputs within caps and warm runtime <=120s
+    - GOCACHE=/private/tmp/country-map-go-cache GOWORK=off go test ./internal/geometry ./internal/geometry/cmd/lodbuild -count=1
+    - GOCACHE=/private/tmp/country-map-go-cache GOWORK=off go test ./internal/geometry/cmd/lodbuild -run 'Test(LODSpikeFullCorpus|LODAQRUProjectionAlignedCheckpoint)' -count=1
+completion_schema:
+    - blockers
+    - changed_paths
+    - deviations
+    - evidence
+    - outcome
+    - summary
+    - verification
+expected_outputs: []
+budget: 8
+resume_anchor: Return exact RUN-016 diff, candidate/table digests, mutation teeth, all 996 maxima/timing, inherited green outputs, representative hashes and frozen inventory. Do not broaden scope, stage, commit, mutate lifecycle, publish T1, start T0B or seek owner approval.
