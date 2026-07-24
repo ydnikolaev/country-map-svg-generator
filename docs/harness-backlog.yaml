@@ -1,7 +1,7 @@
 version: 1
 kind: harness-feedback-backlog
 project: country-map-svg-generator
-revision: 9
+revision: 12
 operations:
     - version: 1
       id: feedback-add-2239ce643f15640e
@@ -18,6 +18,13 @@ operations:
       result_revision: 4
       recorded_at: "2026-07-23T18:13:38Z"
     - version: 1
+      id: feedback-add-47c6c3d20fb5a760
+      kind: feedback-add
+      input_digest: 674e576eaafa009d316bd7e93551c11a3d143e88371f102cff537d4a3b75e2d1
+      result_id: FND-A50ADF64186A
+      result_revision: 12
+      recorded_at: "2026-07-24T14:44:51Z"
+    - version: 1
       id: feedback-add-5aefa882568b0051
       kind: feedback-add
       input_digest: 6b06d46919103b8781648e53227916fc02cbbd1dec77f392aeeb1eeb640d9f17
@@ -31,6 +38,13 @@ operations:
       result_id: FND-9A2B22724307
       result_revision: 2
       recorded_at: "2026-07-23T16:46:38Z"
+    - version: 1
+      id: feedback-add-8b9454ca97c91d59
+      kind: feedback-add
+      input_digest: 72572fb8693fdce198c5740ee7993cc444a84cd61e1c4b42b423aee914e32de6
+      result_id: FND-8386048ACA3C
+      result_revision: 11
+      recorded_at: "2026-07-24T14:44:37Z"
     - version: 1
       id: feedback-add-9c34686b61a60db1
       kind: feedback-add
@@ -52,6 +66,13 @@ operations:
       result_id: FND-D35B92BE8504
       result_revision: 8
       recorded_at: "2026-07-24T05:55:10Z"
+    - version: 1
+      id: feedback-add-c88823944c544046
+      kind: feedback-add
+      input_digest: 37e400d70df33bd9b21a23cc30ce719c544f39a2be7501aaf875bac47447e69b
+      result_id: FND-1B3065946FF8
+      result_revision: 10
+      recorded_at: "2026-07-24T14:44:23Z"
     - version: 1
       id: feedback-add-eb109542a0144ade
       kind: feedback-add
@@ -106,6 +127,24 @@ findings:
       state: new
       created_at: "2026-07-24T01:22:03Z"
       updated_at: "2026-07-24T01:22:03Z"
+    - id: FND-1B3065946FF8
+      scope: mate
+      severity: high
+      area: lifecycle
+      summary: 'No non-convergence brake: a spec can loop invalidate-plan/run/interrupt indefinitely without any forced review of the diagnosis'
+      observed: Spec P2 of country-map-svg-generator reached 20 runs, 13 plans and 12 invalidations with zero passing runs. Every plan-invalidate/successor/run-start/run-interrupt cycle was individually legal, so the lifecycle never objected. Each successor inherited the previous plans framing of the defect (output byte budget) and attacked the same symptom with a different mechanism; no step in the protocol ever asked whether the shared diagnosis was correct. A bounded architecture review after run 20 found the real root cause was an acceptance metric that is discontinuous and non-monotone in the tolerance the search descends on, so the byte overrun was the last link of a four-link chain that no plan had examined.
+      expected: The lifecycle should brake on repeated non-convergence for one spec. After N consecutive terminal runs that are not pass on the same spec, plan-supersede should be unavailable and the only available next actions should be an approach review or an amendment, so the next artifact is a re-examined diagnosis rather than plan N+1. The teamlead skill already lists repeated failure of the same gate as a stop condition, but it is prose the coordinator may or may not honour, with no machine fence and no counter in the snapshot.
+      fingerprint: 1b3065946ff8dd4c20daee1faf5309d0e361e5c138de9ed77be4dd214fde523e
+      project: country-map-svg-generator
+      mate_release: v1.4.1
+      evidence:
+        - kind: agent-result
+          locator: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-020/agents/RESULT-029.agent-dispatch-result.yaml
+        - kind: spec-tracker
+          locator: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/P2-geometry-pipeline.tracker.yaml
+      state: new
+      created_at: "2026-07-24T14:44:23Z"
+      updated_at: "2026-07-24T14:44:23Z"
     - id: FND-67945CF6F3B4
       scope: mate
       severity: low
@@ -147,6 +186,22 @@ findings:
       state: new
       created_at: "2026-07-23T17:37:00Z"
       updated_at: "2026-07-23T17:37:00Z"
+    - id: FND-8386048ACA3C
+      scope: mate
+      severity: high
+      area: validation
+      summary: A verification brief that carries the coordinators hypothesis gets confirmed, not tested
+      observed: While diagnosing spec P2 I dispatched a read-only scout to verify a hypothesis and put the hypothesis, its arithmetic and two supporting examples into the brief. The scout returned CONFIRMED at 95 percent confidence and generalized my two examples to the whole population. Checked against the full data set, the claimed mechanism explains 10 of 156 rejections (6 percent); the median case is 17 times outside it, and the fix the scout derived was directionally backwards - it would have tightened the gate it was meant to loosen. The two examples I supplied were the extreme tail of the distribution. The brief did ask the scout to argue against the hypothesis, which was not enough to overcome the anchor.
+      expected: The role contract for a verification or audit principal should forbid stating the conclusion under test in the brief. Bind the artifact, the data and the question; withhold the expected answer and any worked example that implies it. Where a hypothesis genuinely must be transmitted, require the principal to first characterize the whole population independently and report the distribution before it may address the hypothesis, so a tail case cannot be mistaken for the rule.
+      fingerprint: 8386048aca3c9c6125bffe0b23f86aff9bea820b381133b167434431c7d69361
+      project: country-map-svg-generator
+      mate_release: v1.4.1
+      evidence:
+        - kind: agent-brief
+          locator: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-020/agents/BRIEF-029.agent-dispatch-brief.yaml
+      state: new
+      created_at: "2026-07-24T14:44:37Z"
+      updated_at: "2026-07-24T14:44:37Z"
     - id: FND-9A2B22724307
       scope: mate
       severity: medium
@@ -167,6 +222,22 @@ findings:
       state: new
       created_at: "2026-07-23T16:46:38Z"
       updated_at: "2026-07-23T16:46:38Z"
+    - id: FND-A50ADF64186A
+      scope: mate
+      severity: medium
+      area: validation
+      summary: A corpus gate that aborts on the first failure makes a systemic defect look like a single-entity one
+      observed: TestLODSpikeFullCorpus sweeps 996 outputs but calls t.Fatalf on the first over-budget entity, so it reports exactly one. For twenty runs every plan read that one name as the whole problem and scoped itself to it; PLAN-013 states as fact that RU card and hero hold their tiers, which was never true and was simply never reached. A one-off sweep that recorded every failure instead of the first showed 75 failing outputs across 27 entities, and separately that three of the four hard-coded tier expectations in the checkpoint test asserted behavior the corpus never produced. The scale, not the first name, is what selects the right fix.
+      expected: A gate that sweeps a population should collect and report the full failure set, then fail once with the count, the distribution and a bounded sample. Fail-fast is right for a unit invariant and wrong for a corpus sweep, because the first failure is an arbitrary function of iteration order and hides both the magnitude and any later assertion that never executed. Worth stating in the validator-authoring guidance as a property of population gates.
+      fingerprint: a50adf64186a629ed75c54ec63865b85b0ead14d47ac8e76aab5a7cd12b8e4c0
+      project: country-map-svg-generator
+      mate_release: v1.4.1
+      evidence:
+        - kind: gate
+          locator: internal/geometry/cmd/lodbuild/main_test.go
+      state: new
+      created_at: "2026-07-24T14:44:51Z"
+      updated_at: "2026-07-24T14:44:51Z"
     - id: FND-D35B92BE8504
       scope: mate
       severity: medium

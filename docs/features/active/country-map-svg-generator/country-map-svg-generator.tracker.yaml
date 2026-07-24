@@ -2,11 +2,11 @@ version: 1
 epic: country-map-svg-generator
 title: Country Map SVG Generator
 state: in_progress
-revision: 29
+revision: 31
 updated_by: teamlead
-updated_at: "2026-07-23T19:35:11Z"
-last_event_id: amendment-verify-e5c554f3b19bb51c
-input_digest: ef48a590d788bdb366231f5bb144a44af0bc3521c403c49e17aeb8a550d2cb6c
+updated_at: "2026-07-24T14:46:57Z"
+last_event_id: amendment-impact-detected-b1cd71a960f49a5a
+input_digest: 23bdbb9f86aa9301567414de95ddc755785eb4676eb0403bccbcdb4c5df8db61
 specs:
     - id: P1
       slug: source-corpus
@@ -55,7 +55,18 @@ amendments:
         - P2
         - P3
         - P4
-next_action: Recompute affected readiness after amendment AM-002.
+    - id: AM-003
+      slug: byte-budget-attainability
+      state: impacting
+      body: docs/features/active/country-map-svg-generator/amendments/AM-003/country-map-svg-generator.AM-003-byte-budget-attainability.amendment.md
+      body_sha256: d910385478f3d9eea6c3f3755aa769928da0f7ce0c82c1fedaed68d4835bdffd
+      revision: 2
+      last_event_id: amendment-impact-detected-b1cd71a960f49a5a
+      impact_scope: declared
+      affected_specs:
+        - P2
+        - P3
+next_action: Resolve amendment AM-003 before affected work continues.
 discovery:
     state: completed
     revision: 11
