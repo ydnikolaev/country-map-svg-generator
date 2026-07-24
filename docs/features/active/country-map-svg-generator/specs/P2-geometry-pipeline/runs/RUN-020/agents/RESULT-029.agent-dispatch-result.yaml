@@ -1,0 +1,36 @@
+version: 1
+kind: agent-dispatch-result
+id: RESULT-029
+epic: country-map-svg-generator
+spec: P2
+run: RUN-020
+status: blocked
+input_digest: 18eaff9a79855756a97e4e4ca0ebbe500aeb152c9d9bfe738e0f8f4049d37b40
+previous:
+    artifact: agent-dispatch-brief
+    id: BRIEF-029
+    path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-020/agents/BRIEF-029.agent-dispatch-brief.yaml
+    sha256: 2160c6179f175eb00ba3aa4983d9ad2c82f9c3ed41ea7ce8369dd7fcd4f66d1c
+brief:
+    artifact: agent-dispatch-brief
+    id: BRIEF-029
+    path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-020/agents/BRIEF-029.agent-dispatch-brief.yaml
+    sha256: 2160c6179f175eb00ba3aa4983d9ad2c82f9c3ed41ea7ce8369dd7fcd4f66d1c
+principal: p2-run020-coder
+provider_task_ref: p2-run020-coder
+outcome: blocked
+summary: The PLAN-013 byte-cap fallback rung works and closes the AE/card and AQ/card failures it was built for, but the frozen 2500-byte card cap is unreachable for BD at every candidate tier, so the accepted plan cannot pass its own gate. Changed-path set observed by the coordinator from git diff against eb8689c1 and confirmed equal to the BRIEF-029 lease.
+changed_paths:
+    - path: internal/geometry/cmd/lodbuild/main_test.go
+      sha256: a256b050abb52a09cfc7cdcd969c3e1c3f89ebcd8757a2574398a47c2d5aa279
+    - path: internal/geometry/lod.go
+      sha256: 08d22dcdcc106c532ea857bfce7232d83d70e9da7f5c2e1523d25cc9d310aa25
+    - path: internal/geometry/lod_test.go
+      sha256: fe0722d8acb9a5e3f2524998919f39d5878b60939b90b989cab228fcd5450e6d
+outputs: []
+verification: []
+deviations: []
+feedback: []
+findings: []
+blocked_reason: 'Required gate `go test ./internal/geometry/cmd/lodbuild -count=1` still FAILS after the rung. TestLODSpikeFullCorpus: BD/un/card raises the retained terminal hard_budget_exceeded at 3835 bytes against the frozen 2500 maximum with no candidate left — source is the last, most-reduced candidate, so the fallback has no coarser rung to advance to and the plan is correct to fail closed. TestLODAQRUProjectionAlignedCheckpoint: AQ/card now passes at source/1386 bytes as PLAN-013 predicted, but AQ/hero legitimately falls back to source under standard:raw_deviation 12.206 > 7.68 and trips a fourth over-strict tier assertion that PLAN-013 did not enumerate. Reaching the cap for BD requires moving a frozen quantity (budget, ladder, tolerance, serializer or recipe), which the deviation policy forbids and which is owner/amendment authority, not another HOW plan.'
+resume_anchor: Resume teamlead from mate agent result status. RUN-020 must be interrupted; the byte-budget attainability question is an owner decision requiring an amendment, not a successor plan.
