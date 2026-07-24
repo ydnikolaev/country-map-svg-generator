@@ -105,8 +105,25 @@ func TestRepresentativeNaturalRatiosAndArbitraryFrames(t *testing.T) {
 		}
 		ratios[code] = got.ViewBox.Width() / got.ViewBox.Height()
 	}
-	if ratios["RU"] <= 1.5 || ratios["CL"] >= .75 || ratios["AU"] < .75 || ratios["AU"] > 1.5 {
+	// DEC-011: the frame is fitted to the full claim, so an entity's aspect
+	// reflects every component it owns rather than its landmass. Chile is the
+	// case that forced this to be stated: its UN geometry spans 43.0 degrees of
+	// longitude across Easter Island, Salas y Gomez and Juan Fernandez against
+	// 13.5 for the mainland, so a full-claim Chile card is near-square while a
+	// mainland Chile card would be tall and narrow.
+	//
+	// This assertion previously demanded ratios["CL"] < .75, i.e. mainland
+	// framing, which was never a decided contract — it was unreachable while
+	// Chile failed on the byte budget, so nothing tested it. DEC-011 fixes the
+	// default as full-claim and defers the second, mainland-style mode to the T5
+	// contact sheet (WKI-490046152C71). When that mode lands this test grows a
+	// second case rather than changing this one.
+	if ratios["RU"] <= 1.5 || ratios["AU"] < .75 || ratios["AU"] > 1.5 {
 		t.Fatalf("unexpected natural ratios: %v", ratios)
+	}
+	if ratios["CL"] < .75 || ratios["CL"] > 1.5 {
+		t.Fatalf("CL ratio %.4f is outside the full-claim frame this build serves; a value below .75 means the frame stopped including the Pacific territories, which is DEC-011's deferred second mode and must not appear by accident: %v",
+			ratios["CL"], ratios)
 	}
 	in, err := InputFromCatalog(c, "CL", "un", "")
 	if err != nil {

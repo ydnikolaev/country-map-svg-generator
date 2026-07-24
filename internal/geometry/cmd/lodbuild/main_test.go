@@ -42,8 +42,23 @@ func TestLODSpike(t *testing.T) {
 		len(result.Compact), len(result.Standard), digest(result.Compact), digest(result.Standard), result.Duration, len(result.CompactArtifact.Omissions), len(result.StandardArtifact.Omissions))
 }
 
+// TestLODSpikeFullCorpus characterizes the **superseded** pre-DEC-006 path: the
+// v1 tier artifact selected through raw boundary deviation. It is deliberately
+// not a coverage gate any more, because the claim it used to assert — that this
+// path covers the catalog within budget — is exactly the claim DEC-006 was
+// accepted for refuting.
+//
+// What it still guards is worth keeping. Determinism through the v1 table is
+// asserted strictly. And the over-budget set is asserted to be non-empty: that
+// set is DEC-006's motivating evidence, so if the v1 path ever started covering
+// the catalog, DEC-006's premise would need revisiting rather than being
+// silently outlived by a green test.
+//
+// Live production coverage is TestShippedCatalogServesTheLadder in
+// internal/geometry, which sweeps the same catalog through the shipped path.
 func TestLODSpikeFullCorpus(t *testing.T) {
 	c := embeddedCorpus(t)
+	var hardOverruns []string
 	result, err := build(c, t.TempDir())
 	if err != nil {
 		t.Fatal(err)
@@ -59,10 +74,23 @@ func TestLODSpikeFullCorpus(t *testing.T) {
 	advisoryOverruns := 0
 	cases := 0
 	start := time.Now()
+	// Deterministic sample, not the whole corpus, and said out loud rather than
+	// hidden: every 8th entity plus BD, which is the entity whose card the v1
+	// path cannot fit and therefore the one this characterization is about.
+	//
+	// The full sweep used to be affordable only because it aborted on the first
+	// over-budget entity. Now that the over-budget outcome is characterized
+	// instead of fatal, the run completes — and completing it means falling back
+	// to the full-detail source path for most of the catalog, which pushed this
+	// single package past the 10-minute go test timeout. A superseded path does
+	// not deserve that share of every `make check`.
+	const stride = 8
+	sampled := []string{}
 	for entityIndex, entity := range c.Manifest.Entities {
-		if entityIndex%25 == 0 {
-			t.Logf("progress entities=%d cases=%d runtime=%s", entityIndex, cases, time.Since(start))
+		if entityIndex%stride != 0 && entity.Alpha2 != "BD" {
+			continue
 		}
+		sampled = append(sampled, entity.Alpha2)
 		for _, profile := range []string{"un", "de_facto"} {
 			for _, preset := range []string{"card", "hero"} {
 				in, err := geometry.InputFromCatalog(c, entity.Alpha2, profile, preset)
@@ -75,6 +103,16 @@ func TestLODSpikeFullCorpus(t *testing.T) {
 				}
 				got, err := geometry.GenerateWithLOD(in, table)
 				if err != nil {
+					// The v1 path cannot fit this entity at all: its tier
+					// candidate loses to raw deviation and the source fallback
+					// blows the budget. That is the characterized outcome, not a
+					// test failure — see this test's doc comment.
+					var pipelineErr *geometry.PipelineError
+					if errors.As(err, &pipelineErr) && pipelineErr.Code == geometry.ErrBudget {
+						hardOverruns = append(hardOverruns, fmt.Sprintf("%s/%s/%s %v", entity.Alpha2, profile, preset, err))
+						cases++
+						continue
+					}
 					t.Fatalf("%s/%s/%s: %v", entity.Alpha2, profile, preset, err)
 				}
 				again, err := geometry.GenerateWithLOD(in, table)
@@ -85,7 +123,8 @@ func TestLODSpikeFullCorpus(t *testing.T) {
 					t.Fatalf("%s/%s/%s: nondeterministic path", entity.Alpha2, profile, preset)
 				}
 				if got.Metrics.PathBytes > hard {
-					t.Fatalf("%s/%s/%s tier=%s bytes=%d hard=%d points=%d fallbacks=%v", entity.Alpha2, profile, preset, got.LOD.SelectedTier, got.Metrics.PathBytes, hard, got.Metrics.OutputPoints, got.LOD.Fallbacks)
+					hardOverruns = append(hardOverruns, fmt.Sprintf("%s/%s/%s tier=%s bytes=%d hard=%d",
+						entity.Alpha2, profile, preset, got.LOD.SelectedTier, got.Metrics.PathBytes, hard))
 				}
 				if got.Metrics.PathBytes > advisory {
 					advisoryOverruns++
@@ -97,10 +136,15 @@ func TestLODSpikeFullCorpus(t *testing.T) {
 			}
 		}
 	}
-	if cases != c.Manifest.EntityCount*4 {
-		t.Fatalf("cases=%d want=%d", cases, c.Manifest.EntityCount*4)
+	if cases != len(sampled)*4 {
+		t.Fatalf("cases=%d want=%d over %d sampled entities", cases, len(sampled)*4, len(sampled))
 	}
-	t.Logf("cases=%d runtime=%s card_max=%+v hero_max=%+v advisory_overruns=%d", cases, time.Since(start), maxima["card"], maxima["hero"], advisoryOverruns)
+	if len(hardOverruns) == 0 {
+		t.Fatal("no sampled entity exceeded its budget through the v1 tier path. BD is force-included in the sample precisely because it does not fit, so what this guard actually verifies is that BD still does not fit — and if that changed, DEC-006's motivating evidence must be re-examined rather than left silently outlived by a green characterization")
+	}
+	t.Logf("sampled %d of %d entities (stride %d plus BD), cases=%d runtime=%s card_max=%+v hero_max=%+v advisory_overruns=%d hard_overruns=%d (superseded v1 path; first: %s)",
+		len(sampled), c.Manifest.EntityCount, stride, cases, time.Since(start),
+		maxima["card"], maxima["hero"], advisoryOverruns, len(hardOverruns), hardOverruns[0])
 }
 
 func TestLODSpikeRebuild(t *testing.T) {
@@ -235,12 +279,32 @@ func TestLODAQRUProjectionAlignedCheckpoint(t *testing.T) {
 		start := time.Now()
 		got, generationErr := geometry.GenerateWithLOD(in, table)
 		elapsed := time.Since(start)
-		if generationErr != nil || elapsed > 10*time.Second {
+		if elapsed > 10*time.Second {
+			t.Fatalf("%s production-table %s runtime brake: %s", tc.entity, tc.preset, elapsed)
+		}
+		if generationErr != nil {
+			// Same characterization as TestLODSpikeFullCorpus: through the v1
+			// table Russia's card has no representation inside the frozen
+			// budget. The bound and the typing are still asserted; the coverage
+			// claim moved to the ladder gate.
+			var pipelineErr *geometry.PipelineError
+			if errors.As(generationErr, &pipelineErr) && pipelineErr.Code == geometry.ErrBudget {
+				t.Logf("stage=production_table case=%s/un/%s runtime=%s superseded_v1_path_cannot_fit: %v",
+					tc.entity, tc.preset, elapsed, generationErr)
+				continue
+			}
 			t.Fatalf("%s production-table %s runtime=%s: %v", tc.entity, tc.preset, elapsed, generationErr)
 		}
-		if got.LOD.SelectedTier != tc.tier || strings.Contains(strings.Join(got.LOD.Fallbacks, " "), ":binding:") ||
+		// The tier expectation is deliberately gone. It asserted that the v1
+		// artifact wins selection under raw boundary deviation, which DEC-006
+		// superseded; production now selects from the committed ladder and is
+		// covered by TestShippedCatalogServesTheLadder. What still matters here
+		// — and is still asserted — is that the v1 records bind cleanly, that
+		// the coordinate space is the contract one, and that the run is bounded
+		// and deterministic.
+		if strings.Contains(strings.Join(got.LOD.Fallbacks, " "), ":binding:") ||
 			got.LOD.CoordinateSpace != "centered_laea" {
-			t.Fatalf("%s/%s production tier mismatch: %+v", tc.entity, tc.preset, got.LOD)
+			t.Fatalf("%s/%s production binding: %+v", tc.entity, tc.preset, got.LOD)
 		}
 		if guardErr := validateGridPhaseResult(got, presets[tc.preset], presets[tc.preset].MaxPathBytes); guardErr != nil {
 			t.Fatalf("%s/%s production guards: %v", tc.entity, tc.preset, guardErr)
@@ -274,6 +338,15 @@ func TestLODAQRUProjectionAlignedCheckpoint(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
+	// ParserRoundTrip is a render-stage flag, not a selection fact:
+	// SelectLODProvenance returns before any path is serialized, so it is always
+	// false there and always true after a full generate. Comparing the two on
+	// that field is a category error — the claim under test is that the budget
+	// failure did not re-enter the search, which is about selection only. This
+	// assertion was previously unreachable because the tier expectation above
+	// failed first.
+	before.ParserRoundTrip = false
+	after.ParserRoundTrip = false
 	if !reflect.DeepEqual(before, after) {
 		t.Fatalf("forced-source budget re-entered search: before=%+v after=%+v", before, after)
 	}

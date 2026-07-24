@@ -47,48 +47,180 @@ func TestShippedCatalogServesTheLadder(t *testing.T) {
 
 	rendered, typedAbsent := 0, 0
 	for _, row := range ladder.Rows {
-		preset, ok := presets[row.Band]
-		if !ok {
-			t.Fatalf("%s/%s: band %q has no preset", row.Alpha2, row.Profile, row.Band)
-		}
-		label := fmt.Sprintf("%s/%s/%s", row.Alpha2, row.Profile, row.Band)
-		in, err := InputFromCatalog(c, row.Alpha2, row.Profile, preset)
+		outcome, err := checkShippedRow(c, row, presets, caps, Generate)
 		if err != nil {
-			t.Fatalf("%s: %v", label, err)
+			t.Fatal(err)
 		}
-		got, genErr := Generate(in)
-
-		if row.Status == string(LadderNoArtifact) {
-			if !IsNoArtifact(genErr) {
-				t.Fatalf("%s: committed no_artifact but Generate returned err=%v", label, genErr)
-			}
+		switch outcome {
+		case shippedRendered:
+			rendered++
+		case shippedTypedAbsent:
 			typedAbsent++
-			continue
 		}
-		if genErr != nil {
-			t.Fatalf("%s: committed pass but Generate failed: %v", label, genErr)
-		}
-		if got.LOD.SelectedTier != row.Band {
-			t.Fatalf("%s: served tier %q, not the committed band — the ladder is not reaching the shipped path (fallbacks=%v)",
-				label, got.LOD.SelectedTier, got.LOD.Fallbacks)
-		}
-		if got.Path == "" || got.Metrics.PathBytes != len(got.Path) {
-			t.Fatalf("%s: path bytes=%d metric=%d", label, len(got.Path), got.Metrics.PathBytes)
-		}
-		if len(got.Path) > caps[row.Band] {
-			t.Fatalf("%s: emitted %d path bytes over the frozen %s cap of %d (committed %d)",
-				label, len(got.Path), row.Band, caps[row.Band], row.PathBytes)
-		}
-		if !strings.HasPrefix(got.Path, "m") && !strings.HasPrefix(got.Path, "M") {
-			t.Fatalf("%s: path does not start with a move command: %.20q", label, got.Path)
-		}
-		if got.ViewBox.Width() <= 0 || got.ViewBox.Height() <= 0 {
-			t.Fatalf("%s: degenerate viewBox %v", label, got.ViewBox)
-		}
-		rendered++
 	}
 	if rendered != 993 || typedAbsent != 3 {
 		t.Fatalf("shipped catalog: rendered=%d typed_absent=%d want 993 and 3", rendered, typedAbsent)
+	}
+}
+
+type shippedOutcome int
+
+const (
+	shippedRendered shippedOutcome = iota
+	shippedTypedAbsent
+)
+
+// checkShippedRow holds the assertions for one committed row and returns them
+// as an error rather than failing a test directly. That is what lets the
+// mutation tooth below drive the same assertions against a deliberately
+// ladder-less pipeline and require that they reject it — an assertion that only
+// ever runs against the healthy path cannot be shown to bite.
+func checkShippedRow(
+	c *catalog.Corpus,
+	row LadderRow,
+	presets map[string]string,
+	caps map[string]int,
+	generate func(Input) (Result, error),
+) (shippedOutcome, error) {
+	preset, ok := presets[row.Band]
+	if !ok {
+		return 0, fmt.Errorf("%s/%s: band %q has no preset", row.Alpha2, row.Profile, row.Band)
+	}
+	label := fmt.Sprintf("%s/%s/%s", row.Alpha2, row.Profile, row.Band)
+	in, err := InputFromCatalog(c, row.Alpha2, row.Profile, preset)
+	if err != nil {
+		return 0, fmt.Errorf("%s: %w", label, err)
+	}
+	got, genErr := generate(in)
+
+	if row.Status == string(LadderNoArtifact) {
+		if !IsNoArtifact(genErr) {
+			return 0, fmt.Errorf("%s: committed no_artifact but Generate returned err=%v", label, genErr)
+		}
+		return shippedTypedAbsent, nil
+	}
+	if genErr != nil {
+		return 0, fmt.Errorf("%s: committed pass but Generate failed: %w", label, genErr)
+	}
+	if got.LOD.SelectedTier != row.Band {
+		return 0, fmt.Errorf("%s: served tier %q, not the committed band — the ladder is not reaching the shipped path (fallbacks=%v)",
+			label, got.LOD.SelectedTier, got.LOD.Fallbacks)
+	}
+	// Serving the right band is not enough. The pre-DEC-006 tier walk reads the
+	// same stored candidates, so it can report the same band while having
+	// restored full-detail source components into the geometry and re-judged it
+	// by raw boundary deviation — both superseded, and both producing something
+	// no oracle ever saw. Provenance distinguishes the two exactly: the ladder
+	// path computes no raw deviation and restores nothing, so a non-zero value
+	// in either field means the superseded path ran.
+	if got.LOD.RawDeviation != 0 || len(got.LOD.Restored) != 0 {
+		return 0, fmt.Errorf("%s: provenance shows the superseded derived path (raw_deviation=%g restored=%d); a ladder candidate is judged by the oracle and must be neither re-judged by deviation nor have source components injected",
+			label, got.LOD.RawDeviation, len(got.LOD.Restored))
+	}
+	if got.Path == "" || got.Metrics.PathBytes != len(got.Path) {
+		return 0, fmt.Errorf("%s: path bytes=%d metric=%d", label, len(got.Path), got.Metrics.PathBytes)
+	}
+	if len(got.Path) > caps[row.Band] {
+		return 0, fmt.Errorf("%s: emitted %d path bytes over the frozen %s cap of %d (committed %d)",
+			label, len(got.Path), row.Band, caps[row.Band], row.PathBytes)
+	}
+	if !strings.HasPrefix(got.Path, "m") && !strings.HasPrefix(got.Path, "M") {
+		return 0, fmt.Errorf("%s: path does not start with a move command: %.20q", label, got.Path)
+	}
+	if got.ViewBox.Width() <= 0 || got.ViewBox.Height() <= 0 {
+		return 0, fmt.Errorf("%s: degenerate viewBox %v", label, got.ViewBox)
+	}
+	return shippedRendered, nil
+}
+
+// TestShippedGateRejectsALadderlessPipeline is the mutation tooth for the gate
+// above, and it is the one that matters most: the twenty runs that preceded this
+// spec all reported success while emitting source-only geometry, so a gate that
+// cannot distinguish "ladder served" from "source served" would have passed
+// through the entire failure.
+//
+// Two regression shapes are driven, both of which were reproduced by hand before
+// being automated here:
+//
+//   - no published table at all, the shape of publishedLODTable regressing to
+//     nil;
+//   - a published table with the ladder stripped, the shape of the ladder
+//     loading but selection no longer consulting it — which falls back to the
+//     superseded pre-DEC-006 tier walk.
+//
+// A deterministic 60-row slice is used rather than the full 996: the assertion
+// under test fires on the first row, so the remaining coverage would only cost
+// time. The full sweep is the gate's own job.
+func TestShippedGateRejectsALadderlessPipeline(t *testing.T) {
+	c, err := catalog.Embedded()
+	if err != nil {
+		t.Fatal(err)
+	}
+	ladder, err := EmbeddedLadderTable()
+	if err != nil {
+		t.Fatal(err)
+	}
+	published, err := publishedLODTable()
+	if err != nil {
+		t.Fatal(err)
+	}
+	oracle, err := EmbeddedSilhouetteOracle()
+	if err != nil {
+		t.Fatal(err)
+	}
+	caps := map[string]int{}
+	for _, band := range oracle.Bands {
+		caps[band.ID] = band.PathCap
+	}
+	presets := map[string]string{"compact": "card", "standard": "hero"}
+
+	ladderless := &LODTable{
+		Version: published.Version, RecipeSHA256: published.RecipeSHA256,
+		Compact: published.Compact, Standard: published.Standard,
+		CompactMaximumScale:  published.CompactMaximumScale,
+		StandardMaximumScale: published.StandardMaximumScale,
+		CompactPathCap:       published.CompactPathCap,
+		StandardPathCap:      published.StandardPathCap,
+		// Ladder deliberately absent.
+	}
+
+	const sample = 60
+	for _, mutation := range []struct {
+		name     string
+		generate func(Input) (Result, error)
+	}{
+		{"no published table", func(in Input) (Result, error) { return GenerateWithLOD(in, nil) }},
+		{"published table with the ladder stripped", func(in Input) (Result, error) {
+			return GenerateWithLOD(in, ladderless)
+		}},
+	} {
+		t.Run(mutation.name, func(t *testing.T) {
+			checked, rejected := 0, 0
+			var first error
+			for _, row := range ladder.Rows {
+				if checked >= sample {
+					break
+				}
+				if row.Status != string(LadderPass) {
+					continue
+				}
+				checked++
+				if _, err := checkShippedRow(c, row, presets, caps, mutation.generate); err != nil {
+					rejected++
+					if first == nil {
+						first = err
+					}
+				}
+			}
+			if checked == 0 {
+				t.Fatal("no rows checked")
+			}
+			if rejected != checked {
+				t.Fatalf("%d of %d rows still satisfied the shipped assertions with %s — the gate does not see this regression",
+					checked-rejected, checked, mutation.name)
+			}
+			t.Logf("all %d sampled rows rejected; first: %v", checked, first)
+		})
 	}
 }
 
