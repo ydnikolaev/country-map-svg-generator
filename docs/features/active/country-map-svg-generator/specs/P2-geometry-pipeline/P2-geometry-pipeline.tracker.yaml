@@ -4,12 +4,11 @@ spec: P2
 slug: geometry-pipeline
 title: Soft-Organic Geometry Pipeline
 state: in_progress
-revision: 79
-updated_by: operator
-updated_at: "2026-07-24T04:28:17Z"
-last_event_id: run-interrupt-21b31645cd957620
-input_digest: bec6177b1db77a7b2e678446b362498298394af66a6da913f8a6e096b5fe3e70
-current_plan: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/plans/PLAN-009/P2-geometry-pipeline.PLAN-009.plan.md
+revision: 80
+updated_by: teamlead
+updated_at: "2026-07-24T04:32:06Z"
+last_event_id: plan-invalidate-e6a67183b370eca0
+input_digest: c0fb55c1626ee659bf6befb39c536350d63eb5bc5fdb9d636d3bee9e7e507c2d
 runs:
     - id: RUN-001
       plan: PLAN-001
@@ -56,4 +55,4 @@ runs:
       status: interrupted
       result: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-011/P2-geometry-pipeline.RUN-011.result.yaml
 findings: []
-next_action: Resume or replan from this immutable checkpoint.
+next_action: mate plan scaffold country-map-svg-generator P2 PLAN-NNN
