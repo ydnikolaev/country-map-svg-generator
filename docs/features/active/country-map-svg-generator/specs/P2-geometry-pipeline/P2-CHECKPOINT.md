@@ -283,22 +283,40 @@ not reopen DEC-010.
 Three failing tests remain. Two are genuinely stale and one is not.
 
 1. **`lodbuild` — `TestLODAQRUProjectionAlignedCheckpoint` and
-   `TestLODSpikeFullCorpus`.** Pre-existing since the T0A.1 spike, unrelated to
-   the ladder. Read them before touching them: they may be asserting against the
-   superseded derived path, in which case the honest fix is to restate what they
-   measure, not to move the numbers. `DiagnosticGridPhases` deliberately still
-   reproduces that superseded path and now says so in its doc comment.
+   `TestLODSpikeFullCorpus`.** Pre-existing since the T0A.1 spike. The exact
+   reason was read after T3, not assumed: the checkpoint test builds its **own**
+   v1 tier table (`stage=production_table`) with no `Ladder`, so it takes the
+   legacy branch and is rejected by the superseded predicate —
+   `AQ/hero production tier mismatch ... Fallbacks:[standard:raw_deviation:12.2]`.
+   That is the DEC-006 problem surviving inside the spike harness rather than in
+   production, which T3 fixed. So these are genuinely untouched by T3's ladder
+   path, but they are not "unrelated to the ladder" either: they exercise exactly
+   the predicate the ladder replaced.
+
+   The T4 decision is therefore whether the spike harness moves to the oracle
+   predicate or is retired as historical evidence — not whether to move its
+   numbers. `DiagnosticGridPhases` deliberately still reproduces the superseded
+   path and now says so in its doc comment; the same question applies to it.
 2. **`geometry` — `TestRepresentativeNaturalRatiosAndArbitraryFrames`.** Blocked
    on the owner's framing decision (`WKI-490046152C71`). **Do not edit the
    assertion to make it pass.** It encodes mainland framing; production frames
    the full claim. One of the two has to change, and which one is not a test
    question.
-3. **VAL-6 mutation teeth for the runtime path.** T2's teeth prove the offline
-   gate sees artifact tampering. The equivalent for T3 is: prove
-   `TestShippedCatalogServesTheLadder` reddens if the ladder stops reaching
-   `Generate()` — e.g. if `publishedLODTable` regressed to nil or
-   `ladderVerdictApplies` started returning false everywhere. Without that the
-   shipped gate could pass vacuously the way the 20 runs did.
+3. **VAL-6 mutation teeth for the runtime path — partly done, not yet
+   automated.** The shipped gate was hand-mutated at the end of T3 and bites on
+   both regression vectors, with the right message:
+
+   - forcing `ladderVerdictApplies` to `return false` →
+     `AD/de_facto/compact: served tier "source", not the committed band — the
+     ladder is not reaching the shipped path`;
+   - regressing `publishedLODTable` to nil → the same failure, plus
+     `TestPublishedTableIsTheCommittedLadder: the published table is not
+     ladder-backed`.
+
+   That is a hand-verification, which by the project's own rule is a gate not yet
+   written. T4 should make it automatic — the cheap shape is a table-driven test
+   that runs the shipped assertions against a deliberately ladder-less table and
+   requires them to fail.
 
 Then T5: full-catalog SVG proof and the owner contact sheet
 (`internal/geometry/cmd/svgproof -out <dir>` already produces both). Resolve
