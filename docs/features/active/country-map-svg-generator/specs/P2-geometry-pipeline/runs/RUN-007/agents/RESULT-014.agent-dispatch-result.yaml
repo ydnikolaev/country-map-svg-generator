@@ -1,0 +1,42 @@
+version: 1
+kind: agent-dispatch-result
+id: RESULT-014
+epic: country-map-svg-generator
+spec: P2
+run: RUN-007
+status: failed
+input_digest: b447ae7a6dadd90bb4a1b956d28ad757116bdeadaba265c99a438a3353a543b6
+previous:
+    artifact: agent-dispatch-brief
+    id: BRIEF-014
+    path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-007/agents/BRIEF-014.agent-dispatch-brief.yaml
+    sha256: cb1cdf503c35fe5a384ba0f702482c6b62f7d885b904bc6761976d930ddead16
+brief:
+    artifact: agent-dispatch-brief
+    id: BRIEF-014
+    path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-007/agents/BRIEF-014.agent-dispatch-brief.yaml
+    sha256: cb1cdf503c35fe5a384ba0f702482c6b62f7d885b904bc6761976d930ddead16
+principal: codex-p2-t0a-recovery
+provider_task_ref: p2_coder
+outcome: failed
+summary: Grid-phase repair validates RU/AQ unlimited representations, but two independent runs measure forced-source RU/card budget generation at 87.14s and 86.90s, violating 10s/30s ceilings; T0b skipped. Recovery dispatch followed degraded execution because pinned harness v1.4.1 was temporarily driven by CLI v1.4.3 (FND-E6E1451ABF6F).
+changed_paths:
+    - path: internal/geometry/cmd/lodbuild/main_test.go
+      sha256: caf22c8ac35cac5866f6da47fdb8b65933ec8540db856c8008b2a966520c049b
+    - path: internal/geometry/gridphase.go
+      sha256: 964f6272299d76148131948e9fb81cf226a36c3d3948230f218964130b1b6dd3
+    - path: internal/geometry/gridphase_test.go
+      sha256: f758fd2f179cb968eac0a72418f1b64078e9e24e4fdc3ffb6aee39bf02529d24
+    - path: internal/geometry/lod.go
+      sha256: f43d7a071b496d18e3b14b50fd52931e3ea3792a134461038e834624fd1a2792
+    - path: internal/geometry/lod_test.go
+      sha256: 49114418d957aa9edd0e827833a9de28cd01574b403bf614fcbc8efd1ec331c3
+    - path: internal/geometry/pipeline.go
+      sha256: b5c86c42749c98e09feaa4d4a453eb7799c66223af4ae1a11a972c7874004853
+    - path: internal/geometry/pipeline_test.go
+      sha256: 26299f0aa79d73a6bebbf58e47195d5b0d98d6f8c07700c611aa73283311f7d2
+outputs: []
+verification: []
+deviations: []
+feedback: []
+resume_anchor: Finish RUN-007 fail from RESULT-014, invalidate PLAN-007, and plan a successor that preserves the proven phase repair while separating bounded representation validation from impossible forced-source card byte-budget search. Keep product scratch uncommitted.
