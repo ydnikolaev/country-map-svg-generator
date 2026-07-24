@@ -111,21 +111,30 @@ func TestDiagnosticSourceInventoryIsExactAndBiting(t *testing.T) {
 		}
 	}
 	sort.Strings(discovered)
-	t0a2Additions := []string{
+	// Files added to internal/geometry(/cmd/lodbuild) after the RUN-010 T0A.1
+	// diagnostic froze diagnosticSourcePaths. Each new maintainer build-tool
+	// or runtime file lands here deliberately, not silently.
+	postDiagnosticAdditions := []string{
+		"internal/geometry/cmd/lodbuild/ladder.go",
 		"internal/geometry/cmd/lodbuild/representative.go",
 		"internal/geometry/silhouette.go",
 	}
+	additionSet := make(map[string]bool, len(postDiagnosticAdditions))
+	for _, path := range postDiagnosticAdditions {
+		additionSet[path] = true
+	}
 	var preSpike, additions []string
 	for _, path := range discovered {
-		if path == t0a2Additions[0] || path == t0a2Additions[1] {
+		if additionSet[path] {
 			additions = append(additions, path)
 		} else {
 			preSpike = append(preSpike, path)
 		}
 	}
+	sort.Strings(postDiagnosticAdditions)
 	if len(preSpike) == 0 || !reflect.DeepEqual(preSpike, diagnosticSourcePaths) ||
-		!reflect.DeepEqual(additions, t0a2Additions) {
-		t.Fatalf("pre-spike=%v additions=%v want pre-spike=%v additions=%v", preSpike, additions, diagnosticSourcePaths, t0a2Additions)
+		!reflect.DeepEqual(additions, postDiagnosticAdditions) {
+		t.Fatalf("pre-spike=%v additions=%v want pre-spike=%v additions=%v", preSpike, additions, diagnosticSourcePaths, postDiagnosticAdditions)
 	}
 	items, aggregate, err := loadDiagnosticSourceInventory(root)
 	if err != nil {

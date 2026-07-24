@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "version": "ladder-v1",
+  "source_corpus": "sha256:9d56b4d205eb2f5979e0d1f82d84222946b9f4e12e8a2b7ec09204e2225f2d95",
+  "projection_version": "v1",
+  "oracle_version": "v1",
+  "oracle_sha256": "f2c9cd32e806985be55193e564942e716bb42c72e01d7405c976ddf36666d56f",
+  "base_recipe_version": "v2",
+  "base_recipe_sha256": "da3ff9d331df37882bb2ed4159e9f14ef2aaeedf2b9fcff9e77c79fed4d751c5",
+  "mapshaper_version": "0.7.44",
+  "mapshaper_integrity": "sha512-3Cx+IABMXt1G28Y8J7oalW5P5VYyt1vHz5FO+KkV51EHnJioo9h9maO+u+4IyCPZ9Mh1hqchgomFmc68GtFwQQ==",
+  "mapshaper_shasum": "e08fc40d50347698ea07d2f82ead42a98b1c62f0",
+  "algorithm": "weighted_visvalingam",
+  "weighting": 0.7,
+  "candidate_order": "fine_to_coarse",
+  "resolutions": [512, 320, 256, 224, 192, 160, 128, 127, 126, 125, 124, 123, 122, 121, 120, 116, 112, 108, 104, 100, 96, 80, 79.63, 64, 48, 32, 24, 16, 12, 8],
+  "identity_fallback": "tried_last",
+  "visibility_policy": "protected-visibility/v1",
+  "bands": [
+    {"id": "compact", "maximum_effective_scale": 240, "path_cap": 2200, "complete_file_maximum": 2500},
+    {"id": "standard", "maximum_effective_scale": 700, "path_cap": 7500, "complete_file_maximum": 8000}
+  ],
+  "notes": "DEC-009: identity is a fallback for a tool limitation (Mapshaper resolution is bbox-relative), tried only after every declared/intermediate resolution rung fails; it carries no fidelity exemption. 79.63 is the sole intermediate rung, inserted between the declared 80 and 64 to close Croatia/compact's 9-byte gap over the 2200 cap without dropping source component 2 (contribution exactly at the 110 retention threshold); measured empirically, comfortably inside the passing window [79.59, 79.67]. No threshold, tolerance, weighting, byte cap or q=0.01 quantization changes."
+}

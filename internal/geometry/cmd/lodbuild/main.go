@@ -97,7 +97,23 @@ func main() {
 	indonesiaBoundary := flag.String("indonesia-boundary-out", "", "write RUN-012 Indonesia 120/121 regression JSON")
 	semanticOut := flag.String("semantic-out", "", "canonical semantic diagnostic JSON")
 	timingOut := flag.String("timing-out", "", "diagnostic timing receipt JSON")
+	ladder := flag.Bool("ladder", false, "build the AM-005/DEC-009 committed silhouette ladder artifact")
+	ladderArtifactOut := flag.String("ladder-artifact-out", "", "output path for the ladder artifact JSON (defaults to internal/geometry/lod/ladder.artifact.json)")
 	flag.Parse()
+	if *ladder {
+		if *out == "" {
+			fmt.Fprintln(os.Stderr, "-out is required with -ladder")
+			os.Exit(2)
+		}
+		artifactPath := *ladderArtifactOut
+		if artifactPath == "" {
+			artifactPath = filepath.Join(sourceRoot(), "internal/geometry/lod/ladder.artifact.json")
+		}
+		if err := runLadderBuild(*out, artifactPath); err != nil {
+			fatal(err)
+		}
+		return
+	}
 	if *indonesiaBoundary != "" {
 		c, err := catalog.Embedded()
 		if err != nil {
