@@ -1,16 +1,21 @@
 # P2 checkpoint — resume point for a fresh session
 
-Last updated at commit `da65ba1` (T2 complete). Read this first; it lets a new
+Last updated at commit `7ccb43a` (T3 complete). Read this first; it lets a new
 session resume without the originating chat.
 
 ## The one-line status
 
-The 20-run P2 failure is diagnosed, the fix is designed and independently
-verified, the ladder artifact is built (T1) and now embedded and independently
-recomputed row by row (T2). Both prior open items are closed: the Croatia card is
-an accepted owner decision (DEC-010), and the mate fence is confirmed unliftable
-with the owner's standing instruction to keep building outside the governed
-wrapper. **Next step is T3.**
+**The 20-run P2 failure is over.** The ladder is built (T1), embedded and
+row-by-row recomputed (T2), and now actually served by `Generate()` (T3):
+measured over the whole catalog through the shipped path, **993 rendered, 3
+typed no-artifact, 0 errors, 0 source fallbacks, 0 over the band cap**. Real SVGs
+were rendered and looked at — Italy, Japan, Indonesia, Brazil, India, Greece and
+the rest are recognizable silhouettes, not source-only fallbacks.
+
+Two findings came out of looking at the output and are captured as backlog work,
+not fixed here: **Russia renders as a crude blob** (`WKI-C83B0B9EB4EE`, high) and
+**a card frames the full UN claim rather than the mainland** (`WKI-490046152C71`,
+owner decision). **Next step is T4**, then T5.
 
 ## What was wrong (the root cause, confirmed)
 
@@ -127,14 +132,17 @@ v2 recipe are embedded; `LadderTable` is a verified, indexed, **data-only** view
   typed absence, a recorded decision) and `LadderAbsent` (no row). Collapsing the
   first two would let a consumer fall back to an unjudged path for exactly the
   cases the oracle refused.
-- **`publishedLODTable` stays nil on purpose**, pinned by
-  `TestGenerateStaysSourceOnlyUntilSelectionIsRewritten`. Wiring the ladder into
-  the current `lod.go` predicate would fall back to source on nearly every entity
-  *while reporting success* — a silent green. The flip belongs with T3.
+- `publishedLODTable` stayed nil through T2 on purpose (T3 flipped it). Wiring
+  the ladder into the then-current `lod.go` predicate would have fallen back to
+  source on nearly every entity *while reporting success* — a silent green.
 - Cost, measured: lazy `sync.Once` parse of ~10 MB takes **707 ms** on first use;
   the linker drops the embed entirely if unreferenced (lodbuild unchanged at
-  15.32 MB; a consumer calling the loader grows 15.32 → 24.78 MB). **The 707 ms
-  per-process cost is a real T3 input** for a CLI that generates one SVG.
+  15.32 MB; a consumer calling the loader grows 15.32 → 24.78 MB). Tracked as
+  `WKI-6638BACD6E20`. T3's measurement: a cold single-entity process is **1.53 s**
+  end to end for 4 rows, so the load is roughly half of it; the full catalog is
+  162 s for 996 rows, i.e. the per-row work dominates once the process is warm.
+  Lazy per-geometry decode remains the obvious lever and belongs with P3's CLI,
+  where the real invocation shape is known.
 
 **T2.2 — `internal/geometry/ladder_gate_test.go` (VAL-6 obligation 2).** Pure-Go,
 offline, inside `make check` (~28 s). Recomputes topology, protected visibility,
@@ -154,20 +162,110 @@ Stale corpus/oracle/recipe is load-blocking upstream in `ParseLadderTable`.
 rejected rungs of a no-artifact row — those geometries are not stored, so they
 need the Mapshaper sweep. That stays the determinism gate's job.
 
-## `make check` baseline — 5 known failures, unchanged
+## T3 — done (commits `4577c04`, `7ccb43a`)
 
-Before T2: **174 passed, 5 failed**. After T2: **205 passed, 5 failed** — the
-same five, no regressions. They are T4's work:
+`Generate()` resolves the ladder on first use and serves it. Selection is a
+lookup, not a fine-to-coarse walk: exactly one derived candidate is legal per
+band, so the pre-DEC-006 substitution of the standard rung inside a card
+viewport is gone.
 
-- `geometry`: `TestFullCorpusBothProfiles`, `TestApprovalDigestAndBudgets`,
-  `TestRepresentativeNaturalRatiosAndArbitraryFrames` — all
-  `hard_budget_exceeded`, because `Generate()` is still source-only.
-- `lodbuild`: `TestLODAQRUProjectionAlignedCheckpoint`, `TestLODSpikeFullCorpus`.
+**Three superseded gates no longer run for a ladder candidate**, all kept intact
+for the DEC-005 source path:
+
+1. `restoreRequiredComponents` — injected full-detail source components the
+   candidate deliberately dropped.
+2. The derived raw-deviation gate — replaced by the silhouette oracle (DEC-006).
+3. The raw P1 `minimum_parts` count — **DEC-007 item 2 explicitly moved this** to
+   the protected-visibility policy, and DEC-007 names Indonesia at compact as the
+   case: 20 declared parts cannot coexist with the frozen 2200/2500 budgets at
+   any generic resolution. Verified, not assumed: all 6 committed rows below
+   their declared minimum (ID both profiles at compact, KI both profiles at both
+   bands) carry explicit `protected_subscale` provenance on every omitted
+   identity-set member, and KI's two omitted components contribute **exactly 0**
+   filled pixels at the compact grid.
+
+**The final-deviation gate at `finalizeGridPhase` is shared by both paths**, so
+it became conditional rather than deleted. The T2 checkpoint's plan named it by
+line number (`518-520`) and following that literally would have weakened the
+source path. Read the call graph, not the line numbers.
+
+`ladderVerdictApplies` is one named predicate on purpose — it decides whether a
+committed oracle verdict may be trusted at all. A verdict earned at rotation 0,
+under the v1 projection contract, at automatic quality, with the caller's byte
+ceiling cleared does not transfer to a request that changes any of those; such a
+request takes the source path.
+
+DEC-009's outcome is now the typed `ErrNoArtifact` with an `IsNoArtifact`
+predicate. Falling back to source there would emit the exact silhouette the
+oracle refused (18190 bytes for Croatia's de_facto card against a 2200 cap).
+
+**One defect found by rendering, not by testing.** Softening is a runtime
+representation choice the oracle never judged, and on small compact geometries it
+inflates the path several-fold: Grenada's 575 committed bytes became **2230**,
+clearing the 2200 band cap while still fitting the preset's 2500 complete-file
+maximum. Eight rows did this (GD, VI at compact; LU, TC at standard). The band
+cap now bounds whatever representation is finally emitted.
+
+**Measured over the whole catalog through the shipped path:** 993 rendered, 3
+typed no_artifact, **0 errors, 0 source fallbacks, 0 over the band cap**, 754
+byte-identical to the committed row. The remaining 239 differ because softening
+produced a smaller path that still fits.
+
+Guarded by `TestShippedCatalogServesTheLadder` (~172 s) plus
+`TestShippedPathHoldsTheBandCapAgainstSoftening`. This is the gate that would
+have caught the original 20-run failure: T2's gate proves the artifact is
+internally sound, T3's proves the artifact is what `Generate()` actually serves,
+and the twenty runs failed exactly in the gap between those two claims.
+
+`internal/geometry/cmd/svgproof` runs the same sweep and writes real SVG files
+plus an HTML contact sheet. It is not in `make check` — writing ~1000 files is
+not a gate — but it is how a human looks.
+
+## `make check` — 207 passed, 3 failed
+
+Baseline was 174/5 before T2, 205/5 after T2. Now **207 passed, 3 failed**: T3
+fixed two of the five and added none.
+
+- `geometry`: `TestRepresentativeNaturalRatiosAndArbitraryFrames` — the Chile
+  framing question, now an owner decision (`WKI-490046152C71`). **Do not "fix"
+  this by editing the assertion.**
+- `lodbuild`: `TestLODAQRUProjectionAlignedCheckpoint`, `TestLODSpikeFullCorpus` —
+  pre-existing, T4's work.
+
+Full `make check` now costs roughly 7 minutes: the ~175 s Node ladder-rebuild
+determinism gate plus the ~172 s pure-Go shipped-catalog gate. Both earn it.
 
 Note `TestDiagnosticSourceInventoryIsExactAndBiting` is an exact source-file
-inventory gate: **any new file under `internal/geometry(/cmd/lodbuild)` must be
-registered** in its `postDiagnosticAdditions` list or the gate reddens. That is
-by design; `internal/geometry/ladder.go` was registered in `3de2ea5`.
+inventory gate: **any new file under `internal/geometry` or
+`internal/geometry/cmd/lodbuild` must be registered** in its
+`postDiagnosticAdditions` list or the gate reddens. That is by design;
+`internal/geometry/ladder.go` was registered in `3de2ea5`. Files under other
+`cmd/` subdirectories (such as `svgproof`) are outside its globs.
+
+## OPEN — two findings the T3 render surfaced
+
+Both are captured as durable backlog rows; neither was fixed in T3.
+
+**`WKI-C83B0B9EB4EE` (high) — Russia renders as a crude blob.** RU/un/standard
+selects rung **24**: 508 bytes of a 7500 cap, 45 points, 1 part, IoU 0.9204.
+Italy at the same band spends 6829. Russia is the only anomaly of its kind —
+exactly 14 committed rows select a rung at or below 64 and the other 12 (CA, GR,
+AX, DK, FK, HK) sit at 68–98% of budget, i.e. coarse because they hit the cap.
+Russia is coarse while leaving 93% of its hero budget unspent, so the
+fine-to-coarse search rejected every rung from 512 down to 32 for a reason the
+artifact does not record (per-attempt logs are stored only on no_artifact rows).
+The oracle cannot see it: minimum IoU is 0.40. Suspected antimeridian topology
+damage, **unverified**. Diagnosing needs a Mapshaper sweep for RU alone with
+per-attempt logging — T1/T5 work.
+
+**`WKI-490046152C71` (owner) — mainland or full claim?** The viewBox is fitted to
+the whole projected source before any candidate is chosen, so it reserves space
+for components the silhouette may deliberately not draw. Chile spans 43.0° of
+longitude via Easter Island, Salas y Gómez and Juan Fernández against 13.5° for
+the mainland, so it renders against one edge of a near-square box; the United
+States does the same via Alaska. **Pre-existing, not a T3 regression** — the AU
+viewBox is identical on the ladder and source paths (126.4×144 both) — visible
+now only because these entities render at all. Decide before T5's contact sheet.
 
 ## CLOSED — Croatia de_facto card (DEC-010, `45385fb`)
 
@@ -180,31 +278,32 @@ bridges them. Option 2 (a DEC-007 group anchor) stays pre-authorized as a *data*
 change if the site later shows the missing card is a material defect — that would
 not reopen DEC-010.
 
-## Next step — T3 (do this first in the new session)
+## Next step — T4 (do this first in the new session)
 
-Rewrite `lod.go` selection to lookup-and-verify against `LadderTable`, and flip
-`publishedLODTable` in the **same** commit:
+Three failing tests remain. Two are genuinely stale and one is not.
 
-1. Consult `LadderTable.Lookup(geometryID, band)` for the fitted band. On
-   `LadderPass`, bind the stored candidate and verify it rather than re-deriving
-   it. On `LadderNoArtifact`, return the typed no-artifact outcome (a first-class
-   result, not an error — DEC-010 makes HR/de_facto/compact a top-200 exemplar).
-   On `LadderAbsent`, route to the unchanged DEC-005 source path.
-2. Delete `restoreRequiredComponents` and the two derived-path deviation gates
-   (`lod.go:245-246`, `518-520`). They are the superseded predicate.
-3. Route explicit source / >700 effective scale to the unchanged DEC-005 path.
-4. Weigh the 707 ms first-load cost for a one-SVG CLI invocation. Per-geometry
-   lazy decode is the obvious lever if it matters; decide deliberately. Tracked
-   as `WKI-6638BACD6E20` (`mate backlog show`), which is the durable record —
-   this checkpoint is not.
-5. **Emit real SVGs for a sample of top-200 countries as the empirical proof.**
-   Tests passing is not the same as the product working.
+1. **`lodbuild` — `TestLODAQRUProjectionAlignedCheckpoint` and
+   `TestLODSpikeFullCorpus`.** Pre-existing since the T0A.1 spike, unrelated to
+   the ladder. Read them before touching them: they may be asserting against the
+   superseded derived path, in which case the honest fix is to restate what they
+   measure, not to move the numbers. `DiagnosticGridPhases` deliberately still
+   reproduces that superseded path and now says so in its doc comment.
+2. **`geometry` — `TestRepresentativeNaturalRatiosAndArbitraryFrames`.** Blocked
+   on the owner's framing decision (`WKI-490046152C71`). **Do not edit the
+   assertion to make it pass.** It encodes mainland framing; production frames
+   the full claim. One of the two has to change, and which one is not a test
+   question.
+3. **VAL-6 mutation teeth for the runtime path.** T2's teeth prove the offline
+   gate sees artifact tampering. The equivalent for T3 is: prove
+   `TestShippedCatalogServesTheLadder` reddens if the ladder stops reaching
+   `Generate()` — e.g. if `publishedLODTable` regressed to nil or
+   `ladderVerdictApplies` started returning false everywhere. Without that the
+   shipped gate could pass vacuously the way the 20 runs did.
 
-Then T4 (realign the 5 failing tests + VAL-6 mutation teeth for the runtime path),
-T5 (full-catalog SVG proof + owner contact sheet).
-
-Task list: #1 DEC-010 (done), #2 T2.1 (done), #3 T2.2 (done), #4 this checkpoint,
-#5 governance reconcile (deferred, blocked on the mate fix).
+Then T5: full-catalog SVG proof and the owner contact sheet
+(`internal/geometry/cmd/svgproof -out <dir>` already produces both). Resolve
+`WKI-C83B0B9EB4EE` (Russia) before that sheet goes to the owner — a top-200
+country rendering as a blob is the first thing anyone will notice.
 
 ## Hard constraints (from accepted decisions — do not violate)
 
