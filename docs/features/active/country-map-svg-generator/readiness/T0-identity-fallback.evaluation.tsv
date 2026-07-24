@@ -1,0 +1,15 @@
+# identity fallback evaluation (zero simplification, no mapshaper)
+# corpus=sha256:9d56b4d205eb2f5979e0d1f82d84222946b9f4e12e8a2b7ec09204e2225f2d95 oracle_sha256=f2c9cd32e806985be55193e564942e716bb42c72e01d7405c976ddf36666d56f v2_recipe_sha256=da3ff9d331df37882bb2ed4159e9f14ef2aaeedf2b9fcff9e77c79fed4d751c5
+alpha2	profile	band	status	iou	recall	path_bytes	complete_estimate	omissions	note
+HR	un	compact	fail	0.957267	1.000000	18197	18477	0	identity:bytes=18197(cap 2200),file=18477(max 2500)
+HR	un	standard	fail	0.964030	1.000000	20617	20897	0	identity:bytes=20617(cap 7500),file=20897(max 8000)
+HR	de_facto	compact	fail	0.957273	1.000000	18190	18470	0	identity:bytes=18190(cap 2200),file=18470(max 2500)
+HR	de_facto	standard	fail	0.964021	1.000000	20605	20885	0	identity:bytes=20605(cap 7500),file=20885(max 8000)
+SH	un	compact	pass	1.000000	1.000000	637	917	0	identity
+SH	un	standard	pass	1.000000	1.000000	630	910	0	identity
+SH	de_facto	compact	pass	1.000000	1.000000	637	917	0	identity
+SH	de_facto	standard	pass	1.000000	1.000000	630	910	0	identity
+UM	un	compact	fail						error:geometry topology_damage entity= field=quantization: ring collapsed
+UM	un	standard	pass	1.000000	1.000000	791	1071	0	identity
+UM	de_facto	compact	fail						error:geometry topology_damage entity= field=quantization: ring collapsed
+UM	de_facto	standard	pass	1.000000	1.000000	838	1118	0	identity

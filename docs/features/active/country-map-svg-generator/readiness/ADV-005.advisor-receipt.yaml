@@ -1,0 +1,26 @@
+version: 1
+kind: advisor-receipt
+id: ADV-005
+epic: country-map-svg-generator
+status: recorded
+input_digest: df0ab51bb78c591ff0fc98e0d130cf973701d4836cd255d278c9e30ed5a40bd7
+subject:
+    artifact: epic-tracker
+    id: country-map-svg-generator
+    path: docs/features/active/country-map-svg-generator/country-map-svg-generator.tracker.yaml
+    sha256: c68fd90d62c6db51d1642af3e48687f2de21aeb20f80bd8a23be421cd8f7df43
+producer_role: independent-reviewer
+principal: am005-reviewer
+result: fail
+risk_policy: efficient
+independence: independent-review
+findings:
+    - id: F1
+      severity: medium
+      evidence: See the exact sealed audit finding.
+      action: Resolve before spec closure.
+    - id: F2
+      severity: low
+      evidence: See the exact sealed audit finding.
+      action: Resolve before spec closure.
+verdict: adjust
