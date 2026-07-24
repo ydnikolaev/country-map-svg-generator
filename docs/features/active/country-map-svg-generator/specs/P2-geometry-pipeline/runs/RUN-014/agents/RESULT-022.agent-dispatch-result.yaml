@@ -1,0 +1,29 @@
+version: 1
+kind: agent-dispatch-result
+id: RESULT-022
+epic: country-map-svg-generator
+spec: P2
+run: RUN-014
+status: blocked
+input_digest: 6e6dceb16e75f9090177038aba1142ee792f2e85bf52c56011342b573d9f3c66
+previous:
+    artifact: agent-dispatch-brief
+    id: BRIEF-022
+    path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-014/agents/BRIEF-022.agent-dispatch-brief.yaml
+    sha256: 3e8b135542bf2119d4ec3b7343a1f83e2d96bee91dd7fb95e3a19f785eeed898
+brief:
+    artifact: agent-dispatch-brief
+    id: BRIEF-022
+    path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-014/agents/BRIEF-022.agent-dispatch-brief.yaml
+    sha256: 3e8b135542bf2119d4ec3b7343a1f83e2d96bee91dd7fb95e3a19f785eeed898
+principal: p2-coder
+provider_task_ref: p2_coder
+outcome: blocked
+summary: 'RUN-014 T0B is lease-blocked before edits: both inherited production gates call frozen GenerateWithLOD directly, whose unconditional minimumParts restoration and legacy raw-deviation rejection bypass the frozen protected-visibility/v1 policy.'
+changed_paths: []
+outputs: []
+verification: []
+deviations: []
+feedback: []
+blocked_reason: No T0B-owned path can intercept direct GenerateWithLOD calls. Minimum governed reopen is internal/geometry/lod.go plus lod_test.go teeth, followed by dependent T0A evidence before full-catalog T0B can resume.
+resume_anchor: Interrupt RUN-014 with zero product changes. Start a narrow PLAN-010 successor that reopens only lod.go/lod_test.go to integrate frozen protected-visibility/v1 into automatic runtime selection, reruns all dependent T0A hashes/gates, then resumes T0B.

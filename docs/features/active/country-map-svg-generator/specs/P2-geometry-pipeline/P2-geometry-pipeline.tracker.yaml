@@ -4,13 +4,12 @@ spec: P2
 slug: geometry-pipeline
 title: Soft-Organic Geometry Pipeline
 state: in_progress
-revision: 91
+revision: 93
 updated_by: teamlead
-updated_at: "2026-07-24T06:01:41Z"
-last_event_id: p2-run014-t0b-start-run
-input_digest: 753c455826b5f3859fe6468ef77184d6b59dae47cda1565fe6b93bc21641e73d
+updated_at: "2026-07-24T06:08:02Z"
+last_event_id: p2-run014-lease-blocked
+input_digest: 62443ece7cb2d9ca0b2e3973a352638791a9bb3cb74912e2f59d23c17c2bfb5e
 current_plan: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/plans/PLAN-010/P2-geometry-pipeline.PLAN-010.plan.md
-active_run: RUN-014
 runs:
     - id: RUN-001
       plan: PLAN-001
@@ -66,6 +65,7 @@ runs:
       result: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-013/P2-geometry-pipeline.RUN-013.result.yaml
     - id: RUN-014
       plan: PLAN-010
-      status: running
+      status: interrupted
+      result: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-014/P2-geometry-pipeline.RUN-014.result.yaml
 findings: []
-next_action: agent-dispatch:agent-dispatch-brief/BRIEF-022#3e8b135542bf2119d4ec3b7343a1f83e2d96bee91dd7fb95e3a19f785eeed898
+next_action: Scaffold a narrow PLAN-010 successor run reopening only lod.go/lod_test.go to integrate frozen protected-visibility/v1 into GenerateWithLOD, rerun dependent T0A evidence, then resume T0B.
