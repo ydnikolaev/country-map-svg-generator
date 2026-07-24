@@ -1,0 +1,29 @@
+version: 1
+kind: agent-dispatch-result
+id: RESULT-015
+epic: country-map-svg-generator
+spec: P2
+run: RUN-008
+status: blocked
+input_digest: 0dc6c28cd4fed2c203f2632c3dba8497ae071657790b78d56c99282b3e5927a2
+previous:
+    artifact: agent-dispatch-brief
+    id: BRIEF-015
+    path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-008/agents/BRIEF-015.agent-dispatch-brief.yaml
+    sha256: 28892a867a93a4edad10c54501e60ec1cb7df6a6264550018a7ebced33d86841
+brief:
+    artifact: agent-dispatch-brief
+    id: BRIEF-015
+    path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-008/agents/BRIEF-015.agent-dispatch-brief.yaml
+    sha256: 28892a867a93a4edad10c54501e60ec1cb7df6a6264550018a7ebced33d86841
+principal: codex-p2-remediation-bridge
+provider_task_ref: p2_coder
+outcome: blocked
+summary: 'Read-only remediation bridge verified RUN-007-RESULT and RESULT-014: independent forced-source RU/card budget runs took 87.14s and 86.90s, violating PLAN-007 10s/30s ceilings; T0b was skipped and product scratch remained untouched.'
+changed_paths: []
+outputs: []
+verification: []
+deviations: []
+feedback: []
+blocked_reason: PLAN-007 cannot proceed because the reproduced RU/card budget runtime violates both accepted performance ceilings; successor planning requires exact interrupted-run authority due FND-10CCB7CD18A0.
+resume_anchor: Finish RUN-008 interrupted from RESULT-015, invalidate PLAN-007 from RUN-008-RESULT, and scaffold PLAN-008. No product mutation.
