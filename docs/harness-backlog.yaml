@@ -1,8 +1,15 @@
 version: 1
 kind: harness-feedback-backlog
 project: country-map-svg-generator
-revision: 7
+revision: 9
 operations:
+    - version: 1
+      id: feedback-add-2239ce643f15640e
+      kind: feedback-add
+      input_digest: d38612f2f8eaed50c5e988e3a3e776c0c980b292818cff00661c1ff85abb48ca
+      result_id: FND-D7F8EA8D3691
+      result_revision: 9
+      recorded_at: "2026-07-24T05:55:27Z"
     - version: 1
       id: feedback-add-27604b086c5309d9
       kind: feedback-add
@@ -38,6 +45,13 @@ operations:
       result_id: FND-E6E1451ABF6F
       result_revision: 6
       recorded_at: "2026-07-24T00:55:02Z"
+    - version: 1
+      id: feedback-add-a6704d2e968209e2
+      kind: feedback-add
+      input_digest: d3ffa187930596a5805849ef508ed8944ad871bfa2e50eeed7c8ec2fd7590810
+      result_id: FND-D35B92BE8504
+      result_revision: 8
+      recorded_at: "2026-07-24T05:55:10Z"
     - version: 1
       id: feedback-add-eb109542a0144ade
       kind: feedback-add
@@ -153,6 +167,47 @@ findings:
       state: new
       created_at: "2026-07-23T16:46:38Z"
       updated_at: "2026-07-23T16:46:38Z"
+    - id: FND-D35B92BE8504
+      scope: mate
+      severity: medium
+      area: owner-evidence
+      summary: No native receipt for required product-owner approval checkpoint
+      observed: PLAN-010 requires an exact owner receipt before T0B, but Mate exposes no owner-approval receipt producer or CLI command. The coordinator had to encode the product owner confirmation as DEC-008 even though it freezes an already machine-accepted checkpoint rather than making a new architecture decision.
+      expected: Mate should provide a content-addressed owner-approval receipt bound to exact gate/artifact digests, or document and validate governed decision as the canonical owner-checkpoint mechanism.
+      fingerprint: d35b92be8504ec3d7e80972eb9be3bec06b0e70cca39bc1fbbf83ee36afb1b92
+      project: country-map-svg-generator
+      mate_release: v1.4.1
+      provider: mate
+      evidence:
+        - kind: repository
+          locator: docs/features/active/country-map-svg-generator/decisions/DEC-008/country-map-svg-generator.DEC-008-representative-sheet-approval.decision.md
+        - kind: repository
+          locator: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/plans/PLAN-010/P2-geometry-pipeline.PLAN-010.plan.md
+      state: new
+      created_at: "2026-07-24T05:55:10Z"
+      updated_at: "2026-07-24T05:55:10Z"
+    - id: FND-D7F8EA8D3691
+      scope: mate
+      severity: medium
+      area: run-lifecycle
+      summary: Passing intermediate plan checkpoint cannot finish as pass
+      observed: RUN-013 is an explicit PLAN-010 T0A checkpoint with a passing integration-tier gate and owner approval, but run finish pass rejects it because the terminal gate is not the project ceiling. run finish interrupt is the only successor-run route, and interrupt rejects --gate, so the passing gate can only be attached as a generic followup while the run is labeled interrupted.
+      expected: A planned intermediate run can close as a successful checkpoint with its exact registered gate and authorize the next dependency-legal run, without claiming the entire spec project ceiling or mislabeling success as interruption.
+      fingerprint: d7f8ea8d36914e38251077580ab51cdf5e560b3d44357905581fbd3e39c11d7a
+      project: country-map-svg-generator
+      mate_release: v1.4.1
+      provider: mate
+      evidence:
+        - kind: gate-receipt
+          locator: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-013/gates/GATE-458D4D778A57/GATE-458D4D778A57.gate-receipt.yaml
+          sha256: 792fd75998656c10ecbd7bfdea760685c8f5880d613574b50210aa421339a0ba
+        - kind: repository
+          locator: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/plans/PLAN-010/P2-geometry-pipeline.PLAN-010.plan-manifest.yaml
+        - kind: repository
+          locator: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-013/P2-geometry-pipeline.RUN-013.brief.md
+      state: new
+      created_at: "2026-07-24T05:55:27Z"
+      updated_at: "2026-07-24T05:55:27Z"
     - id: FND-E6E1451ABF6F
       scope: mate
       severity: high
