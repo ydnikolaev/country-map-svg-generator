@@ -4,11 +4,11 @@ spec: P2
 slug: geometry-pipeline
 title: Soft-Organic Geometry Pipeline
 state: in_progress
-revision: 54
+revision: 55
 updated_by: teamlead
-updated_at: "2026-07-24T00:51:26Z"
+updated_at: "2026-07-24T01:16:38Z"
 last_event_id: run-start-fe89ab72036f3d1d-run
-input_digest: 124404441b07b5a8b1e887d05623905f59f919b220a1333014a09621bff45cdd
+input_digest: 8d9e424fdb02c496ac9a2af477941a141f760fa0fee235f0368c97afbab4c540
 current_plan: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/plans/PLAN-007/P2-geometry-pipeline.PLAN-007.plan.md
 active_run: RUN-007
 runs:
@@ -40,4 +40,4 @@ runs:
       plan: PLAN-007
       status: running
 findings: []
-next_action: Execute RUN-007 within the accepted brief; pass, fail, interrupt, or cancel it with evidence.
+next_action: agent-dispatch:agent-dispatch-brief/BRIEF-014#cb1cdf503c35fe5a384ba0f702482c6b62f7d885b904bc6761976d930ddead16

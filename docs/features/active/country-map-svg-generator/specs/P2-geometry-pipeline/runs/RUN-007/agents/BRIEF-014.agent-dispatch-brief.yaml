@@ -1,0 +1,89 @@
+version: 1
+kind: agent-dispatch-brief
+id: BRIEF-014
+epic: country-map-svg-generator
+spec: P2
+run: RUN-007
+status: issued
+input_digest: 95fc42f9b19d4a81599987a32f62aed26221398d36d7d9e494d11c150dd06ff3
+role: coder
+provider: codex
+binding_mode: native
+dispatch_route: named-role
+role_contract:
+    reference: installed-role/coder
+    path: .codex/agents/coder.toml
+    sha256: e5078656ace1b8785d676e1410b701d4c8ebd31b129a54cce0d3813adfe99f10
+    reason: installed provider role contract
+    freshness: current
+issuer: teamlead
+grant: edit
+capability: edit
+semantic_tier: standard
+context:
+    - reference: context-doctrine-pack/CTX-RUN-009
+      path: docs/features/active/country-map-svg-generator/readiness/CTX-RUN-009.context-pack.yaml
+      sha256: 666ed2fbf2847ea2516e291cb73048229eab755674bec4e65f5a8f5a65a0f8f0
+      reason: dispatch context
+      freshness: current
+plan:
+    artifact: plan-manifest
+    id: PLAN-007
+    path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/plans/PLAN-007/P2-geometry-pipeline.PLAN-007.plan-manifest.yaml
+    sha256: bdc2f69fb6cc5346e94c45533685d44e11f97b7d156b909da51be1854790338e
+readiness:
+    artifact: readiness-receipt
+    id: REV-F5DAFAD2A62D
+    path: docs/features/active/country-map-svg-generator/readiness/REV-F5DAFAD2A62D/REV-F5DAFAD2A62D.readiness.yaml
+    sha256: f82feaac856cb11dfcc7efaec7d014c4a9cdeb82e528b4a20a198477daa0be74
+subject:
+    artifact: run-brief
+    id: RUN-007
+    path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-007/P2-geometry-pipeline.RUN-007.brief.md
+    sha256: ea592e3527ff6572854bca160f1df68af1e06ec17cd58a38ec0420fa684af6dd
+objective: 'Recover and terminate PLAN-007 T0a from the exact degraded-dispatch scratch: reconcile the deterministic 100-phase q-grid search and nil-safe public Generate seam, verify focused tests and the already independently reproduced RU/AQ unlimited-then-budget brake, and return a failed result because RU/card budget generation exceeds the accepted 10s/30s performance ceilings. Stop before T0b; do not commit, mutate lifecycle, edit frozen/prerequisite files, or publish T1/T2.'
+writes:
+    - internal/geometry/cmd/lodbuild/main_test.go
+    - internal/geometry/gridphase.go
+    - internal/geometry/gridphase_test.go
+    - internal/geometry/lod.go
+    - internal/geometry/lod_test.go
+    - internal/geometry/model.go
+    - internal/geometry/model_test.go
+    - internal/geometry/pipeline.go
+    - internal/geometry/pipeline_test.go
+    - internal/geometry/testdata/lod-spike
+forbidden:
+    - .git
+    - .mate
+    - Makefile
+    - cmd
+    - data
+    - docs
+    - go.mod
+    - go.sum
+    - internal/catalog
+    - internal/geometry/lod/tool
+    - internal/geometry/lod/v1.compact.json
+    - internal/geometry/lod/v1.manifest.json
+    - internal/geometry/lod/v1.recipe.json
+    - internal/geometry/lod/v1.standard.json
+    - internal/geometry/lod_build_test.go
+    - internal/geometry/lod_generated.go
+    - internal/geometry/serialize.go
+    - internal/geometry/serialize_test.go
+validation:
+    - GOCACHE=/private/tmp/country-map-go-cache GOWORK=off go test ./internal/geometry -run 'Test(GridPhase|SourceFinal|ProjectedLOD|PublicGenerate|LOD|Topology|Projection)' -count=1
+    - GOCACHE=/private/tmp/country-map-go-cache GOWORK=off go test ./internal/geometry/cmd/lodbuild -run '^TestLODAQRUGridPhaseCheckpoint$' -count=1 -v
+    - Record exact RU/AQ phase/tolerance/topology/deviation/bytes/round-trip/repeat/runtime evidence and stop on the reproduced 10s/30s breach
+completion_schema:
+    - blockers
+    - changed_paths
+    - deviations
+    - evidence
+    - outcome
+    - summary
+    - verification
+expected_outputs: []
+budget: 8
+resume_anchor: Record failed RESULT-014, finish RUN-007 fail, invalidate PLAN-007, and scaffold a successor from the exact budget/performance evidence. Do not commit product scratch.
