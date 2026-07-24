@@ -1,0 +1,76 @@
+version: 1
+kind: agent-dispatch-brief
+id: BRIEF-023
+epic: country-map-svg-generator
+spec: P2
+run: RUN-015
+status: issued
+input_digest: 5caab83c9293270f83ff90769ac24a5a0917ff9340f73dfda35f5361137b736a
+role: coder
+provider: codex
+binding_mode: native
+dispatch_route: named-role
+role_contract:
+    reference: installed-role/coder
+    path: .codex/agents/coder.toml
+    sha256: e5078656ace1b8785d676e1410b701d4c8ebd31b129a54cce0d3813adfe99f10
+    reason: installed provider role contract
+    freshness: current
+issuer: teamlead
+grant: edit
+capability: edit
+semantic_tier: standard
+context:
+    - reference: context-doctrine-pack/CTX-RUN-017
+      path: docs/features/active/country-map-svg-generator/readiness/CTX-RUN-017.context-pack.yaml
+      sha256: dcbabf6eea957560dc8e048265d070a68caa6780d460605d8cc4e405f18e6bd0
+      reason: dispatch context
+      freshness: current
+plan:
+    artifact: plan-manifest
+    id: PLAN-010
+    path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/plans/PLAN-010/P2-geometry-pipeline.PLAN-010.plan-manifest.yaml
+    sha256: fdd0cdfa0c545410f102eb460fef80b57d3b03484a2fc0b1cb423975a7fff59d
+readiness:
+    artifact: readiness-receipt
+    id: REV-0ACD919F151B
+    path: docs/features/active/country-map-svg-generator/readiness/REV-0ACD919F151B/REV-0ACD919F151B.readiness.yaml
+    sha256: 5418e9a61def446f8940400208cf319fd3399eb3283c7ce4018b45a605012072
+subject:
+    artifact: run-brief
+    id: RUN-015
+    path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-015/P2-geometry-pipeline.RUN-015.brief.md
+    sha256: 6f4208a7c0b54bf1ac470cb7a825c1db2210696c6fb0d9508cb6e2380c38658d
+objective: 'Execute RUN-015 only: integrate frozen protected-visibility/v1 into automatic GenerateWithLOD using lod.go/lod_test.go, make both inherited production tests green, and preserve every representative artifact hash before stopping.'
+writes:
+    - internal/geometry/lod.go
+    - internal/geometry/lod_test.go
+forbidden:
+    - .git
+    - .mate
+    - docs
+    - go.mod
+    - go.sum
+    - internal/catalog
+    - internal/geometry/cmd/lodbuild
+    - internal/geometry/lod
+    - internal/geometry/serialize.go
+    - internal/geometry/serialize_test.go
+    - internal/geometry/silhouette.go
+    - internal/geometry/silhouette_test.go
+    - internal/geometry/testdata
+validation:
+    - Build representative artifacts twice and require exact five frozen hashes plus Indonesia 120/121 boundary
+    - GOCACHE=/private/tmp/country-map-go-cache GOWORK=off go test ./internal/geometry -run 'Test(Diagnostic|GridPhase|Projection|LOD|Topology|Protection|Preset|Silhouette|Oracle|Selection|Source|GroupAnchor)' -count=1
+    - GOCACHE=/private/tmp/country-map-go-cache GOWORK=off go test ./internal/geometry/cmd/lodbuild -run 'Test(LODSpikeFullCorpus|LODAQRUProjectionAlignedCheckpoint)' -count=1
+completion_schema:
+    - blockers
+    - changed_paths
+    - deviations
+    - evidence
+    - outcome
+    - summary
+    - verification
+expected_outputs: []
+budget: 4
+resume_anchor: Return exact RUN-015 diff, mutation teeth, both inherited green outputs, representative hashes and frozen inventory. Do not broaden scope, stage, commit, mutate lifecycle, start T0B, or seek owner approval.
