@@ -1,0 +1,44 @@
+version: 1
+kind: agent-dispatch-result
+id: RESULT-016
+epic: country-map-svg-generator
+spec: P2
+run: RUN-009
+status: failed
+input_digest: 21c5a968060385504a62a72675d10b3ee7125fafa2064b7c34bac9b821801d87
+previous:
+    artifact: agent-dispatch-brief
+    id: BRIEF-016
+    path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-009/agents/BRIEF-016.agent-dispatch-brief.yaml
+    sha256: 9de738d16d2f3b0a15c6f168e07f45175477ef8e8c0a09486e1e97b3308deca8
+brief:
+    artifact: agent-dispatch-brief
+    id: BRIEF-016
+    path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-009/agents/BRIEF-016.agent-dispatch-brief.yaml
+    sha256: 9de738d16d2f3b0a15c6f168e07f45175477ef8e8c0a09486e1e97b3308deca8
+principal: codex-p2-t0a
+provider_task_ref: p2_coder
+outcome: failed
+summary: PLAN-008 T0A aligned projection and split selection from rendering, but the rebuilt AQ/card compact table still exceeds the frozen raw-deviation ceiling by 0.001690736882369; the mandated brake stopped before T0B.
+changed_paths:
+    - path: internal/geometry/cmd/lodbuild/main.go
+      sha256: a373a111d151faaf7d7aad6094e7ef20d0482e108c70add401ccfc950322d339
+    - path: internal/geometry/cmd/lodbuild/main_test.go
+      sha256: 09a543b3c4f1944c73f3178ff42859a9a66929a6c55a8e037a018baf77f78ea6
+    - path: internal/geometry/diagnostic.go
+      sha256: 485dcc18256c44b99482ea372f3b547ef27b58f0c0b52a289046029b9d36def3
+    - path: internal/geometry/lod.go
+      sha256: d485334e9de859afc7895aa39da41a099617ac5357cccc169f4fac58e8e674da
+    - path: internal/geometry/lod/v1.recipe.json
+      sha256: bcfae021251b038a869b20e671b9ffc7550361aafd60a4a93d5f2a67829add89
+    - path: internal/geometry/lod_test.go
+      sha256: fd403fda24a9376fd55dde186c6dc182bcdc067a204921a5377eab46472a816a
+    - path: internal/geometry/model.go
+      sha256: f3dc131162afb427d7d8eebf269db0ebc8cd2cb13d204ee4c99f89ae33362483
+    - path: internal/geometry/projection.go
+      sha256: 8c608328e5af2fd5882b423c98c42ef540bc2136ffb9858aebdfcc1d21b3b245
+outputs: []
+verification: []
+deviations: []
+feedback: []
+resume_anchor: Finish RUN-009 interrupted from RESULT-016, invalidate PLAN-008 using its interrupted run result, and author DEC-004 successor planning around the precomputed-table acceptance mismatch without weakening the frozen quality contract.
