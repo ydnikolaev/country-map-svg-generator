@@ -1,0 +1,295 @@
+version: 1
+kind: plan-manifest
+id: PLAN-013
+epic: country-map-svg-generator
+spec: P2
+status: accepted
+input_digest: 3e7be0560ba1a3142b2dd3df55d43bdf56bb73f2b4db665fb92d052a93a65614
+plan_id: PLAN-013
+baseline:
+    repository: project
+    commit: eb8689c1e5fb33f5bfc14cf46e9095e31aceea94
+    tree: 41d2bf9c57d319b5cf87d80ef7dc39b2aa283bcd
+inputs:
+    - reference: implementation-plan/PLAN-013
+      path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/plans/candidates/PLAN-013/P2-geometry-pipeline.PLAN-013.plan.md
+      sha256: 337ee60c391cea583fc654788c7f96dd2db857cf52bd2f32c57dc78085165fee
+      reason: candidate plan body
+      freshness: current
+    - reference: solution-architecture/CTX-ARCH
+      path: docs/features/active/country-map-svg-generator/architecture/country-map-svg-generator.solution-architecture.md
+      sha256: 5325da7358596b56c9dc6f65d3b6af3801174257503a332334a77a9c71433947
+      reason: required at planning for spec P2 by context registry
+      freshness: current
+    - reference: specification/P2
+      path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/P2-geometry-pipeline.spec.md
+      sha256: 4fb4535e74ee072d9db6ecc6e1ee92e667ac9c78f35a8adbf342c7b93d1c2741
+      reason: normative specification
+      freshness: current
+    - reference: transition-receipt/plan-invalidate-c32d35d87ff2dd8d
+      path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/events/plan-invalidate-c32d35d87ff2dd8d.transition-receipt.yaml
+      sha256: fad48eee40abdfa655c7cd258444e96e7637e189b3d62ee7e4c18f9eed630c3c
+      reason: machine-approved predecessor invalidation
+      freshness: current
+coverage:
+    - obligation:
+        artifact: specification
+        id: US-1
+      task: T0B
+      evidence:
+        artifact: verification-result
+        id: VR-US-1
+    - obligation:
+        artifact: specification
+        id: US-2
+      task: T0B
+      evidence:
+        artifact: verification-result
+        id: VR-US-2
+    - obligation:
+        artifact: specification
+        id: US-3
+      task: T0B
+      evidence:
+        artifact: verification-result
+        id: VR-US-3
+    - obligation:
+        artifact: specification
+        id: US-4
+      task: T2
+      evidence:
+        artifact: verification-result
+        id: VR-US-4
+    - obligation:
+        artifact: specification
+        id: REQ-1
+      task: T0B
+      evidence:
+        artifact: verification-result
+        id: VR-REQ-1
+    - obligation:
+        artifact: specification
+        id: REQ-2
+      task: T0A
+      evidence:
+        artifact: verification-result
+        id: VR-REQ-2
+    - obligation:
+        artifact: specification
+        id: REQ-3
+      task: T0A
+      evidence:
+        artifact: verification-result
+        id: VR-REQ-3
+    - obligation:
+        artifact: specification
+        id: REQ-4
+      task: T0A
+      evidence:
+        artifact: verification-result
+        id: VR-REQ-4
+    - obligation:
+        artifact: specification
+        id: REQ-5
+      task: T0A
+      evidence:
+        artifact: verification-result
+        id: VR-REQ-5
+    - obligation:
+        artifact: specification
+        id: REQ-6
+      task: T0B
+      evidence:
+        artifact: verification-result
+        id: VR-REQ-6
+    - obligation:
+        artifact: specification
+        id: REQ-7
+      task: T2
+      evidence:
+        artifact: verification-result
+        id: VR-REQ-7
+    - obligation:
+        artifact: specification
+        id: REQ-8
+      task: T0A
+      evidence:
+        artifact: verification-result
+        id: VR-REQ-8
+    - obligation:
+        artifact: specification
+        id: INV-1
+      task: T0B
+      evidence:
+        artifact: verification-result
+        id: VR-INV-1
+    - obligation:
+        artifact: specification
+        id: AC-1
+      task: T2
+      evidence:
+        artifact: verification-result
+        id: VR-AC-1
+    - obligation:
+        artifact: specification
+        id: AC-2
+      task: T2
+      evidence:
+        artifact: verification-result
+        id: VR-AC-2
+    - obligation:
+        artifact: specification
+        id: AC-3
+      task: T2
+      evidence:
+        artifact: verification-result
+        id: VR-AC-3
+    - obligation:
+        artifact: specification
+        id: AC-4
+      task: T2
+      evidence:
+        artifact: verification-result
+        id: VR-AC-4
+    - obligation:
+        artifact: specification
+        id: VAL-1
+      task: T2
+      evidence:
+        artifact: verification-result
+        id: VR-VAL-1
+    - obligation:
+        artifact: specification
+        id: VAL-2
+      task: T0A
+      evidence:
+        artifact: verification-result
+        id: VR-VAL-2
+    - obligation:
+        artifact: specification
+        id: VAL-3
+      task: T0B
+      evidence:
+        artifact: verification-result
+        id: VR-VAL-3
+    - obligation:
+        artifact: specification
+        id: VAL-4
+      task: T2
+      evidence:
+        artifact: verification-result
+        id: VR-VAL-4
+    - obligation:
+        artifact: specification
+        id: VAL-5
+      task: T2
+      evidence:
+        artifact: verification-result
+        id: VR-VAL-5
+tasks:
+    - id: T0A
+      outcome: Add the deterministic byte-cap tier-selection fallback rung in lod.go, fold exact serialization and the frozen per-tier byte cap into candidate evaluation, correct the over-strict tier assertions, and pass synthetic, SH and representative gates with owner approval of the contact sheet.
+      depends_on: []
+      writes:
+        - internal/geometry/cmd/lodbuild
+        - internal/geometry/lod.go
+        - internal/geometry/lod_test.go
+      owner: tier-fallback-selection-and-assertion-correction
+      wave: W0
+    - id: T0B
+      outcome: Prove all 996 catalog outputs select a within-budget fidelity-preserving tier under the fallback with no over-cap hard error while a coarser-or-source tier fits, and land one clean T0 commit.
+      depends_on:
+        - T0A
+      writes:
+        - internal/geometry/lod_catalog_test.go
+      owner: geometry-foundation-integrator
+      wave: W1
+    - id: T1
+      outcome: Perform two byte-identical rebuilds and verify the frozen v1 recipe, ladder, generated initializer and oracle are byte-identical and the public embedded offline selection exercises the fallback.
+      depends_on:
+        - T0B
+      writes:
+        - internal/geometry/lod_build_test.go
+      owner: silhouette-ladder-publisher
+      wave: W2
+    - id: T2
+      outcome: Complete P2 parity, mutation, override, marker, budget and visual evidence proving deterministic within-cap tier-fallback selection, with a fresh independent audit.
+      depends_on:
+        - T1
+      writes:
+        - Makefile
+        - internal/geometry/approval_test.go
+        - internal/geometry/integration_test.go
+        - internal/geometry/mutations_test.go
+        - internal/geometry/oracle_test.go
+        - internal/geometry/testdata/approval
+        - internal/geometry/testdata/d3
+        - internal/geometry/testdata/mutations
+      owner: geometry-verifier
+      wave: W3
+waves:
+    - id: W0
+      tasks:
+        - T0A
+      concurrency: 1
+    - id: W1
+      tasks:
+        - T0B
+      concurrency: 1
+    - id: W2
+      tasks:
+        - T1
+      concurrency: 1
+    - id: W3
+      tasks:
+        - T2
+      concurrency: 1
+validation:
+    - obligation:
+        artifact: specification
+        id: VAL-1
+      gate: geometry-d3-parity
+      tier: integration
+      evidence:
+        artifact: verification-result
+        id: VR-VAL-1
+    - obligation:
+        artifact: specification
+        id: VAL-2
+      gate: geometry-tier-fallback-and-sh-brake
+      tier: integration
+      evidence:
+        artifact: verification-result
+        id: VR-VAL-2
+    - obligation:
+        artifact: specification
+        id: VAL-3
+      gate: geometry-fallback-integrated-budget-visual-performance
+      tier: project
+      evidence:
+        artifact: verification-result
+        id: VR-VAL-3
+    - obligation:
+        artifact: specification
+        id: VAL-4
+      gate: geometry-overrides
+      tier: component
+      evidence:
+        artifact: verification-result
+        id: VR-VAL-4
+    - obligation:
+        artifact: specification
+        id: VAL-5
+      gate: geometry-markers
+      tier: integration
+      evidence:
+        artifact: verification-result
+        id: VR-VAL-5
+deviation_policy: p2-tier-fallback-source-selection-v1
+estimate:
+    unit: agent-hour
+    low: 4
+    likely: 7
+    high: 12
+    confidence: medium
+    basis: RUN-019 proved variable-component resolution cannot close the AE byte-overhead or AQ deviation gap; the accepted fix is a localized deterministic byte-cap fallback rung in lod.go plus narrowly-scoped correction of over-strict tier assertions, with the frozen ladder, recipe, oracle, serializer and budgets untouched. Remaining work is the rung, its teeth, the representative and full-catalog owner gates, frozen-ladder publication verification and an independent audit.
