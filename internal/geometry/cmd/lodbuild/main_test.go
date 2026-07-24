@@ -223,7 +223,7 @@ func TestLODAQRUProjectionAlignedCheckpoint(t *testing.T) {
 		entity, preset, tier string
 	}
 	for _, tc := range []productionCase{
-		{entity: "AQ", preset: "card", tier: "compact"},
+		{entity: "AQ", preset: "card", tier: "source"},
 		{entity: "AQ", preset: "hero", tier: "standard"},
 		{entity: "RU", preset: "card", tier: "compact"},
 		{entity: "RU", preset: "hero", tier: "standard"},

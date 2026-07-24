@@ -81,7 +81,7 @@ func TestLODPreparationCacheParityAndSourceMutation(t *testing.T) {
 	}
 }
 
-func TestLODHardBudgetDoesNotAdvanceSelectedTier(t *testing.T) {
+func TestLODHardBudgetAdvancesToFittingTier(t *testing.T) {
 	dense := testRectangleGeometry("test", 16)
 	standard := testRectangleGeometry("test", 1)
 	in := Input{
@@ -101,18 +101,38 @@ func TestLODHardBudgetDoesNotAdvanceSelectedTier(t *testing.T) {
 		CompactMaximumScale:  1e6,
 		StandardMaximumScale: 1e6,
 	}
+	// The compact candidate is provably over the frozen cap: production code
+	// used to commit it as SelectedTier and only discover the overrun later,
+	// terminally, inside renderLODRepresentation. That committed-then-hard-fail
+	// contract is exactly the defect PLAN-013 replaces. A coarser tier (standard)
+	// fits this frozen cap and preserves mandatory fidelity, so selection must
+	// advance to it instead of stalling on compact.
 	selected, err := SelectLODProvenance(in, table)
 	if err != nil {
 		t.Fatal(err)
 	}
-	if selected.SelectedTier != "compact" {
+	if selected.SelectedTier != "standard" {
 		t.Fatalf("selected=%s fallbacks=%v", selected.SelectedTier, selected.Fallbacks)
 	}
-	_, err = GenerateWithLOD(in, table)
-	var pipelineErr *PipelineError
-	if !errors.As(err, &pipelineErr) || pipelineErr.Code != ErrBudget || pipelineErr.Field != "max_path_bytes" {
-		t.Fatalf("err=%v, want typed terminal budget error", err)
+	foundTruthfulReason := false
+	for _, fallback := range selected.Fallbacks {
+		if strings.HasPrefix(fallback, "compact:hard_budget:") {
+			foundTruthfulReason = true
+		}
 	}
+	if !foundTruthfulReason {
+		t.Fatalf("expected a truthful compact:hard_budget fallback reason, got %v", selected.Fallbacks)
+	}
+	got, err := GenerateWithLOD(in, table)
+	if err != nil {
+		t.Fatalf("fallback tier should satisfy the frozen budget, got err=%v", err)
+	}
+	if got.LOD.SelectedTier != "standard" || got.Metrics.PathBytes > in.MaxPathBytes {
+		t.Fatalf("bytes=%d budget=%d tier=%s", got.Metrics.PathBytes, in.MaxPathBytes, got.LOD.SelectedTier)
+	}
+	// Selection stays a pure, byte-identical function of geometry and the
+	// frozen ladder: rendering the winning tier must not re-enter or mutate
+	// a later selection.
 	again, err := SelectLODProvenance(in, table)
 	if err != nil {
 		t.Fatal(err)

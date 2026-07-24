@@ -54,7 +54,9 @@ func GenerateWithLOD(raw Input, table *LODTable) (Result, error) {
 }
 
 // SelectLODProvenance runs projection, fitting, retention, fixed-grid
-// canonicalization, and candidate validation, then returns before serialization.
+// canonicalization, and candidate validation — including the frozen byte-cap
+// check via exact serialization of every non-final candidate — then returns
+// without commands or a rendered path for the selected candidate.
 func SelectLODProvenance(raw Input, table *LODTable) (LODProvenance, error) {
 	result, err := generateWithLOD(raw, table, true)
 	return result.LOD, err
@@ -202,7 +204,7 @@ func generateWithLOD(raw Input, table *LODTable, selectionOnly bool) (Result, er
 			retainedProtected[i] = component.Protected
 		}
 	}
-	for _, c := range candidates {
+	for candidateIndex, c := range candidates {
 		var candidateGeometry MultiPolygon
 		var candidateCanonical MultiPolygon
 		var candidateTransform Transform
@@ -259,6 +261,16 @@ func generateWithLOD(raw Input, table *LODTable, selectionOnly bool) (Result, er
 			finalDeviation = phaseResult.FinalDeviation
 			attemptedPhase, selectedPhase = phaseResult.AttemptedPhase, phaseResult.SelectedPhase
 			phaseAttempts = phaseResult.Attempts
+		}
+		if candidateIndex != len(candidates)-1 {
+			if _, _, _, budgetErr := renderLODRepresentation(candidateCanonical, quality, in.MaxPathBytes); budgetErr != nil {
+				if pipelineErr, ok := budgetErr.(*PipelineError); ok && pipelineErr.Code == ErrBudget {
+					prov.Fallbacks = append(prov.Fallbacks, c.name+":hard_budget:"+pipelineErr.Message)
+				} else {
+					prov.Fallbacks = append(prov.Fallbacks, c.name+":render:"+errorIdentity(budgetErr))
+				}
+				continue
+			}
 		}
 		selected, canonical = candidateGeometry, candidateCanonical
 		selectedTransform, selectedViewBox = candidateTransform, candidateViewBox
