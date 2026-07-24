@@ -1,0 +1,26 @@
+version: 1
+kind: transition-receipt
+id: p2-representative-owner-approval-accept
+epic: country-map-svg-generator
+spec: P2
+status: recorded
+input_digest: f479417ae63ec5c81e00f578d4a27ba5fdf88601fdbc5cd4b92056ecaf378904
+subject:
+    artifact: decision
+    id: DEC-008
+    path: docs/features/active/country-map-svg-generator/decisions/candidates/DEC-008/country-map-svg-generator.DEC-008-representative-sheet-approval.decision.md
+    sha256: fae842ed04265b27b3f41e11e6d9544fcddee42393b13fc197f6c56fe14b05bf
+producer_role: lifecycle-engine
+principal: product-owner
+result: pass
+machine: decision
+event: accept
+from: draft
+to: accepted
+inputs:
+    - artifact: decision
+      id: DEC-008
+      path: docs/features/active/country-map-svg-generator/decisions/candidates/DEC-008/country-map-svg-generator.DEC-008-representative-sheet-approval.decision.md
+      sha256: fae842ed04265b27b3f41e11e6d9544fcddee42393b13fc197f6c56fe14b05bf
+predecessor: fae842ed04265b27b3f41e11e6d9544fcddee42393b13fc197f6c56fe14b05bf
+successor: d92caff0294b08a46cb7d49dfda8e2309918afe0665a6a01d6a82fa55894d3de
