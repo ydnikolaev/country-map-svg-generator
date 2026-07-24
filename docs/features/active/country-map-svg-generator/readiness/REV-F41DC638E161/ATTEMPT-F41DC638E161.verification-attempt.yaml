@@ -1,0 +1,16 @@
+version: 1
+kind: verification-attempt
+id: ATTEMPT-F41DC638E161
+epic: country-map-svg-generator
+status: pass
+input_digest: fdb3cfd6baf89eba758ee40ccbc5a9d27d2bbba46913540f98be4dfe899ee9d7
+selection_id: SELECT-F41DC638E161
+attempt: 1
+started_at: "2026-07-24T15:30:08.212597Z"
+finished_at: "2026-07-24T15:30:08.244634Z"
+results:
+    - node: amendment-application
+      verdict: pass
+      exit_code: 0
+      output_hash: cbbfb4c9b0d0c1dc7c823cf8a325a81b980a5b7e1104621086715c23110fbbbb
+      duration_ms: 32

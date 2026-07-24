@@ -9,7 +9,7 @@ spec: "P2"
 status: draft
 profiles: []
 concerns: []
-inputs: ["DISC-006", "ARCH-001", "DEC-003"]
+inputs: ["DISC-006", "ARCH-001", "DEC-003", "DEC-004", "DEC-005", "AM-001", "AM-002", "AM-003", "AM-004"]
 ---
 # P2 — Soft-Organic Geometry Pipeline
 
@@ -100,13 +100,20 @@ dependency.
 | VAL-3 | REQ-1, REQ-2, REQ-5 | run hero/card fixtures at intended rasterized long-side sizes; compare an elongated geometry in multiple `contain` frames | visual+structural; removal report and recognizable approved baselines; resolved quality remains a function of fitted geometry scale rather than the frame's shorter side | P2 / W2 complete |
 | VAL-4 | REQ-6 | apply bounded valid and invalid country overrides | unit; valid changes only named dimension, out-of-range fails | P2 / W2 complete |
 | VAL-5 | REQ-7 | project inside, edge and implausible-outside markers | integration; same transform and typed anomaly behavior | P2 / W2 complete |
-| VAL-6 | REQ-2, REQ-3, REQ-8 | exercise the boundary-deviation acceptance metric directly: mismatched component and ring counts, permuted component order, a perturbation that would flip a proximity-based correspondence, and a descending sweep of the simplification tolerance across the resolution ladder for continental, archipelagic, fjord-coast and polar entities | unit+property; the metric returns a finite graded value for every comparison, is invariant to component order, and never reports a larger deviation for a smaller simplification tolerance; protected-feature loss still fails through the protection check | P2 / W0 complete |
+| VAL-6 | REQ-2, REQ-3, REQ-8 | drive an archipelagic entity through the production path where the deviation index would otherwise miss its cell; permute component order and perturb a centroid enough to flip the greedy correspondence; walk the tolerance sequence the source search actually takes and record the accepted candidate's pre-quantization deviation at each step | unit+property; the metric returns a finite graded value on the reachable branch, is invariant to component order, and the accepted candidate's deviation does not increase beyond a declared numeric band as the requested tolerance falls, with any simplifier substitution reported as a named outcome; protected-feature loss still fails through the protection check | P2 / W2 complete |
 
-Per AM-003, VAL-6 guards the properties the source-tier tolerance search assumes
-about its own acceptance metric. Population guards under VAL-1 through VAL-3
-report every failing entity with counts and distribution; a sweep that stops at
-its first failure does not satisfy them, because the first failure is a function
-of iteration order and hides both the magnitude and every later assertion.
+Per AM-004, VAL-6 guards the acceptance path and the search that consumes it as
+two different things. The acceptance metric is a clamped predicate: it is exact
+at or below its limit and it short-circuits above, so it is sound as a pass/fail
+test and unusable as a minimization objective. Any deviation figure carried in
+provenance, evidence or a plan is therefore either at or below its limit or
+produced by an unclamped path; a first-crossing value is never reported as a
+measurement.
+
+Population guards under VAL-1 through VAL-3 report every failing entity with
+counts and distribution; a sweep that stops at its first failure does not satisfy
+them, because the first failure is a function of iteration order and hides both
+the magnitude and every later assertion.
 
 ## Acceptance criteria
 

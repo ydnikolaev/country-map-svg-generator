@@ -2,11 +2,11 @@ version: 1
 epic: country-map-svg-generator
 title: Country Map SVG Generator
 state: in_progress
-revision: 35
+revision: 37
 updated_by: teamlead
-updated_at: "2026-07-24T15:27:54Z"
-last_event_id: amendment-impact-detected-15576226ca89b789
-input_digest: 1ae737cd20a34a623a9581bbed9272a64d0e1174245706c7a5469f24df292add
+updated_at: "2026-07-24T15:30:19Z"
+last_event_id: amendment-apply-c22d8ef3b3c3762f
+input_digest: 981a2713d9ee26f755af5d9ac18780b886be355ba02afa6e780e073bf40f78e8
 specs:
     - id: P1
       slug: source-corpus
@@ -68,11 +68,11 @@ amendments:
         - P3
     - id: AM-004
       slug: clamped-deviation-metric
-      state: impacting
+      state: applied
       body: docs/features/active/country-map-svg-generator/amendments/AM-004/country-map-svg-generator.AM-004-clamped-deviation-metric.amendment.md
       body_sha256: 02fd14952364b0ca7ce9bb0a98d20a0c5b670e94f18e639030545aac09aca471
-      revision: 2
-      last_event_id: amendment-impact-detected-15576226ca89b789
+      revision: 4
+      last_event_id: amendment-apply-c22d8ef3b3c3762f
       impact_scope: declared
       affected_specs:
         - P2

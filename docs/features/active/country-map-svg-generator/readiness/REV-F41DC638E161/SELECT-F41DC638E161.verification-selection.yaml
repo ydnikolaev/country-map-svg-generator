@@ -1,0 +1,11 @@
+version: 1
+kind: verification-selection
+id: SELECT-F41DC638E161
+epic: country-map-svg-generator
+status: recorded
+input_digest: 2ce4bba5ba1658628eeba4b64058d3039252ac6684ee6fd46f7892d13686ef90
+topology_digest: cc8bae06b4a00ce3834a9a9fbad0064d897d711c981ab39a217538a065eb5d10
+nodes:
+    - amendment-application
+reason: readiness gate for amendment.apply
+required_ceiling: amendment-application
