@@ -1,0 +1,34 @@
+version: 1
+kind: run-result
+id: RUN-006-RESULT
+epic: country-map-svg-generator
+spec: P2
+run: RUN-006
+status: interrupted
+input_digest: 5d70d01be81076d2ec11d3f2646e5e24bd4d1675f95704c3d10b614a2e4a66ab
+plan_id: PLAN-006
+readiness_id: REV-47238ABC6B4D
+outcome: blocked
+revision:
+    repository: project
+    commit: 1f7cac2cc921b443980fce91e28d82a2f91e3fd0
+    tree: 1239cf4ea3518ae6a48facf37eb1e53d007cca9f
+evidence:
+    - artifact: run-brief
+      id: RUN-006
+      path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-006/P2-geometry-pipeline.RUN-006.brief.md
+      sha256: 2a3c0fc8ed2c1bcba5eb0536722042ad7a496f0bac37bab567580f82700a5c21
+      verdict: pass
+    - artifact: transition-receipt
+      id: run-start-eed0c8ed96310334-run
+      path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-006/events/run-start-eed0c8ed96310334-run.transition-receipt.yaml
+      sha256: cbf17bb9d2c074067ee273e6d595df26c22e27ece5dc3ddbf8d8bec2128c2674
+      verdict: pass
+    - artifact: agent-dispatch-result
+      id: RESULT-013
+      path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-006/agents/RESULT-013.agent-dispatch-result.yaml
+      sha256: f30f3134fb21e9364d2283ddde2aee1889fac6d5abb203733b3b6343cb627a78
+      verdict: blocked
+deviations: []
+followups: []
+next_action: Invalidate PLAN-006 and plan a q-grid topology-safe final representation for RU/source without relaxing q=0.01, tolerance, tier thresholds, byte budgets or frozen serializer; preserve the proven centered-LAEA artifact/runtime binding and AQ evidence.

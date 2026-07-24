@@ -1,0 +1,47 @@
+version: 1
+kind: agent-dispatch-result
+id: RESULT-013
+epic: country-map-svg-generator
+spec: P2
+run: RUN-006
+status: blocked
+input_digest: 04299b154702cfb44f089b08a7452e88768887b3bfd0582e2f0215c3684b5e0b
+previous:
+    artifact: agent-dispatch-brief
+    id: BRIEF-013
+    path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-006/agents/BRIEF-013.agent-dispatch-brief.yaml
+    sha256: 32d105a882a5a6d96e3293e0c5051d276d0d0936854f0cad95a81282f82e6639
+brief:
+    artifact: agent-dispatch-brief
+    id: BRIEF-013
+    path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-006/agents/BRIEF-013.agent-dispatch-brief.yaml
+    sha256: 32d105a882a5a6d96e3293e0c5051d276d0d0936854f0cad95a81282f82e6639
+principal: codex-p2-t0-coder
+provider_task_ref: p2_coder
+outcome: blocked
+summary: Implemented centered-LAEA planar artifact/runtime binding and DEC-005 q-aware source finalization. Focused tests pass. Coordinator reproduced deterministic artifact hashes and AQ unlimited success, then forced-source RU/card failed q=.01 topology at every one of 14 monotonically finer tolerances from 1.5289289321881343 to 0.00018663683254249686; budget and broad stages were correctly skipped; serializer/T1/T2 unchanged.
+changed_paths:
+    - path: internal/geometry/cmd/lodbuild/main.go
+      sha256: f3724f12d804db3b405c11e20d721b57050ff78c4206d9a04550fe1f93ba8f89
+    - path: internal/geometry/cmd/lodbuild/main_test.go
+      sha256: 428aa29e23dd7dc5c2dab3b3cc805a9f5e05afbcb7535c5952c0d1355a54f1be
+    - path: internal/geometry/lod.go
+      sha256: 04d3cd57ca5cf0a5ef68c627ba7641f86597f4627ae8be30a27deb46fa87bc2d
+    - path: internal/geometry/lod/tool/build.mjs
+      sha256: 7b6f7c2638453a230de6a3a9a9363a8a538e8f51a64c7f4ce8d66242a058d1fe
+    - path: internal/geometry/lod/v1.recipe.json
+      sha256: c7f937ffc990ff8a30596b31240c421aedcbed4b7bd0300da3dd2ff0d78d5806
+    - path: internal/geometry/lod_test.go
+      sha256: de98121d25957eebfce793d5e4e09a38230d84d8003f25afd39949e514f43445
+    - path: internal/geometry/model.go
+      sha256: 759d22a6d8e347322ceac655861a15c9b45505ecc5d5e437b66660d00dc32279
+    - path: internal/geometry/projection.go
+      sha256: c0d78eb8518891c747a7c9f071970715465cf70182f0d18ea146e155a9285dca
+    - path: internal/geometry/simplify.go
+      sha256: c7725ab6efcb6ecdf254f7f939fdba628e451278d40a8deecdc6f7ac046bcf59
+outputs: []
+verification: []
+deviations: []
+feedback: []
+blocked_reason: 'RUN-006 unlimited representation brake failed: RU/card has no valid q-aware source representation under DEC-005 with q=.01 and the frozen serializer; canonicalization self-intersects at all permitted monotonic tolerances.'
+resume_anchor: Interrupt RUN-006 with RESULT-013, invalidate PLAN-006 from the immutable run result, and plan a successor representation that resolves q-grid topology without relaxing q/tolerance/budgets or editing the frozen serializer.

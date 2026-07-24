@@ -4,13 +4,12 @@ spec: P2
 slug: geometry-pipeline
 title: Soft-Organic Geometry Pipeline
 state: in_progress
-revision: 49
+revision: 51
 updated_by: teamlead
-updated_at: "2026-07-23T23:55:46Z"
-last_event_id: run-start-eed0c8ed96310334-run
-input_digest: 5540107e20eb12213978853ced2ca67425c668167a9960e72424e86daa974ebf
+updated_at: "2026-07-24T00:12:25Z"
+last_event_id: run-interrupt-f96c74ed2f2ab163
+input_digest: 5d70d01be81076d2ec11d3f2646e5e24bd4d1675f95704c3d10b614a2e4a66ab
 current_plan: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/plans/PLAN-006/P2-geometry-pipeline.PLAN-006.plan.md
-active_run: RUN-006
 runs:
     - id: RUN-001
       plan: PLAN-001
@@ -34,6 +33,7 @@ runs:
       result: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-005/P2-geometry-pipeline.RUN-005.result.yaml
     - id: RUN-006
       plan: PLAN-006
-      status: running
+      status: interrupted
+      result: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-006/P2-geometry-pipeline.RUN-006.result.yaml
 findings: []
-next_action: agent-dispatch:agent-dispatch-brief/BRIEF-013#32d105a882a5a6d96e3293e0c5051d276d0d0936854f0cad95a81282f82e6639
+next_action: Invalidate PLAN-006 and plan a q-grid topology-safe final representation for RU/source without relaxing q=0.01, tolerance, tier thresholds, byte budgets or frozen serializer; preserve the proven centered-LAEA artifact/runtime binding and AQ evidence.
