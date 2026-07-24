@@ -1,0 +1,80 @@
+version: 1
+kind: agent-dispatch-brief
+id: BRIEF-021
+epic: country-map-svg-generator
+spec: P2
+run: RUN-013
+status: issued
+input_digest: 01303dbfff4ba17364b5b1aa5ce526b728fbac6eb2201062ba35116be8f1316d
+role: coder
+provider: codex
+binding_mode: native
+dispatch_route: named-role
+role_contract:
+    reference: installed-role/coder
+    path: .codex/agents/coder.toml
+    sha256: e5078656ace1b8785d676e1410b701d4c8ebd31b129a54cce0d3813adfe99f10
+    reason: installed provider role contract
+    freshness: current
+issuer: teamlead
+grant: edit
+capability: edit
+semantic_tier: standard
+context:
+    - reference: context-doctrine-pack/CTX-RUN-015
+      path: docs/features/active/country-map-svg-generator/readiness/CTX-RUN-015.context-pack.yaml
+      sha256: 207d6cc02da8ac5f6610364440ec26b15544a1d728be583ae81a8be6b813ab0b
+      reason: dispatch context
+      freshness: current
+plan:
+    artifact: plan-manifest
+    id: PLAN-010
+    path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/plans/PLAN-010/P2-geometry-pipeline.PLAN-010.plan-manifest.yaml
+    sha256: fdd0cdfa0c545410f102eb460fef80b57d3b03484a2fc0b1cb423975a7fff59d
+readiness:
+    artifact: readiness-receipt
+    id: REV-1E70C3A65F52
+    path: docs/features/active/country-map-svg-generator/readiness/REV-1E70C3A65F52/REV-1E70C3A65F52.readiness.yaml
+    sha256: 1fdadf47a231f3fadcfd7a957066da84faddd4fb185e7eebf5ae0b859cb47ad9
+subject:
+    artifact: run-brief
+    id: RUN-013
+    path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-013/P2-geometry-pipeline.RUN-013.brief.md
+    sha256: 8f61489616e829eea816bc741a80707fbe957fe0bc159c3bf5a927cca46aa3bf
+objective: 'Close RUN-013 only: add and mutation-test the versioned data-only additive group-anchor seam, preserve every RUN-012 artifact hash with empty default data, and pass the exact T0A-owned gates before owner review.'
+writes:
+    - internal/geometry/cmd/lodbuild/diagnostic_test.go
+    - internal/geometry/cmd/lodbuild/representative.go
+    - internal/geometry/lod/silhouette-oracle.v1.json
+    - internal/geometry/lod/v2.recipe.json
+    - internal/geometry/override.go
+    - internal/geometry/override_test.go
+    - internal/geometry/overrides
+    - internal/geometry/silhouette.go
+    - internal/geometry/silhouette_test.go
+    - internal/geometry/testdata/silhouette-oracle
+forbidden:
+    - .git
+    - .mate
+    - docs
+    - go.mod
+    - go.sum
+    - internal/geometry/cmd/lodbuild/main.go
+    - internal/geometry/cmd/lodbuild/main_test.go
+    - internal/geometry/serialize.go
+    - internal/geometry/serialize_test.go
+validation:
+    - Build representative artifacts twice and require exact RUN-012 five-file hashes; build exact Indonesia 120/121 regression
+    - GOCACHE=/private/tmp/country-map-go-cache GOWORK=off go test ./internal/geometry -run 'Test(Diagnostic|GridPhase|Projection|LOD|Topology|Protection|Preset|Silhouette|Oracle|Selection|Source|GroupAnchor)' -count=1
+    - GOCACHE=/private/tmp/country-map-go-cache GOWORK=off go test ./internal/geometry/cmd/lodbuild -run '^TestDiagnostic' -count=1
+completion_schema:
+    - blockers
+    - changed_paths
+    - deviations
+    - evidence
+    - outcome
+    - summary
+    - verification
+expected_outputs: []
+budget: 2
+resume_anchor: Return exact RUN-013 green selected gates, additive group-anchor mutation evidence, unchanged artifact hashes, and sheet path. Do not stage, commit, mutate lifecycle, seek owner approval, modify inherited production tests, or start T0B.
