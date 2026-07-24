@@ -1,0 +1,34 @@
+version: 1
+kind: run-result
+id: RUN-012-RESULT
+epic: country-map-svg-generator
+spec: P2
+run: RUN-012
+status: interrupted
+input_digest: 85940e465a3fd5804749a6dddd57f18ba51e48132a059adb3af87e1df0ecb327
+plan_id: PLAN-010
+readiness_id: REV-62995A7F1CA5
+outcome: blocked
+revision:
+    repository: project
+    commit: 5f1c54506862dc3142f822da35066cb01e66b8d7
+    tree: 5092c38361886029e147f65263b9b01b300f82ab
+evidence:
+    - artifact: run-brief
+      id: RUN-012
+      path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-012/P2-geometry-pipeline.RUN-012.brief.md
+      sha256: 566e77904ec0b748d2664d2af392cab94eaca0df91bb9b88da4f4780485f32c6
+      verdict: pass
+    - artifact: transition-receipt
+      id: run-start-e9c72ad50d67ba8a-run
+      path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-012/events/run-start-e9c72ad50d67ba8a-run.transition-receipt.yaml
+      sha256: c88f78a45920c5fcc0bba579f693c9466f61ddcc62bd146a15448256d5ad6330
+      verdict: pass
+    - artifact: agent-dispatch-result
+      id: RESULT-020
+      path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-012/agents/RESULT-020.agent-dispatch-result.yaml
+      sha256: adcd37664f25d51d67a2ba3e171c5fb37c0eebb57a5a0a91301571afeb66f204
+      verdict: blocked
+deviations: []
+followups: []
+next_action: Scaffold a successor PLAN-010 T0A run that preserves RUN-012 scratch, implements the add-only group-anchor seam, and runs only T0A-owned lodbuild gates; do not request owner approval before all selected machine checks pass.

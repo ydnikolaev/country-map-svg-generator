@@ -4,13 +4,12 @@ spec: P2
 slug: geometry-pipeline
 title: Soft-Organic Geometry Pipeline
 state: in_progress
-revision: 83
+revision: 85
 updated_by: teamlead
-updated_at: "2026-07-24T04:55:17Z"
-last_event_id: run-start-e9c72ad50d67ba8a-run
-input_digest: 85eb7fc18858e3e21da29159d4baac823d76351d0419f76cc3c03ac8881889ff
+updated_at: "2026-07-24T05:30:24Z"
+last_event_id: run-interrupt-2b77f068ca388a05
+input_digest: 85940e465a3fd5804749a6dddd57f18ba51e48132a059adb3af87e1df0ecb327
 current_plan: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/plans/PLAN-010/P2-geometry-pipeline.PLAN-010.plan.md
-active_run: RUN-012
 runs:
     - id: RUN-001
       plan: PLAN-001
@@ -58,6 +57,7 @@ runs:
       result: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-011/P2-geometry-pipeline.RUN-011.result.yaml
     - id: RUN-012
       plan: PLAN-010
-      status: running
+      status: interrupted
+      result: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-012/P2-geometry-pipeline.RUN-012.result.yaml
 findings: []
-next_action: agent-dispatch:agent-dispatch-brief/BRIEF-020#87c9903963001cbf2df789d6577b212aa15fc1cb1ea0c98a427bf6befab59868
+next_action: Scaffold a successor PLAN-010 T0A run that preserves RUN-012 scratch, implements the add-only group-anchor seam, and runs only T0A-owned lodbuild gates; do not request owner approval before all selected machine checks pass.

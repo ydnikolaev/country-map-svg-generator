@@ -1,0 +1,53 @@
+version: 1
+kind: agent-dispatch-result
+id: RESULT-020
+epic: country-map-svg-generator
+spec: P2
+run: RUN-012
+status: blocked
+input_digest: 5eed9268bfaacc5371f9e03d5ab3e80e022e37fa36755f4968b4a26337275099
+previous:
+    artifact: agent-dispatch-brief
+    id: BRIEF-020
+    path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-012/agents/BRIEF-020.agent-dispatch-brief.yaml
+    sha256: 87c9903963001cbf2df789d6577b212aa15fc1cb1ea0c98a427bf6befab59868
+brief:
+    artifact: agent-dispatch-brief
+    id: BRIEF-020
+    path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-012/agents/BRIEF-020.agent-dispatch-brief.yaml
+    sha256: 87c9903963001cbf2df789d6577b212aa15fc1cb1ea0c98a427bf6befab59868
+principal: p2-coder
+provider_task_ref: p2_coder
+outcome: blocked
+summary: RUN-012 T0A produced deterministic protected-visibility/v1 artifacts and a machine-passing representative sheet, but the exact full lodbuild package gate remains red on two inherited production-spike expectations; no owner approval or commit was attempted.
+changed_paths:
+    - path: internal/geometry/cmd/lodbuild/diagnostic_test.go
+      sha256: 4e8d5ab52db36284cb5dfd699b553372b293913aac07282cdf9a71cff521dd51
+    - path: internal/geometry/cmd/lodbuild/main.go
+      sha256: b9877f1f49d7ad0a88354c08210eec93728c3a94184ff40fde43c8a957c67667
+    - path: internal/geometry/cmd/lodbuild/representative.go
+      sha256: ded7cb7f0b9b812b4bd0bb11e6a020a2b9764a992e975660cce60dc98d82dc35
+    - path: internal/geometry/lod/silhouette-oracle.v1.json
+      sha256: f2c9cd32e806985be55193e564942e716bb42c72e01d7405c976ddf36666d56f
+    - path: internal/geometry/lod/v2.recipe.json
+      sha256: da3ff9d331df37882bb2ed4159e9f14ef2aaeedf2b9fcff9e77c79fed4d751c5
+    - path: internal/geometry/silhouette.go
+      sha256: 54ca30df6853110bfcd6ae8c30e75edb8221f730ab5a29b35b54df1734f4b5c7
+    - path: internal/geometry/silhouette_test.go
+      sha256: a5460db464dffc9eb24a34dddca60d22f9248025babd16807e90ed3a81769b4b
+    - path: internal/geometry/testdata/silhouette-oracle/representative.contact-sheet.svg
+      sha256: cf1e568c93646047791b45a329e50a1308683e8c3aae03ee0944654db3718f9f
+    - path: internal/geometry/testdata/silhouette-oracle/representative.machine-receipt.json
+      sha256: fcc1bc307509d55aa281591f1cce0d0e78f73f323a41fc6d78e665a56c2dfd10
+    - path: internal/geometry/testdata/silhouette-oracle/representative.manifest.json
+      sha256: b2c467b08fb32603a312918da05ce83da355499fb8cba7f9e73c5a8e916995da
+    - path: internal/geometry/testdata/silhouette-oracle/silhouette-oracle.v1.json
+      sha256: f2c9cd32e806985be55193e564942e716bb42c72e01d7405c976ddf36666d56f
+    - path: internal/geometry/testdata/silhouette-oracle/v2.recipe.json
+      sha256: da3ff9d331df37882bb2ed4159e9f14ef2aaeedf2b9fcff9e77c79fed4d751c5
+outputs: []
+verification: []
+deviations: []
+feedback: []
+blocked_reason: BRIEF-020 requires the full lodbuild package test to pass before owner review; inherited AE hard-budget and AQ production-tier assertions fail. Coordinator review also found the required add-only group-anchor override seam is not yet implemented.
+resume_anchor: Interrupt RUN-012 without owner approval. Preserve scratch. Start a successor T0A run that adds the data-only group-anchor seam and selects only T0A-owned lodbuild tests; inherited T0B production spikes remain evidence, not a T0A gate.
