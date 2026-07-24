@@ -1,7 +1,7 @@
 version: 1
 kind: harness-feedback-backlog
 project: country-map-svg-generator
-revision: 13
+revision: 14
 operations:
     - version: 1
       id: feedback-add-2239ce643f15640e
@@ -52,6 +52,13 @@ operations:
       result_id: FND-8386048ACA3C
       result_revision: 11
       recorded_at: "2026-07-24T14:44:37Z"
+    - version: 1
+      id: feedback-add-8c92f18fce578045
+      kind: feedback-add
+      input_digest: 84acd00b73c1111279611544504cf2698b2e9fe01bcc15f7b19bee1c3b82abd8
+      result_id: FND-1B950D899CE4
+      result_revision: 14
+      recorded_at: "2026-07-24T18:08:45Z"
     - version: 1
       id: feedback-add-9c34686b61a60db1
       kind: feedback-add
@@ -152,6 +159,24 @@ findings:
       state: new
       created_at: "2026-07-24T14:44:23Z"
       updated_at: "2026-07-24T14:44:23Z"
+    - id: FND-1B950D899CE4
+      scope: mate
+      severity: high
+      area: amendment-lifecycle
+      summary: A failed applied amendment is unresolvable and permanently fences its spec, blocking all downstream planning
+      observed: 'In country-map-svg-generator, AM-003 and AM-004 were each proposed, impact-fenced (P2,P3), accepted and applied, then blocked by independent review (ADV-003, ADV-004). A corrected successor AM-005 was authored, applied, independently reviewed and VERIFIED (ADV-006 pass), and its body supersedes both predecessors in full. But P2 cannot proceed: `mate spec transition P2 amendment-resolve` refuses with "spec P2 is fenced by impacting amendments AM-003,AM-004", and that fence check runs before any input is consulted, so passing amendment=AM-005 or the pass advisor-receipt as authority does not lift it. AM-003 and AM-004 are stuck in state=applied with state_events=None and next_action=None: `verify` requires a passing advisor receipt they can never earn ("advisor receipt does not pass and bind the current amendment closure"), and `reject` is a state-machine-illegal transition from applied ("illegal amendment transition reject from applied"). There is no edge out of applied for an amendment that failed verification, so the spec it fenced is permanently blocked and no planning, run, or closure can occur. protocol_version 2.0.0.'
+      expected: 'A verified superseding amendment should be able to resolve its predecessors: either amendment-resolve consumes the verified successor as authority to retire superseded predecessors, or reject/supersede becomes legal from applied when bound to a blocking advisor receipt and/or a verified successor amendment. At minimum, a failed applied amendment must have some terminal disposition (rejected/superseded/withdrawn) so its fence lifts; today the only two transitions from applied are both unreachable, which is a lifecycle sink that strands the spec. This is the same gap filed as FND-CC7A8AAB239A, now shown to block delivery rather than only tidiness.'
+      fingerprint: 1b950d899ce46cac689e0dac68f5d63a0526084a82e0ec2a87e55c86bd7eed64
+      project: country-map-svg-generator
+      mate_release: v1.4.1
+      evidence:
+        - kind: advisor-receipt
+          locator: docs/features/active/country-map-svg-generator/readiness/ADV-006.advisor-receipt.yaml
+        - kind: spec-tracker
+          locator: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/P2-geometry-pipeline.tracker.yaml
+      state: new
+      created_at: "2026-07-24T18:08:45Z"
+      updated_at: "2026-07-24T18:08:45Z"
     - id: FND-67945CF6F3B4
       scope: mate
       severity: low
