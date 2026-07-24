@@ -4,12 +4,11 @@ spec: P2
 slug: geometry-pipeline
 title: Soft-Organic Geometry Pipeline
 state: in_progress
-revision: 105
+revision: 106
 updated_by: teamlead
-updated_at: "2026-07-24T06:50:53Z"
-last_event_id: run-interrupt-92137fad42054802
-input_digest: d59c8b24d5b9f65a2f145888aa2e71f05f1427bbba9235bd925a94dbd9ea304d
-current_plan: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/plans/PLAN-010/P2-geometry-pipeline.PLAN-010.plan.md
+updated_at: "2026-07-24T06:51:48Z"
+last_event_id: plan-invalidate-f24767d098669fc7
+input_digest: 0efdf08853d02e961206f0357990d34603533f866ea290212e27499b890ce835
 runs:
     - id: RUN-001
       plan: PLAN-001
@@ -80,4 +79,4 @@ runs:
       status: interrupted
       result: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-017/P2-geometry-pipeline.RUN-017.result.yaml
 findings: []
-next_action: Invalidate PLAN-010 for candidate-source incompleteness and author a successor that splits projected MultiPolygon components into lineage-keyed temporary features before pinned simplification, deterministically reassembles them, reruns representative approval, then resumes full-catalog integration.
+next_action: mate plan scaffold country-map-svg-generator P2 PLAN-NNN
