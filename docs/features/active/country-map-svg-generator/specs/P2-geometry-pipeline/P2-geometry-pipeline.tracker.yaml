@@ -4,12 +4,13 @@ spec: P2
 slug: geometry-pipeline
 title: Soft-Organic Geometry Pipeline
 state: in_progress
-revision: 89
+revision: 90
 updated_by: teamlead
-updated_at: "2026-07-24T05:54:59Z"
-last_event_id: p2-run013-owner-checkpoint
-input_digest: 392097c40fa6edd61f6623e7d6708e5f2aab59512de4d87a0397c02445ffac57
+updated_at: "2026-07-24T06:00:21Z"
+last_event_id: p2-run014-t0b-start-run
+input_digest: d18a3b23d96c27cfe4f4b7e73bbb96a347531845b8ba282b603d71cfaf741793
 current_plan: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/plans/PLAN-010/P2-geometry-pipeline.PLAN-010.plan.md
+active_run: RUN-014
 runs:
     - id: RUN-001
       plan: PLAN-001
@@ -63,5 +64,8 @@ runs:
       plan: PLAN-010
       status: interrupted
       result: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-013/P2-geometry-pipeline.RUN-013.result.yaml
+    - id: RUN-014
+      plan: PLAN-010
+      status: running
 findings: []
-next_action: Scaffold and start PLAN-010 T0B full-catalog integration from the exact frozen DEC-008 owner checkpoint; preserve all T0A bytes and repair only inherited T0B integration failures.
+next_action: Execute RUN-014 within the accepted brief; pass, fail, interrupt, or cancel it with evidence.
