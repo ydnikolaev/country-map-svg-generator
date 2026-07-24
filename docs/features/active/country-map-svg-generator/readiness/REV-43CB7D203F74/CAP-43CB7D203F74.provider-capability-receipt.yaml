@@ -1,0 +1,27 @@
+version: 1
+kind: provider-capability-receipt
+id: CAP-43CB7D203F74
+epic: country-map-svg-generator
+spec: P2
+run: RUN-020
+status: recorded
+input_digest: a83f94dae92946a70aecf10fd4a3c0940d2b12f5da4e771c9b67ab1b241a32ea
+subject:
+    artifact: run-brief
+    id: RUN-020
+    path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/candidates/RUN-020/P2-geometry-pipeline.RUN-020.brief.md
+    sha256: a83f94dae92946a70aecf10fd4a3c0940d2b12f5da4e771c9b67ab1b241a32ea
+producer_role: readiness-producer
+principal: teamlead
+result: pass
+slot: verification-runner
+capability: execute-verification
+disposition: native
+semantic_tier: reasoning
+session_id: b2a645f2-9ac6-46a9-a4ca-c87ac24bda88
+output_digest: f26b4ac0afe5bd93a0b5041e01cee3fa732815b078a47b462c0e0ed6c98d12b7
+write_set_digest: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+provider_evidence:
+    command: "mate\x1Frun\x1Fvalidate\x1Fcountry-map-svg-generator\x1FP2\x1FRUN-020\x1F--root\x1F.\x1F--json"
+    provider: claude
+    target: spec.begin
