@@ -1,0 +1,43 @@
+version: 1
+kind: agent-dispatch-result
+id: RESULT-019
+epic: country-map-svg-generator
+spec: P2
+run: RUN-011
+status: blocked
+input_digest: 25fff18236088caec0f175336dda11239105b45b9377357ef1306d1877e9f96d
+previous:
+    artifact: agent-dispatch-brief
+    id: BRIEF-019
+    path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-011/agents/BRIEF-019.agent-dispatch-brief.yaml
+    sha256: e18b961199ad69249204c37edc37353c708e12bc1b6fad6edeb4d871045a0b7f
+brief:
+    artifact: agent-dispatch-brief
+    id: BRIEF-019
+    path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/RUN-011/agents/BRIEF-019.agent-dispatch-brief.yaml
+    sha256: e18b961199ad69249204c37edc37353c708e12bc1b6fad6edeb4d871045a0b7f
+principal: codex-p2-t0a
+provider_task_ref: p2_coder
+outcome: blocked
+summary: 'T0A.1 replayed twice at semantic SHA-256 220aa8cff32ff85a15c62b45eeff79040b66d4e14401f4fe7b02dbf83aa67249. Pure-Go oracle/spike code and mutations were implemented, but the representative machine brake correctly stopped at ID compact: resolution 121 is the coarsest candidate retaining 20 protected parts and emits 2713 path bytes / 2993 estimated file bytes; resolution 120 drops to 19 parts. Coordinator independently reproduced the exact boundary and focused tests pass. No sheet, owner gate, T0B, product commit, or constraint relaxation occurred.'
+changed_paths:
+    - path: internal/geometry/cmd/lodbuild/diagnostic_test.go
+      sha256: 1d780e5442a47ad3fe919b587f5d02ca893c375339077f4caca0c4dbb0aee977
+    - path: internal/geometry/cmd/lodbuild/main.go
+      sha256: 6d4c9366e06b44cdb0963308c790a436eaed9c3334218d88f146d9eac3fc6aca
+    - path: internal/geometry/cmd/lodbuild/representative.go
+      sha256: c7d2d3b9b2cadeee30430db5db34741b60fd4c8bc0ba3b4872f02ff6c304301c
+    - path: internal/geometry/lod/silhouette-oracle.v1.json
+      sha256: 66e9194b86a8ae79f6ce8570e75dbe970180c02f709f9377c711dfe275f92308
+    - path: internal/geometry/lod/v2.recipe.json
+      sha256: f11865346e9e78262dee148ed9d15eff416aeeabeb0d767d604a6e96401c58fc
+    - path: internal/geometry/silhouette.go
+      sha256: ff157dfb42cc63c5207b8e37b4380b3a3385d26f78cc15465a3384423d76cec7
+    - path: internal/geometry/silhouette_test.go
+      sha256: 52ed5f9ca03fa2c54312e0b5aa7ebf851b772cba386300df26f6deb8c1bd7875
+outputs: []
+verification: []
+deviations: []
+feedback: []
+blocked_reason: ID compact has no allowed candidate that preserves minimum_parts=20 and fits frozen 2200 path / 2500 complete-file caps; resolution 121 retains 20 at 2713/2993 bytes, while resolution 120 retains only 19.
+resume_anchor: Interrupt RUN-011 from this exact machine blocker. Revisit DEC-006 protected minimum-part semantics versus compact visibility before any successor plan; do not weaken protection or raise budgets in-place.
