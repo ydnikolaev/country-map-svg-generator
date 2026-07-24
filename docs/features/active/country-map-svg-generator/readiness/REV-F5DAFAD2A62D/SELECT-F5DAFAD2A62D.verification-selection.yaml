@@ -1,0 +1,13 @@
+version: 1
+kind: verification-selection
+id: SELECT-F5DAFAD2A62D
+epic: country-map-svg-generator
+spec: P2
+run: RUN-007
+status: recorded
+input_digest: 15ab7d84e4a819b04bcb5a57fc4e069cefb2de2711f1885cd701881c2dc40d67
+topology_digest: bb1966dd12e691a29974dec5c3ea46ebc28c9165d73245d8761a1f6cf2652031
+nodes:
+    - project-ceiling
+reason: readiness gate for spec.begin
+required_ceiling: project-ceiling

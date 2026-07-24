@@ -1,0 +1,25 @@
+version: 1
+kind: gate-receipt
+id: GATE-F5DAFAD2A62D
+epic: country-map-svg-generator
+spec: P2
+run: RUN-007
+status: recorded
+input_digest: 15ab7d84e4a819b04bcb5a57fc4e069cefb2de2711f1885cd701881c2dc40d67
+subject:
+    artifact: run-brief
+    id: RUN-007
+    path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/runs/candidates/RUN-007/P2-geometry-pipeline.RUN-007.brief.md
+    sha256: 15ab7d84e4a819b04bcb5a57fc4e069cefb2de2711f1885cd701881c2dc40d67
+producer_role: verification-runner
+principal: teamlead
+result: pass
+gate: project-ceiling
+attempt_ids:
+    - ATTEMPT-F5DAFAD2A62D
+evidence:
+    - artifact: verification-result
+      id: VERIFY-F5DAFAD2A62D
+      path: docs/features/active/country-map-svg-generator/readiness/REV-F5DAFAD2A62D/VERIFY-F5DAFAD2A62D.verification-result.yaml
+      sha256: bcc203aa98ebcace359e68d29adcdf6aeae3907b4acd2bb9ec573d2d9de97600
+      verdict: pass
