@@ -92,6 +92,30 @@ fabricated evidence and must not be done.
 outside the governed run wrapper**, with the reconciliation debt tracked. The
 mate fix is the owner's separate work.
 
+### The mate fix, sketched from the SSOT
+
+Read at `~/Developer/projects/mate` so a future session does not re-derive it.
+The change is small and mostly data:
+
+| Where | Change |
+| --- | --- |
+| `internal/workdocs/assets/bundle-v1/registries/state-machines.yaml:61-70` | add `supersede: {from: [applied], to: superseded, loop: amendment-supersede}`, add `superseded` to `states` and `terminal` |
+| `internal/workdocs/assets/bundle-v1/registries/loops.yaml` | add the `amendment-supersede` loop entry, modelled on `amendment-reject` |
+| `internal/cli/amendment.go:14` | add `newAmendmentEvidenceTransitionCmd("supersede")` — the factory is already generic |
+| `internal/work/amendment.go:283` | nothing: the blocking set is `{impacting, accepted, applied}`, so a `superseded` amendment stops fencing by construction |
+
+Evidence probably needs no new code. `validateAmendmentTransitionEvidence`
+(`internal/work/amendment_transition.go:167`) falls through to a default branch
+requiring one readiness receipt whose `AuthorizedNext` is `amendment.<event>`, so
+`mate readiness issue --for amendment.supersede --amendment AM-003` should
+authorize it as-is. Confirm rather than assume — the schema may also need
+`superseded` added wherever amendment states are validated.
+
+**Do this in its own session, in the mate repo.** It is a fleet-wide change to
+the tool that governs every project, with its own doctrines, gates and release
+process, and it ends in `mate fleet pull` back into this consumer. It is the
+natural first step of the next phase rather than the last step of this one.
+
 Governed operations that *do* still work under the fence and should keep being
 used: `mate decision scaffold/validate/accept` at epic scope (verified by
 dry-run, then used for DEC-010).
