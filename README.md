@@ -57,7 +57,27 @@ country-map-svg-generator preview --config country-map.yaml --out preview.html
 | `inspect` | report what one entity resolves to, without writing |
 | `generate` | generate SVG assets and a manifest |
 | `preview` | write one self-contained page to look at the output |
+| `schema` | report every settable key and the values it accepts |
 | `version` | report generator, corpus and algorithm identities |
+
+### Discovering the surface
+
+`schema` is the answer to "what may I set, and to what?". Every other command
+tells you a value is wrong *after* you have written it; this one lists the
+accepted values first.
+
+```sh
+country-map-svg-generator schema           # keys, vocabularies, styles, notes
+country-map-svg-generator schema --json    # the same, machine-readable
+```
+
+It is derived from the definitions validation checks against — the key paths by
+reflection over the schema, the vocabularies from the same variables the
+validator compares to, and `profile` and `boundary` from the geometry presets
+and the corpus at runtime. It cannot drift from what the binary accepts.
+
+`explain` is its complement: `schema` says what a key *accepts*, `explain` says
+what a key *resolved to* and which layer set it.
 
 ## Output
 
@@ -78,6 +98,70 @@ Style it from your own stylesheet.
 Generation is transactional: the batch is built and structurally validated in
 memory, then published atomically. A failure leaves the previous output exactly
 as it was.
+
+## Styling
+
+Geometry is presentation-free by design — the pipeline never learns about
+colour. That invariant is what makes everything below possible.
+
+**Styles** are token bundles, not renderer modes. Run `schema` for the current
+list with a sentence on what each is for; today: `outline`, `filled`,
+`silhouette`, `bold-soft`, `ghost`.
+
+**Tokens** are the individual knobs a style presets and a document may override:
+`fill`, `fillOpacity`, `stroke`, `strokeOpacity`, `strokeWidth`, `lineCap`,
+`lineJoin`, and `markerFill` / `markerStroke` / `markerRadius`.
+
+**Delivery** decides how those values reach the page.
+
+| Mode | Behaviour |
+| --- | --- |
+| `standalone` | visually complete with no host CSS |
+| `themed-inline` | every value emitted as `var(--country-map-<token>, <resolved>)`, so the host page can restyle without regenerating |
+
+**Markers** are capital points from the corpus registry, rendered as a circle
+with its own class. `marker.mode` is `none` by default; `capital`,
+`all-capitals` and `custom` turn them on. `custom` selects registry IDs rather
+than coordinates, so a marker can never disagree with the corpus about where a
+place is.
+
+### Patterns, gradients and filters
+
+`tokens.advanced` takes a **local fragment reference** — a pattern, gradient or
+filter you define once on your own page. External URLs are refused.
+
+```yaml
+delivery: themed-inline
+style: filled
+tokens:
+  advanced:
+    pattern: "url(#hatch)"
+```
+
+```html
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <pattern id="hatch" width="6" height="6" patternUnits="userSpaceOnUse"
+             patternTransform="rotate(45)">
+      <line x1="0" y1="0" x2="0" y2="6" stroke="currentColor" stroke-width="1"/>
+    </pattern>
+  </defs>
+</svg>
+```
+
+Every generated asset then fills from that one definition, at zero bytes per
+asset. Swap the `<pattern>` for dots, change the angle, or restyle it from CSS
+without regenerating anything.
+
+`gradient` and `pattern` are both paint servers and both replace the fill, so
+setting both is refused rather than silently resolved — name one. `filter` is
+its own attribute and composes with whichever fill applies.
+
+One limit worth stating plainly: a fragment reference points at defs **you**
+supply. Under `standalone` the asset is otherwise self-contained, but a
+`url(#id)` still needs that id present in the document it is inlined into. The
+generator does not emit a `<defs>` block of its own; per-asset byte budgets are
+frozen and a defs block would not fit inside them.
 
 ## Configuration
 

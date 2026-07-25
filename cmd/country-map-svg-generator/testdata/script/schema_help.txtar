@@ -1,0 +1,12 @@
+# schema --help is how an agent discovers the discovery surface itself.
+exec country-map-svg-generator schema --help
+stdout 'Report the configuration surface'
+stdout 'cannot drift from what the binary will actually accept'
+stdout '--json'
+! stderr .
+
+# The command must also appear in the root listing with its one-line summary, or
+# an agent enumerating the surface never finds it.
+exec country-map-svg-generator --help
+stdout 'schema\s+Report every settable key and the values it accepts'
+stdout 'Generate optimized country map SVGs'

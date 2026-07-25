@@ -1,0 +1,34 @@
+# Human output carries the three things a caller needs before writing a config:
+# which keys exist, what each closed key accepts, and what a style is for.
+exec country-map-svg-generator schema
+stdout 'SETTABLE KEYS'
+stdout 'style\s+outline \| filled \| bold-soft \| silhouette \| ghost'
+stdout 'delivery\s+standalone \| themed-inline'
+stdout 'marker\.mode\s+none \| capital \| all-capitals \| custom'
+stdout 'layout\.mode\s+tight \| contain'
+stdout 'STYLES'
+stdout 'FILENAME PLACEHOLDERS'
+stdout '\{iso\}'
+stdout 'NOTES'
+! stderr .
+
+# The per-entity block is reported as its own key space. Without it an agent
+# cannot discover that everything settable globally is settable for one country.
+stdout 'countries\.<key>\.tokens\.advanced\.pattern'
+
+# Profile and boundary are enumerated from geometry and the corpus rather than
+# spelled in the CLI, so they must appear here without this file naming a source.
+stdout 'profile\s+card \| hero'
+stdout 'boundary\s+de_facto \| un'
+
+# The machine surface carries the same facts in a stable envelope.
+exec country-map-svg-generator schema --json
+stdout '"schema": "country-map.cli/v1"'
+stdout '"status": "ok"'
+stdout '"exit": 0'
+stdout '"keys"'
+stdout '"vocabularies"'
+stdout '"filename_placeholders"'
+stdout '"notes"'
+! stdout '"error"'
+! stderr .

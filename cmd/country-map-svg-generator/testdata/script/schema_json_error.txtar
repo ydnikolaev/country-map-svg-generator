@@ -1,0 +1,18 @@
+# The failure envelope is the surface an agent recovers from, so it is asserted
+# as precisely as the success one: same schema, typed class, and the numeric exit
+# repeated in the payload so a caller reading only stdout still learns it.
+! exec country-map-svg-generator schema keys --json
+stdout '"schema": "country-map.cli/v1"'
+stdout '"status": "error"'
+stdout '"exit": 1'
+stdout '"class": "usage"'
+stdout '"code": "arity"'
+! stdout '"data"'
+
+# An unknown flag reaches the envelope too, even though it fails before the
+# parsed --json value exists. That case is the reason the error path reads the
+# raw arguments rather than trusting the parsed flag.
+! exec country-map-svg-generator schema --nope --json
+stdout '"status": "error"'
+stdout '"class": "usage"'
+stdout '"code": "flag"'
