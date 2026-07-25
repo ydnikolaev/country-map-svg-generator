@@ -1,5 +1,8 @@
 .DS_Store
 
+# Release build output. Reproducible from `make release` at any tag.
+dist/
+
 # Mate runtime state. Governed evidence under docs/features remains tracked.
 .mate/work-locks/
 .mate/work-transactions/
