@@ -12,6 +12,7 @@ import (
 	"encoding/json"
 	"flag"
 	"fmt"
+	"math"
 	"os"
 	"path/filepath"
 	"sort"
@@ -31,7 +32,13 @@ type proofRow struct {
 	BandPathCap                   int
 	Parts                         int
 	ViewBoxW, ViewBoxH            float64
-	Note                          string
+	// FrameCoverage is the share of the viewBox area that the drawn silhouette's
+	// own bounding box occupies. The frame is fitted to the whole claim while
+	// the silhouette may legitimately omit sub-scale components (DEC-007), so a
+	// low value means the card is mostly empty — which is the evidence DEC-011
+	// deferred its second framing mode on.
+	FrameCoverage float64
+	Note          string
 
 	// svg is the inlined document, kept out of the JSON record so the machine
 	// evidence stays readable while the human page stays self-contained.
@@ -107,8 +114,17 @@ func run(out, only string) error {
 			row.Outcome = "rendered"
 			row.SelectedTier = result.LOD.SelectedTier
 			row.PathBytes = len(result.Path)
-			row.Parts = strings.Count(result.Path, "M")
+			// Count move commands, not "M" in the serialized path: the serializer
+			// emits relative commands, so a multi-part silhouette carries lowercase
+			// "m" and the uppercase count was reading zero for exactly the
+			// scattered entities this column exists to describe.
+			for _, command := range result.Commands {
+				if command.Op == "M" || command.Op == "m" {
+					row.Parts++
+				}
+			}
 			row.ViewBoxW, row.ViewBoxH = result.ViewBox.Width(), result.ViewBox.Height()
+			row.FrameCoverage = frameCoverage(result)
 			row.svg = svgDocument(result)
 			if out != "" {
 				name := fmt.Sprintf("%s.%s.%s.svg", committed.Alpha2, committed.Profile, committed.Band)
@@ -174,6 +190,26 @@ func run(out, only string) error {
 	return nil
 }
 
+// frameCoverage measures how much of the card the drawn silhouette actually
+// occupies, by walking the emitted commands rather than re-deriving geometry —
+// what it reports is what the file draws.
+func frameCoverage(r geometry.Result) float64 {
+	minX, minY := math.Inf(1), math.Inf(1)
+	maxX, maxY := math.Inf(-1), math.Inf(-1)
+	for _, command := range r.Commands {
+		for i := 0; i+1 < len(command.Values); i += 2 {
+			x, y := command.Values[i], command.Values[i+1]
+			minX, maxX = math.Min(minX, x), math.Max(maxX, x)
+			minY, maxY = math.Min(minY, y), math.Max(maxY, y)
+		}
+	}
+	vw, vh := r.ViewBox.Width(), r.ViewBox.Height()
+	if vw <= 0 || vh <= 0 || minX > maxX || minY > maxY {
+		return 0
+	}
+	return ((maxX - minX) * (maxY - minY)) / (vw * vh)
+}
+
 // svgDocument is a minimal, presentation-free wrapper (INV-1): geometry only,
 // no fill, stroke or colour. Styling is P3's concern; this exists so a human
 // can open the file.
@@ -191,7 +227,7 @@ func svgDocument(r geometry.Result) string {
 // are plain CSS radio state rather than script, so it also survives being
 // rendered somewhere that will not run JavaScript.
 func contactSheet(rows []proofRow) string {
-	rendered, absent, over, fallback := 0, 0, 0, 0
+	rendered, absent, over, fallback, sparseCount := 0, 0, 0, 0, 0
 	budget := map[string][]float64{}
 	for _, row := range rows {
 		switch row.Outcome {
@@ -202,6 +238,9 @@ func contactSheet(rows []proofRow) string {
 			}
 			if row.SelectedTier == "source" {
 				fallback++
+			}
+			if row.FrameCoverage < 0.20 {
+				sparseCount++
 			}
 			if row.BandPathCap > 0 {
 				budget[row.Band] = append(budget[row.Band], float64(row.PathBytes)/float64(row.BandPathCap))
@@ -239,7 +278,9 @@ h1{font-size:19px;margin:0 0 4px}
 .na{height:112px;display:flex;align-items:center;justify-content:center;color:var(--warn);font-size:12px;
     border:1px dashed #3a3d44;border-radius:6px}
 #fa:checked~.grid .band-standard,#fb:checked~.grid .band-compact,
-#fc:checked~.grid .ok{display:none}
+#fc:checked~.grid .ok,#fc:checked~.grid .sparse:not(.flag),
+#fd:checked~.grid .ok,#fd:checked~.grid .flag:not(.sparse){display:none}
+.sparse{outline:2px dashed var(--warn)}
 .filters label:focus-visible,label:focus-within{outline:2px solid var(--ink);outline-offset:2px}
 /* Tokens are redefined per theme; components only ever read the tokens, so the
    viewer's explicit toggle wins over the OS preference in both directions. */
@@ -254,7 +295,8 @@ h1{font-size:19px;margin:0 0 4px}
 <div class="stat"><b>%d</b><span>rendered</span></div>
 <div class="stat"><b>%d</b><span>no artifact</span></div>
 <div class="stat"><b>%d</b><span>over band cap</span></div>
-<div class="stat"><b>%d</b><span>source fallback</span></div>`, rendered, absent, over, fallback)
+<div class="stat"><b>%d</b><span>source fallback</span></div>
+<div class="stat"><b>%d</b><span>frame under 20%% full</span></div>`, rendered, absent, over, fallback, sparseCount)
 	for _, band := range []string{"compact", "standard"} {
 		used := append([]float64(nil), budget[band]...)
 		if len(used) == 0 {
@@ -268,22 +310,32 @@ h1{font-size:19px;margin:0 0 4px}
 	b.WriteString(`<input type="radio" name="f" id="f0" checked><label for="f0">all</label>
 <input type="radio" name="f" id="fa"><label for="fa">cards only</label>
 <input type="radio" name="f" id="fb"><label for="fb">heroes only</label>
-<input type="radio" name="f" id="fc"><label for="fc">needs a look</label>`)
+<input type="radio" name="f" id="fc"><label for="fc">needs a look</label>
+<input type="radio" name="f" id="fd"><label for="fd">mostly empty frame</label>`)
 	b.WriteString(`<div class="filters"></div><div class="grid">`)
 	for _, row := range rows {
+		// A card whose silhouette occupies less than a fifth of its frame is
+		// mostly empty space. That is not a pipeline failure — the frame is
+		// fitted to the whole claim by DEC-011 — but it is exactly the evidence
+		// the deferred second framing mode has to be decided on, so it earns the
+		// same visual flag as a real fault and its own filter.
+		sparse := row.Outcome == "rendered" && row.FrameCoverage < 0.20
 		flagged := row.Outcome != "rendered" || row.SelectedTier == "source" || row.PathBytes > row.BandPathCap
 		cls := "c band-" + row.Band
+		if sparse {
+			cls += " sparse"
+		}
 		if flagged {
 			cls += " flag"
-		} else {
+		} else if !sparse {
 			cls += " ok"
 		}
 		fmt.Fprintf(&b, `<div class="%s">`, cls)
 		switch row.Outcome {
 		case "rendered":
 			b.WriteString(row.svg)
-			fmt.Fprintf(&b, `<div class="t">%s <span class="m">%s</span></div><div class="m">%s · rung %s · %d/%d B</div>`,
-				row.Alpha2, row.Profile, row.Band, row.Selection, row.PathBytes, row.BandPathCap)
+			fmt.Fprintf(&b, `<div class="t">%s <span class="m">%s</span></div><div class="m">%s · rung %s · %d/%d B · frame %.0f%%</div>`,
+				row.Alpha2, row.Profile, row.Band, row.Selection, row.PathBytes, row.BandPathCap, 100*row.FrameCoverage)
 		case "no_artifact":
 			fmt.Fprintf(&b, `<div class="na">no artifact</div><div class="t">%s <span class="m">%s</span></div><div class="m">%s · %s</div>`,
 				row.Alpha2, row.Profile, row.Band, row.Note)
