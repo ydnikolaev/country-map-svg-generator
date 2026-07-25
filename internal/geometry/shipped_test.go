@@ -2,6 +2,7 @@ package geometry
 
 import (
 	"fmt"
+	"math"
 	"strings"
 	"testing"
 
@@ -14,7 +15,7 @@ import (
 // spec failed precisely in the gap between them: a pipeline can hold every
 // internal invariant and still emit source-only geometry.
 //
-// Four things are guarded, over every committed row:
+// Five things are guarded, over every committed row:
 //   - a pass row renders, and renders from its own band rather than falling
 //     back to the DEC-005 source path;
 //   - the emitted path fits the band's frozen cap — including the softened
@@ -22,6 +23,8 @@ import (
 //     compact geometries several-fold;
 //   - a no-artifact row surfaces as the typed DEC-009 outcome, not an error and
 //     not a silent substitution;
+//   - the silhouette fills a sane share of its frame, so a card cannot go back
+//     to being framed for geometry it does not draw;
 //   - nothing errors.
 //
 // internal/geometry/cmd/svgproof runs the same sweep and writes real SVG files
@@ -130,7 +133,40 @@ func checkShippedRow(
 	if got.ViewBox.Width() <= 0 || got.ViewBox.Height() <= 0 {
 		return 0, fmt.Errorf("%s: degenerate viewBox %v", label, got.ViewBox)
 	}
+	// The card must be mostly silhouette, not mostly empty. This guards DEC-013:
+	// while the layout was fitted to the whole territorial claim, a card framed
+	// for components it does not draw — France filled 11.9% of its frame, and
+	// twenty cards sat under a fifth. Every other assertion here passed
+	// throughout, which is exactly why this one exists.
+	//
+	// The floor is deliberately far below the current catalog. After DEC-013 the
+	// thinnest compact card is Marshall Islands at 41%; 20% cannot fire on
+	// today's data and would have caught France by a wide margin.
+	if coverage := shippedFrameCoverage(got); coverage < 0.20 {
+		return 0, fmt.Errorf("%s: the silhouette fills %.1f%% of its frame — the card is framed for geometry it does not draw",
+			label, 100*coverage)
+	}
 	return shippedRendered, nil
+}
+
+// shippedFrameCoverage is the share of the viewBox area covered by the drawn
+// silhouette's own bounding box, walked from the emitted commands so it measures
+// what the file draws rather than what the pipeline intended.
+func shippedFrameCoverage(r Result) float64 {
+	minX, minY := math.Inf(1), math.Inf(1)
+	maxX, maxY := math.Inf(-1), math.Inf(-1)
+	for _, command := range r.Commands {
+		for i := 0; i+1 < len(command.Values); i += 2 {
+			x, y := command.Values[i], command.Values[i+1]
+			minX, maxX = math.Min(minX, x), math.Max(maxX, x)
+			minY, maxY = math.Min(minY, y), math.Max(maxY, y)
+		}
+	}
+	area := r.ViewBox.Width() * r.ViewBox.Height()
+	if area <= 0 || minX > maxX || minY > maxY {
+		return 0
+	}
+	return ((maxX - minX) * (maxY - minY)) / area
 }
 
 // TestShippedGateRejectsALadderlessPipeline is the mutation tooth for the gate
