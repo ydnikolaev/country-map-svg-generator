@@ -1,0 +1,33 @@
+# The page is written and its path reported. --open=false is passed explicitly
+# even though a test harness is never a terminal: the browser is the one side
+# effect a script must not depend on being suppressed for it.
+exec country-map-svg-generator demo --open=false --out showcase.html
+stdout 'wrote showcase.html'
+stdout '10 entities'
+stdout 'open it yourself'
+! stderr .
+exists showcase.html
+
+# It is a file, not a server: self-contained markup with the assets inlined.
+grep '<!doctype html>' showcase.html
+grep 'country-map__shape' showcase.html
+grep 'data-iso="FR"' showcase.html
+grep 'data-iso="CA"' showcase.html
+
+# Every asset is themed-inline, which is what makes one generation cover every
+# style. A standalone asset here would mean the page cannot restyle live.
+grep 'var\(--country-map-fill' showcase.html
+
+# Both themes are served, and the explicit toggle must be able to beat the
+# media query in both directions.
+grep 'prefers-color-scheme:dark' showcase.html
+grep 'data-theme=light' showcase.html
+grep 'data-theme=dark' showcase.html
+
+# The machine surface reports the path and says plainly that nothing was opened.
+exec country-map-svg-generator demo --out machine.html --json
+stdout '"schema": "country-map.cli/v1"'
+stdout '"status": "ok"'
+stdout '"opened": false'
+stdout '"path": "machine.html"'
+! stdout '"error"'

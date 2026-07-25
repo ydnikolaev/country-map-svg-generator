@@ -1,0 +1,12 @@
+# demo --help is how an agent discovers the command without launching a browser.
+exec country-map-svg-generator demo --help
+stdout 'Build one self-contained page'
+stdout 'generated ONCE'
+stdout 'not opened when stdout is not a terminal'
+stdout '--open'
+! stderr .
+
+# The command must also appear in the root listing with its one-line summary, or
+# an agent enumerating the surface never finds it.
+exec country-map-svg-generator --help
+stdout 'demo\s+Build an interactive showcase page and open it'

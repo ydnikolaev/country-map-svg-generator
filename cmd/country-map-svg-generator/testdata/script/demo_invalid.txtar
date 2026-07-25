@@ -1,0 +1,11 @@
+# demo takes no positional arguments; a country belongs to --iso on the commands
+# that render one, not here.
+! exec country-map-svg-generator demo FR
+stderr 'usage: expected 0 argument\(s\), got 1'
+stderr 'usage: country-map-svg-generator demo'
+! stdout .
+
+# An unknown flag is the same class, reported through the same channel.
+! exec country-map-svg-generator demo --nope
+stderr 'usage: unknown flag: --nope'
+! stdout .

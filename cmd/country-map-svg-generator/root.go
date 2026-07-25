@@ -87,6 +87,7 @@ Normal generation is offline and needs no Node, Python, GDAL or auxiliary files.
 	// registration is what makes VAL-1's gate demand a command's scripts, and a
 	// stub would satisfy it with scripts asserting that nothing happens.
 	root.AddCommand(
+		newDemoCommand(flags),
 		newInitCommand(flags),
 		newValidateCommand(flags),
 		newExplainCommand(flags),

@@ -57,8 +57,25 @@ country-map-svg-generator preview --config country-map.yaml --out preview.html
 | `inspect` | report what one entity resolves to, without writing |
 | `generate` | generate SVG assets and a manifest |
 | `preview` | write one self-contained page to look at the output |
+| `demo` | build an interactive showcase page and open it |
 | `schema` | report every settable key and the values it accepts |
 | `version` | report generator, corpus and algorithm identities |
+
+### Seeing what it can do
+
+```sh
+country-map-svg-generator demo              # writes a page and opens it
+country-map-svg-generator demo --open=false # just write it
+```
+
+Ten entities chosen for shape diversity, with live selectors for style, colour,
+pattern and theme, and a full-width view on click. Every map on that page is
+generated **once** — the selectors are CSS, not regeneration, which is the
+clearest demonstration of what presentation-free geometry buys.
+
+The browser is not opened when stdout is not a terminal, when `--json` is set,
+or with `--open=false`, so an agent gets the path instead of a window it cannot
+see.
 
 ### Discovering the surface
 
@@ -125,6 +142,24 @@ with its own class. `marker.mode` is `none` by default; `capital`,
 than coordinates, so a marker can never disagree with the corpus about where a
 place is.
 
+`markerFill`, `markerStroke` and `markerRadius` apply to every marker on a map.
+For *different* markers on the *same* map, each circle carries its own id:
+
+```html
+<circle class="country-map__marker" data-marker="ZA-ne-1159151583" cx="18.1" cy="67.88" r="2" …/>
+```
+
+```css
+.country-map__marker[data-marker="ZA-ne-1159151583"] { r: 6; fill: #5ec9a8; stroke: #fff; stroke-width: 1.5 }
+.country-map__marker[data-marker="ZA-ne-1159150659"] { r: 9; fill: none;    stroke: #c98a5e }
+```
+
+`r` is an SVG geometry property and is settable from CSS, so size, colour and
+ring are all per-marker without regenerating. `inspect --json` reports each
+marker's id and projected coordinates, so anything the single circle cannot do —
+a ring separated from the dot by a gap, a label, an icon — you can place
+yourself at those exact coordinates in the host page.
+
 ### Patterns, gradients and filters
 
 `tokens.advanced` takes a **local fragment reference** — a pattern, gradient or
@@ -152,6 +187,15 @@ tokens:
 Every generated asset then fills from that one definition, at zero bytes per
 asset. Swap the `<pattern>` for dots, change the angle, or restyle it from CSS
 without regenerating anything.
+
+Pattern density is a property of your `<defs>`, not of the asset. With
+`patternUnits="userSpaceOnUse"` the tile is measured in each SVG's own user
+space, and a tall narrow country and a wide flat one scale differently into the
+same box — so identical `width` values look coarser on one than the other. Tune
+the tile (a `width` of 4 with a `stroke-width` under 1 reads well at card size),
+and if you need it identical across shapes, set the tile per aspect ratio rather
+than expecting the generator to normalize it. It cannot: it never learns that a
+fill is a pattern.
 
 `gradient` and `pattern` are both paint servers and both replace the fill, so
 setting both is refused rather than silently resolved — name one. `filter` is
