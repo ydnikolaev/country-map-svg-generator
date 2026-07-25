@@ -56,10 +56,78 @@ measurement is worthless. Do not re-diagnose from a sample.
   full catalog.
 - **AM-005** verified (`ADV-006` pass, independently recomputed) — the oracle-gate
   fix. Supersedes AM-003/AM-004 in text.
-- **AM-003, AM-004** stuck in `applied`, fencing P2 and P3. **Confirmed
-  unliftable at the source**, not merely observed — see the next section.
+- **AM-003, AM-004** `retracted` on `ADV-007` and `ADV-009`, citing AM-005 as the
+  verified successor. **The fence is gone**; P2 is `in_progress` with
+  `run.scaffold` available. The section below records why the earlier reading of
+  this as unliftable was wrong.
 
-## The mate fence — verified at source, not inferred
+## The mate fence — lifted, and the false blocker that held it up
+
+**Superseded. Kept because the mistake is instructive, not because the finding
+stands.** The claim below — that `applied` is a lifecycle sink needing a mate SSOT
+fix and a CLI release — was wrong, and it cost this epic a governance detour plus
+all of P3 shipping outside the lifecycle under DEC-014.
+
+`retract` was always the terminal edge out of `applied`. The shipped state machine
+declares it:
+
+```yaml
+retract:
+  from: [applied]
+  to: retracted
+  loop: amendment-retract
+```
+
+with `retracted` in both `states` and `terminal`, and named by
+`terminal_classes.retraction`. `amendmentFencingStates` is
+`{impacting, accepted, applied}` (`internal/work/amendment.go:261`), so a
+`retracted` amendment stops fencing **by construction** — exactly the property the
+sketched `supersede` edge was designed to obtain, under a name the vocabulary
+already had.
+
+**How the error was made, so it is not repeated.** The earlier probe tried
+`reject` and `verify`, saw both refuse, and generalized to "exactly one edge out
+of `applied`" from a read of `state-machines.yaml:65-70` that did not include the
+`retract` entry. Two rules follow:
+
+- **Enumerate a state machine from the registry, never from the verbs you happened
+  to try.** Three probes are not a closed set.
+- **Distinguish an illegality refusal from an evidence refusal.** They have
+  different messages and mean opposite things. The falsification test that settles
+  it costs one command per verb:
+
+| Probe on `AM-003` (`applied`, CLI v1.4.3) | Result |
+| --- | --- |
+| `amendment accept` | `illegal amendment transition accept from applied` |
+| `amendment apply` | `illegal amendment transition apply from applied` |
+| `amendment reject` | `illegal amendment transition reject from applied` |
+| `amendment retract` | `requires exactly one blocking advisor-receipt` — **legality passed** |
+
+Legality is checked before evidence, so a refusal that names evidence is proof the
+transition is legal.
+
+**What the retract needed.** One blocking advisor receipt bound to the *current*
+epic closure, and no readiness receipt. `ADV-003`/`ADV-004` are blocking and
+`result: fail`, but bind an older tracker digest, so `mate advisor record` issued
+`ADV-007` and `ADV-009` restating the same reviewers' verdict against the current
+closure. This is a re-binding of an accepted independent verdict, not a fresh
+review: AM-005 — `verified` — already states that both "were authored from
+diagnoses that independent review refuted". A `verify` receipt would have been
+fabrication; a `block` receipt authorizing `retract` is the disposition AM-005
+already declared correct.
+
+**Sequencing trap.** Each retract bumps the epic revision, which invalidates any
+receipt recorded before it. Record the receipt for one amendment, retract it, then
+record the next. `ADV-008` was recorded too early and is a live orphan artifact —
+immutable, unused, and it cannot be rebound (`already exists outside this
+operation`).
+
+### Historical: the reading that was wrong
+
+Kept verbatim below the line so the correction above has something to correct.
+
+Re-probed under mate **v1.4.3** (the finding `FND-1B950D899CE4` was filed against
+v1.4.1, so this is a fresh confirmation, not a citation):
 
 Re-probed under mate **v1.4.3** (the finding `FND-1B950D899CE4` was filed against
 v1.4.1, so this is a fresh confirmation, not a citation):
@@ -72,10 +140,13 @@ v1.4.1, so this is a fresh confirmation, not a citation):
 
 Read in the mate SSOT (`~/Developer/projects/mate`):
 
-- `internal/workdocs/assets/bundle-v1/registries/state-machines.yaml:65-70` — the
+- ~~`internal/workdocs/assets/bundle-v1/registries/state-machines.yaml:65-70` — the
   amendment machine has **exactly one** edge out of `applied` (`verify`), and
   `reject` is legal only from `[proposed, impacting]`. A failed applied amendment
-  is a lifecycle sink.
+  is a lifecycle sink.~~ **False.** There are two edges out of `applied`:
+  `verify` → `verified` and `retract` → `retracted`. The rest of the sentence is
+  right — `reject` is indeed limited to `[proposed, impacting]`, which is what made
+  the wrong generalization feel confirmed.
 - `internal/work/amendment.go:283` — the blocking set is
   `{impacting, accepted, applied}`, so `applied` fences by construction.
 - The fence is enforced at `internal/work/plan_accept.go:98`,
@@ -85,14 +156,21 @@ Read in the mate SSOT (`~/Developer/projects/mate`):
 So `plan invalidate` is legal (dry-run green: PLAN-013, authority
 `run-result=RUN-020-RESULT#b440805079f0242620e9529c75713c8db0b7637dbd8caaf1fae44cc5a4447289`,
 spec revision 123 → 124) but `plan supersede`/`accept` and `run start` are not.
-There is no governed route to a P2 run. Verifying AM-003 to escape this would be
-fabricated evidence and must not be done.
+~~There is no governed route to a P2 run.~~ **False, per the correction above** —
+`retract` was the route. What remains true: verifying AM-003 to escape the fence
+would have been fabricated evidence and was correctly refused.
 
-**Owner instruction (this session): continue T2+ as ordinary engineering commits
-outside the governed run wrapper**, with the reconciliation debt tracked. The
-mate fix is the owner's separate work.
+**Owner instruction (that session): continue T2+ as ordinary engineering commits
+outside the governed run wrapper**, with the reconciliation debt tracked. That
+instruction was sound given what was believed at the time; it is spent now, and
+the debt it created is `#15`.
 
-### The mate fix, sketched from the SSOT
+### Dead: the mate fix, sketched from the SSOT
+
+**Do not build this.** `WKI-4062B33B8FEA` is `rejected` on a falsified premise:
+`retract` already provides this edge, so the sketch below would have added a
+second, redundant terminal disposition to a shared, fleet-wide state machine. Kept
+only to document what was nearly shipped upstream on a misreading.
 
 Read at `~/Developer/projects/mate` so a future session does not re-derive it.
 The change is small and mostly data:
@@ -413,10 +491,15 @@ P2's product work is done: the pipeline serves the committed ladder, the catalog
 renders, and the evidence is committed and reviewed. Two things remain.
 
 1. **The governance reconciliation debt, `#15`.** Everything from T1 onward
-   shipped as ordinary engineering commits because AM-003/AM-004 fence P2 with no
-   terminal transition out of `applied` (`FND-1B950D899CE4`). That is unchanged
-   and still blocks a governed close. When mate grows that transition, reconcile
-   per the plan in the fence section above.
+   shipped as ordinary engineering commits while AM-003/AM-004 were believed to
+   fence P2 permanently (`FND-1B950D899CE4`). **The fence is now lifted** — both
+   are `retracted` and `run.scaffold` is available on P2 — so the debt is
+   reconcilable today and nothing upstream is waited on. The honest shape is a
+   governed successor plan bound to the as-built followed by a run recording it,
+   not a backdated receipt: `mate plan invalidate` on PLAN-013 is legal and its
+   authority is RUN-020's result. Re-derive the ordering from
+   `mate work snapshot country-map-svg-generator --json`, which is the authority on
+   legality.
 2. **P3.** It inherits a real surface: the typed no-artifact outcome as a
    first-class result, the component-selection seam DEC-011 and DEC-013 both
    route to it, and the 707 ms first-load decision that belongs where the

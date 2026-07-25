@@ -12,22 +12,48 @@ whole catalog offline in 3.3 s, publishes transactionally, and carries a CTR-006
 manifest. What remains is not P3 build work — it is the governance reconciliation
 debt `#15` and the four findings below, all of which land in P2 or P4.
 
+**Since this was written, the impact fence has been lifted** (AM-003 and AM-004
+`retracted`), so `#15` is payable and P3's closure is executable rather than owed.
+The blocker it was written under was false; see the next section.
+
 ## Why P3 has no governed tracker
 
-AM-003 and AM-004 sit in amendment state `applied`, which has exactly one
-outgoing edge — `verify` — that they can never earn. The impact fence blocks
-every spec transition except `cancel` and `invalidate`, so P2 cannot close and P3
-cannot start through the lifecycle. **DEC-014** authorizes P3 to ship as ordinary
-engineering commits meanwhile and accepts the two dependencies P3 needs.
-**`WKI-4062B33B8FEA`** carries the debt, the four source locations of the mate
-fix, and the sketch to apply.
+**The stated reason was wrong, and the fence is now lifted.** Read this section
+knowing that; the correction is at the end of it.
 
-Two escapes were considered and refused, both on evidence rather than caution:
+The belief at the time: AM-003 and AM-004 sit in amendment state `applied`, which
+has exactly one outgoing edge — `verify` — that they can never earn. The impact
+fence blocks every spec transition except `cancel` and `invalidate`, so P2 cannot
+close and P3 cannot start through the lifecycle. **DEC-014** authorizes P3 to ship
+as ordinary engineering commits meanwhile and accepts the two dependencies P3
+needs.
+
+Two escapes were considered and refused, both on evidence rather than caution, and
+both refusals still stand:
 
 | Escape | Why not |
 | --- | --- |
 | `mate amendment verify AM-003` | Fabricated evidence. The receipt would assert an independent pass that never happened. |
 | `mate spec invalidate P2` | Legal and fence-exempt, and it does not lift the fence. `impactFence` (`internal/work/amendment.go:255`) reads only amendment state and `affected_specs`, never the spec's state, so P2 lands in `draft`, stays fenced by the same two amendments, and loses PLAN-013 and its twenty-run history. It exits a state, not the fence. |
+
+**The escape that was never tried is the one that worked: `mate amendment
+retract`.** `applied` has *two* outgoing edges, not one — `verify` → `verified` and
+`retract` → `retracted` — and `retracted` is outside
+`amendmentFencingStates` (`{impacting, accepted, applied}`,
+`internal/work/amendment.go:261`), so retracting lifts the fence by construction.
+It needs one blocking advisor receipt bound to the current epic closure and no
+readiness receipt. AM-003 and AM-004 were retracted on `ADV-007` and `ADV-009`,
+which restate ADV-003/ADV-004's blocking verdict — the verdict AM-005 (`verified`)
+already records as "authored from diagnoses that independent review refuted"
+— against the current closure. P2 is now `in_progress` with `run.scaffold`
+available; `WKI-4062B33B8FEA` is `rejected` on a falsified premise and **no mate
+SSOT change or CLI release is required**. The full account, including how the
+misreading happened and the falsification test that settles it, is in
+P2-CHECKPOINT.md under *The mate fence — lifted, and the false blocker that held it
+up*.
+
+DEC-014's authorization was sound given what was believed; what it produced is the
+reconciliation debt `#15`, and that debt is now payable.
 
 `mate decision scaffold/validate/accept` **does** work under the fence at epic
 scope — it is how DEC-010 through DEC-015 landed. Use it for anything that needs
@@ -743,7 +769,7 @@ P4:
 
 | Item | What |
 | --- | --- |
-| `WKI-4062B33B8FEA` | The amendment fence itself, with the mate fix sketched from the SSOT |
+| ~~`WKI-4062B33B8FEA`~~ | **`rejected`** — the fence was liftable all along via `amendment retract`; no mate fix needed |
 | `WKI-1DA58E0FE741` | The diagnostic identity record hashes the whole module graph |
 | `WKI-37F18A2AA6A5` | A `contain` frame is fitted **before** visibility removals — up to 292 px off centre in a 300 px frame |
 | `WKI-C35A01E965DC` | Only the profile's own long side is served from the ladder; any other size falls back to source and blows the ceiling |
@@ -751,43 +777,38 @@ P4:
 
 And the governance debt `#15`: everything in P3 shipped as ordinary engineering
 commits under DEC-014, so **P2 and P3 both** need reconciling against real
-receipts once mate grows a terminal edge out of `applied`.
+receipts. **That is now unblocked** — mate always had the terminal edge
+(`retract`), AM-003/AM-004 are `retracted`, and the fence is gone.
 
-### Closing P3, once the fence lifts
+### Closing P3, now that the fence is lifted
 
 Written so the closure is executable rather than merely owed. **Re-derive every
 next action from `mate work snapshot country-map-svg-generator --json` rather
 than trusting this list** — it is the ordering and the handles, not a script, and
 the backend is the authority on legality.
 
-State this was written against: P2 `in_progress` with PLAN-013 accepted and
-RUN-020 interrupted; P3 `draft`, blocked both by the dependency on P2 and by the
-impact fence; AM-003 and AM-004 `applied`; **AM-005 `verified`, and its body
-supersedes both predecessors in full** — that verified successor is the authority
-the fix was designed to consume.
+Current state: **AM-003 and AM-004 `retracted`**, AM-005 `verified` and
+superseding both in full, **the impact fence gone** — no spec carries
+`impact_blocked_by`. P2 is `in_progress` with PLAN-013 accepted, RUN-020
+interrupted, and `run.scaffold` **available**. P3 is `draft`, blocked now only by
+its dependency on P2, which is the ordinary and correct blocker.
 
-1. **Get the new CLI, not a new artifact bundle.** The state machine is compiled
-   into the binary (`//go:embed assets/bundle-v1` → `workdocs.LoadCatalog`), so a
-   `mate fleet pull` alone cannot deliver it — it needs a CLI release. Confirm
-   with `mate version status` and by the new verb appearing in
-   `mate amendment --help`.
-2. **Retire AM-003 and AM-004** through whatever terminal edge landed, citing
-   AM-005 as the verified successor. The fence lifts by construction the moment
-   neither is in `{impacting, accepted, applied}` (`internal/work/amendment.go`).
-   Verify it lifted before going further: P2's `next_action` should stop being
-   the phantom `amendment.resolve`.
-3. **Reconcile P2.** Everything from T1 onward is committed and green but has no
+Steps 1 and 2 as originally written are **done and partly void**: no CLI release
+was needed, because `retract` was always the edge. What remains:
+
+1. **Reconcile P2.** Everything from T1 onward is committed and green but has no
    run result. The honest shape is a governed successor plan bound to the
    as-built, then a run recording it — not a backdated receipt. `mate plan
    invalidate` on PLAN-013 is legal and its authority is RUN-020's result.
-4. **Complete P2**, which unblocks P3's dependency.
-5. **Reconcile and complete P3** the same way: `spec.accept-readiness`, `begin`,
+2. **Complete P2**, which unblocks P3's dependency.
+3. **Reconcile and complete P3** the same way: `spec.accept-readiness`, `begin`,
    a plan bound to what T1–T5 actually built, a run recording it, the audit, then
    `spec.complete`.
 
-Two things not to do, both verified at the source during P3:
-`mate amendment verify` on AM-003 or AM-004 is fabricated evidence — they failed
-independent review (ADV-003, ADV-004) and can never earn a passing receipt. And
+Two things that were correctly refused, and stay refused:
+`mate amendment verify` on AM-003 or AM-004 would have been fabricated evidence —
+they failed independent review (ADV-003, ADV-004) and can never earn a passing
+receipt, which is exactly why `retract` and not `verify` was the right edge. And
 `mate spec invalidate P2` is legal, fence-exempt, and useless: `impactFence`
 reads only amendment state and `affected_specs`, never the spec's state, so P2
 would land in `draft`, stay fenced by the same two amendments, and lose PLAN-013

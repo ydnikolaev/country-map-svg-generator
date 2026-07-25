@@ -1,13 +1,13 @@
 version: 1
 kind: work-item-registry
 project: country-map-svg-generator
-revision: 15
+revision: 16
 head_receipt:
     kind: work-item-mutation-receipt
-    id: work-item-dispose-d4039a6b3ece071e
-    path: docs/features/events/work-item-dispose-d4039a6b3ece071e.work-item-mutation-receipt.yaml
-    claim_sha256: 19df33cbf44480e1738f5c34e58d1502ef1a07a5c6fb721aea2803d10c404adb
-updated_at: "2026-07-25T04:59:54Z"
+    id: work-item-dispose-fc69583edfa7390c
+    path: docs/features/events/work-item-dispose-fc69583edfa7390c.work-item-mutation-receipt.yaml
+    claim_sha256: 8337c778adb3df5093c6fe0d452fed515c356400e7a1572e5467404ecf57f213
+updated_at: "2026-07-25T09:50:30Z"
 items:
     - id: WKI-1DA58E0FE741
       fingerprint: 1da58e0fe7415e43bdab46361325c255e34bfa26abf169de19cf7996604c35f0
@@ -141,11 +141,11 @@ items:
       title: Amendment machine has no terminal edge out of applied, so AM-003/AM-004 permanently fence P2 and P3
       problem: 'Re-verified at mate CLI v1.4.3 (installed = latest) against the SSOT, not cited from the v1.4.1 filing: internal/workdocs/assets/bundle-v1/registries/state-machines.yaml:61-70 gives the amendment machine exactly one edge out of applied (verify to verified), and reject is legal only from proposed or impacting; internal/work/transition.go:144 exempts only cancel and invalidate from the fence, so spec complete is fenced too; internal/work/amendment.go:279 blocks on impacting, accepted and applied. AM-003 and AM-004 failed independent review (ADV-003, ADV-004) and can never earn a passing receipt, so they are a lifecycle sink. The registry is compiled into the CLI binary (go:embed assets/bundle-v1 consumed by workdocs.LoadCatalog), so mate fleet pull cannot lift this: the pending artifact update from v1.4.1 to v1.4.3 is a different release axis and a CLI release is required. Filed as FND-1B950D899CE4 and FND-CC7A8AAB239A, both still state new and both stamped mate_release v1.4.1. Consequence: everything from P2 T1 onward shipped as ungoverned engineering commits, P2 cannot close, P3 cannot start under the governed wrapper, and reconciliation debt 15 stays open.'
       expected_outcome: A failed applied amendment has a terminal disposition that lifts its fence, so P2 closes through the governed lifecycle, P3 dispatches under the governed wrapper, and the reconciliation debt 15 is discharged against real receipts rather than ungoverned commits.
-      status: captured
+      status: rejected
       owner: product-owner
       priority_band: high
       effort_band: medium
-      next_action: 'Fix in its own session in the mate SSOT per the sketch in P2-CHECKPOINT.md under The mate fix sketched from the SSOT: add a supersede edge from applied to superseded with loop amendment-supersede plus the superseded state and terminal entry in state-machines.yaml, add the amendment-supersede loop entry modelled on amendment-reject in loops.yaml, add newAmendmentEvidenceTransitionCmd for supersede at internal/cli/amendment.go:14, confirm validateAmendmentTransitionEvidence at internal/work/amendment_transition.go:167 authorizes it through a readiness receipt with no new code, then cut a CLI release, run mate fleet pull here, supersede AM-003 and AM-004 and reconcile debt 15.'
+      next_action: No further mutation is legal.
       observations:
         - id: OBS-248B8E9BDB66
           source:
@@ -177,6 +177,17 @@ items:
             id: work-item-add-248b8e9bdb66c6cd
             path: docs/features/events/work-item-add-248b8e9bdb66c6cd.work-item-mutation-receipt.yaml
             claim_sha256: 214d2cca54d1c4ce8282b2e2c8a09d2c685d7bd2dde28273f41fb3861a33c0fb
+        - revision: 2
+          actor: operator
+          from: captured
+          to: rejected
+          rationale: 'Premise falsified at source. The amendment machine already ships the terminal edge this item says is missing: registries/state-machines.yaml declares retract from applied to retracted with loop amendment-retract, and terminal_classes.retraction names it. amendmentFencingStates is {impacting, accepted, applied} (internal/work/amendment.go:261), so retracted does not fence, and amendmentTerminalStates includes retracted (:270). Verified on the installed CLI v1.4.3 by falsification: accept, apply and reject all refuse with ''illegal amendment transition X from applied'' while retract passes legality and refuses only on evidence. AM-003 and AM-004 were retracted on ADV-007 and ADV-009, citing AM-005 which supersedes both in full; the impact fence lifted and P2 moved from the phantom amendment.resolve to run.scaffold. No mate SSOT change, no CLI release and no fleet pull are required.'
+          decided_at: "2026-07-25T09:50:30Z"
+          receipt:
+            kind: work-item-mutation-receipt
+            id: work-item-dispose-fc69583edfa7390c
+            path: docs/features/events/work-item-dispose-fc69583edfa7390c.work-item-mutation-receipt.yaml
+            claim_sha256: 8337c778adb3df5093c6fe0d452fed515c356400e7a1572e5467404ecf57f213
       relationships: []
       mutation_receipts:
         - kind: work-item-mutation-receipt
@@ -187,9 +198,18 @@ items:
           id: work-item-add-4135ec64a1671961
           path: docs/features/events/work-item-add-4135ec64a1671961.work-item-mutation-receipt.yaml
           claim_sha256: 68ae72e41f28562b49b83fbec09a842882b34738766435279840f181735b20df
+        - kind: work-item-mutation-receipt
+          id: work-item-dispose-fc69583edfa7390c
+          path: docs/features/events/work-item-dispose-fc69583edfa7390c.work-item-mutation-receipt.yaml
+          claim_sha256: 8337c778adb3df5093c6fe0d452fed515c356400e7a1572e5467404ecf57f213
+      disposition_receipt:
+        kind: work-item-mutation-receipt
+        id: work-item-dispose-fc69583edfa7390c
+        path: docs/features/events/work-item-dispose-fc69583edfa7390c.work-item-mutation-receipt.yaml
+        claim_sha256: 8337c778adb3df5093c6fe0d452fed515c356400e7a1572e5467404ecf57f213
       created_at: "2026-07-25T02:38:14Z"
-      updated_at: "2026-07-25T03:00:18Z"
-      revision: 2
+      updated_at: "2026-07-25T09:50:30Z"
+      revision: 3
     - id: WKI-490046152C71
       fingerprint: 490046152c71b060bafa56b799f6862959f842e62fb3df542e49ab30a640f22d
       scope: project
