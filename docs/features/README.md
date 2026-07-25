@@ -8,7 +8,7 @@ One human index derived from the [governed feature registry](features.registry.y
 
 | Epic | State | Specs | Active run | Next |
 |---|---|---|---|---|
-| [country-map-svg-generator](active/country-map-svg-generator/country-map-svg-generator.tracker.yaml) — Country Map SVG Generator | `in_progress` | P1 `completed`<br>P2 `in_progress`<br>P3 `draft`<br>P4 `draft`<br>P5 `draft` | — | `P2:amendment.resolve` |
+| [country-map-svg-generator](active/country-map-svg-generator/country-map-svg-generator.tracker.yaml) — Country Map SVG Generator | `in_progress` | P1 `completed`<br>P2 `in_progress`<br>P3 `draft`<br>P4 `draft`<br>P5 `draft` | — | `P2:plan.scaffold` |
 
 ## Completed, awaiting archive
 
@@ -17,3 +17,9 @@ _None._
 ## Archive
 
 _None._
+
+## Legacy or untracked material
+
+These paths exist outside the configured governed features home. They are visible here so old work cannot masquerade as current authority or disappear from operator view.
+
+- [`events`](events/) — untracked/legacy directory.
