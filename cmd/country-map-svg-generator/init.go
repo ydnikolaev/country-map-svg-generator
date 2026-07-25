@@ -7,7 +7,7 @@ import (
 	"strings"
 
 	"github.com/spf13/cobra"
-	"github.com/yuranikolaev/country-map-svg-generator/internal/config"
+	"github.com/ydnikolaev/country-map-svg-generator/internal/config"
 )
 
 // InitReport tells a caller what was written and what to do next, so an agent

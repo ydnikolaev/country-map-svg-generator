@@ -5,7 +5,7 @@ import (
 	"strings"
 
 	"github.com/spf13/cobra"
-	"github.com/yuranikolaev/country-map-svg-generator/internal/config"
+	"github.com/ydnikolaev/country-map-svg-generator/internal/config"
 )
 
 // ValidateReport is CTR-004's validate payload. It reports what was checked as

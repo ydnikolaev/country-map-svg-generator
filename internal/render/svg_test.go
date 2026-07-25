@@ -4,8 +4,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/yuranikolaev/country-map-svg-generator/internal/config"
-	"github.com/yuranikolaev/country-map-svg-generator/internal/geometry"
+	"github.com/ydnikolaev/country-map-svg-generator/internal/config"
+	"github.com/ydnikolaev/country-map-svg-generator/internal/geometry"
 )
 
 // sampleResult generates once and is reused across every style and delivery

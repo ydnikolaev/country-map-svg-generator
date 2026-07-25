@@ -6,7 +6,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/yuranikolaev/country-map-svg-generator/internal/catalog"
+	"github.com/ydnikolaev/country-map-svg-generator/internal/catalog"
 )
 
 // The shipped-path gate. T2's ladder gate proves the committed artifact is

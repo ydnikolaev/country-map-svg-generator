@@ -16,8 +16,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/yuranikolaev/country-map-svg-generator/internal/catalog"
-	geometry "github.com/yuranikolaev/country-map-svg-generator/internal/geometry"
+	"github.com/ydnikolaev/country-map-svg-generator/internal/catalog"
+	geometry "github.com/ydnikolaev/country-map-svg-generator/internal/geometry"
 )
 
 const (
@@ -35,7 +35,13 @@ const (
 	// the frozen expectations in evaluatePredicates, and the full mapshaper ladder
 	// rebuild reproduced byte-identically under the new graph. Tracked as
 	// WKI-1DA58E0FE741.
-	diagnosticGoModHash       = "a4253b604e0235a2fa7c2431b903fb5b06cef8d4e778f2e530d98891d106d09d"
+	//
+	// Re-recorded a third time when the module path moved from
+	// github.com/yuranikolaev to github.com/ydnikolaev so it matches the
+	// repository that hosts it. That edit renamed imports and nothing else: no
+	// dependency changed, go.sum is byte-identical, and the diagnostic's computed
+	// values cannot depend on the string a package is imported by.
+	diagnosticGoModHash       = "42df5af707999831b8ae5234659c8ac0e35550c8bdb1c30e8213b5f8d9beca3c"
 	diagnosticGoSumHash       = "7f6f01cbecb673081becf5de9595bfe57a7fba218e27987bd4486566d7f837b4"
 	diagnosticCommandIdentity = "GOCACHE=/private/tmp/country-map-go-cache GOWORK=off go run ./internal/geometry/cmd/lodbuild -diagnostic -semantic-out=<semantic-out> -timing-out=<timing-out>"
 )

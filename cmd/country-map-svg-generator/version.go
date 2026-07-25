@@ -6,8 +6,8 @@ import (
 	"strings"
 
 	"github.com/spf13/cobra"
-	"github.com/yuranikolaev/country-map-svg-generator/internal/catalog"
-	"github.com/yuranikolaev/country-map-svg-generator/internal/geometry"
+	"github.com/ydnikolaev/country-map-svg-generator/internal/catalog"
+	"github.com/ydnikolaev/country-map-svg-generator/internal/geometry"
 )
 
 // buildVersion is overridden at link time by the release build. It stays "dev"

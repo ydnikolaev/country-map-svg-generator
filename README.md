@@ -18,11 +18,16 @@ shasum -a 256 -c SHA256SUMS          # optional, from the same release
 install country-map-svg-generator_*/country-map-svg-generator /usr/local/bin/
 ```
 
-Or build from source (Go 1.26+):
+Or install from source (Go 1.26+):
 
 ```sh
-make build          # writes dist/country-map-svg-generator
+go install github.com/ydnikolaev/country-map-svg-generator/cmd/country-map-svg-generator@latest
 ```
+
+A `go install` build reports its version as `dev`; the corpus and algorithm
+identities it prints are read from the embedded artifacts either way. To get a
+stamped binary, clone and run `make build`, which writes
+`dist/country-map-svg-generator`.
 
 ## Quickstart
 

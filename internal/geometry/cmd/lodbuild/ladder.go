@@ -20,8 +20,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/yuranikolaev/country-map-svg-generator/internal/catalog"
-	geometry "github.com/yuranikolaev/country-map-svg-generator/internal/geometry"
+	"github.com/ydnikolaev/country-map-svg-generator/internal/catalog"
+	geometry "github.com/ydnikolaev/country-map-svg-generator/internal/geometry"
 )
 
 // ladderRecipe mirrors internal/geometry/lod/ladder.recipe.json. It binds the

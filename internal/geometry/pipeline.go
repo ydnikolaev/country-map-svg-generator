@@ -4,7 +4,7 @@ import (
 	"sort"
 	"sync"
 
-	"github.com/yuranikolaev/country-map-svg-generator/internal/catalog"
+	"github.com/ydnikolaev/country-map-svg-generator/internal/catalog"
 )
 
 // The published table is the committed DEC-006/DEC-009 ladder, resolved on

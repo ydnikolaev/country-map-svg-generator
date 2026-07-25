@@ -2,7 +2,7 @@ package geometry
 
 import (
 	"fmt"
-	"github.com/yuranikolaev/country-map-svg-generator/internal/catalog"
+	"github.com/ydnikolaev/country-map-svg-generator/internal/catalog"
 )
 
 // AcceptedBoundaryProfiles is the boundary posture vocabulary DEC-002 governs,

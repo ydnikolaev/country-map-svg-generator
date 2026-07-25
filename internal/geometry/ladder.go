@@ -8,7 +8,7 @@ import (
 	"fmt"
 	"sync"
 
-	"github.com/yuranikolaev/country-map-svg-generator/internal/catalog"
+	"github.com/ydnikolaev/country-map-svg-generator/internal/catalog"
 )
 
 // The committed DEC-006/DEC-009 ladder and the three frozen inputs it binds by

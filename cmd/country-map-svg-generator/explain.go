@@ -6,8 +6,8 @@ import (
 	"text/tabwriter"
 
 	"github.com/spf13/cobra"
-	"github.com/yuranikolaev/country-map-svg-generator/internal/config"
-	"github.com/yuranikolaev/country-map-svg-generator/internal/render"
+	"github.com/ydnikolaev/country-map-svg-generator/internal/config"
+	"github.com/ydnikolaev/country-map-svg-generator/internal/render"
 )
 
 // ExplainReport answers "what will this produce, and why". Every resolved value

@@ -4,7 +4,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/yuranikolaev/country-map-svg-generator/internal/catalog"
+	"github.com/ydnikolaev/country-map-svg-generator/internal/catalog"
 )
 
 func TestTopologyAQSourceCanonicalProbe(t *testing.T) {

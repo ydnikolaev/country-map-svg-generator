@@ -12,8 +12,8 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/yuranikolaev/country-map-svg-generator/internal/catalog"
-	geometry "github.com/yuranikolaev/country-map-svg-generator/internal/geometry"
+	"github.com/ydnikolaev/country-map-svg-generator/internal/catalog"
+	geometry "github.com/ydnikolaev/country-map-svg-generator/internal/geometry"
 )
 
 type representativeRecipe struct {

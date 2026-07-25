@@ -11,7 +11,7 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/yuranikolaev/country-map-svg-generator/internal/catalog"
+	"github.com/ydnikolaev/country-map-svg-generator/internal/catalog"
 )
 
 //go:embed overrides/v1.json

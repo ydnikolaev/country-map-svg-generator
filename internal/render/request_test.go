@@ -4,9 +4,9 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/yuranikolaev/country-map-svg-generator/internal/catalog"
-	"github.com/yuranikolaev/country-map-svg-generator/internal/config"
-	"github.com/yuranikolaev/country-map-svg-generator/internal/geometry"
+	"github.com/ydnikolaev/country-map-svg-generator/internal/catalog"
+	"github.com/ydnikolaev/country-map-svg-generator/internal/config"
+	"github.com/ydnikolaev/country-map-svg-generator/internal/geometry"
 )
 
 func corpusOrSkip(t *testing.T) *catalog.Corpus {

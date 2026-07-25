@@ -4,7 +4,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/yuranikolaev/country-map-svg-generator/internal/catalog"
+	"github.com/ydnikolaev/country-map-svg-generator/internal/catalog"
 )
 
 // TestAcceptedBoundaryProfilesMatchesWhatTheAdapterTakes keeps the exported

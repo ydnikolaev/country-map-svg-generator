@@ -6,9 +6,9 @@ package render
 import (
 	"fmt"
 
-	"github.com/yuranikolaev/country-map-svg-generator/internal/catalog"
-	"github.com/yuranikolaev/country-map-svg-generator/internal/config"
-	"github.com/yuranikolaev/country-map-svg-generator/internal/geometry"
+	"github.com/ydnikolaev/country-map-svg-generator/internal/catalog"
+	"github.com/ydnikolaev/country-map-svg-generator/internal/config"
+	"github.com/ydnikolaev/country-map-svg-generator/internal/geometry"
 )
 
 // GeometryRequest builds the geometry input for one entity from a resolved

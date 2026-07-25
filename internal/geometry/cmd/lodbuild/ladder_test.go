@@ -9,7 +9,7 @@ import (
 	"path/filepath"
 	"testing"
 
-	geometry "github.com/yuranikolaev/country-map-svg-generator/internal/geometry"
+	geometry "github.com/ydnikolaev/country-map-svg-generator/internal/geometry"
 )
 
 func committedLadderArtifactPath() string {

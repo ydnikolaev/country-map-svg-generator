@@ -6,10 +6,10 @@ import (
 	"strings"
 
 	"github.com/spf13/cobra"
-	"github.com/yuranikolaev/country-map-svg-generator/internal/catalog"
-	"github.com/yuranikolaev/country-map-svg-generator/internal/config"
-	"github.com/yuranikolaev/country-map-svg-generator/internal/geometry"
-	"github.com/yuranikolaev/country-map-svg-generator/internal/render"
+	"github.com/ydnikolaev/country-map-svg-generator/internal/catalog"
+	"github.com/ydnikolaev/country-map-svg-generator/internal/config"
+	"github.com/ydnikolaev/country-map-svg-generator/internal/geometry"
+	"github.com/ydnikolaev/country-map-svg-generator/internal/render"
 )
 
 // PreviewReport says what was written and what to do with it.

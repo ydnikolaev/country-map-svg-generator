@@ -1,4 +1,4 @@
-module github.com/yuranikolaev/country-map-svg-generator
+module github.com/ydnikolaev/country-map-svg-generator
 
 go 1.26
 

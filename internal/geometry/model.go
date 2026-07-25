@@ -1,6 +1,6 @@
 package geometry
 
-import "github.com/yuranikolaev/country-map-svg-generator/internal/catalog"
+import "github.com/ydnikolaev/country-map-svg-generator/internal/catalog"
 
 const (
 	SchemaVersion    = 2

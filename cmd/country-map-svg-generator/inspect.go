@@ -6,10 +6,10 @@ import (
 	"text/tabwriter"
 
 	"github.com/spf13/cobra"
-	"github.com/yuranikolaev/country-map-svg-generator/internal/catalog"
-	"github.com/yuranikolaev/country-map-svg-generator/internal/config"
-	"github.com/yuranikolaev/country-map-svg-generator/internal/geometry"
-	"github.com/yuranikolaev/country-map-svg-generator/internal/render"
+	"github.com/ydnikolaev/country-map-svg-generator/internal/catalog"
+	"github.com/ydnikolaev/country-map-svg-generator/internal/config"
+	"github.com/ydnikolaev/country-map-svg-generator/internal/geometry"
+	"github.com/ydnikolaev/country-map-svg-generator/internal/render"
 )
 
 // InspectReport answers "what does this entity actually resolve to" without

@@ -4,7 +4,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/yuranikolaev/country-map-svg-generator/internal/config"
+	"github.com/ydnikolaev/country-map-svg-generator/internal/config"
 )
 
 // This file is VAL-4: "parse emitted XML/SVG and inject forbidden

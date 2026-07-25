@@ -6,8 +6,8 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/yuranikolaev/country-map-svg-generator/internal/config"
-	"github.com/yuranikolaev/country-map-svg-generator/internal/geometry"
+	"github.com/ydnikolaev/country-map-svg-generator/internal/config"
+	"github.com/ydnikolaev/country-map-svg-generator/internal/geometry"
 )
 
 // HookPrefix versions the CSS surface CTR-005 defines. Class names and custom
