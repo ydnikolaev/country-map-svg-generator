@@ -655,11 +655,113 @@ manifest cannot quote a dimension the asset does not carry.
 It was the one maintained list in the package, and `--out` arriving in this task
 is exactly the case that would have gone stale.
 
-## Remaining tasks
-- **T5 — `inspect`, `preview`,** the QAB-2 byte baseline for P4, and
-  `WKI-6638BACD6E20`: measure a real single-SVG invocation through the built
-  binary — P2 measured 707 ms of ladder load inside a 1.53 s cold process — then
-  accept the cost or implement lazy per-geometry decode.
+## T5 — done
+
+`inspect` reports what the pipeline **did**, not what was asked for: tier,
+viewBox, path bytes against the budget, points, components drawn *and removed*,
+capitals, and geometry's own diagnostics. That distinction is where every
+surprise in this epic has lived — Greenland draws 15 components and removes 112,
+which `inspect` says and nothing else did. A typed no-artifact is reported as the
+recorded decision it is. Nothing is written.
+
+`preview` writes **one self-contained HTML page** with every style inlined. The
+spec is explicit that it must not become a hidden web server: no localhost, no
+port, no process left behind. The page inlines exactly what `generate` would
+write, so what is looked at is the artifact rather than a rendering of it. A
+catalog-wide selection is refused at twelve entities — a page nobody can read is
+not a preview.
+
+### DEC-016: two decisions, both on measurement
+
+**The ladder's first-load cost is accepted; `WKI-6638BACD6E20` is closed.**
+Through the built binary, median of five: `version` 0.596 s, `explain` 0.592 s,
+`generate --iso FR` 1.288 s, whole catalog **3.3 s for 248 assets**. The
+discovery commands never pay it — the ladder is loaded lazily by `Generate` and
+neither generates. A batch amortizes it to nothing. On a single asset the load is
+0.69 s of a 1.29 s run **against a 0.596 s process floor lazy decode cannot
+touch**. Reopen if a workflow appears that invokes the binary once per asset.
+
+**The first measured byte distribution does not meet QAB-2.** 248 assets, 1 typed
+no-artifact (UM), 476 106 bytes total:
+
+| | path bytes | file bytes | QAB-2 (card) |
+| --- | --- | --- | --- |
+| median | 1964 | 2165 | ≤ 600 |
+| p95 | 2183 | 2384 | ≤ 1200 |
+| max | 2197 | 2397 | ≤ 2500 ✓ |
+
+The **maximum is satisfied**, and ARCH-001 says exceeding a maximum is what
+blocks delivery. The median is 3.6× over, and the cause is structural: the ladder
+selects the **finest** oracle-passing candidate per band, so finest-that-fits
+puts every entity just under the cap by construction. One of the two has to
+change; it is a page-weight against fidelity judgement, which DEC-008 and DEC-013
+established as an owner approval over a rendered page. **`WKI-33B6EC2482B3`, due
+P4.**
+
+## Two gaps a spec re-read found after the suite was already green
+
+A method note, not just a fix: every test passed and `make check` was green
+before either was noticed. They were found by reading VAL-5 and VAL-6 word by
+word against what the scripts actually did.
+
+- **VAL-5 asks for `init → validate → generate → inspect`, and the loop stopped
+  at `generate`.** The last step is the point of an ordered loop: a command that
+  breaks the state its successor needs is invisible to isolated scenarios, which
+  is why the Go profile asks for one sequential test alongside the matrix.
+- **VAL-6 asks for a failure *during batch publication*, and every forced failure
+  happened before it.** Configuration and render refusals never reach `Publish`,
+  so the transactional guarantee — the reason the whole batch is built in memory
+  first — had never once been exercised. The output directory is now made
+  read-only mid-scenario, and the script asserts both that the previous output is
+  byte-identical and that the diagnostic *says so*.
+
+REQ-11's offline guarantee is stated at its verified strength. The load-bearing
+argument is structural: testscript hands the script an empty work directory and
+the loop succeeds with no corpus, preset or schema file on disk. The proxy
+variables are a net rather than a proof — they catch a client that honours the
+environment and would miss a raw dial.
+
+## Where each acceptance criterion's evidence lives
+
+Swept against the spec's own table so whoever closes P3 does not derive it again.
+
+| AC | Evidence |
+| --- | --- |
+| AC-1 | Four testscript scenarios per registered leaf including the JSON error path, gated by `TestCommandSurfaceIsFullyCovered` in both directions |
+| AC-2 | `site-default` is the portable preset; `TestSwitchingModeDiscardsTheOtherModesSizing` for a country override selecting either sizing mode with only declared dimensions changing; `TestContainNeverDistorts` for "geometry is never stretched" |
+| AC-3 | `TestThemedInlineEmitsTheContractedHooks`; `TestAnimationIsOptInAndHookBased` asserts no `<animate>`, no `@keyframes`, no `<style>`, which is what leaves reduced motion for the host to honour. **The browser proof is P4's by the spec's own allocation**, and `preview` produces the page it loads |
+| AC-4 | `generate_happy.txtar` generates twice and `cmp`s both asset and manifest, under proxies pointing at a closed port |
+| AC-5 | VAL-4's fifteen mutations against real emitted output, plus `TestAccessibilityModesSerializePredictably` |
+
+The one soft spot is AC-3's reduced-motion clause, and the spec assigns its final
+proof to P4 rather than to P3.
+
+## What P3 leaves behind
+
+Five findings, none of them P3's to fix — all `internal/geometry` (P2, fenced) or
+P4:
+
+| Item | What |
+| --- | --- |
+| `WKI-4062B33B8FEA` | The amendment fence itself, with the mate fix sketched from the SSOT |
+| `WKI-1DA58E0FE741` | The diagnostic identity record hashes the whole module graph |
+| `WKI-37F18A2AA6A5` | A `contain` frame is fitted **before** visibility removals — up to 292 px off centre in a 300 px frame |
+| `WKI-C35A01E965DC` | Only the profile's own long side is served from the ladder; any other size falls back to source and blows the ceiling |
+| `WKI-33B6EC2482B3` | Finest-that-fits clusters every asset at the cap, 3.6× over QAB-2's median |
+
+And the governance debt `#15`: everything in P3 shipped as ordinary engineering
+commits under DEC-014, so **P2 and P3 both** need reconciling against real
+receipts once mate grows a terminal edge out of `applied`.
+
+### Follow-ups inside P3's own code
+
+- **`preview` generates once per style.** `buildPreview` calls `Generate` inside
+  the style loop, so one entity costs five pipeline runs and the twelve-entity
+  ceiling costs sixty. The T3 serializer tests deliberately generate **once** and
+  re-serialize across the matrix, for exactly this reason. Hoist it.
+- **`valueTakingFlags`** is gated in both directions by
+  `TestEveryValueTakingFlagIsRegistered` — done in T4, listed here because it is
+  the one maintained list left in the package.
 
 ## What P3 inherits from P2
 
