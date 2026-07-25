@@ -1,0 +1,12 @@
+# preview is a thing a person looks at, so a catalog-wide selection is refused
+# rather than producing a page nobody can read.
+! exec country-map-svg-generator preview --out look.html
+stderr 'usage: preview renders up to 12 entities'
+stderr 'hint: pass --iso'
+! exists look.html
+
+! exec country-map-svg-generator preview --iso ZZ --out look.html
+stderr 'data: no entity "ZZ"'
+
+! exec country-map-svg-generator preview --iso FR extra
+stderr 'usage: expected 0 argument\(s\), got 1'

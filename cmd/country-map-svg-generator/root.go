@@ -64,6 +64,8 @@ Normal generation is offline and needs no Node, Python, GDAL or auxiliary files.
 		newValidateCommand(flags),
 		newExplainCommand(flags),
 		newGenerateCommand(flags),
+		newInspectCommand(flags),
+		newPreviewCommand(flags),
 		newVersionCommand(flags),
 	)
 	return root, flags

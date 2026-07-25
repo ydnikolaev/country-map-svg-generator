@@ -1,0 +1,9 @@
+! exec country-map-svg-generator preview --out look.html --json
+stdout '"status": "error"'
+stdout '"class": "usage"'
+stdout '"code": "selection_too_wide"'
+stdout '"exit": 1'
+
+! exec country-map-svg-generator preview --iso ZZ --out look.html --json
+stdout '"class": "data"'
+stdout '"exit": 3'

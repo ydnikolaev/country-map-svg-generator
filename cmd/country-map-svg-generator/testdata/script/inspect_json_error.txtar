@@ -1,0 +1,9 @@
+! exec country-map-svg-generator inspect --json
+stdout '"status": "error"'
+stdout '"class": "usage"'
+stdout '"code": "missing_iso"'
+stdout '"exit": 1'
+
+! exec country-map-svg-generator inspect --iso ZZ --json
+stdout '"class": "data"'
+stdout '"exit": 3'

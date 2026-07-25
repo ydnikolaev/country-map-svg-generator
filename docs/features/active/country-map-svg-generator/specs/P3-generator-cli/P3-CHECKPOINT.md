@@ -6,11 +6,11 @@ resume from — this file and the commits are the whole record. Read it first.
 
 ## The one-line status
 
-**T1, T2 and T3 done.** The binary exists with its typed failure taxonomy and the
-e2e harness that holds every later task; the configuration schema is frozen,
-layered, validated and explainable; and the serializer emits every style and
-delivery mode through a structural gate. `init`, `validate`, `explain` and
-`version` are registered. Nothing writes a file yet — that is T4.
+**All five tasks done.** All seven commands are registered: `init`, `validate`,
+`explain`, `generate`, `inspect`, `preview`, `version`. The binary generates the
+whole catalog offline in 3.3 s, publishes transactionally, and carries a CTR-006
+manifest. What remains is not P3 build work — it is the governance reconciliation
+debt `#15` and the four findings below, all of which land in P2 or P4.
 
 ## Why P3 has no governed tracker
 
@@ -168,8 +168,8 @@ stub would satisfy the gate with scripts asserting that the command does nothing
 | --- | --- |
 | `version` | T1 — done |
 | `init`, `validate`, `explain` | T2 — done |
-| `generate` | T4 (T3 built the serializer it will call) |
-| `inspect`, `preview` | T5 |
+| `generate` | T4 — done |
+| `inspect`, `preview` | T5 — done |
 
 ### Dependencies added, and the gate that noticed
 

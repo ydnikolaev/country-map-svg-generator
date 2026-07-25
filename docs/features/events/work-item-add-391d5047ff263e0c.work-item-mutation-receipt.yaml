@@ -1,0 +1,35 @@
+version: 1
+kind: work-item-mutation-receipt
+id: work-item-add-391d5047ff263e0c
+project: country-map-svg-generator
+claim:
+    project: country-map-svg-generator
+    item_id: WKI-33B6EC2482B3
+    item_revision: 1
+    registry_revision: 13
+    mutation: add-capture
+    operation_id: work-item-add-391d5047ff263e0c
+    actor: operator
+    timestamp: "2026-07-25T04:58:43Z"
+    inputs:
+        - name: registry
+          value: 67860ee180182448761a194d03f1bc9e1057fd996046974d7ce0e984c4c10f51
+        - name: request
+          value: 391d5047ff263e0c4d2806f3e9f1bd02f9234f691ed97eca8a0bdda0e67e0ebf
+        - name: source
+          value: specification#P3#docs/features/active/country-map-svg-generator/specs/P3-generator-cli/P3-generator-cli.spec.md#5b346b283aacf67fae2a1480e036e93af0d849f06e0286b53eb66f1817100243
+    input_digest: 17956e2f0cad5665d7887f48831b95e747acbed8ea825a947a85f18ed3a1c086
+    result: captured
+    next_action: Due in P4, which ARCH-001 already names as the owner of measured full-catalog distributions and the only accepted route to updating an architecture budget. Show the owner a rendered page at the current distribution alongside one at the QAB-2 target before proposing either change. Changing the ladder rebuilds the committed artifact and changes every asset, so it is not a passing edit.
+    predecessor_registry:
+        kind: sha256
+        digest: 67860ee180182448761a194d03f1bc9e1057fd996046974d7ce0e984c4c10f51
+    predecessor_receipt:
+        kind: work-item-mutation-receipt
+        id: work-item-add-48742301ff7f48de
+        path: docs/features/events/work-item-add-48742301ff7f48de.work-item-mutation-receipt.yaml
+        sha256: 596414f27586b961f7d8c13e7c87ba79f77c4213f4b5f77de04563ccf837ff0a
+    event: capture
+    from: absent
+    to: captured
+successor_registry_sha256: 9790091ce31457e3649080d9924606f64228d43e19d5a776c7800c732de08105

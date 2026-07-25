@@ -1,0 +1,9 @@
+! exec country-map-svg-generator inspect
+stderr 'usage: inspect reports one entity; pass --iso'
+stderr 'hint: run country-map-svg-generator generate --dry-run'
+
+! exec country-map-svg-generator inspect --iso ZZ
+stderr 'data: no entity "ZZ" in corpus'
+
+! exec country-map-svg-generator inspect --iso FR extra
+stderr 'usage: expected 0 argument\(s\), got 1'

@@ -1,0 +1,24 @@
+# inspect reports what the pipeline did, not what was asked for.
+exec country-map-svg-generator inspect --iso FR
+stdout 'FR \(FRA\) — France'
+stdout 'profile card, boundary un'
+stdout 'tier\s+\w+'
+stdout 'path bytes\s+[0-9]+ of [0-9]+'
+stdout 'components drawn\s+[0-9]+'
+stdout 'components removed\s+[0-9]+'
+! stderr .
+
+# Nothing is written: this is the command to run before generate.
+! exists FR.svg
+
+# A typed no-artifact is a fact about the entity, reported as a decision rather
+# than as a failure — inspect exists to report exactly this.
+exec country-map-svg-generator inspect --iso UM
+stdout 'no artifact'
+stdout 'recorded outcome, not a failure'
+
+exec country-map-svg-generator inspect --iso FR --json
+stdout '"iso": "FR"'
+stdout '"selected_tier"'
+stdout '"path_bytes": [0-9]+'
+stdout '"components_removed": [0-9]+'

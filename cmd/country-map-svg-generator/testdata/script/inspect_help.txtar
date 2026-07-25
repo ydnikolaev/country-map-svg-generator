@@ -1,0 +1,9 @@
+exec country-map-svg-generator inspect --help
+stdout 'Report the geometry and marker facts for one entity'
+stdout 'what was selected and drawn rather than what was requested'
+stdout 'Nothing is written'
+stdout '--iso'
+! stderr .
+
+exec country-map-svg-generator --help
+stdout 'inspect\s+Report what one entity resolves to'

@@ -1,13 +1,13 @@
 version: 1
 kind: work-item-registry
 project: country-map-svg-generator
-revision: 12
+revision: 15
 head_receipt:
     kind: work-item-mutation-receipt
-    id: work-item-add-48742301ff7f48de
-    path: docs/features/events/work-item-add-48742301ff7f48de.work-item-mutation-receipt.yaml
-    claim_sha256: 6f6baf32edd04fb3425774c51a6f629a089e8e5ea2a7b5d9eb354baad81e2b93
-updated_at: "2026-07-25T04:50:29Z"
+    id: work-item-dispose-d4039a6b3ece071e
+    path: docs/features/events/work-item-dispose-d4039a6b3ece071e.work-item-mutation-receipt.yaml
+    claim_sha256: 19df33cbf44480e1738f5c34e58d1502ef1a07a5c6fb721aea2803d10c404adb
+updated_at: "2026-07-25T04:59:54Z"
 items:
     - id: WKI-1DA58E0FE741
       fingerprint: 1da58e0fe7415e43bdab46361325c255e34bfa26abf169de19cf7996604c35f0
@@ -50,6 +50,48 @@ items:
           claim_sha256: e1e0f842e620c91bb64bd801634a46980d29534cf65bcd0e3a4b0695e15aba17
       created_at: "2026-07-25T03:24:24Z"
       updated_at: "2026-07-25T03:24:24Z"
+      revision: 1
+    - id: WKI-33B6EC2482B3
+      fingerprint: 33b6ec2482b31c81faebcb1905892696d28f233098a5087f75dcf387ec2db8c5
+      scope: project
+      title: The ladder's finest-that-fits rule clusters every asset at the byte cap, 3.6x over QAB-2's median
+      problem: 'First measured full-catalog distribution through the shipped CLI, at profile card with the default configuration: 248 assets written, 1 typed no-artifact, 476106 bytes total. Path bytes median 1964, p95 2183, max 2197. File bytes median 2165, p95 2384, max 2397. QAB-2 for card asks for a median of at most 0.6 KB, p95 at most 1.2 KB and max at most 2.5 KB as uncompressed file sizes, so the maximum is satisfied with nothing over 2500 while the median is 3.6x over and p95 is about 2x over. The cause is structural rather than accidental: the ladder selects, per geometry and band, the finest oracle-passing candidate, so finest-that-fits puts every entity just under the cap by construction and the distribution clusters at the ceiling instead of spreading below it. QAB-2''s median and p95 were written for a distribution in which most countries are simple and cheap. The two are not reconcilable by tuning; one of them has to change. Recorded in DEC-016.'
+      expected_outcome: Either the ladder's selection rule targets a byte distribution rather than only a ceiling, or QAB-2's median and p95 are updated from this measured evidence. Whichever it is, the decision is taken by the owner against a rendered page rather than from a number, because it is a page-weight against fidelity judgement - 248 cards at roughly 2.1 KB is 476 KB uncompressed - and the same class of judgement DEC-008 and DEC-013 established as an owner approval over rendered output.
+      status: captured
+      owner: product-owner
+      priority_band: high
+      effort_band: large
+      next_action: Due in P4, which ARCH-001 already names as the owner of measured full-catalog distributions and the only accepted route to updating an architecture budget. Show the owner a rendered page at the current distribution alongside one at the QAB-2 target before proposing either change. Changing the ladder rebuilds the committed artifact and changes every asset, so it is not a passing edit.
+      observations:
+        - id: OBS-391D5047FF26
+          source:
+            artifact: specification
+            id: P3
+            path: docs/features/active/country-map-svg-generator/specs/P3-generator-cli/P3-generator-cli.spec.md
+            sha256: 5b346b283aacf67fae2a1480e036e93af0d849f06e0286b53eb66f1817100243
+          actor: operator
+          evidence: []
+          observed_at: "2026-07-25T04:58:43Z"
+      decisions:
+        - revision: 1
+          actor: operator
+          from: absent
+          to: captured
+          rationale: Capture the durable work item
+          decided_at: "2026-07-25T04:58:43Z"
+          receipt:
+            kind: work-item-mutation-receipt
+            id: work-item-add-391d5047ff263e0c
+            path: docs/features/events/work-item-add-391d5047ff263e0c.work-item-mutation-receipt.yaml
+            claim_sha256: ae397a89b061645b33865a41cd6153c315767e33c6175a29fdb401367ac4f370
+      relationships: []
+      mutation_receipts:
+        - kind: work-item-mutation-receipt
+          id: work-item-add-391d5047ff263e0c
+          path: docs/features/events/work-item-add-391d5047ff263e0c.work-item-mutation-receipt.yaml
+          claim_sha256: ae397a89b061645b33865a41cd6153c315767e33c6175a29fdb401367ac4f370
+      created_at: "2026-07-25T04:58:43Z"
+      updated_at: "2026-07-25T04:58:43Z"
       revision: 1
     - id: WKI-37F18A2AA6A5
       fingerprint: 37f18a2aa6a59fc5720757959538755763ee7e204f06239f821e88a0aa9d0391
@@ -211,11 +253,11 @@ items:
       title: Ladder first-load costs 707 ms per process; decide lazy per-geometry decode in T3
       problem: EmbeddedLadderTable decodes the whole ~10 MB committed ladder artifact (996 rows, 283 candidate geometries) on first use, measured at 707 ms. It is behind sync.Once, so a long-lived process pays it once, and the linker drops the embed entirely when unreferenced (lodbuild stays 15.32 MB; a consumer calling the loader grows to 24.78 MB). But the P3 product is an agent-driven CLI that generates one SVG per invocation, and that invocation would pay the full 707 ms to decode 996 rows in order to use one. No accepted decision sets a startup budget, so this is a deliberate design call, not a violation.
       expected_outcome: T3 weighs the cost when it wires publishedLODTable and either accepts 707 ms with a recorded rationale or lands a lazy per-geometry decode so a single-entity run touches only its own rows and candidate. Either way the choice is explicit and measured, not inherited.
-      status: captured
+      status: done
       owner: teamlead
       priority_band: normal
       effort_band: medium
-      next_action: Measure a realistic single-SVG CLI invocation during T3 and choose between accepting the cost and per-geometry lazy decode
+      next_action: No further mutation is legal.
       observations:
         - id: OBS-EFA776A80BDC
           source:
@@ -238,15 +280,50 @@ items:
             id: work-item-add-efa776a80bdc3a29
             path: docs/features/events/work-item-add-efa776a80bdc3a29.work-item-mutation-receipt.yaml
             claim_sha256: 318ce1de447703a334445d7a3f65e60a8a54492f442c1a7534e60287b433e953
+        - revision: 2
+          actor: product-owner
+          from: captured
+          to: accepted
+          rationale: 'Accepted for closure: DEC-016 settles it on measurement.'
+          decided_at: "2026-07-25T04:59:42Z"
+          receipt:
+            kind: work-item-mutation-receipt
+            id: work-item-triage-e3ff01622e76aae5
+            path: docs/features/events/work-item-triage-e3ff01622e76aae5.work-item-mutation-receipt.yaml
+            claim_sha256: d6d990fd4ee99d27ef5aeb3b740542151f767d4810cd524ff7371945744f8b53
+        - revision: 3
+          actor: product-owner
+          from: accepted
+          to: done
+          rationale: 'Closed by DEC-016 on measurement rather than estimate. Through the built binary: version 0.596s and explain 0.592s never touch the ladder at all, the whole catalog is 3.3s for 248 assets so a batch amortizes the load to nothing, and on a single asset the load is 0.69s of a 1.29s run against a 0.596s process floor that lazy per-geometry decode cannot reach. Reopen if a workflow appears that invokes the binary once per asset in a loop.'
+          decided_at: "2026-07-25T04:59:54Z"
+          receipt:
+            kind: work-item-mutation-receipt
+            id: work-item-dispose-d4039a6b3ece071e
+            path: docs/features/events/work-item-dispose-d4039a6b3ece071e.work-item-mutation-receipt.yaml
+            claim_sha256: 19df33cbf44480e1738f5c34e58d1502ef1a07a5c6fb721aea2803d10c404adb
       relationships: []
       mutation_receipts:
         - kind: work-item-mutation-receipt
           id: work-item-add-efa776a80bdc3a29
           path: docs/features/events/work-item-add-efa776a80bdc3a29.work-item-mutation-receipt.yaml
           claim_sha256: 318ce1de447703a334445d7a3f65e60a8a54492f442c1a7534e60287b433e953
+        - kind: work-item-mutation-receipt
+          id: work-item-triage-e3ff01622e76aae5
+          path: docs/features/events/work-item-triage-e3ff01622e76aae5.work-item-mutation-receipt.yaml
+          claim_sha256: d6d990fd4ee99d27ef5aeb3b740542151f767d4810cd524ff7371945744f8b53
+        - kind: work-item-mutation-receipt
+          id: work-item-dispose-d4039a6b3ece071e
+          path: docs/features/events/work-item-dispose-d4039a6b3ece071e.work-item-mutation-receipt.yaml
+          claim_sha256: 19df33cbf44480e1738f5c34e58d1502ef1a07a5c6fb721aea2803d10c404adb
+      disposition_receipt:
+        kind: work-item-mutation-receipt
+        id: work-item-dispose-d4039a6b3ece071e
+        path: docs/features/events/work-item-dispose-d4039a6b3ece071e.work-item-mutation-receipt.yaml
+        claim_sha256: 19df33cbf44480e1738f5c34e58d1502ef1a07a5c6fb721aea2803d10c404adb
       created_at: "2026-07-24T19:53:28Z"
-      updated_at: "2026-07-24T19:53:28Z"
-      revision: 1
+      updated_at: "2026-07-25T04:59:54Z"
+      revision: 3
     - id: WKI-B05B4B4287A2
       fingerprint: b05b4b4287a265e00b0cb84557e34750d0286f65dd84f1bf500742d36669e49b
       scope: project

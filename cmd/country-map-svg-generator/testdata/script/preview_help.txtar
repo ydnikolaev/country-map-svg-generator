@@ -1,0 +1,9 @@
+exec country-map-svg-generator preview --help
+stdout 'self-contained HTML page'
+stdout 'It is a file, not a server'
+stdout 'no localhost, no port'
+stdout '--out'
+! stderr .
+
+exec country-map-svg-generator --help
+stdout 'preview\s+Write one self-contained page to look at the output'

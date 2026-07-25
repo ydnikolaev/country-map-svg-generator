@@ -1,0 +1,26 @@
+# One page, every style, nothing to run.
+exec country-map-svg-generator preview --iso FR --out look.html
+stdout 'wrote look.html'
+stdout 'open it to look at FR in 5 styles'
+exists look.html
+
+# The page inlines exactly what generate would write, so what is looked at is the
+# artifact rather than a rendering of it.
+grep '<svg xmlns="http://www.w3.org/2000/svg"' look.html
+grep 'bold-soft' look.html
+grep 'silhouette' look.html
+
+# A file, not a server: nothing in the page fetches or runs anything. The SVG
+# namespace declaration is the one absolute URL that legitimately appears — it
+# names the language and is never fetched — so the assertion is about the ways a
+# page actually loads something.
+! grep 'localhost' look.html
+! grep '<script' look.html
+! grep 'src=' look.html
+! grep '@import' look.html
+! grep '<link' look.html
+
+exec country-map-svg-generator preview --iso FR --out look.html --json
+stdout '"path": "look.html"'
+stdout '"entities"'
+stdout '"styles"'

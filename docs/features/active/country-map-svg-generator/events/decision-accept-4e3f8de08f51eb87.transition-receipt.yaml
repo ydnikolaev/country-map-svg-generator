@@ -1,0 +1,25 @@
+version: 1
+kind: transition-receipt
+id: decision-accept-4e3f8de08f51eb87
+epic: country-map-svg-generator
+status: recorded
+input_digest: 7699cddff6f2773193e49035bb19fc8e440b204e3e382873fc6bf25e30eee207
+subject:
+    artifact: decision
+    id: DEC-016
+    path: docs/features/active/country-map-svg-generator/decisions/candidates/DEC-016/country-map-svg-generator.DEC-016-ladder-load-cost-accepted.decision.md
+    sha256: 674de4d7e4d38d9cca9dee8d6b1c31620b832262ead4d0c661b43bc37627cdce
+producer_role: lifecycle-engine
+principal: product-owner
+result: pass
+machine: decision
+event: accept
+from: draft
+to: accepted
+inputs:
+    - artifact: decision
+      id: DEC-016
+      path: docs/features/active/country-map-svg-generator/decisions/candidates/DEC-016/country-map-svg-generator.DEC-016-ladder-load-cost-accepted.decision.md
+      sha256: 674de4d7e4d38d9cca9dee8d6b1c31620b832262ead4d0c661b43bc37627cdce
+predecessor: 674de4d7e4d38d9cca9dee8d6b1c31620b832262ead4d0c661b43bc37627cdce
+successor: 31780e370c2a0e7134a1eabfb58df776b7b7f6c7f1f583f28563ffd5f269ec4b
