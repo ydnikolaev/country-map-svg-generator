@@ -34,37 +34,50 @@ body{margin:0;background:var(--bg);color:var(--ink);
   -webkit-font-smoothing:antialiased}
 header{padding:32px 28px 0;max-width:1400px;margin:0 auto}
 h1{font-size:20px;margin:0 0 6px;letter-spacing:-.01em}
-.lede{color:var(--muted);margin:0;max-width:62ch}
+.lede{color:var(--muted);margin:0;max-width:64ch}
 .lede code{font-size:.92em;background:var(--line);padding:1px 5px;border-radius:4px}
 
 /* Controls */
 .bar{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);
-  backdrop-filter:blur(10px);border-bottom:1px solid var(--line);margin-top:24px}
-.bar-inner{max-width:1400px;margin:0 auto;padding:12px 28px;display:flex;flex-wrap:wrap;gap:18px;align-items:center}
-.group{display:flex;align-items:center;gap:8px}
-.group>label{font-size:11px;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);font-weight:600}
+  backdrop-filter:blur(10px);border-bottom:1px solid var(--line);margin-top:22px}
+/* Every control is a labelled column, so the labels sit on one baseline and the
+   controls on another. Inline labels made the row ragged: each pair took a
+   different width and nothing lined up once the row wrapped. */
+.bar-inner{max-width:1400px;margin:0 auto;padding:12px 28px;display:flex;flex-wrap:wrap;
+  gap:14px 22px;align-items:flex-end}
+.group{display:flex;flex-direction:column;gap:6px}
+.group>label{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);
+  font-weight:600;white-space:nowrap;padding-left:2px}
 .seg{display:flex;background:var(--panel);border:1px solid var(--line);border-radius:9px;padding:2px;gap:2px}
 .seg button{appearance:none;border:0;background:transparent;color:var(--muted);font:inherit;font-size:13px;
-  padding:5px 11px;border-radius:7px;cursor:pointer;transition:background .12s,color .12s}
+  padding:5px 10px;border-radius:7px;cursor:pointer;transition:background .12s,color .12s;white-space:nowrap}
 .seg button:hover{color:var(--ink)}
 .seg button[aria-pressed=true]{background:var(--accent);color:#fff}
-.swatches{display:flex;gap:6px}
-.swatch{width:26px;height:26px;border-radius:50%;border:2px solid transparent;cursor:pointer;padding:0;
+/* Swatches sit in the same shell as a segmented control so the two kinds of
+   control share one height and one baseline. */
+.swatches{display:flex;gap:5px;background:var(--panel);border:1px solid var(--line);
+  border-radius:9px;padding:4px 6px;align-items:center}
+.swatch{width:22px;height:22px;border-radius:50%;border:2px solid transparent;cursor:pointer;padding:0;
   outline-offset:2px;transition:transform .12s}
-.swatch:hover{transform:scale(1.12)}
+.swatch:hover{transform:scale(1.14)}
 .swatch[aria-pressed=true]{border-color:var(--ink)}
+.swatch.inherit{background:repeating-linear-gradient(45deg,var(--muted) 0 3px,transparent 3px 6px)}
 .spacer{flex:1}
+.rule{width:1px;align-self:stretch;background:var(--line);margin:0 2px}
 
-/* Grid */
-main{max-width:1400px;margin:0 auto;padding:26px 28px 64px}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:18px}
-.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px;
+/* Grid. The column count is a control, so it is a custom property rather than a
+   media query — the reader's choice has to beat the viewport's guess. */
+main{max-width:1400px;margin:0 auto;padding:24px 28px 64px}
+.grid{display:grid;grid-template-columns:repeat(var(--cols,3),minmax(0,1fr));gap:18px}
+@media (max-width:900px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:600px){.grid{grid-template-columns:1fr}}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px;
   box-shadow:var(--shadow);cursor:zoom-in;transition:transform .14s,border-color .14s;
-  display:flex;flex-direction:column;gap:10px}
+  display:flex;flex-direction:column;gap:12px}
 .card:hover{transform:translateY(-2px);border-color:var(--accent)}
 .card:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
-.art{height:150px;display:flex;align-items:center;justify-content:center;color:var(--accent)}
-.art svg{max-width:100%;max-height:150px;display:block}
+.art{height:190px;display:flex;align-items:center;justify-content:center;color:var(--map-body)}
+.art svg{max-width:100%;max-height:190px;display:block}
 .card.empty .art{color:var(--muted);font-size:13px;font-style:italic;cursor:default}
 footer b{display:block;font-size:14px;font-weight:600}
 footer span{display:block;font-size:12px;color:var(--muted)}
@@ -72,16 +85,21 @@ footer span{display:block;font-size:12px;color:var(--muted)}
 /* Full-width view */
 dialog{border:0;padding:0;background:transparent;max-width:100vw;max-height:100vh;width:100%;height:100%}
 dialog::backdrop{background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(6px)}
-.stage{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:40px}
-.stage svg{max-width:min(1100px,88vw);max-height:74vh;color:var(--accent)}
+.stage{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:18px;padding:40px;color:var(--map-body)}
+/* No colour rule on the svg itself: setting it here would beat the inherited
+   value and the enlarged map would ignore the selected palette. That was a real
+   bug — the stage opened in the default accent no matter what was chosen. */
+.stage svg{max-width:min(1100px,88vw);max-height:74vh}
 .stage .meta{color:var(--muted);font-size:13px;text-align:center}
 .stage .meta b{color:var(--ink);font-size:16px;display:block;margin-bottom:2px}
 .close{position:fixed;top:20px;right:24px;appearance:none;border:1px solid var(--line);background:var(--panel);
   color:var(--ink);font:inherit;padding:7px 14px;border-radius:9px;cursor:pointer}
 
-/* The maps themselves. Every value below is a custom property the generated
-   markup already reads, with its own resolved value as the fallback — nothing
-   here reaches into the SVG's markup. */
+/* The maps. Every value is a custom property the generated markup already reads,
+   with its own resolved value as the fallback — nothing reaches into the SVG.
+   The shape's colour comes from `currentColor` (so it follows the theme when the
+   palette says `ink`); the stroke can be given its own colour independently. */
 .country-map__shape{
   fill:var(--map-fill);
   fill-opacity:var(--map-fill-opacity);
@@ -89,16 +107,22 @@ dialog::backdrop{background:color-mix(in srgb,var(--bg) 92%,transparent);backdro
   stroke-opacity:var(--map-stroke-opacity);
   stroke-width:var(--map-stroke-width);
 }
-.country-map__marker{fill:var(--map-marker);stroke:none}
+.country-map__marker{fill:var(--map-marker);stroke:none;display:var(--map-marker-display,none)}
 body{
   --country-map-fill:var(--map-fill);
   --country-map-fill-opacity:var(--map-fill-opacity);
   --country-map-stroke:var(--map-stroke);
   --country-map-stroke-opacity:var(--map-stroke-opacity);
   --country-map-stroke-width:var(--map-stroke-width);
+  --map-body:var(--accent);
   --map-fill:currentColor; --map-fill-opacity:1;
   --map-stroke:currentColor; --map-stroke-opacity:1; --map-stroke-width:.5;
   --map-marker:currentColor;
+  /* Pattern content cannot use currentColor: a <pattern> in <defs> resolves it
+     against its own ancestors, not against the element referencing it, so the
+     dots and hatch stayed one colour while everything else changed. A custom
+     property inherits down to the defs and does not have that problem. */
+  --map-pattern-ink:currentColor;
 }
 </style>
 </head>
@@ -108,32 +132,41 @@ body{
   <h1>country-map-svg-generator</h1>
   <p class="lede">
     {{COUNT}} entities, chosen for shape diversity. Each map was generated
-    <strong>once</strong>. Everything below — style, colour, pattern, theme —
-    is switched here in the browser, because <code>themed-inline</code> emits
-    every token as a CSS custom property. Geometry carries no presentation, so
-    presentation changes without regenerating anything.
+    <strong>once</strong>. Everything below — style, colours, pattern, markers,
+    theme, density — is switched here in the browser, because
+    <code>themed-inline</code> emits every token as a CSS custom property.
+    Geometry carries no presentation, so presentation changes without
+    regenerating anything.
   </p>
 </header>
 
 <div class="bar">
   <div class="bar-inner">
     <div class="group"><label>Style</label><div class="seg" id="style"></div></div>
-    <div class="group"><label>Colour</label><div class="swatches" id="palette"></div></div>
+    <div class="group"><label>Body colour</label><div class="swatches" id="bodyPalette"></div></div>
+    <div class="group"><label>Line colour</label><div class="swatches" id="strokePalette"></div></div>
+    <div class="group"><label>Line width</label><div class="seg" id="weight"></div></div>
+    <div class="rule"></div>
     <div class="group"><label>Fill</label><div class="seg" id="pattern"></div></div>
+    <div class="group"><label>Density</label><div class="seg" id="density"></div></div>
+    <div class="group"><label>Capitals</label><div class="seg" id="markers"></div></div>
     <div class="spacer"></div>
+    <div class="group"><label>Columns</label><div class="seg" id="cols"></div></div>
     <div class="group"><label>Theme</label><div class="seg" id="theme"></div></div>
   </div>
 </div>
 
 <!-- One defs block for the whole page. Every asset that asks for a pattern
-     references it, and it costs zero bytes per asset. -->
+     references it, and it costs zero bytes per asset. Both tiles are diagonal
+     and small enough to read as texture rather than as stripes at card size. -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
-  <pattern id="hatch" width="4" height="4" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
-    <line x1="0" y1="0" x2="0" y2="4" stroke="currentColor" stroke-width=".7"/>
+  <pattern id="hatch" width="3" height="3" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+    <line x1="0" y1="0" x2="0" y2="3" stroke="var(--map-pattern-ink)" stroke-width=".55"/>
   </pattern>
-  <pattern id="dots" width="4" height="4" patternUnits="userSpaceOnUse">
-    <circle cx="1.4" cy="1.4" r=".7" fill="currentColor"/>
+  <pattern id="dots" width="2.6" height="2.6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+    <circle cx="1.3" cy="1.3" r=".45" fill="var(--map-pattern-ink)"/>
   </pattern>
+  <!-- The tile values above are the `even` step; apply() retiles both on load. -->
 </defs></svg>
 
 <main><div class="grid" id="grid">{{CARDS}}</div></main>
@@ -145,36 +178,78 @@ body{
 // emits. Nothing is hard-coded about the markup: each entry only sets values the
 // generated attributes already read through var().
 const STYLES = {
-  outline:    {fill:'none',        fillOpacity:0,    strokeOpacity:1,  strokeWidth:1},
-  filled:     {fill:'currentColor',fillOpacity:1,    strokeOpacity:1,  strokeWidth:.5},
-  silhouette: {fill:'currentColor',fillOpacity:1,    strokeOpacity:0,  strokeWidth:0},
-  'bold-soft':{fill:'currentColor',fillOpacity:.14,  strokeOpacity:1,  strokeWidth:1.5},
-  ghost:      {fill:'currentColor',fillOpacity:.06,  strokeOpacity:.3, strokeWidth:1},
+  outline:    {fill:'none',        fillOpacity:0,   strokeOpacity:1,  strokeWidth:1},
+  filled:     {fill:'currentColor',fillOpacity:1,   strokeOpacity:1,  strokeWidth:.5},
+  silhouette: {fill:'currentColor',fillOpacity:1,   strokeOpacity:0,  strokeWidth:0},
+  'bold-soft':{fill:'currentColor',fillOpacity:.14, strokeOpacity:1,  strokeWidth:1.5},
+  ghost:      {fill:'currentColor',fillOpacity:.06, strokeOpacity:.3, strokeWidth:1},
 };
 const PALETTE = {
-  indigo:'#5566d8', teal:'#1f9c8a', amber:'#c98a2e', rose:'#c8556f',
-  slate:'#68748c', ink:'currentColor',
+  ink:'currentColor', indigo:'#5566d8', teal:'#1f9c8a', amber:'#c98a2e',
+  rose:'#c8556f', slate:'#68748c',
 };
 const PATTERNS = {none:null, hatch:'url(#hatch)', dots:'url(#dots)'};
+// Density retiles the pattern rather than scaling it: a tile is measured in the
+// SVG's own user space, so the mark has to shrink with the spacing or a denser
+// setting would just read as a darker one.
+const DENSITY = {
+  open:  {hatch:{tile:4.5, mark:.7 }, dots:{tile:4,   mark:.62}},
+  even:  {hatch:{tile:3,   mark:.55}, dots:{tile:2.6, mark:.45}},
+  tight: {hatch:{tile:2,   mark:.4 }, dots:{tile:1.8, mark:.32}},
+};
+// A multiplier over the style's own width, so "thin" stays thin in every style
+// rather than flattening five styles onto one number.
+const WEIGHTS = {hair:0.25, thin:0.5, base:1, bold:1.8};
 
-const state = {style:'filled', colour:'indigo', pattern:'none', theme:'auto'};
+const state = {
+  style:'filled', body:'indigo', stroke:'match', pattern:'none',
+  density:'even', weight:'thin', markers:'off', cols:'3', theme:'auto',
+};
 const root = document.documentElement, body = document.body;
+const colourOf = name => PALETTE[name] === 'currentColor' ? 'var(--accent)' : PALETTE[name];
 
 function apply(){
   const s = STYLES[state.style];
-  body.style.setProperty('--map-fill-opacity', s.fillOpacity);
-  body.style.setProperty('--map-stroke-opacity', s.strokeOpacity);
-  body.style.setProperty('--map-stroke-width', s.strokeWidth);
-  body.style.setProperty('--map-stroke', 'currentColor');
-  // A pattern is a paint server: it replaces the fill, exactly as the generator
-  // treats tokens.advanced.pattern. Outline has no fill to replace.
+
+  // Body colour drives `currentColor` for the whole map, so a pattern, a marker
+  // and an un-overridden stroke all follow it by inheritance.
+  body.style.setProperty('--map-body', colourOf(state.body));
+  // The pattern gets the resolved colour rather than `currentColor`: a <pattern>
+  // in <defs> resolves currentColor against its own ancestors — the hidden svg —
+  // not against the element referencing it, so passing it through would leave
+  // the dots and hatch one colour while everything else changed.
+  body.style.setProperty('--map-pattern-ink', colourOf(state.body));
+
   const pat = PATTERNS[state.pattern];
   body.style.setProperty('--map-fill', pat && s.fill !== 'none' ? pat : s.fill);
-  body.style.setProperty('--map-marker', 'currentColor');
+  body.style.setProperty('--map-fill-opacity', s.fillOpacity);
 
-  const colour = PALETTE[state.colour];
-  document.querySelectorAll('.art, .stage').forEach(el => { el.style.color = colour; });
+  // `match` means the line inherits the body colour; anything else gives the
+  // outline a colour of its own.
+  body.style.setProperty('--map-stroke',
+    state.stroke === 'match' ? 'currentColor' : colourOf(state.stroke));
+  body.style.setProperty('--map-stroke-opacity', s.strokeOpacity);
+  body.style.setProperty('--map-stroke-width', (s.strokeWidth * WEIGHTS[state.weight]).toFixed(3));
+
+  body.style.setProperty('--map-marker', 'currentColor');
+  body.style.setProperty('--map-marker-display', state.markers === 'on' ? 'inline' : 'none');
+
+  // The tile lives in attributes rather than in CSS, so it is retiled here.
+  const d = DENSITY[state.density];
+  const hatch = document.getElementById('hatch'), dots = document.getElementById('dots');
+  hatch.setAttribute('width', d.hatch.tile);
+  hatch.setAttribute('height', d.hatch.tile);
+  hatch.firstElementChild.setAttribute('y2', d.hatch.tile);
+  hatch.firstElementChild.setAttribute('stroke-width', d.hatch.mark);
+  dots.setAttribute('width', d.dots.tile);
+  dots.setAttribute('height', d.dots.tile);
+  dots.firstElementChild.setAttribute('cx', d.dots.tile / 2);
+  dots.firstElementChild.setAttribute('cy', d.dots.tile / 2);
+  dots.firstElementChild.setAttribute('r', d.dots.mark);
+
+  root.style.setProperty('--cols', state.cols);
   root.setAttribute('data-theme', state.theme);
+
   document.querySelectorAll('[data-group]').forEach(b => {
     b.setAttribute('aria-pressed', String(state[b.dataset.group] === b.dataset.value));
   });
@@ -191,22 +266,38 @@ function seg(host, group, values, label){
   }
 }
 
-seg(document.getElementById('style'), 'style', Object.keys(STYLES));
-seg(document.getElementById('pattern'), 'pattern', Object.keys(PATTERNS));
-seg(document.getElementById('theme'), 'theme', ['auto','light','dark']);
-
-const pal = document.getElementById('palette');
-for(const [name, value] of Object.entries(PALETTE)){
-  const b = document.createElement('button');
-  b.type='button'; b.className='swatch'; b.title=name;
-  b.dataset.group='colour'; b.dataset.value=name;
-  b.style.background = value === 'currentColor' ? 'var(--ink)' : value;
-  b.onclick = () => { state.colour = name; apply(); };
-  pal.appendChild(b);
+function swatches(host, group, extra){
+  host.innerHTML = '';
+  if(extra){
+    const b = document.createElement('button');
+    b.type='button'; b.className='swatch inherit'; b.title='match the body colour';
+    b.dataset.group=group; b.dataset.value='match';
+    b.onclick = () => { state[group]='match'; apply(); };
+    host.appendChild(b);
+  }
+  for(const [name, value] of Object.entries(PALETTE)){
+    const b = document.createElement('button');
+    b.type='button'; b.className='swatch'; b.title=name;
+    b.dataset.group=group; b.dataset.value=name;
+    b.style.background = value === 'currentColor' ? 'var(--ink)' : value;
+    b.onclick = () => { state[group] = name; apply(); };
+    host.appendChild(b);
+  }
 }
 
+seg(document.getElementById('style'), 'style', Object.keys(STYLES));
+seg(document.getElementById('pattern'), 'pattern', Object.keys(PATTERNS));
+seg(document.getElementById('density'), 'density', Object.keys(DENSITY));
+seg(document.getElementById('weight'), 'weight', Object.keys(WEIGHTS));
+seg(document.getElementById('markers'), 'markers', ['off','on']);
+seg(document.getElementById('cols'), 'cols', ['3','4','5']);
+seg(document.getElementById('theme'), 'theme', ['auto','light','dark']);
+swatches(document.getElementById('bodyPalette'), 'body', false);
+swatches(document.getElementById('strokePalette'), 'stroke', true);
+
 // Full-width view. The card's own markup is cloned rather than re-rendered, so
-// what you enlarge is exactly the asset that was generated.
+// what you enlarge is exactly the asset that was generated — and it inherits the
+// current selection rather than a colour captured when the page loaded.
 const stage = document.getElementById('stage'), stageBody = document.getElementById('stageBody');
 function openCard(card){
   if(card.classList.contains('empty')) return;
@@ -217,7 +308,7 @@ function openCard(card){
   const meta = document.createElement('div');
   meta.className = 'meta'; meta.innerHTML = foot.innerHTML;
   stageBody.appendChild(meta);
-  stage.showModal(); apply();
+  stage.showModal();
 }
 document.getElementById('grid').addEventListener('click', e => {
   const card = e.target.closest('.card'); if(card) openCard(card);

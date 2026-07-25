@@ -39,6 +39,26 @@ var demoEntities = []struct{ ISO, Why string }{
 	{"JP", "archipelago, arc-shaped"},
 	{"NO", "extreme coastline complexity"},
 	{"CA", "vast, deeply indented, arctic islands"},
+	{"DE", "compact, the densest silhouette in the set"},
+	{"ES", "near-square landmass with island groups"},
+	{"GB", "island, heavily indented"},
+	{"US", "spans a continent plus two detached states"},
+	{"CN", "large and compact, complex southern edge"},
+	{"RU", "widest span in the corpus"},
+	{"MX", "long curve, tapering"},
+	{"AR", "north-south wedge"},
+	{"EG", "near-rectangular, an unusual outline"},
+	{"TR", "wide and low, two seas"},
+	{"SE", "elongated north-south, Baltic islands"},
+	{"PL", "compact, almost no coastline detail"},
+	{"UA", "compact with a peninsula"},
+	{"TH", "narrow tail, awkward to fit"},
+	{"VN", "extreme S-curve"},
+	{"ID", "archipelago spanning the widest arc"},
+	{"NG", "compact, simple boundary"},
+	{"GR", "mainland plus a dense island field"},
+	{"CH", "small and compact, intricate border"},
+	{"IS", "single island, rounded"},
 }
 
 // DemoReport says what was built and where it went. The path is reported whether
@@ -152,12 +172,21 @@ func buildDemo(corpus *catalog.Corpus, vocab config.Vocabulary) (string, []strin
 	// the style matrix here would produce five copies of one geometry.
 	themed := "themed-inline"
 	filled := "filled"
+	// Markers are generated ON and hidden by CSS, because a marker is geometry —
+	// a projected coordinate the page cannot compute — while its visibility is
+	// presentation. Generating them off would make the page's marker toggle a
+	// regeneration, which is the one thing this page exists to avoid.
+	capital := "capital"
 
 	for _, entry := range demoEntities {
 		iso := entry.ISO
 		name := entityName(corpus, iso)
 
-		resolved, err := config.Resolve(nil, iso, config.Settings{Delivery: &themed, Style: &filled})
+		resolved, err := config.Resolve(nil, iso, config.Settings{
+			Delivery: &themed,
+			Style:    &filled,
+			Marker:   &config.Marker{Mode: &capital},
+		})
 		if err != nil {
 			return "", nil, configError(err)
 		}

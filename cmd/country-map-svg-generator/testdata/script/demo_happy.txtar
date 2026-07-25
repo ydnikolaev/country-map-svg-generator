@@ -3,7 +3,7 @@
 # effect a script must not depend on being suppressed for it.
 exec country-map-svg-generator demo --open=false --out showcase.html
 stdout 'wrote showcase.html'
-stdout '10 entities'
+stdout '30 entities'
 stdout 'open it yourself'
 ! stderr .
 exists showcase.html
@@ -13,6 +13,13 @@ grep '<!doctype html>' showcase.html
 grep 'country-map__shape' showcase.html
 grep 'data-iso="FR"' showcase.html
 grep 'data-iso="CA"' showcase.html
+grep 'data-iso="IS"' showcase.html
+
+# Markers are generated ON and hidden by CSS: a projected coordinate is
+# geometry the page cannot compute, while its visibility is presentation.
+# Generating them off would make the page's capitals toggle a regeneration.
+grep 'country-map__marker' showcase.html
+grep 'data-marker="FR-' showcase.html
 
 # Every asset is themed-inline, which is what makes one generation cover every
 # style. A standalone asset here would mean the page cannot restyle live.
