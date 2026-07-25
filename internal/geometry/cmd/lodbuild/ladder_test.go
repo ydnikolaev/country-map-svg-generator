@@ -112,12 +112,32 @@ func TestLadderArtifactSchemaAndCoverage(t *testing.T) {
 		{"SH", "de_facto", "standard"}: "identity",
 		{"UM", "un", "standard"}:       "identity",
 		{"UM", "de_facto", "standard"}: "identity",
-		{"HR", "un", "compact"}:        "79.63",
 	}
 	for key, selection := range want {
 		row := findLadderRow(artifact.Rows, key)
 		if row == nil || row.Status != "pass" || row.Selection != selection {
 			t.Fatalf("%v: got %+v want selection=%s", key, row, selection)
+		}
+	}
+	// Croatia's un card is no longer pinned to a rung. It used to need DEC-009's
+	// intermediate 79.63 with two bytes of headroom; the card is now fitted to the
+	// drawn silhouette and the compact contribution threshold is 111, so the
+	// disputed component falls below it and is recorded as subscale rather than
+	// forcing the search onto a knife edge. What must hold is that the card
+	// exists, fits, and reaches that outcome through the visibility policy rather
+	// than by silencing it.
+	if row := findLadderRow(artifact.Rows, [3]string{"HR", "un", "compact"}); row == nil ||
+		row.Status != "pass" || row.PathBytes > 2200 {
+		t.Fatalf("HR/un/compact: got %+v want a passing card inside the 2200 cap", row)
+	} else {
+		disputed := false
+		for _, component := range row.Visibility {
+			if component.SourceOrder == 2 {
+				disputed = component.Subscale && component.OmissionReason == "subscale" && !component.Visible
+			}
+		}
+		if !disputed {
+			t.Fatalf("HR/un/compact: component 2 must be recorded as subscale with provenance, got %+v", row.Visibility)
 		}
 	}
 	for _, key := range [][3]string{{"UM", "un", "compact"}, {"UM", "de_facto", "compact"}, {"HR", "de_facto", "compact"}} {

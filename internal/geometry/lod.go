@@ -245,6 +245,10 @@ func generateWithLOD(raw Input, table *LODTable, selectionOnly bool) (Result, er
 	var selected, canonical MultiPolygon
 	selectedCeiling := in.MaxPathBytes
 	selectedTransform, selectedViewBox := tr, vb
+	// A ladder candidate is fitted to itself, so the quality it was judged and
+	// canonicalized under is not the full-source quality computed above. The
+	// selected one is what the final render and the reported provenance must use.
+	selectedQuality, selectedEffective := quality, effective
 	retainedProtected := map[int][]string{}
 	for i, component := range fullComponents {
 		if len(component.Protected) > 0 {
@@ -257,6 +261,7 @@ func generateWithLOD(raw Input, table *LODTable, selectionOnly bool) (Result, er
 		var candidateTransform Transform
 		var candidateViewBox Bounds
 		var restorations []Removal
+		candidateQuality, candidateEffective := quality, effective
 		rawDeviation, finalDeviation := 0.0, 0.0
 		coordinateSpace, finalization := "centered_laea", "precomputed"
 		sourceAttempted, sourceSelected := 0.0, 0.0
@@ -282,7 +287,30 @@ func generateWithLOD(raw Input, table *LODTable, selectionOnly bool) (Result, er
 				prov.Fallbacks = append(prov.Fallbacks, c.name+":binding:"+errorIdentity(bindingErr))
 				continue
 			}
-			candidateGeometry = transformGeometry(projectedLOD, tr.Scale, tr.TranslateX, tr.TranslateY)
+			// Reproduce the oracle's frame exactly. The build fits the card to
+			// the candidate rather than to the whole claim, so serving it under
+			// the full-source fit would draw the right geometry in the wrong box
+			// — the same build/serve disagreement that left Russia committed at
+			// one rung and rendered from another.
+			//
+			// The band is still chosen from the full-source fit above, which is
+			// what keeps this from being circular: the build assigns bands by
+			// preset, and a card request always lands in compact either way.
+			candidateTransform, candidateViewBox = tr, vb
+			phaseReference := fullRequired
+			if c.ladder {
+				_, ladderViewBox, ladderTransform, ladderEffective, _, fitErr := fitGeometry(projectedLOD, in.Layout)
+				if fitErr != nil {
+					prov.Fallbacks = append(prov.Fallbacks, c.name+":fit:"+errorIdentity(fitErr))
+					continue
+				}
+				ladderTransform.CenterLon, ladderTransform.CenterLat = deg(prj.lon0), deg(prj.lat0)
+				ladderTransform.Rotation = rotation
+				candidateTransform, candidateViewBox = ladderTransform, ladderViewBox
+				candidateQuality, candidateEffective = AutoQuality(ladderEffective), ladderEffective
+				phaseReference = transformGeometry(projected, ladderTransform.Scale, ladderTransform.TranslateX, ladderTransform.TranslateY)
+			}
+			candidateGeometry = transformGeometry(projectedLOD, candidateTransform.Scale, candidateTransform.TranslateX, candidateTransform.TranslateY)
 			if !c.ladder {
 				// The pre-DEC-006 derived path: inject full-detail source
 				// components the candidate dropped, then judge the result by
@@ -293,7 +321,7 @@ func generateWithLOD(raw Input, table *LODTable, selectionOnly bool) (Result, er
 				// ever saw.
 				candidateGeometry, restorations = restoreRequiredComponents(fullRequired, fullComponents, candidateGeometry)
 			}
-			shared := sharedSourceVertices(fullRequired, 1e-12)
+			shared := sharedSourceVertices(phaseReference, 1e-12)
 			// Same boundary as the oracle's: topology is judged on the canonical
 			// geometry, which canonicalizeShared validates on the way out, not
 			// on the pre-canonical fitted coordinates. Simplification can leave a
@@ -312,16 +340,16 @@ func generateWithLOD(raw Input, table *LODTable, selectionOnly bool) (Result, er
 				}
 			}
 			if !c.ladder {
-				rawDeviation = matchedBoundaryDeviation(fullRequired, candidateGeometry, quality.Simplification)
-				if !finite(rawDeviation) || rawDeviation > quality.Simplification {
+				rawDeviation = matchedBoundaryDeviation(phaseReference, candidateGeometry, candidateQuality.Simplification)
+				if !finite(rawDeviation) || rawDeviation > candidateQuality.Simplification {
 					prov.Fallbacks = append(prov.Fallbacks, fmt.Sprintf("%s:raw_deviation:%g", c.name, rawDeviation))
 					continue
 				}
 			}
 			phaseResult, phaseErr := finalizeGridPhases(
-				unfitGeometry(candidateGeometry, tr),
-				unfitGeometry(fullRequired, tr),
-				tr, vb, in, prj, quality, minimumParts, c.ladder,
+				unfitGeometry(candidateGeometry, candidateTransform),
+				unfitGeometry(phaseReference, candidateTransform),
+				candidateTransform, candidateViewBox, in, prj, candidateQuality, minimumParts, c.ladder,
 			)
 			if phaseErr != nil {
 				prov.Fallbacks = append(prov.Fallbacks, c.name+":phase:"+errorIdentity(phaseErr))
@@ -360,6 +388,9 @@ func generateWithLOD(raw Input, table *LODTable, selectionOnly bool) (Result, er
 		selected, canonical = candidateGeometry, candidateCanonical
 		selectedCeiling = renderCeiling
 		selectedTransform, selectedViewBox = candidateTransform, candidateViewBox
+		if c.ladder {
+			selectedQuality, selectedEffective = candidateQuality, candidateEffective
+		}
 		prov.SelectedTier, prov.Restored = c.name, restorations
 		prov.RawDeviation, prov.FinalDeviation, prov.MaximumDeviation = rawDeviation, finalDeviation, finalDeviation
 		prov.CoordinateSpace, prov.Finalization = coordinateSpace, finalization
@@ -376,9 +407,9 @@ func generateWithLOD(raw Input, table *LODTable, selectionOnly bool) (Result, er
 		return Result{}, fail(ErrTopology, in.Entity.Alpha2, "lod", "no valid tier: %v", prov.Fallbacks)
 	}
 	if selectionOnly {
-		return Result{Entity: in.Entity.Alpha2, Profile: in.Profile, Preset: in.Preset, EffectiveScale: effective, LOD: prov}, nil
+		return Result{Entity: in.Entity.Alpha2, Profile: in.Profile, Preset: in.Preset, EffectiveScale: selectedEffective, LOD: prov}, nil
 	}
-	cmds, path, renderDiagnostics, err := renderLODRepresentation(canonical, quality, selectedCeiling)
+	cmds, path, renderDiagnostics, err := renderLODRepresentation(canonical, selectedQuality, selectedCeiling)
 	if err != nil {
 		return Result{}, err
 	}
@@ -405,7 +436,7 @@ func generateWithLOD(raw Input, table *LODTable, selectionOnly bool) (Result, er
 		}
 		return fullRemovals[i].SourcePolygon < fullRemovals[j].SourcePolygon
 	})
-	return Result{SchemaVersion: SchemaVersion, AlgorithmVersion: AlgorithmVersion, CorpusID: in.CorpusID, Entity: in.Entity.Alpha2, Profile: in.Profile, Preset: in.Preset, LayoutMode: in.Layout.Mode, ViewBox: selectedViewBox, NaturalAspect: geometryBounds(projected).Width() / geometryBounds(projected).Height(), EffectiveScale: effective, Transform: selectedTransform, Quality: quality, Commands: cmds, Path: path, Components: fullComponents, Removals: fullRemovals, Markers: markers, Diagnostics: diags, Metrics: Metrics{InputPoints: countPoints(full), ProjectedPoints: projectedPoints, OutputPoints: countPoints(canonical), PathBytes: len(path)}, LOD: prov}, nil
+	return Result{SchemaVersion: SchemaVersion, AlgorithmVersion: AlgorithmVersion, CorpusID: in.CorpusID, Entity: in.Entity.Alpha2, Profile: in.Profile, Preset: in.Preset, LayoutMode: in.Layout.Mode, ViewBox: selectedViewBox, NaturalAspect: geometryBounds(projected).Width() / geometryBounds(projected).Height(), EffectiveScale: selectedEffective, Transform: selectedTransform, Quality: selectedQuality, Commands: cmds, Path: path, Components: fullComponents, Removals: fullRemovals, Markers: markers, Diagnostics: diags, Metrics: Metrics{InputPoints: countPoints(full), ProjectedPoints: projectedPoints, OutputPoints: countPoints(canonical), PathBytes: len(path)}, LOD: prov}, nil
 }
 
 func renderLODRepresentation(canonical MultiPolygon, quality Quality, maximumBytes int) ([]Command, string, []Diagnostic, error) {

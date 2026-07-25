@@ -135,10 +135,15 @@ func TestLadderLookupOutcomes(t *testing.T) {
 		t.Fatalf("SH/un/compact outcome=%s selection=%q want pass/identity", outcome, selection.Row.Selection)
 	}
 
-	// DEC-009's intermediate rung.
+	// Croatia keeps its un card. It used to need DEC-009's intermediate 79.63
+	// rung with two bytes of headroom; fitting the card to the drawn silhouette
+	// moved the byte count, and raising the compact contribution threshold by one
+	// let the disputed component fall below it, so a plain declared rung now
+	// carries it with room to spare.
 	hrUN := rowFor("HR", "un", "compact")
-	if selection, outcome := table.Lookup(hrUN.GeometryID, "compact"); outcome != LadderPass || selection.Row.Selection != "79.63" {
-		t.Fatalf("HR/un/compact outcome=%s selection=%q want pass/79.63", outcome, selection.Row.Selection)
+	if selection, outcome := table.Lookup(hrUN.GeometryID, "compact"); outcome != LadderPass || selection.Row.PathBytes > 2200 {
+		t.Fatalf("HR/un/compact outcome=%s selection=%q bytes=%d want a passing card inside the 2200 cap",
+			outcome, selection.Row.Selection, selection.Row.PathBytes)
 	}
 
 	if _, outcome := table.Lookup("geo-does-not-exist", "compact"); outcome != LadderAbsent {

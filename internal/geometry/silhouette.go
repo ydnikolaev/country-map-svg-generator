@@ -230,12 +230,6 @@ func EvaluateSilhouetteCandidate(raw Input, record ProjectedLODGeometry, recipeS
 	if err != nil {
 		return SilhouetteCandidateEvaluation{}, err
 	}
-	fitted, viewBox, transform, effective, _, err := fitGeometry(projected, in.Layout)
-	if err != nil {
-		return SilhouetteCandidateEvaluation{}, err
-	}
-	transform.CenterLon, transform.CenterLat = deg(prj.lon0), deg(prj.lat0)
-	quality := AutoQuality(effective)
 	minimumParts := 1
 	for _, feature := range in.Entity.Protected {
 		if feature.MinimumParts > minimumParts {
@@ -247,6 +241,30 @@ func EvaluateSilhouetteCandidate(raw Input, record ProjectedLODGeometry, recipeS
 	if err != nil {
 		return SilhouetteCandidateEvaluation{}, err
 	}
+	// The card is fitted to the candidate — the geometry that will be drawn —
+	// not to the whole territorial claim. Fidelity is already judged against the
+	// visible reference, so fitting the layout to the full projection framed the
+	// card for components the oracle had already decided are not drawn. France
+	// is the extreme: 11 components spanning 119 degrees of longitude, of which
+	// the card draws metropolitan France and Corsica, leaving the silhouette at
+	// 11.9% of the frame width.
+	//
+	// Fitting to the *visible* reference instead is wrong, and the failure is
+	// worth recording: a component can be present in the candidate while sitting
+	// below the band's visibility threshold, so a frame sized to the visible set
+	// leaves it outside the viewBox, containment fails, and the search walks to a
+	// coarser rung until the candidate loses it. Measured on France, that traded
+	// Corsica and 936 bytes of detail for a single 35-point blob.
+	_, viewBox, transform, effective, _, err := fitGeometry(projectedCandidate, in.Layout)
+	if err != nil {
+		return SilhouetteCandidateEvaluation{}, err
+	}
+	transform.CenterLon, transform.CenterLat = deg(prj.lon0), deg(prj.lat0)
+	quality := AutoQuality(effective)
+	// The phase reference stays the full projection at the new transform: it
+	// supplies shared vertices and the omission count, both of which are facts
+	// about the source rather than about the frame.
+	fitted := transformGeometry(projected, transform.Scale, transform.TranslateX, transform.TranslateY)
 	visibility, err := buildProtectedVisibility(in, projected, projectedCandidate, prj, band)
 	if err != nil {
 		return SilhouetteCandidateEvaluation{}, err
