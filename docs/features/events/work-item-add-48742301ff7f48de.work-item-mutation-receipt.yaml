@@ -1,0 +1,35 @@
+version: 1
+kind: work-item-mutation-receipt
+id: work-item-add-48742301ff7f48de
+project: country-map-svg-generator
+claim:
+    project: country-map-svg-generator
+    item_id: WKI-C35A01E965DC
+    item_revision: 1
+    registry_revision: 12
+    mutation: add-capture
+    operation_id: work-item-add-48742301ff7f48de
+    actor: operator
+    timestamp: "2026-07-25T04:50:29Z"
+    inputs:
+        - name: registry
+          value: 8a647991d063fd3bc1383803891cab15848bca710c4ad51448d6476707dcf62f
+        - name: request
+          value: 48742301ff7f48de1d671f956fce883075e95392347c0138e33c8e8466ee3185
+        - name: source
+          value: specification#P3#docs/features/active/country-map-svg-generator/specs/P3-generator-cli/P3-generator-cli.spec.md#5b346b283aacf67fae2a1480e036e93af0d849f06e0286b53eb66f1817100243
+    input_digest: 299f975f3ac1c640630fb5ce916d055000d10a5d24d5e7d8485ec5c517189bfd
+    result: captured
+    next_action: 'Belongs to internal/geometry and the ladder artifact (BND-003), which is P2 territory and currently fenced. P3 mitigates rather than fixes: the starter configuration no longer sets a long side, and the budget refusal now names the profile''s served size and the fallback instead of reporting a byte count. Decide during P2 governance reconciliation.'
+    predecessor_registry:
+        kind: sha256
+        digest: 8a647991d063fd3bc1383803891cab15848bca710c4ad51448d6476707dcf62f
+    predecessor_receipt:
+        kind: work-item-mutation-receipt
+        id: work-item-add-05090aa5b62d6152
+        path: docs/features/events/work-item-add-05090aa5b62d6152.work-item-mutation-receipt.yaml
+        sha256: 9e58901c494ec8bf929f1342496f2de8c42e0fbdfc81006e5bdf20f0685827d9
+    event: capture
+    from: absent
+    to: captured
+successor_registry_sha256: 67860ee180182448761a194d03f1bc9e1057fd996046974d7ce0e984c4c10f51

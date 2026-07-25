@@ -1,0 +1,30 @@
+# Each failure carries the exit class that tells a caller what kind of thing went
+# wrong, because the remediation differs: fix the invocation, fix the document,
+# ask for less detail, or look at the filesystem.
+! exec country-map-svg-generator generate --iso ZZ --out assets --json
+stdout '"status": "error"'
+stdout '"class": "data"'
+stdout '"code": "unknown_entity"'
+stdout '"exit": 3'
+
+! exec country-map-svg-generator generate --config broken.yaml --iso FR --out assets --json
+stdout '"class": "render"'
+stdout '"code": "serialization_failed"'
+stdout '"exit": 4'
+
+! exec country-map-svg-generator generate --config collide.yaml --out assets --json
+stdout '"class": "config"'
+stdout '"exit": 2'
+
+# Nothing was written by any of the refusals above.
+! exists assets
+
+-- broken.yaml --
+schema: country-map/v1
+delivery: standalone
+tokens:
+  fill: var(--brand)
+-- collide.yaml --
+schema: country-map/v1
+output:
+  filename: "map.svg"

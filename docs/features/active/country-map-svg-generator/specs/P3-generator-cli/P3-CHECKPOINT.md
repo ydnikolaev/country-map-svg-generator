@@ -575,10 +575,63 @@ It is **defence in depth, not the primary guard**: the config layer already
 refuses markup characters and external references in every author-supplied token,
 which is where a bad value gets a diagnostic naming the key.
 
-## Remaining tasks
+## T4 — done
 
-- **T4 — `generate`.** Staging, atomic publication, CTR-006 manifest. VAL-5,
-  VAL-6.
+`generate` is registered. The batch is built and structurally validated **entirely
+in memory** before anything touches the output directory, then published
+atomically with backup-and-rollback. That ordering is INV-1: a batch that wrote
+as it went would leave a half-regenerated catalog whose manifest agrees with it,
+and nothing downstream could tell that from a complete one. The manifest is
+staged and published last, so a consumer never reads an index describing files
+that are not there yet.
+
+DEC-009's typed no-artifact is a **recorded skip**, not a failure, and the human
+output names the skipped entities rather than counting them — a number is easy to
+read past, and a catalog quietly short by three is the failure this command is
+shaped around.
+
+### The finding that matters most in P3 so far
+
+**`WKI-C35A01E965DC`: only the profile's own long side is served from the ladder.**
+Greenland at profile `card` renders in 2400 bytes at `longSide: 128` and fails at
+59892 bytes against the 2500 ceiling at `longSide: 160`. 128 is the card preset's
+own long side; **160 is one of that same preset's documented reference sizes**
+(`presets/v1.json` lists 90, 128, 160, 240) **and the value the P3 specification's
+own example configuration uses**. Any other size falls back to the DEC-005
+full-detail source path.
+
+REQ-13 makes the long side a first-class knob and QAB-1 documents card use from
+90 to 240 px, so most of the sizes an author is invited to ask for are sizes that
+leave the ladder. A configuration that works on a small entity fails on a large
+one with no warning at authoring time.
+
+P3 mitigates, it does not fix — the ladder is `internal/geometry` (BND-003), P2
+territory, fenced:
+
+- `init` no longer writes a `longSide`, with the reason in the file.
+- Geometry's own budget refusal is caught and reclassified. Its message —
+  "linear path bytes 59892 exceed hard maximum 2500" — is true and says nothing
+  about what to change; the CLI now names the profile's served size, explains the
+  fallback, and offers the three real options.
+
+The precise mechanism (effective scale outside every band's ceiling, or simply no
+ladder row at that scale) was **not** traced. What is verified is the cliff and
+its two endpoints.
+
+### A second manifest defect found by looking
+
+The manifest recorded `"height": "135.36669468232515"` while the asset's viewBox
+said `135.37`. A consumer laying out a grid from the manifest would reserve a box
+the file does not fill. `render.Number` is now exported and used for both, so the
+manifest cannot quote a dimension the asset does not carry.
+
+### `valueTakingFlags` is now gated
+
+`TestEveryValueTakingFlagIsRegistered` walks the command tree in both directions.
+It was the one maintained list in the package, and `--out` arriving in this task
+is exactly the case that would have gone stale.
+
+## Remaining tasks
 - **T5 — `inspect`, `preview`,** the QAB-2 byte baseline for P4, and
   `WKI-6638BACD6E20`: measure a real single-SVG invocation through the built
   binary — P2 measured 707 ms of ladder load inside a 1.53 s cold process — then

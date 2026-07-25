@@ -337,6 +337,13 @@ func viewBox(bounds geometry.Bounds) string {
 // so the frame is stated no more precisely than the shape inside it.
 const outputDecimals = 2
 
+// Number is the package's one float formatter, exported so a caller describing
+// an asset reports the same value the asset carries. The manifest quoting a
+// dimension the viewBox does not have is worse than either being wrong: a
+// consumer laying out a grid from the manifest would reserve a box the file does
+// not fill.
+func Number(value float64) string { return number(value) }
+
 func number(value float64) string {
 	rounded := math.Round(value*100) / 100
 	// Round(-0) is -0, which formats as "-0" and would make two identical

@@ -1,0 +1,10 @@
+exec country-map-svg-generator generate --help
+stdout 'Generate assets for one entity, an explicit set, or the whole catalog'
+stdout 'published atomically'
+stdout 'offline'
+stdout '--out'
+stdout '--dry-run'
+! stderr .
+
+exec country-map-svg-generator --help
+stdout 'generate\s+Generate SVG assets and a manifest'

@@ -147,9 +147,13 @@ boundary: un
 # tight derives natural proportions from the geometry; contain takes an explicit
 # width and height and centres the unused space. The two modes accept disjoint
 # fields, so a width here would be refused rather than ignored.
+#
+# No longSide is set on purpose. Only the profile's own long side is served from
+# the committed detail ladder; any other size falls back to the full-detail
+# source geometry, which is far over the byte ceiling for a large entity. Set one
+# only for a selection you have generated successfully.
 layout:
   mode: tight
-  longSide: 160
 
 # Per-country overrides. The key is an ISO alpha-2 code, and everything above
 # can be overridden here for one entity.

@@ -1,0 +1,39 @@
+# VAL-5's ordered loop through the built binary: init, validate, generate,
+# inspect the result. One working tree, each step depending on the last.
+exec country-map-svg-generator init --out country-map.yaml
+exec country-map-svg-generator validate --config country-map.yaml --iso FR
+exec country-map-svg-generator generate --config country-map.yaml --iso FR --out assets
+stdout 'wrote 1 assets to assets'
+stdout 'manifest: assets/country-map.manifest.json'
+exists assets/FR.svg
+exists assets/country-map.manifest.json
+
+# The manifest carries the three identities ARCH-INV-4 names, so a consumer can
+# tell a real change from a re-run.
+grep '"schema": "country-map.manifest/v1"' assets/country-map.manifest.json
+grep '"corpus_identity": "sha256:' assets/country-map.manifest.json
+grep '"config_digest": "sha256:' assets/country-map.manifest.json
+grep '"iso": "FR"' assets/country-map.manifest.json
+grep '"sha256": "sha256:' assets/country-map.manifest.json
+
+# AC-4: generating twice offline produces byte-identical output. This is the
+# whole determinism claim, run through the artifact rather than the library.
+cp assets/FR.svg first.svg
+cp assets/country-map.manifest.json first.json
+exec country-map-svg-generator generate --config country-map.yaml --iso FR --out assets
+cmp assets/FR.svg first.svg
+cmp assets/country-map.manifest.json first.json
+
+# A selection of several entities, and the whole thing again without writing.
+exec country-map-svg-generator generate --config country-map.yaml --out assets
+stdout 'wrote [0-9]+ assets'
+exec country-map-svg-generator generate --config country-map.yaml --out assets --dry-run
+stdout 'would write [0-9]+ assets'
+
+# The machine surface names the skipped entities rather than only counting them:
+# DEC-009's typed no-artifact outcome is a recorded decision, and a catalog
+# quietly short by three is the failure this command is shaped to avoid.
+exec country-map-svg-generator generate --config country-map.yaml --out assets --json
+stdout '"written": [0-9]+'
+stdout '"skipped"'
+stdout '"total_bytes": [0-9]+'

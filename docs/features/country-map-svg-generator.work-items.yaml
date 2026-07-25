@@ -1,13 +1,13 @@
 version: 1
 kind: work-item-registry
 project: country-map-svg-generator
-revision: 11
+revision: 12
 head_receipt:
     kind: work-item-mutation-receipt
-    id: work-item-add-05090aa5b62d6152
-    path: docs/features/events/work-item-add-05090aa5b62d6152.work-item-mutation-receipt.yaml
-    claim_sha256: 56ae1bd9d3a0beaba2150aba4640c9c71820c243bef125ef67005ab5ae16fe0f
-updated_at: "2026-07-25T04:12:49Z"
+    id: work-item-add-48742301ff7f48de
+    path: docs/features/events/work-item-add-48742301ff7f48de.work-item-mutation-receipt.yaml
+    claim_sha256: 6f6baf32edd04fb3425774c51a6f629a089e8e5ea2a7b5d9eb354baad81e2b93
+updated_at: "2026-07-25T04:50:29Z"
 items:
     - id: WKI-1DA58E0FE741
       fingerprint: 1da58e0fe7415e43bdab46361325c255e34bfa26abf169de19cf7996604c35f0
@@ -288,6 +288,48 @@ items:
           claim_sha256: 4c7179b19b4151f2ef40a8e94528b3e2cc694c232fbcf465c456e3425a0fb360
       created_at: "2026-07-24T22:51:38Z"
       updated_at: "2026-07-24T22:51:38Z"
+      revision: 1
+    - id: WKI-C35A01E965DC
+      fingerprint: c35a01e965dced1e02617420667323f2480bb5bb03719246e7bd3db2391ddc3e
+      scope: project
+      title: Only the profile's own long side is served from the ladder; any other size falls back to source and blows the byte ceiling
+      problem: Measured through the shipped CLI at P3/T4. Greenland at profile card renders in 2400 bytes with longSide 128 and fails with 59892 bytes against the 2500 ceiling at longSide 160. 128 is the card preset's own long side; 160 is one of that same preset's documented reference sizes (internal/geometry/presets/v1.json lists 90, 128, 160, 240 for card) and is the value the P3 specification's own example configuration uses. The failure is a fallback to the DEC-005 full-detail source path, and geometry reports it as hard_budget_exceeded with the raw byte count. The precise mechanism - whether the effective scale lands outside every band's ceiling, or the ladder simply carries no row for that scale - was not traced; what is verified is the cliff itself and its two endpoints. REQ-13 makes tight's long side a first-class configuration knob and QAB-1 documents card use from 90 to 240 px, so the sizes an author is invited to ask for are largely sizes that leave the ladder. The consequence for a producer is that a configuration which works on a small entity fails on a large one with no warning at authoring time.
+      expected_outcome: A long side inside the profile's documented reference range is served from the committed ladder rather than falling back to full-detail source geometry, or the reference sizes and REQ-13's guidance are narrowed to what the ladder actually serves so the CLI stops inviting requests it cannot meet. Either way a producer learns at validate time rather than at generate time.
+      status: captured
+      owner: product-owner
+      priority_band: high
+      effort_band: large
+      next_action: 'Belongs to internal/geometry and the ladder artifact (BND-003), which is P2 territory and currently fenced. P3 mitigates rather than fixes: the starter configuration no longer sets a long side, and the budget refusal now names the profile''s served size and the fallback instead of reporting a byte count. Decide during P2 governance reconciliation.'
+      observations:
+        - id: OBS-48742301FF7F
+          source:
+            artifact: specification
+            id: P3
+            path: docs/features/active/country-map-svg-generator/specs/P3-generator-cli/P3-generator-cli.spec.md
+            sha256: 5b346b283aacf67fae2a1480e036e93af0d849f06e0286b53eb66f1817100243
+          actor: operator
+          evidence: []
+          observed_at: "2026-07-25T04:50:29Z"
+      decisions:
+        - revision: 1
+          actor: operator
+          from: absent
+          to: captured
+          rationale: Capture the durable work item
+          decided_at: "2026-07-25T04:50:29Z"
+          receipt:
+            kind: work-item-mutation-receipt
+            id: work-item-add-48742301ff7f48de
+            path: docs/features/events/work-item-add-48742301ff7f48de.work-item-mutation-receipt.yaml
+            claim_sha256: 6f6baf32edd04fb3425774c51a6f629a089e8e5ea2a7b5d9eb354baad81e2b93
+      relationships: []
+      mutation_receipts:
+        - kind: work-item-mutation-receipt
+          id: work-item-add-48742301ff7f48de
+          path: docs/features/events/work-item-add-48742301ff7f48de.work-item-mutation-receipt.yaml
+          claim_sha256: 6f6baf32edd04fb3425774c51a6f629a089e8e5ea2a7b5d9eb354baad81e2b93
+      created_at: "2026-07-25T04:50:29Z"
+      updated_at: "2026-07-25T04:50:29Z"
       revision: 1
     - id: WKI-C83B0B9EB4EE
       fingerprint: c83b0b9eb4ee141596061d6c2332c9e712ceb292d86a8c82a8f399268fad2279

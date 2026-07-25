@@ -9,6 +9,7 @@ import (
 	"testing"
 
 	"github.com/spf13/cobra"
+	"github.com/spf13/pflag"
 )
 
 // scriptDir is where the testscript scenarios live. The gate below reads it as
@@ -160,4 +161,50 @@ func scriptsPresent(t *testing.T) map[string]bool {
 		}
 	}
 	return present
+}
+
+// TestEveryValueTakingFlagIsRegistered keeps valueTakingFlags from going stale.
+// It is the one maintained list in this package, and nothing else would notice:
+// a missing entry shows up only as `--out --json` silently flipping error output
+// to envelope mode while reporting a different mistake, which is the bug the map
+// exists to prevent.
+func TestEveryValueTakingFlagIsRegistered(t *testing.T) {
+	root, _ := newRootCommand(io.Discard, io.Discard)
+
+	var walk func(*cobra.Command)
+	walk = func(cmd *cobra.Command) {
+		check := func(flag *pflag.Flag) {
+			if flag.Value.Type() == "bool" {
+				return
+			}
+			if !valueTakingFlags["--"+flag.Name] {
+				t.Errorf("%s takes a value but is not in valueTakingFlags; --%s --json would flip the output mode",
+					cmd.CommandPath()+" --"+flag.Name, flag.Name)
+			}
+		}
+		cmd.Flags().VisitAll(check)
+		cmd.PersistentFlags().VisitAll(check)
+		for _, child := range cmd.Commands() {
+			walk(child)
+		}
+	}
+	walk(root)
+
+	// The other direction: an entry for a flag that no longer exists is dead
+	// weight that makes the scan skip an argument it should have read.
+	present := map[string]bool{}
+	var collect func(*cobra.Command)
+	collect = func(cmd *cobra.Command) {
+		cmd.Flags().VisitAll(func(flag *pflag.Flag) { present["--"+flag.Name] = true })
+		cmd.PersistentFlags().VisitAll(func(flag *pflag.Flag) { present["--"+flag.Name] = true })
+		for _, child := range cmd.Commands() {
+			collect(child)
+		}
+	}
+	collect(root)
+	for name := range valueTakingFlags {
+		if !present[name] {
+			t.Errorf("valueTakingFlags carries %q, which no command defines", name)
+		}
+	}
 }
