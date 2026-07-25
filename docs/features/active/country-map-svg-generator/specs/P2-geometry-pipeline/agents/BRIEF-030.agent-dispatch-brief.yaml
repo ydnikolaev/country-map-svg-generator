@@ -1,0 +1,45 @@
+version: 1
+kind: agent-dispatch-brief
+id: BRIEF-030
+epic: country-map-svg-generator
+spec: P2
+status: issued
+input_digest: d2a55d7e3291c4895f7c86750fe81726f418b38815f8ffdd8425964a6608ff15
+role: implementation-planner
+provider: claude-code
+binding_mode: native
+dispatch_route: named-role
+role_contract:
+    reference: installed-role/implementation-planner
+    path: .claude/agents/implementation-planner.md
+    sha256: af8bb38d2d175a187228eba2c7fd1ac0fd92652d3abccf1daaf8fc1965080013
+    reason: installed provider role contract
+    freshness: current
+issuer: teamlead
+grant: edit
+capability: implementation-planning
+semantic_tier: reasoning
+context:
+    - reference: specification/P2
+      path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/P2-geometry-pipeline.spec.md
+      sha256: 3a9be62003fb6daa63130a600d5a01511074bb25d57011ec1ea9f568c1a027e0
+      reason: dispatch context
+      freshness: current
+objective: 'Author the PLAN-014 candidate as an as-built reconciliation of P2: map every P2 obligation to the terminal evidence that already exists in the committed tree, and declare as open findings the obligations the as-built does not satisfy.'
+writes:
+    - docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/plans/candidates/PLAN-014
+forbidden:
+    - .git
+    - .mate
+validation:
+    - mate plan validate country-map-svg-generator P2 PLAN-014 --json
+completion_schema:
+    - blockers
+    - deviations
+    - evidence
+    - outcome
+    - plan
+    - summary
+expected_outputs: []
+budget: 1
+resume_anchor: Record the terminal result with mate agent result record.

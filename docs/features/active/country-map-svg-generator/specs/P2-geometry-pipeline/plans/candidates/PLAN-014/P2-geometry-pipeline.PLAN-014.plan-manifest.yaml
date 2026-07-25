@@ -1,0 +1,297 @@
+version: 1
+kind: plan-manifest
+id: PLAN-014
+epic: country-map-svg-generator
+spec: P2
+status: draft
+input_digest: 89f68e4cc9b83a9702a69fd168380f347e882f59f14ce04b39d02483ba3dcad5
+plan_id: PLAN-014
+baseline:
+    repository: project
+    commit: 83600a6049889f481ba59c5d2a02c47747eeec85
+    tree: e01a9a9f2cf0616ea54e173efb0d2162f31e1e13
+inputs:
+    - reference: solution-architecture/CTX-ARCH
+      path: docs/features/active/country-map-svg-generator/architecture/country-map-svg-generator.solution-architecture.md
+      sha256: 5325da7358596b56c9dc6f65d3b6af3801174257503a332334a77a9c71433947
+      reason: required at planning for spec P2 by context registry
+      freshness: current
+    - reference: specification/P2
+      path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/P2-geometry-pipeline.spec.md
+      sha256: 3a9be62003fb6daa63130a600d5a01511074bb25d57011ec1ea9f568c1a027e0
+      reason: normative specification
+      freshness: current
+    - reference: transition-receipt/plan-invalidate-47f17875766ec2a3
+      path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/events/plan-invalidate-47f17875766ec2a3.transition-receipt.yaml
+      sha256: d4d5f48dc6dac07ed904297874f5de161040a34c5c43e5b08141c9e06f073138
+      reason: machine-approved predecessor invalidation
+      freshness: current
+coverage:
+    - obligation:
+        artifact: specification
+        id: US-1
+      task: T2
+      evidence:
+        artifact: verification-result
+        id: VR-US-1
+    - obligation:
+        artifact: specification
+        id: US-2
+      task: T3
+      evidence:
+        artifact: verification-result
+        id: VR-US-2
+    - obligation:
+        artifact: specification
+        id: US-3
+      task: T2
+      evidence:
+        artifact: verification-result
+        id: VR-US-3
+    - obligation:
+        artifact: specification
+        id: US-4
+      task: T3
+      evidence:
+        artifact: verification-result
+        id: VR-US-4
+    - obligation:
+        artifact: specification
+        id: REQ-1
+      task: T3
+      evidence:
+        artifact: verification-result
+        id: VR-REQ-1
+    - obligation:
+        artifact: specification
+        id: REQ-2
+      task: T3
+      evidence:
+        artifact: verification-result
+        id: VR-REQ-2
+    - obligation:
+        artifact: specification
+        id: REQ-3
+      task: T2
+      evidence:
+        artifact: verification-result
+        id: VR-REQ-3
+    - obligation:
+        artifact: specification
+        id: REQ-4
+      task: T3
+      evidence:
+        artifact: verification-result
+        id: VR-REQ-4
+    - obligation:
+        artifact: specification
+        id: REQ-5
+      task: T2
+      evidence:
+        artifact: verification-result
+        id: VR-REQ-5
+    - obligation:
+        artifact: specification
+        id: REQ-6
+      task: T2
+      evidence:
+        artifact: verification-result
+        id: VR-REQ-6
+    - obligation:
+        artifact: specification
+        id: REQ-7
+      task: T2
+      evidence:
+        artifact: verification-result
+        id: VR-REQ-7
+    - obligation:
+        artifact: specification
+        id: REQ-8
+      task: T3
+      evidence:
+        artifact: verification-result
+        id: VR-REQ-8
+    - obligation:
+        artifact: specification
+        id: INV-1
+      task: T2
+      evidence:
+        artifact: verification-result
+        id: VR-INV-1
+    - obligation:
+        artifact: specification
+        id: AC-1
+      task: T2
+      evidence:
+        artifact: verification-result
+        id: VR-AC-1
+    - obligation:
+        artifact: specification
+        id: AC-2
+      task: T3
+      evidence:
+        artifact: verification-result
+        id: VR-AC-2
+    - obligation:
+        artifact: specification
+        id: AC-3
+      task: T2
+      evidence:
+        artifact: verification-result
+        id: VR-AC-3
+    - obligation:
+        artifact: specification
+        id: AC-4
+      task: T2
+      evidence:
+        artifact: verification-result
+        id: VR-AC-4
+    - obligation:
+        artifact: specification
+        id: VAL-1
+      task: T3
+      evidence:
+        artifact: verification-result
+        id: VR-VAL-1
+    - obligation:
+        artifact: specification
+        id: VAL-2
+      task: T3
+      evidence:
+        artifact: verification-result
+        id: VR-VAL-2
+    - obligation:
+        artifact: specification
+        id: VAL-3
+      task: T3
+      evidence:
+        artifact: verification-result
+        id: VR-VAL-3
+    - obligation:
+        artifact: specification
+        id: VAL-4
+      task: T2
+      evidence:
+        artifact: verification-result
+        id: VR-VAL-4
+    - obligation:
+        artifact: specification
+        id: VAL-5
+      task: T3
+      evidence:
+        artifact: verification-result
+        id: VR-VAL-5
+    - obligation:
+        artifact: specification
+        id: VAL-6
+      task: T2
+      evidence:
+        artifact: verification-result
+        id: VR-VAL-6
+tasks:
+    - id: T1
+      outcome: Run the registered project ceiling make check (go test ./... -count=1 -p 1) on an idle machine at baseline 83600a6, read the log to completion including package-level failures, and record the measured receipt. A red or unread gate stops the run and is reported as a blocker.
+      depends_on: []
+      writes:
+        - docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/evidence/P2-project-ceiling.gate-receipt.md
+      owner: p2-project-ceiling-recorder
+      wave: W0
+    - id: T2
+      outcome: Map each of the twelve obligations the committed tree satisfies to the exact file and test function or committed artifact that proves it, recording what the evidence asserts, VAL-6 as AM-005's three separate obligations, and the declared boundaries on VAL-6 obligation 2 and AC-3.
+      depends_on:
+        - T1
+      writes:
+        - docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/evidence/P2-as-built.coverage-matrix.md
+      owner: p2-as-built-coverage-author
+      wave: W1
+    - id: T3
+      outcome: Register each of the eleven obligations the as-built does not satisfy against the precise part of its obligation text that is unmet, the finding OF-1 to OF-12 that names the gap, the backlog item where one exists, and whether closing it is test-only, a code fix, amendment-class or owner-gated. Nothing in the register is fixed by this run.
+      depends_on:
+        - T2
+      writes:
+        - docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/evidence/P2-as-built.open-findings.md
+      owner: p2-open-findings-registrar
+      wave: W2
+    - id: T4
+      outcome: Write the reconciliation record binding P2's as-built to its commits, PLAN-013's invalidation and this plan's succession, and repoint P2-CHECKPOINT.md at the three artifacts. Terminal state is P2 in_progress with declared open work; this plan does not close P2.
+      depends_on:
+        - T3
+      writes:
+        - docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/evidence/P2-as-built.reconciliation-record.md
+        - docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/P2-CHECKPOINT.md
+      owner: p2-reconciliation-recorder
+      wave: W3
+waves:
+    - id: W0
+      tasks:
+        - T1
+      concurrency: 1
+    - id: W1
+      tasks:
+        - T2
+      concurrency: 1
+    - id: W2
+      tasks:
+        - T3
+      concurrency: 1
+    - id: W3
+      tasks:
+        - T4
+      concurrency: 1
+validation:
+    - obligation:
+        artifact: specification
+        id: VAL-1
+      gate: p2-asbuilt-golden-parity-attestation
+      tier: integration
+      evidence:
+        artifact: verification-result
+        id: VR-VAL-1
+    - obligation:
+        artifact: specification
+        id: VAL-2
+      gate: p2-asbuilt-topology-protection-attestation
+      tier: integration
+      evidence:
+        artifact: verification-result
+        id: VR-VAL-2
+    - obligation:
+        artifact: specification
+        id: VAL-3
+      gate: p2-asbuilt-layout-scale-attestation
+      tier: project
+      evidence:
+        artifact: verification-result
+        id: VR-VAL-3
+    - obligation:
+        artifact: specification
+        id: VAL-4
+      gate: p2-asbuilt-override-attestation
+      tier: component
+      evidence:
+        artifact: verification-result
+        id: VR-VAL-4
+    - obligation:
+        artifact: specification
+        id: VAL-5
+      gate: p2-asbuilt-marker-attestation
+      tier: integration
+      evidence:
+        artifact: verification-result
+        id: VR-VAL-5
+    - obligation:
+        artifact: specification
+        id: VAL-6
+      gate: p2-asbuilt-oracle-gate-attestation
+      tier: project
+      evidence:
+        artifact: verification-result
+        id: VR-VAL-6
+deviation_policy: p2-as-built-reconciliation-documentation-only-v1
+estimate:
+    unit: agent-hour
+    low: 3
+    likely: 5
+    high: 8
+    confidence: medium
+    basis: P2's product work is already built, committed and owner-reviewed through T5; what is owed is the obligation-to-evidence mapping that was never written down. The run writes four spec-local Markdown artifacts and edits no Go source, test, data file or committed artifact. Dominant costs are the ~14-minute serial project ceiling at the plan baseline, which HANDOFF records as unverified, and reading roughly twenty test files closely enough that no coverage cell is asserted from a test's name — only VAL-6 obligation 2 carries an explicit marker in the tree.

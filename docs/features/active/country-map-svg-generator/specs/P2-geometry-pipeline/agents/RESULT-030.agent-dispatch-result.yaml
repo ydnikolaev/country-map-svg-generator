@@ -1,0 +1,32 @@
+version: 1
+kind: agent-dispatch-result
+id: RESULT-030
+epic: country-map-svg-generator
+spec: P2
+status: cancelled
+input_digest: 7e5413f5c7cf13d1563ad919a40af505e53c08a838de7c086fa7381f4e847e77
+previous:
+    artifact: agent-dispatch-brief
+    id: BRIEF-030
+    path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/agents/BRIEF-030.agent-dispatch-brief.yaml
+    sha256: 395965f7a231bbf9593675e42364eb2197a43b0ca12bc244762408ecd473b7bb
+brief:
+    artifact: agent-dispatch-brief
+    id: BRIEF-030
+    path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/agents/BRIEF-030.agent-dispatch-brief.yaml
+    sha256: 395965f7a231bbf9593675e42364eb2197a43b0ca12bc244762408ecd473b7bb
+principal: p2-plan014-planner
+provider_task_ref: p2-plan014-planner
+outcome: cancelled
+summary: 'Candidate authored in full and coordinator-verified against the tree: 12 of 23 P2 obligations mapped to committed evidence, 11 registered as open findings OF-1..OF-12, four sampled findings confirmed by inspection. Recorded cancelled rather than passed because the owner reprioritized the wave to shipping a release binary before the candidate was sealed, and a passing planner result requires a sealed plan-manifest output.'
+changed_paths:
+    - path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/plans/candidates/PLAN-014/P2-geometry-pipeline.PLAN-014.plan-manifest.yaml
+      sha256: 602d79471ff0bfcc92e826cd1e95fc30131119f74e743c5cddcd7eb2a5121052
+    - path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/plans/candidates/PLAN-014/P2-geometry-pipeline.PLAN-014.plan.md
+      sha256: 2eaa54fff7745a5a11e6c37c35fcc1f5a4e170078ceacddf4c9f603cbdfffe66
+outputs: []
+verification: []
+deviations: []
+feedback: []
+findings: []
+resume_anchor: 'PLAN-014 is a complete unsealed candidate at plans/candidates/PLAN-014 (plan 2eaa54ff, manifest 602d7947); re-issue a planner brief only if it needs rework, not to re-author it. mate plan seal currently refuses: internal/work/plan_transition.go:486 compares receipt.Successor of plan-invalidate-47f17875766ec2a3 against the current target bytes, and the tracker has advanced past it.'
