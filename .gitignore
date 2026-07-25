@@ -3,6 +3,11 @@
 # Release build output. Reproducible from `make release` at any tag.
 dist/
 
+# Pages the CLI writes into the working directory by default. Running `demo` or
+# `preview` from a checkout should not leave the tree dirty.
+country-map-demo.html
+country-map-preview.html
+
 # Mate runtime state. Governed evidence under docs/features remains tracked.
 .mate/work-locks/
 .mate/work-transactions/
