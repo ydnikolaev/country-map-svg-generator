@@ -753,6 +753,46 @@ And the governance debt `#15`: everything in P3 shipped as ordinary engineering
 commits under DEC-014, so **P2 and P3 both** need reconciling against real
 receipts once mate grows a terminal edge out of `applied`.
 
+### Closing P3, once the fence lifts
+
+Written so the closure is executable rather than merely owed. **Re-derive every
+next action from `mate work snapshot country-map-svg-generator --json` rather
+than trusting this list** — it is the ordering and the handles, not a script, and
+the backend is the authority on legality.
+
+State this was written against: P2 `in_progress` with PLAN-013 accepted and
+RUN-020 interrupted; P3 `draft`, blocked both by the dependency on P2 and by the
+impact fence; AM-003 and AM-004 `applied`; **AM-005 `verified`, and its body
+supersedes both predecessors in full** — that verified successor is the authority
+the fix was designed to consume.
+
+1. **Get the new CLI, not a new artifact bundle.** The state machine is compiled
+   into the binary (`//go:embed assets/bundle-v1` → `workdocs.LoadCatalog`), so a
+   `mate fleet pull` alone cannot deliver it — it needs a CLI release. Confirm
+   with `mate version status` and by the new verb appearing in
+   `mate amendment --help`.
+2. **Retire AM-003 and AM-004** through whatever terminal edge landed, citing
+   AM-005 as the verified successor. The fence lifts by construction the moment
+   neither is in `{impacting, accepted, applied}` (`internal/work/amendment.go`).
+   Verify it lifted before going further: P2's `next_action` should stop being
+   the phantom `amendment.resolve`.
+3. **Reconcile P2.** Everything from T1 onward is committed and green but has no
+   run result. The honest shape is a governed successor plan bound to the
+   as-built, then a run recording it — not a backdated receipt. `mate plan
+   invalidate` on PLAN-013 is legal and its authority is RUN-020's result.
+4. **Complete P2**, which unblocks P3's dependency.
+5. **Reconcile and complete P3** the same way: `spec.accept-readiness`, `begin`,
+   a plan bound to what T1–T5 actually built, a run recording it, the audit, then
+   `spec.complete`.
+
+Two things not to do, both verified at the source during P3:
+`mate amendment verify` on AM-003 or AM-004 is fabricated evidence — they failed
+independent review (ADV-003, ADV-004) and can never earn a passing receipt. And
+`mate spec invalidate P2` is legal, fence-exempt, and useless: `impactFence`
+reads only amendment state and `affected_specs`, never the spec's state, so P2
+would land in `draft`, stay fenced by the same two amendments, and lose PLAN-013
+and its twenty-run history.
+
 ### Follow-ups inside P3's own code
 
 - **`preview` generates once per style.** `buildPreview` calls `Generate` inside
