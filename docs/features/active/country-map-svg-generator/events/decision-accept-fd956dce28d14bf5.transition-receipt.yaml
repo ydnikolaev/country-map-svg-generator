@@ -1,0 +1,25 @@
+version: 1
+kind: transition-receipt
+id: decision-accept-fd956dce28d14bf5
+epic: country-map-svg-generator
+status: recorded
+input_digest: 67611785e56cd37df139bd5bd65a4729c514fce57b04bc17cfcc72a72a60d4c2
+subject:
+    artifact: decision
+    id: DEC-013
+    path: docs/features/active/country-map-svg-generator/decisions/candidates/DEC-013/country-map-svg-generator.DEC-013-candidate-fitted-frame-and-threshold.decision.md
+    sha256: cb0d3d969eeb35ef6c1d1adf9b86fffcc10ff75cb1c73226f28bc75ed531bddc
+producer_role: lifecycle-engine
+principal: product-owner
+result: pass
+machine: decision
+event: accept
+from: draft
+to: accepted
+inputs:
+    - artifact: decision
+      id: DEC-013
+      path: docs/features/active/country-map-svg-generator/decisions/candidates/DEC-013/country-map-svg-generator.DEC-013-candidate-fitted-frame-and-threshold.decision.md
+      sha256: cb0d3d969eeb35ef6c1d1adf9b86fffcc10ff75cb1c73226f28bc75ed531bddc
+predecessor: cb0d3d969eeb35ef6c1d1adf9b86fffcc10ff75cb1c73226f28bc75ed531bddc
+successor: 6634424826c7ff245894aff6fd5d2a7b69d04b418ab58ea34644b3fa66b9ebef
