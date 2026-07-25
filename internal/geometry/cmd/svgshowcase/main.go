@@ -75,7 +75,11 @@ func run(out string) error {
 	if err != nil {
 		return err
 	}
-	page := render(hero, gallery, usFull)
+	swatchCell, err := load("JP", "standard")
+	if err != nil {
+		return err
+	}
+	page := render(hero, gallery, usFull, swatchCell)
 	if err := os.MkdirAll(filepath.Dir(out), 0o755); err != nil {
 		return err
 	}
@@ -91,6 +95,22 @@ func run(out string) error {
 // viewBox does the work, so this is a consumer decision available today with no
 // pipeline change at all. It is the honest version of the demo: the frame is
 // presentation, and presentation is exactly what INV-1 hands over.
+var palette = []struct{ name, hex string }{
+	{"Vermilion", "#e8453c"}, {"Amber", "#f5820b"}, {"Citron", "#d8b800"}, {"Jade", "#12a05c"},
+	{"Teal", "#009aa8"}, {"Azure", "#2d7dd2"}, {"Violet", "#7b4fd8"}, {"Magenta", "#dc3f7e"},
+}
+
+// gradientSVG shows that a fill can be anything paintable, including a server of
+// colour the generator never heard of. The path is still untouched.
+func gradientSVG(r geometry.Result) string {
+	return fmt.Sprintf(`<svg viewBox="%g %g %g %g" role="img" aria-label="%s">`+
+		`<defs><linearGradient id="g-%s" x1="0" y1="0" x2="0" y2="1">`+
+		`<stop offset="0" stop-color="#2d7dd2"/><stop offset="1" stop-color="#dc3f7e"/>`+
+		`</linearGradient></defs><path d="%s" fill="url(#g-%s)"/></svg>`,
+		r.ViewBox.MinX, r.ViewBox.MinY, r.ViewBox.Width(), r.ViewBox.Height(), r.Entity,
+		r.Entity, r.Path, r.Entity)
+}
+
 func croppedViewBox(r geometry.Result) (minX, minY, w, h float64, ok bool) {
 	type box struct{ minX, minY, maxX, maxY float64 }
 	var boxes []box
@@ -152,7 +172,7 @@ func svg(r geometry.Result, markers bool) string {
 	return b.String()
 }
 
-func render(hero cell, gallery []cell, usFull cell) string {
+func render(hero cell, gallery []cell, usFull, swatchCell cell) string {
 	var b strings.Builder
 	b.WriteString(`<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">`)
 	b.WriteString(`<title>One path, many treatments</title>`)
@@ -202,6 +222,23 @@ func render(hero cell, gallery []cell, usFull cell) string {
 </div></section>`,
 		svg(usFull.Result, false), len(usFull.Result.Path),
 		croppedSVG(usFull.Result), len(usFull.Result.Path))
+
+	// Colour, which is entirely the consumer's.
+	b.WriteString(`<section><h2>Any palette you bring</h2>
+<p class="note">The same Japan eight times. The generator has no opinion about colour — these are eight <code>fill</code> values, and a brand would supply its own.</p>
+<div class="row swatches">`)
+	for _, sw := range palette {
+		fmt.Fprintf(&b, `<figure class="cell swatch" style="--swatch:%s"><div class="art">%s</div><figcaption><b>%s</b><span>%s</span></figcaption></figure>`,
+			sw.hex, svg(swatchCell.Result, false), sw.name, sw.hex)
+	}
+	b.WriteString(`</div>
+<p class="note" style="margin-top:18px">Two more that need no new geometry: a gradient across the fill, and the outline and body taking different colours.</p>
+<div class="row two">`)
+	fmt.Fprintf(&b, `<figure class="cell fancy-gradient"><div class="art">%s</div><figcaption><b>Gradient</b><span>one path, one linearGradient</span></figcaption></figure>`,
+		gradientSVG(swatchCell.Result))
+	fmt.Fprintf(&b, `<figure class="cell fancy-duo"><div class="art">%s</div><figcaption><b>Two-tone</b><span>body and edge coloured apart</span></figcaption></figure>`,
+		svg(swatchCell.Result, false))
+	b.WriteString(`</div></section>`)
 
 	b.WriteString(`<footer><p>Geometry is presentation-free by design (INV-1). Colour, stroke, opacity, layering and markers are all applied here in CSS over unmodified output.</p></footer>`)
 	return b.String()
@@ -265,7 +302,11 @@ h2{margin:0;font:400 clamp(21px,2.6vw,27px)/1.2 ui-serif,Georgia,serif;letter-sp
 .cell{margin:0;background:var(--plate);border:1px solid var(--rule);border-radius:3px;
   padding:16px;display:flex;flex-direction:column;gap:12px}
 .art{display:flex;align-items:center;justify-content:center;min-height:0}
-.cell svg{width:100%;height:132px;overflow:visible}
+/* The outer svg must clip: a visible overflow defeats the viewBox, and the
+   framing section depends on exactly that clip. Only the offset treatment, whose
+   drop-shadow sits a few pixels outside the box, opts out. */
+.cell svg{width:100%;height:132px;overflow:hidden}
+.t-offset svg{overflow:visible}
 figcaption{display:flex;flex-direction:column;gap:2px;border-top:1px solid var(--rule);padding-top:9px}
 figcaption b{font-size:14px;font-weight:600}
 figcaption span{color:var(--ink-soft);font:11px ui-monospace,SFMono-Regular,Menlo,monospace;
@@ -285,5 +326,8 @@ footer p{margin:0}
 .t-capital .land{fill:var(--land);fill-opacity:.22;stroke:var(--land);stroke-width:1}
 .capital{fill:var(--accent)}
 .t-offset .land{fill:var(--land);filter:drop-shadow(3px 3px 0 var(--accent-soft))}
+.swatches{grid-template-columns:repeat(auto-fill,minmax(132px,1fr))}
+.swatch .land{fill:var(--swatch)}
+.fancy-duo .land{fill:#2d7dd2;fill-opacity:.28;stroke:#dc3f7e;stroke-width:1.6;stroke-linejoin:round}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>`
