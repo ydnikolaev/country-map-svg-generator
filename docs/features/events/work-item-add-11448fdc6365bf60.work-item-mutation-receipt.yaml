@@ -1,0 +1,35 @@
+version: 1
+kind: work-item-mutation-receipt
+id: work-item-add-11448fdc6365bf60
+project: country-map-svg-generator
+claim:
+    project: country-map-svg-generator
+    item_id: WKI-1DA58E0FE741
+    item_revision: 1
+    registry_revision: 10
+    mutation: add-capture
+    operation_id: work-item-add-11448fdc6365bf60
+    actor: operator
+    timestamp: "2026-07-25T03:24:24Z"
+    inputs:
+        - name: registry
+          value: a606b3bdc024892e78ad0270b987ebc58e7b3e13a4c29d5649472728d69a95de
+        - name: request
+          value: 11448fdc6365bf6034bee1d786c28ac8d695db0a618345e4bed44e359b819472
+        - name: source
+          value: specification#P2#docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/P2-geometry-pipeline.spec.md#3a9be62003fb6daa63130a600d5a01511074bb25d57011ec1ea9f568c1a027e0
+    input_digest: ce4a7f0d8d9802934c92dc523e38f453164427fd2e1af8debd6a3549bdee89af
+    result: captured
+    next_action: 'Decide during P2 governance reconciliation, not from P3: narrowing this predicate weakens an existing gate, which needs P2''s evidence in hand. Until then, re-record the two constants with the determinism evidence named in the commit, as P3/T1 did.'
+    predecessor_registry:
+        kind: sha256
+        digest: a606b3bdc024892e78ad0270b987ebc58e7b3e13a4c29d5649472728d69a95de
+    predecessor_receipt:
+        kind: work-item-mutation-receipt
+        id: work-item-add-4135ec64a1671961
+        path: docs/features/events/work-item-add-4135ec64a1671961.work-item-mutation-receipt.yaml
+        sha256: 0f59bd08b0a776089f134dd346b73456fc8bc9555b2fca0c32a9090e16a942fa
+    event: capture
+    from: absent
+    to: captured
+successor_registry_sha256: 7deb4c91004a71e6bff6ce1dd96e476eb37d2f547251b37c9b95ca03905821d0

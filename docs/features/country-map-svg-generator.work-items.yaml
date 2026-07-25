@@ -1,14 +1,56 @@
 version: 1
 kind: work-item-registry
 project: country-map-svg-generator
-revision: 9
+revision: 10
 head_receipt:
     kind: work-item-mutation-receipt
-    id: work-item-add-4135ec64a1671961
-    path: docs/features/events/work-item-add-4135ec64a1671961.work-item-mutation-receipt.yaml
-    claim_sha256: 68ae72e41f28562b49b83fbec09a842882b34738766435279840f181735b20df
-updated_at: "2026-07-25T03:00:18Z"
+    id: work-item-add-11448fdc6365bf60
+    path: docs/features/events/work-item-add-11448fdc6365bf60.work-item-mutation-receipt.yaml
+    claim_sha256: e1e0f842e620c91bb64bd801634a46980d29534cf65bcd0e3a4b0695e15aba17
+updated_at: "2026-07-25T03:24:24Z"
 items:
+    - id: WKI-1DA58E0FE741
+      fingerprint: 1da58e0fe7415e43bdab46361325c255e34bfa26abf169de19cf7996604c35f0
+      scope: project
+      title: Diagnostic identity record hashes the whole module graph, so any dependency change reddens it
+      problem: 'loadDiagnosticIdentities in internal/geometry/cmd/lodbuild/diagnostic.go records GoModSHA256 and GoSumSHA256 as file digests of go.mod and go.sum, and diagnosticIdentityDrift compares them against frozen constants. Those two fields cover the entire module graph, including dependencies the diagnostic never touches: adding cobra and rogpeppe/go-internal for the P3 CLI, which nothing under internal/geometry imports, reddened TestDiagnosticIdentityDriftChecksEveryRecordedLoadBearingIdentity even though the full 30-resolution by 249-entity mapshaper ladder rebuild reproduced byte-identically in the same run and the internal/geometry package stayed green at 353s. Every other live field in the record is scoped to something the diagnostic actually consumes - the corpus identity, the recipe, the mapshaper pin, the tool lockfile, the twenty-file geometry source inventory, the serializer - and the source inventory is a self-consistency check rather than a frozen-value one, so it does not have this property. The record also carries four self-referential fields (BaselineCommit, BaselineTree, ScratchBefore, Command) that loadDiagnosticIdentities assigns from the same constants the drift check compares against, so they can never drift and contribute nothing.'
+      expected_outcome: The identity record measures only what the diagnostic consumes, so a dependency added for an unrelated package does not redden a geometry provenance gate. Either the module-graph fields are narrowed to the dependency subset internal/geometry actually imports, or they are replaced by something with the same scoping property the source inventory already has. The four inert self-referential fields are either given a real source or dropped, so the record does not appear to check more than it does.
+      status: captured
+      owner: teamlead
+      priority_band: normal
+      effort_band: small
+      next_action: 'Decide during P2 governance reconciliation, not from P3: narrowing this predicate weakens an existing gate, which needs P2''s evidence in hand. Until then, re-record the two constants with the determinism evidence named in the commit, as P3/T1 did.'
+      observations:
+        - id: OBS-11448FDC6365
+          source:
+            artifact: specification
+            id: P2
+            path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/P2-geometry-pipeline.spec.md
+            sha256: 3a9be62003fb6daa63130a600d5a01511074bb25d57011ec1ea9f568c1a027e0
+          actor: operator
+          evidence: []
+          observed_at: "2026-07-25T03:24:24Z"
+      decisions:
+        - revision: 1
+          actor: operator
+          from: absent
+          to: captured
+          rationale: Capture the durable work item
+          decided_at: "2026-07-25T03:24:24Z"
+          receipt:
+            kind: work-item-mutation-receipt
+            id: work-item-add-11448fdc6365bf60
+            path: docs/features/events/work-item-add-11448fdc6365bf60.work-item-mutation-receipt.yaml
+            claim_sha256: e1e0f842e620c91bb64bd801634a46980d29534cf65bcd0e3a4b0695e15aba17
+      relationships: []
+      mutation_receipts:
+        - kind: work-item-mutation-receipt
+          id: work-item-add-11448fdc6365bf60
+          path: docs/features/events/work-item-add-11448fdc6365bf60.work-item-mutation-receipt.yaml
+          claim_sha256: e1e0f842e620c91bb64bd801634a46980d29534cf65bcd0e3a4b0695e15aba17
+      created_at: "2026-07-25T03:24:24Z"
+      updated_at: "2026-07-25T03:24:24Z"
+      revision: 1
     - id: WKI-4062B33B8FEA
       fingerprint: 4062b33b8fea73850cf1c6bffef741a30c85838471689672ebb6701bf313884a
       scope: project

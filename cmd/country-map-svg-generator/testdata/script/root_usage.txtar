@@ -1,0 +1,19 @@
+# A bare invocation refuses with a typed class rather than exiting 0 quietly.
+! exec country-map-svg-generator
+stderr 'usage: no command given'
+stderr 'hint: run country-map-svg-generator --help'
+
+# An unknown command is the same class and names what was not understood.
+! exec country-map-svg-generator frobnicate
+stderr 'unknown command'
+stderr 'frobnicate'
+
+# Both refusals are available to a machine caller.
+! exec country-map-svg-generator --json
+stdout '"status": "error"'
+stdout '"class": "usage"'
+stdout '"code": "missing_command"'
+
+! exec country-map-svg-generator frobnicate --json
+stdout '"status": "error"'
+stdout '"class": "usage"'

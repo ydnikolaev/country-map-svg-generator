@@ -1,0 +1,12 @@
+# version --help is how an agent discovers the command without running it.
+exec country-map-svg-generator version --help
+stdout 'Report every identity that determines output'
+stdout 'byte-identical'
+stdout '--json'
+! stderr .
+
+# The command must also appear in the root listing with its one-line summary, or
+# an agent enumerating the surface never finds it.
+exec country-map-svg-generator --help
+stdout 'version\s+Report generator, corpus and algorithm identities'
+stdout 'Generate optimized country map SVGs'

@@ -26,8 +26,16 @@ const (
 	diagnosticScratchBefore   = "0659b28f949f3f0c8a7ca1021ce0dac9eedab2348035c687709c27c926d73c24"
 	diagnosticSerializerHash  = "c9ee9019b9155522acef16cd405ef0a72c93a4d519493a86061617cc2e034345"
 	diagnosticSerializerT     = "0142dea0db810bfa97e4bb23d30cdf039faad860e8e1354a4111b804ee584c8f"
-	diagnosticGoModHash       = "4412d79908d733d715bad8c17334eafbdabb6f96ab8b242d87bdf6637ee9f13b"
-	diagnosticGoSumHash       = "139a8de4191f92748a9d3a8c3868f56862e42f1b0d60d8f1dc4a582d273b5daf"
+	// Re-recorded when P3/T1 added the CLI's dependencies (cobra, testscript).
+	// These two fields are the coarsest in the record: they hash the whole module
+	// graph, including dependencies the diagnostic never touches, so they move for
+	// reasons unrelated to anything it computes. Nothing was weakened by
+	// re-recording them — the diagnostic's outputs are guarded independently by
+	// the frozen expectations in evaluatePredicates, and the full mapshaper ladder
+	// rebuild reproduced byte-identically under the new graph. Tracked as
+	// WKI-1DA58E0FE741.
+	diagnosticGoModHash       = "0abd3003d35628564c675a9ffb070b157df97ac2e88d08b14dffcf2b868b05c9"
+	diagnosticGoSumHash       = "0a485fa6e5059958c299f891a19691f959804b012fefc30227514b9eb9b2692f"
 	diagnosticCommandIdentity = "GOCACHE=/private/tmp/country-map-go-cache GOWORK=off go run ./internal/geometry/cmd/lodbuild -diagnostic -semantic-out=<semantic-out> -timing-out=<timing-out>"
 )
 

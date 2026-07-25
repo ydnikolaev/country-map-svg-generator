@@ -1,0 +1,10 @@
+# An unexpected positional argument is a usage failure, not a silent success.
+! exec country-map-svg-generator version extra
+stderr 'usage: expected 0 argument\(s\), got 1'
+stderr 'usage: country-map-svg-generator version'
+! stdout .
+
+# An unknown flag is the same class, reported through the same channel.
+! exec country-map-svg-generator version --nope
+stderr 'usage: unknown flag: --nope'
+! stdout .

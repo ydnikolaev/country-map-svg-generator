@@ -1,0 +1,17 @@
+# Human output names every identity that determines reproducibility.
+exec country-map-svg-generator version
+stdout 'country-map-svg-generator dev'
+stdout 'corpus     v1 \(sha256:[0-9a-f]{12}, [0-9]+ entities\)'
+stdout 'geometry   schema 2, laea-organic-v1'
+! stderr .
+
+# The machine surface carries the same facts, plus the untruncated corpus
+# identity. A caller comparing two runs must never be handed the short form.
+exec country-map-svg-generator version --json
+stdout '"schema": "country-map.cli/v1"'
+stdout '"status": "ok"'
+stdout '"exit": 0'
+stdout '"corpus_identity": "sha256:[0-9a-f]{64}"'
+stdout '"algorithm_version": "laea-organic-v1"'
+! stdout '"error"'
+! stderr .
