@@ -112,19 +112,14 @@ dialog::backdrop{background:color-mix(in srgb,var(--bg) 92%,transparent);backdro
   stroke-opacity:var(--map-stroke-opacity);
   stroke-width:var(--map-stroke-width);
 }
-/* The capital gets its own colour, its own radius, and a halo in the card's own
-   background. The halo is not decoration: on a solid fill in the body colour a
-   same-coloured dot is invisible, which is exactly what it looked like before.
-   `r` is an SVG geometry property, so the radius is settable from CSS without
-   regenerating — the generator's own r="2" is the fallback. */
-.country-map__marker{
-  display:var(--map-marker-display,none);
-  fill:var(--map-marker);
-  r:var(--map-marker-r);
-  stroke:var(--panel);
-  stroke-width:var(--map-marker-halo);
-  paint-order:stroke;
-}
+/* Capitals are styled from script by ATTRIBUTE, not from here. `r` as a CSS
+   property and a custom property standing in for `display` both work in some
+   engines and not others, and when they fail the dot vanishes entirely rather
+   than degrading — which is exactly what it did. An attribute is the one thing
+   every SVG engine honours, and the page already runs script.
+   Only paint-order stays in CSS: it has a harmless failure mode, drawing the
+   halo over the fill instead of under it. */
+.country-map__marker{paint-order:stroke}
 body{
   --country-map-fill:var(--map-fill);
   --country-map-fill-opacity:var(--map-fill-opacity);
@@ -134,7 +129,6 @@ body{
   --map-body:var(--accent);
   --map-fill:currentColor; --map-fill-opacity:1;
   --map-stroke:currentColor; --map-stroke-opacity:1; --map-stroke-width:.5;
-  --map-marker:#c8556f; --map-marker-r:2.2; --map-marker-halo:.9;
   /* Pattern content cannot use currentColor: a <pattern> in <defs> resolves it
      against its own ancestors, not against the element referencing it, so the
      dots and hatch stayed one colour while everything else changed. A custom
@@ -208,11 +202,23 @@ body{
      and small enough to read as texture rather than as stripes at card size.
      The values here are the `even` step; apply() retiles both on load. -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
-  <pattern id="hatch" width="3" height="3" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+  <pattern id="hatch-open" width="4.5" height="4.5" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+    <line x1="0" y1="0" x2="0" y2="4.5" stroke="var(--map-pattern-ink)" stroke-width=".7"/>
+  </pattern>
+  <pattern id="hatch-even" width="3" height="3" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
     <line x1="0" y1="0" x2="0" y2="3" stroke="var(--map-pattern-ink)" stroke-width=".55"/>
   </pattern>
-  <pattern id="dots" width="2.6" height="2.6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+  <pattern id="hatch-tight" width="2" height="2" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+    <line x1="0" y1="0" x2="0" y2="2" stroke="var(--map-pattern-ink)" stroke-width=".4"/>
+  </pattern>
+  <pattern id="dots-open" width="4" height="4" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+    <circle cx="2" cy="2" r=".62" fill="var(--map-pattern-ink)"/>
+  </pattern>
+  <pattern id="dots-even" width="2.6" height="2.6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
     <circle cx="1.3" cy="1.3" r=".45" fill="var(--map-pattern-ink)"/>
+  </pattern>
+  <pattern id="dots-tight" width="1.8" height="1.8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+    <circle cx=".9" cy=".9" r=".32" fill="var(--map-pattern-ink)"/>
   </pattern>
 </defs></svg>
 
@@ -235,15 +241,17 @@ const PALETTE = {
   ink:'currentColor', indigo:'#5566d8', teal:'#1f9c8a', amber:'#c98a2e',
   rose:'#c8556f', slate:'#68748c',
 };
-const PATTERNS = {none:null, hatch:'url(#hatch)', dots:'url(#dots)'};
-// Density retiles the pattern rather than scaling it: a tile is measured in the
-// SVG's own user space, so the mark has to shrink with the spacing or a denser
-// setting would just read as a darker one.
-const DENSITY = {
-  open:  {hatch:{tile:4.5, mark:.7 }, dots:{tile:4,   mark:.62}},
-  even:  {hatch:{tile:3,   mark:.55}, dots:{tile:2.6, mark:.45}},
-  tight: {hatch:{tile:2,   mark:.4 }, dots:{tile:1.8, mark:.32}},
-};
+// Each density is its own pattern in <defs>, selected by id. Retiling one shared
+// pattern by mutating its attributes does change the tile — but a browser does
+// not repaint an element whose paint-server REFERENCE is unchanged, so the new
+// spacing only appeared once something else forced a repaint. Switching the
+// reference is what makes density reactive.
+const PATTERNS = {none:false, hatch:true, dots:true};
+const DENSITIES = ['open','even','tight'];
+// A tile is measured in the SVG's own user space, so each step shrinks the mark
+// along with the spacing — otherwise denser would just read as darker.
+const paintFor = (pattern, density) =>
+  PATTERNS[pattern] ? `url(#${pattern}-${density})` : null;
 // A multiplier over the style's own width, so "thin" stays thin in every style
 // rather than flattening five styles onto one number.
 const WEIGHTS = {hair:0.25, thin:0.5, base:1, bold:1.8};
@@ -256,10 +264,21 @@ const state = {
   cols:'3', theme:'auto',
 };
 const root = document.documentElement, body = document.body;
+// Two resolvers, because the two destinations accept different things. A CSS
+// custom property takes var(); a presentation attribute does not, so anything
+// written as an attribute has to be a literal colour.
+const cssVar = name => getComputedStyle(root).getPropertyValue(name).trim();
 const colourOf = name => PALETTE[name] === 'currentColor' ? 'var(--accent)' : PALETTE[name];
+const literalOf = name => PALETTE[name] === 'currentColor' ? cssVar('--accent') : PALETTE[name];
 
 function apply(){
   const s = STYLES[state.style];
+
+  // Stamp the theme and the column count FIRST. Everything below reads resolved
+  // colours out of custom properties, and those depend on the theme — resolving
+  // them before stamping it left every literal one theme behind.
+  root.setAttribute('data-theme', state.theme);
+  root.style.setProperty('--cols', state.cols);
 
   // Body colour drives currentColor for the whole map, so an un-overridden
   // stroke follows it by inheritance.
@@ -268,7 +287,7 @@ function apply(){
   // ancestor-resolution reason recorded in the stylesheet.
   body.style.setProperty('--map-pattern-ink', colourOf(state.body));
 
-  const pat = s.hasFill ? PATTERNS[state.pattern] : null;
+  const pat = s.hasFill ? paintFor(state.pattern, state.density) : null;
   body.style.setProperty('--map-fill', pat || s.fill);
   body.style.setProperty('--map-fill-opacity', s.fillOpacity);
 
@@ -277,28 +296,24 @@ function apply(){
   body.style.setProperty('--map-stroke-opacity', s.strokeOpacity);
   body.style.setProperty('--map-stroke-width', (s.strokeWidth * WEIGHTS[state.weight]).toFixed(3));
 
+  // Capitals are written as attributes on every marker. Doing this from CSS meant
+  // depending on `r` as a property and on a custom property standing in for
+  // `display`; where either is unsupported the dot disappears outright instead of
+  // degrading, and that is what happened. An attribute always lands.
+  //
+  // The halo is not decoration: it is what keeps the dot readable when its colour
+  // is deliberately matched to the body it sits on.
   const size = MARKER_SIZES[state.markerSize];
-  body.style.setProperty('--map-marker',
-    state.markerColour === 'match' ? 'currentColor' : colourOf(state.markerColour));
-  body.style.setProperty('--map-marker-r', size.r);
-  body.style.setProperty('--map-marker-halo', size.halo);
-  body.style.setProperty('--map-marker-display', state.markers === 'on' ? 'inline' : 'none');
-
-  // The tile lives in attributes rather than in CSS, so it is retiled here.
-  const d = DENSITY[state.density];
-  const hatch = document.getElementById('hatch'), dots = document.getElementById('dots');
-  hatch.setAttribute('width', d.hatch.tile);
-  hatch.setAttribute('height', d.hatch.tile);
-  hatch.firstElementChild.setAttribute('y2', d.hatch.tile);
-  hatch.firstElementChild.setAttribute('stroke-width', d.hatch.mark);
-  dots.setAttribute('width', d.dots.tile);
-  dots.setAttribute('height', d.dots.tile);
-  dots.firstElementChild.setAttribute('cx', d.dots.tile / 2);
-  dots.firstElementChild.setAttribute('cy', d.dots.tile / 2);
-  dots.firstElementChild.setAttribute('r', d.dots.mark);
-
-  root.style.setProperty('--cols', state.cols);
-  root.setAttribute('data-theme', state.theme);
+  const markerPaint = literalOf(state.markerColour === 'match' ? state.body : state.markerColour);
+  const halo = cssVar('--panel');
+  const shown = state.markers === 'on';
+  for(const m of document.querySelectorAll('.country-map__marker')){
+    m.setAttribute('r', size.r);
+    m.setAttribute('fill', markerPaint);
+    m.setAttribute('stroke', halo);
+    m.setAttribute('stroke-width', shown ? size.halo : 0);
+    m.setAttribute('display', shown ? 'inline' : 'none');
+  }
 
   // Say which controls cannot act, rather than letting them look live.
   const inert = {
@@ -351,7 +366,7 @@ function swatches(host, group, matchable){
 seg(document.getElementById('style'), 'style', Object.keys(STYLES));
 seg(document.getElementById('weight'), 'weight', Object.keys(WEIGHTS));
 seg(document.getElementById('pattern'), 'pattern', Object.keys(PATTERNS));
-seg(document.getElementById('density'), 'density', Object.keys(DENSITY));
+seg(document.getElementById('density'), 'density', DENSITIES);
 seg(document.getElementById('markers'), 'markers', ['off','on']);
 seg(document.getElementById('markerSize'), 'markerSize', Object.keys(MARKER_SIZES));
 seg(document.getElementById('cols'), 'cols', ['3','4','5']);
