@@ -190,9 +190,10 @@ func TestMergeCoversEveryField(t *testing.T) {
 			MarkerFill: &text, MarkerStroke: &text, MarkerRadius: &value,
 			Advanced: &AdvancedTokens{Gradient: &text, Pattern: &text, Filter: &text},
 		},
-		Marker:    &Marker{Mode: &text, Custom: []string{"a"}},
-		Animation: &Animation{Enabled: &flag, Hook: &text},
-		Output:    &Output{Dir: &text, Filename: &text},
+		Marker:        &Marker{Mode: &text, Custom: []string{"a"}},
+		Animation:     &Animation{Enabled: &flag, Hook: &text},
+		Accessibility: &Accessibility{Mode: &text, Label: &text},
+		Output:        &Output{Dir: &text, Filename: &text},
 	}
 
 	_, provenance := Merge([]Layer{{Name: "document globals", Settings: everything}})
@@ -203,6 +204,7 @@ func TestMergeCoversEveryField(t *testing.T) {
 	containers := map[string]bool{
 		"layout": true, "tokens": true, "tokens.advanced": true,
 		"marker": true, "animation": true, "output": true, "layout.padding": true,
+		"accessibility": true,
 	}
 	for _, path := range SchemaKeys() {
 		switch {

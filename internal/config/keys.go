@@ -62,6 +62,10 @@ func CheckKeys(decoded any) error {
 // fragments go through the same key checking a whole document does.
 func settingsType() reflect.Type { return reflect.TypeOf(Settings{}) }
 
+// tokensType is the type a bare token block is checked against — a style's
+// defaults, which carry tokens and nothing else.
+func tokensType() reflect.Type { return reflect.TypeOf(Tokens{}) }
+
 // SchemaKeys reports every key path the schema defines, in stable order. It is
 // the discovery surface REQ-1 asks for and the enumeration a diagnostic uses to
 // suggest a near miss.

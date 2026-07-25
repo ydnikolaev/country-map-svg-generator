@@ -41,11 +41,12 @@ countries:
 		t.Errorf("boundary = %v from %q", *resolved.Settings.Boundary, origins["boundary"])
 	}
 	// The preset beats the defaults.
+	// The style the document selects supplies the tokens nobody overrode.
 	if !strings.HasPrefix(origins["tokens.fillOpacity"], LayerNames[1]) {
-		t.Errorf("fillOpacity origin = %q, want a preset", origins["tokens.fillOpacity"])
+		t.Errorf("fillOpacity origin = %q, want the style defaults", origins["tokens.fillOpacity"])
 	}
 	// The document beats the preset.
-	if *resolved.Settings.Style != "ghost" || origins["style"] != LayerNames[2] {
+	if *resolved.Settings.Style != "ghost" || origins["style"] != LayerNames[3] {
 		t.Errorf("style = %v from %q", *resolved.Settings.Style, origins["style"])
 	}
 	// The profile block applies, and it is the block for the profile the country
@@ -53,15 +54,15 @@ countries:
 	if resolved.Settings.Tokens.StrokeWidth == nil || *resolved.Settings.Tokens.StrokeWidth != 2 {
 		t.Fatalf("the hero profile block did not apply: %+v", resolved.Settings.Tokens)
 	}
-	if !strings.HasPrefix(origins["tokens.strokeWidth"], LayerNames[3]) {
+	if !strings.HasPrefix(origins["tokens.strokeWidth"], LayerNames[4]) {
 		t.Errorf("strokeWidth origin = %q, want the profile block", origins["tokens.strokeWidth"])
 	}
 	// The country override beats the profile block.
-	if *resolved.Settings.Tokens.Fill != "var(--us)" || !strings.HasPrefix(origins["tokens.fill"], LayerNames[4]) {
+	if *resolved.Settings.Tokens.Fill != "var(--us)" || !strings.HasPrefix(origins["tokens.fill"], LayerNames[5]) {
 		t.Errorf("fill = %v from %q", *resolved.Settings.Tokens.Fill, origins["tokens.fill"])
 	}
 	// Flags beat everything.
-	if *resolved.Settings.Delivery != "standalone" || origins["delivery"] != LayerNames[5] {
+	if *resolved.Settings.Delivery != "standalone" || origins["delivery"] != LayerNames[6] {
 		t.Errorf("delivery = %v from %q", *resolved.Settings.Delivery, origins["delivery"])
 	}
 }
@@ -127,11 +128,13 @@ func TestEachPresetInAChainIsNamedSeparately(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if got := resolved.Provenance["delivery"]; got != LayerNames[1]+" standalone-default" {
+	if got := resolved.Provenance["delivery"]; got != LayerNames[2]+" standalone-default" {
 		t.Errorf("delivery origin = %q, want the exact preset that set it", got)
 	}
-	if got := resolved.Provenance["tokens.lineCap"]; got != LayerNames[1]+" site-default" {
-		t.Errorf("lineCap origin = %q, want the ancestor that set it", got)
+	// A token the preset never mentions is attributed to the style it selected,
+	// not swept into the preset.
+	if got := resolved.Provenance["tokens.lineCap"]; got != LayerNames[1]+" filled" {
+		t.Errorf("lineCap origin = %q, want the style the preset selected", got)
 	}
 	// A value neither preset touches is still attributed to the defaults, not
 	// swept into the nearest preset.

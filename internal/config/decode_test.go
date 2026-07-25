@@ -190,31 +190,79 @@ func TestEmbeddedPresetsParseAndChain(t *testing.T) {
 		t.Errorf("preset names = %v, want site-default among them", names)
 	}
 
-	chain, err := PresetChain("standalone-default")
+	// Every shipped preset resolves to a chain of itself: they are siblings on
+	// purpose, since each overrides everything the other sets.
+	for _, name := range names {
+		chain, err := PresetChain(name)
+		if err != nil {
+			t.Fatalf("%s: %v", name, err)
+		}
+		if len(chain) != 1 || chain[0].Name != name {
+			t.Errorf("chain for %q = %v; the shipped presets are siblings", name, chainNames(chain))
+		}
+	}
+}
+
+// TestPresetAncestryResolvesOldestFirst exercises the walk against a synthetic
+// set, because the shipped presets deliberately have no ancestry to walk. The
+// order is the part that matters: walked child-first and reversed, so the
+// nearest definition wins.
+func TestPresetAncestryResolvesOldestFirst(t *testing.T) {
+	parent, grandparent := "middle", "base"
+	all := map[string]Preset{
+		"base":   {Name: "base", Settings: Settings{Style: strptr("outline"), Delivery: strptr("standalone")}},
+		"middle": {Name: "middle", Extends: &grandparent, Settings: Settings{Style: strptr("ghost")}},
+		"leaf":   {Name: "leaf", Extends: &parent, Settings: Settings{Delivery: strptr("themed-inline")}},
+	}
+	chain, err := presetChainIn(all, "leaf")
 	if err != nil {
 		t.Fatal(err)
 	}
-	if len(chain) != 2 || chain[0].Name != "site-default" || chain[1].Name != "standalone-default" {
-		t.Fatalf("chain = %v, want the ancestor first", chainNames(chain))
+	if got := chainNames(chain); len(got) != 3 || got[0] != "base" || got[1] != "middle" || got[2] != "leaf" {
+		t.Fatalf("chain = %v, want base, middle, leaf", got)
 	}
 
-	// Applied in that order, the child's opinion wins and the ancestor's
-	// untouched values survive.
 	layers := make([]Layer, 0, len(chain))
 	for _, preset := range chain {
 		layers = append(layers, Layer{Name: "preset " + preset.Name, Settings: preset.Settings})
 	}
 	resolved, origins := Merge(layers)
-	if *resolved.Delivery != "standalone" || origins["delivery"] != "preset standalone-default" {
+	// The nearest definition wins...
+	if *resolved.Style != "ghost" || origins["style"] != "preset middle" {
+		t.Errorf("style = %v from %q, want ghost from middle", *resolved.Style, origins["style"])
+	}
+	if *resolved.Delivery != "themed-inline" || origins["delivery"] != "preset leaf" {
 		t.Errorf("delivery = %v from %q", *resolved.Delivery, origins["delivery"])
 	}
-	// A value the ancestor sets and the child never mentions survives, and is
-	// still attributed to the ancestor.
-	if resolved.Tokens == nil || resolved.Tokens.LineCap == nil || *resolved.Tokens.LineCap != "round" {
-		t.Fatalf("the ancestor's lineCap did not survive: %+v", resolved.Tokens)
-	}
-	if origins["tokens.lineCap"] != "preset site-default" {
-		t.Errorf("lineCap origin = %q, want the ancestor that set it", origins["tokens.lineCap"])
+}
+
+// TestPresetCyclesAreDetected covers the one structural failure single-parent
+// inheritance admits. It is detected rather than bounded by a depth limit: a
+// limit turns a cycle into a confusing "too deep" message and caps a legitimate
+// deep chain at the same time.
+func TestPresetCyclesAreDetected(t *testing.T) {
+	a, b, self := "b", "a", "self"
+	for name, all := range map[string]map[string]Preset{
+		"two-preset cycle": {
+			"a": {Name: "a", Extends: &a},
+			"b": {Name: "b", Extends: &b},
+		},
+		"self reference": {
+			"self": {Name: "self", Extends: &self},
+		},
+	} {
+		start := "a"
+		if name == "self reference" {
+			start = "self"
+		}
+		_, err := presetChainIn(all, start)
+		if err == nil {
+			t.Errorf("%s: the walk did not terminate with an error", name)
+			continue
+		}
+		if !strings.Contains(err.Error(), "cycle") {
+			t.Errorf("%s: %v does not name the cycle", name, err)
+		}
 	}
 }
 
@@ -230,22 +278,49 @@ func TestPresetsCarryOnlyWhatTheyChange(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	for name, preset := range all {
-		// Only root presets are compared against the defaults; a child
-		// legitimately restates an ancestor's value in order to override it.
-		if preset.Extends != nil {
+	_ = defaults
+	for name := range all {
+		// The baseline is what the preset *selects or inherits*: the token
+		// defaults of the style it resolves to, and its own ancestry. Restating
+		// either is pure duplication — it makes `explain` attribute the value to
+		// the preset and sends an author to edit the wrong place.
+		//
+		// The embedded defaults are deliberately **not** in the baseline. A preset
+		// is a named public contract, so restating a default pins it: without the
+		// restatement, changing the default later would silently change what the
+		// preset means for every config that extends it.
+		chain, err := PresetChain(name)
+		if err != nil {
+			t.Fatal(err)
+		}
+		preset := chain[len(chain)-1]
+
+		var baselineLayers []Layer
+		if style := resolveScalar(Settings{}, &Document{Extends: &name}, "", Settings{}, "", func(s Settings) *string { return s.Style }); style != "" {
+			styleDefaults, styleErr := StyleDefaults(style)
+			if styleErr != nil {
+				t.Fatal(styleErr)
+			}
+			baselineLayers = append(baselineLayers, Layer{Name: "style", Settings: styleDefaults})
+		}
+		for _, ancestor := range chain[:len(chain)-1] {
+			baselineLayers = append(baselineLayers, Layer{Name: "ancestor", Settings: ancestor.Settings})
+		}
+		if len(baselineLayers) == 0 {
 			continue
 		}
-		baseline := flatten(t, defaults)
+		merged, _ := Merge(baselineLayers)
+
+		baseline := flatten(t, merged)
 		claimed := flatten(t, preset.Settings)
 		var redundant []string
 		for path, value := range claimed {
-			if base, inDefaults := baseline[path]; inDefaults && base == value {
+			if base, known := baseline[path]; known && base == value {
 				redundant = append(redundant, path)
 			}
 		}
 		if len(redundant) != 0 {
-			t.Errorf("preset %q restates defaults at %v", name, sorted(redundant))
+			t.Errorf("preset %q restates what it already selects or inherits at %v", name, sorted(redundant))
 		}
 	}
 }

@@ -1,8 +1,8 @@
 {
   "version": "v1",
-  "note": "Embedded named presets a document reaches through `extends`. The set is deliberately small: a preset is a public compatibility surface, and every name shipped here is one that cannot be removed without a schema major. Layout sizing is absent on purpose — the geometry presets own the long side and the byte budget for each profile, and restating either here would create a second source of truth that drifts.",
+  "note": "Embedded named presets a document reaches through `extends`. The set is deliberately small: a preset is a public compatibility surface, and every name shipped here is one that cannot be removed without a schema major. A preset carries only what it changes — the style supplies the tokens, the geometry preset supplies the long side and the byte budget, and the serializer supplies the themed-inline custom properties. Restating any of those would fork a source of truth and would make `explain` attribute the value to the preset instead of to where it comes from.",
   "defaults": {
-    "note": "The weakest layer: what a document that says nothing at all resolves to. These are product choices, so they live in data rather than in Go. `card` is the default profile because the accepted site composition is many small card illustrations and one hero; `un` is the default boundary by DEC-002; `standalone` is the default delivery because an asset that needs no host CSS is the safer default for someone trying the tool for the first time; markers are off by REQ-7 and animation by REQ-8. Layout carries only a mode — the long side comes from the geometry preset for the resolved profile, and restating it here would fork the budget.",
+    "note": "The weakest layer: what a document that says nothing at all resolves to. These are product choices, so they live in data rather than in Go. `card` is the default profile because the accepted site composition is many small card illustrations and one hero; `un` is the default boundary by DEC-002; `standalone` is the default delivery because an asset that needs no host CSS is the safer default for someone trying the tool for the first time; `outline` is the most neutral of the five styles and reads on any background; markers are off by REQ-7 and animation by REQ-8. Layout carries only a mode — the long side comes from the geometry preset for the resolved profile.",
     "profile": "card",
     "boundary": "un",
     "delivery": "standalone",
@@ -10,39 +10,24 @@
     "layout": { "mode": "tight" },
     "marker": { "mode": "none" },
     "animation": { "enabled": false },
+    "accessibility": { "mode": "decorative" },
     "output": { "dir": ".", "filename": "{iso}.svg" }
   },
   "presets": [
     {
       "name": "site-default",
-      "note": "Carries only what it changes from the defaults. A preset that restates a default adds nothing and makes `explain` attribute the value to the preset instead of to where it actually comes from.",
+      "note": "The owner's site composition: inline assets that inherit the page's colours, drawn in the style that reads at card size without competing with the text beside it.",
       "settings": {
         "delivery": "themed-inline",
-        "style": "bold-soft",
-        "tokens": {
-          "fill": "var(--country-map-fill, currentColor)",
-          "fillOpacity": 0.14,
-          "stroke": "var(--country-map-stroke, currentColor)",
-          "strokeOpacity": 1,
-          "strokeWidth": 1,
-          "lineCap": "round",
-          "lineJoin": "round"
-        }
+        "style": "bold-soft"
       }
     },
     {
       "name": "standalone-default",
-      "extends": "site-default",
-      "note": "The same shape baked rather than themed: an asset that carries its own presentation and needs no host CSS.",
+      "note": "The same asset baked rather than themed: complete presentation, no host CSS required, usable through an img tag or as a mask. A sibling of site-default rather than a child — it overrides everything site-default sets, so inheriting from it would be inheritance that does nothing.",
       "settings": {
         "delivery": "standalone",
-        "style": "filled",
-        "tokens": {
-          "fill": "currentColor",
-          "fillOpacity": 1,
-          "stroke": "none",
-          "strokeOpacity": 0
-        }
+        "style": "filled"
       }
     }
   ]

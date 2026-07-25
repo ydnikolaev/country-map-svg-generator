@@ -6,11 +6,11 @@ resume from — this file and the commits are the whole record. Read it first.
 
 ## The one-line status
 
-**T1 and T2 done.** The binary exists with its typed failure taxonomy and the
+**T1, T2 and T3 done.** The binary exists with its typed failure taxonomy and the
 e2e harness that holds every later task; the configuration schema is frozen,
-layered, validated and explainable. `init`, `validate`, `explain` and `version`
-are registered; `generate`, `inspect` and `preview` land with the tasks that
-implement them. Nothing renders an SVG yet — that is T3.
+layered, validated and explainable; and the serializer emits every style and
+delivery mode through a structural gate. `init`, `validate`, `explain` and
+`version` are registered. Nothing writes a file yet — that is T4.
 
 ## Why P3 has no governed tracker
 
@@ -54,11 +54,14 @@ max**. `geometry` ≈ 322 s and `lodbuild` ≈ 373 s already sit near the defaul
 10-minute per-package timeout; adding a full-catalog sweep to either breaks the
 build before it fails an assertion.
 
-P3's budget is **≤ 90 s added to `make check`**. After T2 the three P3 packages
-cost **≈ 26 s** together: `cmd` 4.4 s (including the `GOWORK=off` binary build),
-`config` 0.5 s, `render` 20.7 s — almost all of it VAL-8 generating real
-geometry. For context, `catalog` ≈ 29 s, `geometry` ≈ 355 s, `lodbuild` ≈ 265 s.
-The levers that keep P3 inside its budget:
+P3's budget is **≤ 90 s added to `make check`**. After T3 the three P3 packages
+cost **≈ 38 s** together: `cmd` 4.0 s (including the `GOWORK=off` binary build),
+`config` 0.4 s, `render` 33.4 s. Almost all of `render` is VAL-8 and VAL-3
+generating real geometry; the T3 serializer tests reuse one generated result
+across the whole style × delivery matrix precisely so the matrix does not
+multiply pipeline runs. For context in a quiet full run, `catalog` ≈ 28 s,
+`geometry` ≈ 343 s, `lodbuild` ≈ 266 s. The levers that keep P3 inside its
+budget:
 
 - The ordered product loop (VAL-5) runs a **selected set** of ISO codes chosen for
   shape, never the catalog.
@@ -68,6 +71,14 @@ The levers that keep P3 inside its budget:
 Also: summarize package-level failures, not just test-level ones. A `go test
 -json` package failure carries no `Test` field, so a test-only filter reports a
 timed-out package as a clean run. That bit P2 twice.
+
+**And never run `make check` while anything else heavy is on the machine.** The
+wall-clock brakes measure the machine, not just the code. A contended run showed
+`geometry` at 440 s against 343 s quiet and `catalog` at 45 s against 28 s, and
+the `lodbuild` micro-brake failed at 31.3 s against its 30 s limit. That is the
+brake working, not flaking — but it means a red brake is only evidence about the
+code when the run had the machine to itself. Check `pgrep -f "go test"` first;
+`WKI-B05B4B4287A2` is the real fix.
 
 **And never run `make check` through a pipe.** `make check | tail -60` reports the
 exit code of `tail`, which is always 0, and buffers the entire stream so the log
@@ -157,7 +168,7 @@ stub would satisfy the gate with scripts asserting that the command does nothing
 | --- | --- |
 | `version` | T1 — done |
 | `init`, `validate`, `explain` | T2 — done |
-| `generate` | T4 |
+| `generate` | T4 (T3 built the serializer it will call) |
 | `inspect`, `preview` | T5 |
 
 ### Dependencies added, and the gate that noticed
@@ -467,10 +478,105 @@ dependency changing its wording.
   budget.** `generate` must resolve through the same path, or the two commands
   will disagree about what will be produced.
 
+## T3 — done
+
+`internal/render` serializes. Five styles, two delivery modes, CTR-005 hooks,
+markers, opt-in animation, the accessibility modes AC-5 asks for, and the
+structural gate REQ-9 needs. No command registered — `generate` is T4's.
+
+### A style is data, and the serializer never learns its name
+
+`internal/config/styles/v1.json` holds the five styles as **token defaults**, and
+they enter the precedence chain as their own layer immediately above the embedded
+defaults. That placement is what makes REQ-4's "resolve through tokens rather
+than renderer forks" true rather than aspirational, and it is why the style
+layer lives in `config` and not in `render`: with the defaults in the serializer,
+`explain` could not name where a token came from, which is the one guarantee T2
+was built around.
+
+`TestEveryStyleSerializesThroughTokens` asserts the negative — the emitted markup
+never contains a style name — because a serializer that grew a `switch` on style
+would otherwise still pass. `TestStylesProduceDistinctOutput` keeps two styles
+from collapsing into each other; a style that renders identically to another is a
+name that means nothing and nothing else would notice.
+
+**Consequence for the presets:** with styles carrying tokens, the shipped presets
+shrank to what they actually change. `standalone-default` also stopped extending
+`site-default` — it overrode everything its parent set, so the inheritance did
+nothing. They are siblings now, and `presetChainIn` gained a seam so ancestry and
+cycle detection are exercised against synthetic sets rather than against shipped
+data that has no ancestry to walk.
+
+`TestPresetsCarryOnlyWhatTheyChange` compares a preset against what it **selects
+or inherits** — its style's tokens and its ancestry — and deliberately *not*
+against the embedded defaults. A preset is a named public contract, so restating
+a default pins it: without the restatement, changing a default later would
+silently change what the preset means for every config that extends it.
+
+### The two delivery modes are genuinely different assets
+
+`standalone` bakes presentation and must need no host CSS (ARCH-INV-6). An
+author's `var(--brand, rebeccapurple)` therefore collapses to its fallback, and a
+`var(--brand)` with no fallback is **refused** with a diagnostic naming
+`themed-inline` — emitting it would produce a file that renders as nothing, which
+reads as a broken asset rather than as a configuration mistake. Standalone also
+carries no `country-map` classes: hooks nothing can target are exactly the
+redundant markup REQ-9 forbids.
+
+`themed-inline` emits every paint as `var(--country-map-<token>, <resolved>)`, so
+the host sets the property and the resolved value is the fallback — REQ-6's
+"usable fallbacks, including `currentColor`".
+
+Animation is refused with `standalone` at validation. It is hook-based by REQ-8,
+so the host stylesheet owns the motion; a standalone asset has no host stylesheet,
+which would mean motion nothing can deliver and — worse — nothing could switch
+off for `prefers-reduced-motion`.
+
+Accessibility defaults to `decorative` (`aria-hidden` plus `focusable="false"`,
+because some browsers put an inline SVG in the tab order and that is a keyboard
+trap on a decoration). The accepted composition is cards beside text that already
+names the country; announcing each one makes the page worse. `labelled` is the
+opt-in.
+
+### REQ-9 made concrete
+
+"No redundant markup" is the requirement nobody ever fails, so it was written
+down as specific absences and asserted: no `<g>`, no `<metadata>`, no comments,
+no `<desc>`, no default-valued attributes, no stroke attributes on a style with
+no stroke, and no `fill-opacity` on a fill that is `none`.
+
+**Two of those came from looking at real output rather than from the tests.** The
+tight viewBox read `0 0 144 122.9026241596183` — thirteen decimals on a document
+whose path is quantized to q=0.01, which is bytes in every asset for a distinction
+no renderer can draw. `number()` now rounds to the grid the geometry already uses.
+And `outline` emitted a `fill-opacity` for a fill of `none`.
+
+`Structure` parses with `encoding/xml` rather than searching text: a search for
+`<script` is defeated by any of the ways markup can spell the same thing, and a
+parser sees the element regardless. Elements are an **allowlist** — a denylist is
+wrong the first time either list changes.
+
+VAL-4 mutates **real emitted output**, not a hand-written fixture: a gate that
+only sees markup written to be caught proves it can catch that markup, not that it
+guards what the tool produces. Fifteen mutations, each a way a defect or a hostile
+value would actually get in. Its counterpart asserts the gate still accepts every
+legitimate style × delivery combination — a gate nobody can satisfy gets deleted,
+and then nothing is guarded.
+
+### The escaper is written out, and why
+
+`xml.EscapeText` is specified for *character data*. Its behaviour on the quote
+characters is adjacent to what an attribute value needs rather than identical to
+it, and "adjacent" is not a contract to rest markup safety on. `writeEscaped`
+handles the five XML entities plus the three whitespace characters that must not
+survive raw in an attribute, and no more.
+
+It is **defence in depth, not the primary guard**: the config layer already
+refuses markup characters and external references in every author-supplied token,
+which is where a bad value gets a diagnostic naming the key.
+
 ## Remaining tasks
 
-- **T3 — `internal/render`.** Five styles through tokens, two delivery modes,
-  CTR-005 hooks, markers, opt-in animation. VAL-3, VAL-4.
 - **T4 — `generate`.** Staging, atomic publication, CTR-006 manifest. VAL-5,
   VAL-6.
 - **T5 — `inspect`, `preview`,** the QAB-2 byte baseline for P4, and

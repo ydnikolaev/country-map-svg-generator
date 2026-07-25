@@ -1,0 +1,71 @@
+{
+  "version": "v1",
+  "note": "The five base styles of REQ-4, expressed as token defaults. A style is data, never a renderer fork: adding one adds an entry here, and the serializer never learns its name. These values are visual product choices and are due an owner review against a rendered page, the way DEC-008 and DEC-013 were — until then they are defaults, not decisions.",
+  "styles": [
+    {
+      "name": "outline",
+      "note": "The shape as a line. Nothing is filled, so it reads as a diagram rather than as a mark, and it stays legible on any background.",
+      "tokens": {
+        "fill": "none",
+        "fillOpacity": 0,
+        "stroke": "currentColor",
+        "strokeOpacity": 1,
+        "strokeWidth": 1,
+        "lineCap": "round",
+        "lineJoin": "round"
+      }
+    },
+    {
+      "name": "filled",
+      "note": "A solid mark that keeps a hairline stroke. The stroke is the point: at card size a small island can shrink below one device pixel of fill and disappear, and the stroke keeps it visible.",
+      "tokens": {
+        "fill": "currentColor",
+        "fillOpacity": 1,
+        "stroke": "currentColor",
+        "strokeOpacity": 1,
+        "strokeWidth": 0.5,
+        "lineCap": "round",
+        "lineJoin": "round"
+      }
+    },
+    {
+      "name": "silhouette",
+      "note": "Fill and nothing else — the flattest possible mark. Distinct from `filled` precisely by having no stroke, which makes it the right choice for a mask or a very small decoration where a stroke would read as noise.",
+      "tokens": {
+        "fill": "currentColor",
+        "fillOpacity": 1,
+        "stroke": "none",
+        "strokeOpacity": 0,
+        "strokeWidth": 0,
+        "lineCap": "butt",
+        "lineJoin": "miter"
+      }
+    },
+    {
+      "name": "bold-soft",
+      "note": "A soft fill under a confident stroke. The owner's site composition: the shape reads at card size without competing with the text beside it.",
+      "tokens": {
+        "fill": "currentColor",
+        "fillOpacity": 0.14,
+        "stroke": "currentColor",
+        "strokeOpacity": 1,
+        "strokeWidth": 1.5,
+        "lineCap": "round",
+        "lineJoin": "round"
+      }
+    },
+    {
+      "name": "ghost",
+      "note": "A watermark. Both fill and stroke drop far enough to sit behind content without being decoration in its own right.",
+      "tokens": {
+        "fill": "currentColor",
+        "fillOpacity": 0.06,
+        "stroke": "currentColor",
+        "strokeOpacity": 0.3,
+        "strokeWidth": 1,
+        "lineCap": "round",
+        "lineJoin": "round"
+      }
+    }
+  ]
+}

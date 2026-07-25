@@ -22,6 +22,7 @@ type Layer struct {
 // some merge function is what lets `explain` describe it without restating it.
 var LayerNames = []string{
 	"embedded defaults",
+	"style defaults",
 	"preset ancestry",
 	"document globals",
 	"profile block",

@@ -14,7 +14,8 @@ exec country-map-svg-generator explain --iso US --config config.yaml
 stdout 'profile\s+hero\s+country override US'
 stdout 'boundary\s+de_facto\s+country override US'
 stdout 'style\s+filled\s+preset ancestry standalone-default'
-stdout 'tokens.lineCap\s+round\s+preset ancestry site-default'
+stdout 'tokens.fill\s+currentColor\s+style defaults filled'
+stdout 'tokens.lineCap\s+round\s+style defaults filled'
 stdout 'marker.mode\s+none\s+embedded defaults'
 
 # The geometry request is reported because the two axes cross on the way in:

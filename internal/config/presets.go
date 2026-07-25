@@ -166,6 +166,17 @@ func PresetChain(name string) ([]Preset, error) {
 	if err != nil {
 		return nil, err
 	}
+	return presetChainIn(all, name)
+}
+
+// presetChainIn is the walk itself, over a preset set the caller supplies.
+//
+// The seam exists because the shipped presets are deliberately siblings — each
+// overrides everything the other sets, so making one a child would be
+// inheritance that does nothing. Ancestry and cycle detection are therefore
+// exercised against synthetic sets rather than against shipped data that does
+// not have the shape.
+func presetChainIn(all map[string]Preset, name string) ([]Preset, error) {
 	var chain []Preset
 	seen := map[string]bool{}
 	var path []string
@@ -173,7 +184,11 @@ func PresetChain(name string) ([]Preset, error) {
 	for current := name; current != ""; {
 		preset, ok := all[current]
 		if !ok {
-			known, _ := PresetNames()
+			known := make([]string, 0, len(all))
+			for candidate := range all {
+				known = append(known, candidate)
+			}
+			sort.Strings(known)
 			return nil, fmt.Errorf("unknown preset %q; embedded presets are %s", current, strings.Join(known, ", "))
 		}
 		if seen[current] {

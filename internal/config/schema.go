@@ -38,7 +38,23 @@ type Settings struct {
 	Tokens    *Tokens    `json:"tokens,omitempty" yaml:"tokens,omitempty"`
 	Marker    *Marker    `json:"marker,omitempty" yaml:"marker,omitempty"`
 	Animation *Animation `json:"animation,omitempty" yaml:"animation,omitempty"`
-	Output    *Output    `json:"output,omitempty" yaml:"output,omitempty"`
+	// Accessibility is AC-5's "accessible/decorative metadata modes serialize
+	// predictably". It is a configuration concern rather than a rendering one
+	// because whether a map carries meaning is something only the author knows.
+	Accessibility *Accessibility `json:"accessibility,omitempty" yaml:"accessibility,omitempty"`
+	Output        *Output        `json:"output,omitempty" yaml:"output,omitempty"`
+}
+
+// Accessibility decides what assistive technology is told about the map.
+//
+// `decorative` is the default because the accepted site composition is card
+// decorations beside text that already says which country it is, and ARCH-001's
+// accessibility concern asks for no semantic reliance on a decorative map.
+// Announcing every card would make the page worse, not better.
+type Accessibility struct {
+	Mode *string `json:"mode,omitempty" yaml:"mode,omitempty"`
+	// Label overrides the entity name announced in `labelled` mode.
+	Label *string `json:"label,omitempty" yaml:"label,omitempty"`
 }
 
 // Document is one configuration file: the settings it carries plus the two keys
@@ -153,11 +169,14 @@ type Output struct {
 // new detail preset appears in the CLI without a code edit here.
 var (
 	Deliveries  = []string{"standalone", "themed-inline"}
-	Styles      = []string{"outline", "filled", "bold-soft", "silhouette", "ghost"}
+	StyleNames  = []string{"outline", "filled", "bold-soft", "silhouette", "ghost"}
 	LayoutModes = []string{"tight", "contain"}
 	MarkerModes = []string{"none", "capital", "all-capitals", "custom"}
-	LineCaps    = []string{"butt", "round", "square"}
-	LineJoins   = []string{"miter", "round", "bevel"}
+	// AccessibilityModes: `decorative` hides the map from assistive technology,
+	// `labelled` announces it as an image with a name.
+	AccessibilityModes = []string{"decorative", "labelled"}
+	LineCaps           = []string{"butt", "round", "square"}
+	LineJoins          = []string{"miter", "round", "bevel"}
 )
 
 // FilenamePlaceholders is the closed set a filename template may use.

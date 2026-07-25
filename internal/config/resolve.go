@@ -77,64 +77,87 @@ func layersFor(doc *Document, iso string, flags Settings) ([]Layer, error) {
 	if err != nil {
 		return nil, err
 	}
+	// Two values have to be known before the layer list can be built, because
+	// each of them selects a layer: the profile selects which `profiles:` block
+	// applies, and the style selects which token defaults go in. Both can be set
+	// by a country override or a flag — `countries: {US: {profile: hero}}` is the
+	// documented example — so resolving them in a single pass would apply the
+	// card block to a hero card and the wrong style's tokens along with it.
+	//
+	// This cannot recurse: the profile is resolved without consulting any
+	// profile block, and a profile block may not select a profile, which
+	// ValidateDocument refuses.
+	profile := resolveScalar(defaults, doc, iso, flags, "", func(s Settings) *string { return s.Profile })
+	style := resolveScalar(defaults, doc, iso, flags, profile, func(s Settings) *string { return s.Style })
+
 	layers := []Layer{{Name: LayerNames[0], Settings: defaults}}
 
-	if doc != nil && doc.Extends != nil {
-		chain, err := PresetChain(*doc.Extends)
+	// The style's token defaults sit immediately above the embedded defaults and
+	// beneath everything a document can say, so a token an author sets always
+	// wins and `explain` can name the style as the origin of one they did not.
+	if style != "" {
+		styleDefaults, err := StyleDefaults(style)
 		if err != nil {
 			return nil, err
+		}
+		layers = append(layers, Layer{Name: LayerNames[1] + " " + style, Settings: styleDefaults})
+	}
+
+	layers = append(layers, documentLayers(doc, iso, profile)...)
+	layers = append(layers, Layer{Name: LayerNames[6], Settings: flags})
+	return layers, nil
+}
+
+// documentLayers is everything between the style defaults and the flags: the
+// preset ancestry, the document's own settings, the resolved profile's block and
+// the per-country override.
+func documentLayers(doc *Document, iso, profile string) []Layer {
+	if doc == nil {
+		return nil
+	}
+	var layers []Layer
+	if doc.Extends != nil {
+		// PresetChain's error is not returned here because layersFor has already
+		// resolved it once; an unknown preset fails there.
+		chain, err := PresetChain(*doc.Extends)
+		if err != nil {
+			return nil
 		}
 		for _, preset := range chain {
 			// Each ancestor is named individually rather than collapsed into one
 			// "preset ancestry" layer: with a chain of three, "which preset set
 			// this" is the question an author actually has.
-			layers = append(layers, Layer{Name: LayerNames[1] + " " + preset.Name, Settings: preset.Settings})
+			layers = append(layers, Layer{Name: LayerNames[2] + " " + preset.Name, Settings: preset.Settings})
 		}
 	}
-	if doc != nil {
-		layers = append(layers, Layer{Name: LayerNames[2], Settings: doc.Settings})
-	}
-
-	// The profile block to apply depends on the resolved profile, and the
-	// resolved profile can itself be set by the country override or a flag —
-	// `countries: {US: {profile: hero}}` is the documented example. So the
-	// profile is resolved first, from every layer that may carry it except the
-	// profile blocks themselves, and only then is the matching block inserted.
-	// Doing it in one pass would make the result depend on an order that has no
-	// non-arbitrary answer.
-	profile := resolveProfile(layers, doc, iso, flags)
-	if doc != nil && profile != "" {
+	layers = append(layers, Layer{Name: LayerNames[3], Settings: doc.Settings})
+	if profile != "" {
 		if block, ok := doc.Profiles[profile]; ok {
-			layers = append(layers, Layer{Name: LayerNames[3] + " " + profile, Settings: block})
+			layers = append(layers, Layer{Name: LayerNames[4] + " " + profile, Settings: block})
 		}
 	}
-	if doc != nil && iso != "" {
+	if iso != "" {
 		if override, ok := doc.Countries[iso]; ok {
-			layers = append(layers, Layer{Name: LayerNames[4] + " " + iso, Settings: override})
+			layers = append(layers, Layer{Name: LayerNames[5] + " " + iso, Settings: override})
 		}
 	}
-	layers = append(layers, Layer{Name: LayerNames[5], Settings: flags})
-	return layers, nil
+	return layers
 }
 
-// resolveProfile answers "which profile block applies" using the same
-// precedence as everything else, minus the profile blocks. A profile block may
-// not select a profile — ValidateDocument refuses that — so this cannot be
-// circular.
-func resolveProfile(base []Layer, doc *Document, iso string, flags Settings) string {
-	candidates := append([]Layer(nil), base...)
-	if doc != nil && iso != "" {
-		if override, ok := doc.Countries[iso]; ok {
-			candidates = append(candidates, Layer{Name: LayerNames[4], Settings: override})
-		}
-	}
-	candidates = append(candidates, Layer{Name: LayerNames[5], Settings: flags})
+// resolveScalar answers "which value of this key wins" using the real
+// precedence chain, so a selector cannot disagree with the resolution it
+// selects a layer for. Pass an empty profile to exclude the profile blocks,
+// which is what resolving the profile itself requires.
+func resolveScalar(defaults Settings, doc *Document, iso string, flags Settings, profile string, pick func(Settings) *string) string {
+	candidates := []Layer{{Name: LayerNames[0], Settings: defaults}}
+	candidates = append(candidates, documentLayers(doc, iso, profile)...)
+	candidates = append(candidates, Layer{Name: LayerNames[6], Settings: flags})
 
 	resolved, _ := Merge(candidates)
-	if resolved.Profile == nil {
-		return ""
+	if value := pick(resolved); value != nil {
+		return *value
 	}
-	return *resolved.Profile
+	return ""
 }
 
 // ValidateResolved re-checks a fully resolved configuration. It is not
@@ -173,6 +196,16 @@ func ValidateResolved(iso string, resolved Resolved, vocab Vocabulary) error {
 	}
 	if settings.Marker != nil && settings.Marker.Mode != nil && *settings.Marker.Mode == "custom" && len(settings.Marker.Custom) == 0 {
 		add("marker.custom", "custom marker mode selects nothing; name at least one capital id")
+	}
+	// Animation is hook-based (REQ-8): the asset carries a class and the host
+	// stylesheet owns the motion, which is also what makes prefers-reduced-motion
+	// the host's to honour. A standalone asset has no host stylesheet, so
+	// enabling animation there asks for motion nothing can deliver — and worse,
+	// motion nothing could switch off.
+	if settings.Animation != nil && settings.Animation.Enabled != nil && *settings.Animation.Enabled &&
+		settings.Delivery != nil && *settings.Delivery == "standalone" {
+		add("animation.enabled", "animation is hook-based and needs a host stylesheet; use delivery: themed-inline, "+
+			"or leave animation off for a standalone asset")
 	}
 
 	if len(problems) == 0 {

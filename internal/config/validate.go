@@ -128,8 +128,8 @@ func validateSettings(settings *Settings, prefix string, vocab Vocabulary, add a
 	if settings.Delivery != nil && !contains(Deliveries, *settings.Delivery) {
 		add(at("delivery"), "unknown delivery %q; accepted values are %s", *settings.Delivery, strings.Join(Deliveries, ", "))
 	}
-	if settings.Style != nil && !contains(Styles, *settings.Style) {
-		add(at("style"), "unknown style %q; accepted values are %s", *settings.Style, strings.Join(Styles, ", "))
+	if settings.Style != nil && !contains(StyleNames, *settings.Style) {
+		add(at("style"), "unknown style %q; accepted values are %s", *settings.Style, strings.Join(StyleNames, ", "))
 	}
 	if settings.Layout != nil {
 		validateLayout(settings.Layout, at("layout"), add)
@@ -142,6 +142,18 @@ func validateSettings(settings *Settings, prefix string, vocab Vocabulary, add a
 	}
 	if settings.Animation != nil {
 		validateAnimation(settings.Animation, at("animation"), add)
+	}
+	if settings.Accessibility != nil {
+		if mode := settings.Accessibility.Mode; mode != nil && !contains(AccessibilityModes, *mode) {
+			add(at("accessibility.mode"), "unknown accessibility mode %q; accepted values are %s", *mode, strings.Join(AccessibilityModes, ", "))
+		}
+		if label := settings.Accessibility.Label; label != nil {
+			if strings.TrimSpace(*label) == "" {
+				add(at("accessibility.label"), "must not be empty; omit it to use the entity name")
+			} else if strings.ContainsAny(*label, "<>&\"") {
+				add(at("accessibility.label"), "must not contain markup characters")
+			}
+		}
 	}
 	if settings.Output != nil && settings.Output.Filename != nil {
 		validateFilename(*settings.Output.Filename, at("output.filename"), add)
