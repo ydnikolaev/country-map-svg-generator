@@ -25,6 +25,20 @@ stderr 'is the output path for'
 cmp assets/FR.svg good.svg
 cmp assets/country-map.manifest.json good.json
 
+# VAL-6: force a failure during publication itself, not before it. With the
+# output directory read-only, staging cannot even begin — and the previous output
+# must survive byte-identically and the diagnostic must say so, because a caller
+# that cannot tell "nothing changed" from "the directory may be inconsistent" has
+# to assume the worst and regenerate everything.
+chmod 0555 assets
+! exec country-map-svg-generator generate --iso FR --out assets
+stderr 'filesystem'
+stderr 'the previous output is unchanged'
+stderr 'previous_output: unchanged'
+chmod 0755 assets
+cmp assets/FR.svg good.svg
+cmp assets/country-map.manifest.json good.json
+
 ! exec country-map-svg-generator generate extra
 stderr 'usage: expected 0 argument\(s\), got 1'
 

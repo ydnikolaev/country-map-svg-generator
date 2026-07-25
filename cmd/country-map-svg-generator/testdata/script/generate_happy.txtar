@@ -1,5 +1,25 @@
 # VAL-5's ordered loop through the built binary: init, validate, generate,
-# inspect the result. One working tree, each step depending on the last.
+# inspect. One working tree, each step depending on the last.
+#
+# REQ-11's offline guarantee is proven two ways here, and neither is complete on
+# its own.
+#
+# Structurally: testscript hands this script an empty work directory, so the loop
+# below succeeds with no corpus file, no preset file and no schema on disk. That
+# is "needs no auxiliary files" demonstrated rather than asserted.
+#
+# Behaviourally, partially: the proxies point at a closed port on loopback, so a
+# step that reached out through an environment-honouring HTTP client would fail
+# here instead of quietly succeeding on a machine that happens to be online. A
+# raw dial would slip past this, so it is a net rather than a proof — the
+# structural argument is the load-bearing one.
+env HTTP_PROXY=http://127.0.0.1:1
+env HTTPS_PROXY=http://127.0.0.1:1
+env ALL_PROXY=http://127.0.0.1:1
+env NO_PROXY=
+env http_proxy=http://127.0.0.1:1
+env https_proxy=http://127.0.0.1:1
+
 exec country-map-svg-generator init --out country-map.yaml
 exec country-map-svg-generator validate --config country-map.yaml --iso FR
 exec country-map-svg-generator generate --config country-map.yaml --iso FR --out assets
@@ -7,6 +27,17 @@ stdout 'wrote 1 assets to assets'
 stdout 'manifest: assets/country-map.manifest.json'
 exists assets/FR.svg
 exists assets/country-map.manifest.json
+
+# The last step of the loop reads back what the previous one produced, so a
+# command that broke the state its successor needs would be caught here rather
+# than by an isolated scenario that never sees the sequence.
+exec country-map-svg-generator inspect --config country-map.yaml --iso FR
+stdout 'FR \(FRA\) — France'
+stdout 'path bytes\s+[0-9]+ of [0-9]+'
+exec country-map-svg-generator inspect --config country-map.yaml --iso FR --json
+stdout '"iso": "FR"'
+stdout '"file_bytes": [0-9]+'
+! stderr .
 
 # The manifest carries the three identities ARCH-INV-4 names, so a consumer can
 # tell a real change from a re-run.
