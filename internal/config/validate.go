@@ -326,6 +326,13 @@ func validateTokens(tokens *Tokens, prefix string, add addFunc) {
 				checkLocalReference(*value, at("advanced."+key), add)
 			}
 		}
+		// A gradient and a pattern are both paint servers competing for the same
+		// fill. Refusing the pair is the honest answer: any precedence this layer
+		// invented would silently discard one of two things the author asked for,
+		// and the author is the only one who knows which.
+		if tokens.Advanced.Gradient != nil && tokens.Advanced.Pattern != nil {
+			add(at("advanced.pattern"), "cannot be set together with advanced.gradient; both replace the fill, so name one")
+		}
 	}
 }
 

@@ -110,6 +110,7 @@ type paint struct {
 	markerFill    string
 	markerStroke  string
 	markerRadius  float64
+	filter        string
 }
 
 func resolvePaint(settings config.Settings, delivery string) (paint, error) {
@@ -156,10 +157,23 @@ func resolvePaint(settings config.Settings, delivery string) (paint, error) {
 	p.lineCap = keywordValue("line-cap", tokens.LineCap, "butt", delivery)
 	p.lineJoin = keywordValue("line-join", tokens.LineJoin, "miter", delivery)
 
-	if advanced := tokens.Advanced; advanced != nil && advanced.Gradient != nil {
-		// An advanced reference replaces the fill outright; it has already been
-		// bounded to a local fragment by validation.
-		p.fill = *advanced.Gradient
+	if advanced := tokens.Advanced; advanced != nil {
+		// A gradient and a pattern are both paint servers, so each replaces the
+		// fill outright; both have already been bounded to a local fragment by
+		// validation. They are mutually exclusive there rather than ordered here
+		// — a silent precedence would resolve the author's ambiguity by picking,
+		// which is the failure this package refuses everywhere else.
+		switch {
+		case advanced.Gradient != nil:
+			p.fill = *advanced.Gradient
+		case advanced.Pattern != nil:
+			p.fill = *advanced.Pattern
+		}
+		// A filter is not a paint. It is its own attribute, so it composes with
+		// whatever fill won above instead of replacing it.
+		if advanced.Filter != nil {
+			p.filter = *advanced.Filter
+		}
 	}
 	return p, nil
 }
@@ -234,6 +248,11 @@ func (p paint) applyShape(target *element) {
 		p.setUnlessDefault(target, "stroke-width", p.strokeWidth, "1")
 		p.setUnlessDefault(target, "stroke-linecap", p.lineCap, "butt")
 		p.setUnlessDefault(target, "stroke-linejoin", p.lineJoin, "miter")
+	}
+	// Last, so the attribute order a reader sees matches the order the values
+	// were reasoned about: paint first, then what post-processes it.
+	if p.filter != "" {
+		target.set("filter", p.filter)
 	}
 }
 
