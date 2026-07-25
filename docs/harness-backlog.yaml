@@ -1,7 +1,7 @@
 version: 1
 kind: harness-feedback-backlog
 project: country-map-svg-generator
-revision: 14
+revision: 15
 operations:
     - version: 1
       id: feedback-add-2239ce643f15640e
@@ -52,6 +52,13 @@ operations:
       result_id: FND-8386048ACA3C
       result_revision: 11
       recorded_at: "2026-07-24T14:44:37Z"
+    - version: 1
+      id: feedback-add-8c78775f05d79db0
+      kind: feedback-add
+      input_digest: 580bf3dcdd50e03cf179ea0a88b75ceffff5fc2fd98dcb3c80520c4f04799e43
+      result_id: FND-B1F93F6321DE
+      result_revision: 15
+      recorded_at: "2026-07-25T02:40:15Z"
     - version: 1
       id: feedback-add-8c92f18fce578045
       kind: feedback-add
@@ -270,6 +277,24 @@ findings:
       state: new
       created_at: "2026-07-24T14:44:51Z"
       updated_at: "2026-07-24T14:44:51Z"
+    - id: FND-B1F93F6321DE
+      scope: mate
+      severity: medium
+      area: work-item-backlog
+      summary: backlog add dry-run reports another item's status and next action after the in-place registry sort
+      observed: 'mate backlog add --dry-run for a new work item returned item={id: WKI-4062B33B8FEA, scope: '''', title: '''', status: done, revision: 3, next_action: ''No further mutation is legal.''} — the ID of the new item but the status, revision and next action of WKI-C83B0B9EB4EE, an unrelated terminal item. Traced in the SSOT at internal/work/work_item.go: applyWorkItemMutation (line 302) returns a *workdocs.WorkItem pointing into registry.Items; sortWorkItemRegistry (line 556) then reorders that same slice in place with sort.Slice, so the pointer aliases whichever item now occupies the old index. The journal is built after the sort and reads MutationResult: item.Status, MutationNextAction: item.NextAction and Revision: item.Revision through the stale pointer (lines 250-257), and previewWorkItemMutation projects those straight into the CLI result (line 641). The claim and receipt are computed before the sort, so the persisted data is correct; the committed path re-parses the staged registry and projected the item correctly (status captured, revision 1). Only the dry-run preview lies. A related index skew was observed in a validation error that named $.items[2].observations[0] for a defect on the item that sorts to index 0; not traced. Verified at mate CLI v1.4.3.'
+      expected: The dry-run preview projects the item the mutation actually affects. Either re-resolve the item by ID after sortWorkItemRegistry, or sort before taking the pointer, or capture MutationResult/MutationNextAction/Revision into the journal before the sort — as the claim already does. A preview that reports status=done and 'No further mutation is legal.' for a fresh capture reads as a refusal and makes an operator abandon a legal mutation or commit one blind.
+      fingerprint: b1f93f6321decb75e8e557a1b8e12f55933a19fc21388021af419131f8f51c69
+      project: country-map-svg-generator
+      mate_release: v1.4.1
+      evidence:
+        - kind: repository
+          locator: docs/features/country-map-svg-generator.work-items.yaml
+        - kind: repository
+          locator: docs/features/events/work-item-add-248b8e9bdb66c6cd.work-item-mutation-receipt.yaml
+      state: new
+      created_at: "2026-07-25T02:40:15Z"
+      updated_at: "2026-07-25T02:40:15Z"
     - id: FND-CC7A8AAB239A
       scope: mate
       severity: medium

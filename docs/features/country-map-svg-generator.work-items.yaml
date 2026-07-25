@@ -1,14 +1,56 @@
 version: 1
 kind: work-item-registry
 project: country-map-svg-generator
-revision: 7
+revision: 8
 head_receipt:
     kind: work-item-mutation-receipt
-    id: work-item-dispose-e8b3e9a3d5a4cae9
-    path: docs/features/events/work-item-dispose-e8b3e9a3d5a4cae9.work-item-mutation-receipt.yaml
-    claim_sha256: 31eda38d4c3e2c44d619229385f8594ff6bda6a5d5556f7e9ab678dde24ce1d4
-updated_at: "2026-07-24T23:34:02Z"
+    id: work-item-add-248b8e9bdb66c6cd
+    path: docs/features/events/work-item-add-248b8e9bdb66c6cd.work-item-mutation-receipt.yaml
+    claim_sha256: 214d2cca54d1c4ce8282b2e2c8a09d2c685d7bd2dde28273f41fb3861a33c0fb
+updated_at: "2026-07-25T02:38:14Z"
 items:
+    - id: WKI-4062B33B8FEA
+      fingerprint: 4062b33b8fea73850cf1c6bffef741a30c85838471689672ebb6701bf313884a
+      scope: project
+      title: Amendment machine has no terminal edge out of applied, so AM-003/AM-004 permanently fence P2 and P3
+      problem: 'Re-verified at mate CLI v1.4.3 (installed = latest) against the SSOT, not cited from the v1.4.1 filing: internal/workdocs/assets/bundle-v1/registries/state-machines.yaml:61-70 gives the amendment machine exactly one edge out of applied (verify to verified), and reject is legal only from proposed or impacting; internal/work/transition.go:144 exempts only cancel and invalidate from the fence, so spec complete is fenced too; internal/work/amendment.go:279 blocks on impacting, accepted and applied. AM-003 and AM-004 failed independent review (ADV-003, ADV-004) and can never earn a passing receipt, so they are a lifecycle sink. The registry is compiled into the CLI binary (go:embed assets/bundle-v1 consumed by workdocs.LoadCatalog), so mate fleet pull cannot lift this: the pending artifact update from v1.4.1 to v1.4.3 is a different release axis and a CLI release is required. Filed as FND-1B950D899CE4 and FND-CC7A8AAB239A, both still state new and both stamped mate_release v1.4.1. Consequence: everything from P2 T1 onward shipped as ungoverned engineering commits, P2 cannot close, P3 cannot start under the governed wrapper, and reconciliation debt 15 stays open.'
+      expected_outcome: A failed applied amendment has a terminal disposition that lifts its fence, so P2 closes through the governed lifecycle, P3 dispatches under the governed wrapper, and the reconciliation debt 15 is discharged against real receipts rather than ungoverned commits.
+      status: captured
+      owner: product-owner
+      priority_band: high
+      effort_band: medium
+      next_action: 'Fix in its own session in the mate SSOT per the sketch in P2-CHECKPOINT.md under The mate fix sketched from the SSOT: add a supersede edge from applied to superseded with loop amendment-supersede plus the superseded state and terminal entry in state-machines.yaml, add the amendment-supersede loop entry modelled on amendment-reject in loops.yaml, add newAmendmentEvidenceTransitionCmd for supersede at internal/cli/amendment.go:14, confirm validateAmendmentTransitionEvidence at internal/work/amendment_transition.go:167 authorizes it through a readiness receipt with no new code, then cut a CLI release, run mate fleet pull here, supersede AM-003 and AM-004 and reconcile debt 15.'
+      observations:
+        - id: OBS-248B8E9BDB66
+          source:
+            artifact: specification
+            id: P2
+            path: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/P2-geometry-pipeline.spec.md
+            sha256: 3a9be62003fb6daa63130a600d5a01511074bb25d57011ec1ea9f568c1a027e0
+          actor: operator
+          evidence: []
+          observed_at: "2026-07-25T02:38:14Z"
+      decisions:
+        - revision: 1
+          actor: operator
+          from: absent
+          to: captured
+          rationale: Capture the durable work item
+          decided_at: "2026-07-25T02:38:14Z"
+          receipt:
+            kind: work-item-mutation-receipt
+            id: work-item-add-248b8e9bdb66c6cd
+            path: docs/features/events/work-item-add-248b8e9bdb66c6cd.work-item-mutation-receipt.yaml
+            claim_sha256: 214d2cca54d1c4ce8282b2e2c8a09d2c685d7bd2dde28273f41fb3861a33c0fb
+      relationships: []
+      mutation_receipts:
+        - kind: work-item-mutation-receipt
+          id: work-item-add-248b8e9bdb66c6cd
+          path: docs/features/events/work-item-add-248b8e9bdb66c6cd.work-item-mutation-receipt.yaml
+          claim_sha256: 214d2cca54d1c4ce8282b2e2c8a09d2c685d7bd2dde28273f41fb3861a33c0fb
+      created_at: "2026-07-25T02:38:14Z"
+      updated_at: "2026-07-25T02:38:14Z"
+      revision: 1
     - id: WKI-490046152C71
       fingerprint: 490046152c71b060bafa56b799f6862959f842e62fb3df542e49ab30a640f22d
       scope: project
