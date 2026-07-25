@@ -3,6 +3,8 @@ package main
 import (
 	"fmt"
 	"io"
+	"os"
+	"path/filepath"
 	"sort"
 	"strings"
 
@@ -11,7 +13,32 @@ import (
 
 // CLIName is the binary's invoked name. It is the one place the name is spelled,
 // so a rename does not have to be chased through help text and diagnostics.
-const CLIName = "country-map-svg-generator"
+//
+// It follows the name the binary was actually invoked under, because the name is
+// only useful if the reader can retype it. Installed through a shim as `svgmap`,
+// every usage line and every hint has to say `svgmap generate` — a diagnostic
+// that sends an operator to a command they do not have is worse than none.
+var CLIName = defaultCLIName()
+
+const canonicalCLIName = "country-map-svg-generator"
+
+// defaultCLIName reads argv[0] and falls back to the canonical name for the two
+// cases where argv[0] is not a name anyone can type: an empty or path-shaped
+// argv[0], and the `go test` binary, which would otherwise put `*.test` into the
+// help text the txtar scripts assert against.
+func defaultCLIName() string {
+	if len(os.Args) == 0 {
+		return canonicalCLIName
+	}
+	base := filepath.Base(os.Args[0])
+	switch {
+	case base == "", base == ".", base == "/", base == string(filepath.Separator):
+		return canonicalCLIName
+	case strings.HasSuffix(base, ".test"), strings.HasPrefix(base, "___"):
+		return canonicalCLIName
+	}
+	return base
+}
 
 // globalFlags are the options every command honours. The CLI is agent-first
 // (US-1), so the machine surface is a root-level concern rather than a per
