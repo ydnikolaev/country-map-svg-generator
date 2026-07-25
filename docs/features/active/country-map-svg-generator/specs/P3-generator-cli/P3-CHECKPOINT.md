@@ -54,14 +54,23 @@ max**. `geometry` ≈ 322 s and `lodbuild` ≈ 373 s already sit near the defaul
 10-minute per-package timeout; adding a full-catalog sweep to either breaks the
 build before it fails an assertion.
 
-P3's budget is **≤ 90 s added to `make check`**. After T3 the three P3 packages
-cost **≈ 38 s** together: `cmd` 4.0 s (including the `GOWORK=off` binary build),
-`config` 0.4 s, `render` 33.4 s. Almost all of `render` is VAL-8 and VAL-3
-generating real geometry; the T3 serializer tests reuse one generated result
-across the whole style × delivery matrix precisely so the matrix does not
-multiply pipeline runs. For context in a quiet full run, `catalog` ≈ 28 s,
-`geometry` ≈ 343 s, `lodbuild` ≈ 266 s. The levers that keep P3 inside its
-budget:
+P3's budget is **≤ 90 s added to `make check`**. Final measurement, from one
+green `make check` on an idle machine at the close of T5:
+
+| Package | Time |
+| --- | --- |
+| `cmd/country-map-svg-generator` | 17.9 s |
+| `internal/config` | 0.2 s |
+| `internal/render` | 35.1 s |
+| **P3 total** | **53.2 s** |
+| `internal/catalog` | 31.1 s |
+| `internal/geometry` | 376.8 s |
+| `internal/geometry/cmd/lodbuild` | 296.0 s |
+
+Almost all of `render` is VAL-8 and VAL-3 generating real geometry; the
+serializer tests reuse one generated result across the whole style × delivery
+matrix precisely so the matrix does not multiply pipeline runs. The levers that
+keep P3 inside its budget:
 
 - The ordered product loop (VAL-5) runs a **selected set** of ISO codes chosen for
   shape, never the catalog.
@@ -71,6 +80,13 @@ budget:
 Also: summarize package-level failures, not just test-level ones. A `go test
 -json` package failure carries no `Test` field, so a test-only filter reports a
 timed-out package as a clean run. That bit P2 twice.
+
+**Run `make check` detached if the harness keeps killing it.** A backgrounded
+invocation was stopped three times in one session — not by a test, by the
+harness. `nohup make check > log 2>&1 < /dev/null & disown` survives, and then
+the log is read rather than the exit code. Note that macOS has no `setsid`: an
+attempt to use it produced a log containing only `nohup: setsid: No such file or
+directory`, and the run never started at all. Read the log, not the status.
 
 **And never run `make check` while anything else heavy is on the machine.** The
 wall-clock brakes measure the machine, not just the code. A contended run showed
@@ -465,18 +481,26 @@ an error message. `config.DocumentError` wraps every "the document is wrong"
 failure, so the CLI's frozen exit classes cannot be silently reclassified by a
 dependency changing its wording.
 
+### Follow-ups inside P3's own code
+
+- **`preview` generates once per style.** `buildPreview` calls `Resolve` →
+  `GeometryRequest` → `Generate` inside the style loop, so one entity costs five
+  pipeline runs and the twelve-entity ceiling costs sixty. T3's serializer tests
+  deliberately generate **once** and re-serialize across the whole matrix, for
+  exactly this reason: a style is a serialization concern and nothing about it
+  needs a second pipeline run. Hoist the generation out of the loop.
+- **The e2e suite has no ordered cross-command loop of its own.** VAL-5's loop
+  lives inside `generate_happy.txtar` (init → validate → generate, one tree, each
+  step depending on the last), which satisfies it, but the Go profile also asks
+  for one *Go* test driving the same spine so programmatic fixture mutation has a
+  home. Worth adding when the first mutation is needed rather than before.
+
 ### Two things T4 should fix when it adds its first flag
 
-- **`valueTakingFlags` in `root.go` is a hand-maintained list beside the cobra
-  tree.** `runnableLeaves` was built from the tree specifically to avoid a
-  maintained list; this one is the exception and nothing reddens when it goes
-  stale. The symptom is `--out --json` silently flipping error output while
-  reporting a different mistake. Derive it by walking the tree for flags whose
-  `Value.Type() != "bool"`, or add a test asserting every non-bool flag appears
-  in the map.
-- **`geometry.ApplyPreset` is called in `explain` to fill the preset's layout and
-  budget.** `generate` must resolve through the same path, or the two commands
-  will disagree about what will be produced.
+- ~~`valueTakingFlags` is a hand-maintained list~~ — **done in T4.**
+  `TestEveryValueTakingFlagIsRegistered` walks the tree in both directions.
+- ~~`explain` and `generate` must resolve the preset the same way~~ — **done.**
+  Both go through `geometry.ApplyPreset`, and `inspect` does too.
 
 ## T3 — done
 
