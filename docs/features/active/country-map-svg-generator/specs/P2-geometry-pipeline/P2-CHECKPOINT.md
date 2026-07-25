@@ -1,34 +1,38 @@
 # P2 checkpoint — resume point for a fresh session
 
-Last updated at commit `7ccb43a` (T3 complete). Read this first; it lets a new
+Last updated at commit `fd1de11` (T5 complete). Read this first; it lets a new
 session resume without the originating chat.
 
 ## The one-line status
 
-**The 20-run P2 failure is over.** The ladder is built (T1), embedded and
-row-by-row recomputed (T2), and now actually served by `Generate()` (T3):
-measured over the whole catalog through the shipped path, **993 rendered, 3
-typed no-artifact, 0 errors, 0 source fallbacks, 0 over the band cap**. Real SVGs
-were rendered and looked at — Italy, Japan, Indonesia, Brazil, India, Greece and
-the rest are recognizable silhouettes, not source-only fallbacks.
+**P2's product work is done.** The ladder is built (T1), embedded and row-by-row
+recomputed (T2), served by `Generate()` (T3), guarded with mutation teeth (T4),
+and the full catalog is rendered and reviewed by the owner (T5): **993 rendered,
+3 typed no-artifact, 0 errors, 0 source fallbacks, 0 over the band cap**, with
+`make check` green at **215 passed / 0 failed**.
 
-Two findings came out of looking at the output and are captured as backlog work,
-not fixed here: **Russia renders as a crude blob** (`WKI-C83B0B9EB4EE`, high) and
-**a card frames the full UN claim rather than the mainland** (`WKI-490046152C71`,
-owner decision). **Next step is T4**, then T5.
+Two defects were found by *looking at output*, not by testing, and both are
+fixed: Russia rendered as a blob (DEC-012) and France as a speck in an empty card
+(DEC-013). Neither was visible to any metric — the oracle's IoU floor is 0.40 and
+Russia scored 0.92.
+
+What remains is not product work. **`#15`, the governance reconciliation debt**,
+is still blocked by the mate fence below, and P3 inherits the component-selection
+seam.
 
 ## What was wrong (the root cause, confirmed)
+
+*Historical — fixed in T3. Kept because the lesson outlived the bug.*
 
 DEC-006 (accepted) replaced raw full-coastline deviation with a target-scale
 raster **silhouette oracle** as the acceptance boundary for derived candidates.
 The production selection path in `internal/geometry/lod.go` never received that
-change — it still gates on `matchedBoundaryDeviation` (raw deviation) at
-`lod.go:245-246` and `518-520`, references the oracle nowhere, and injects
-full-detail source components via `restoreRequiredComponents` (`lod.go:239`), the
-exact mechanism DEC-006 rejected. The shipped `Generate()` is still source-only
-because `publishedLODTable` is nil (`pipeline.go:11`). Twenty runs tried to make
-the superseded predicate pass. Under the correct oracle predicate the catalog
-goes from **75 failing outputs to 3**.
+change: it gated on `matchedBoundaryDeviation`, referenced the oracle nowhere,
+and injected full-detail source components via `restoreRequiredComponents` — the
+exact mechanism DEC-006 rejected. The shipped `Generate()` was source-only
+because `publishedLODTable` was nil. Twenty runs tried to make the superseded
+predicate pass. Under the correct predicate the catalog went from **75 failing
+outputs to 3**.
 
 Three prior coordinator diagnoses (quantization accounting; a `+Inf` mis-count
 branch; a predicate-as-objective) were each refuted by independent review or by
@@ -43,9 +47,13 @@ measurement is worthless. Do not re-diagnose from a sample.
   country literal); intermediate rungs added between 80 and 64.
 - **DEC-010** accepted (`45385fb`) — the owner accepts the typed no-artifact
   outcome for HR/de_facto/compact. See the closed decision below.
-- **DEC-011** accepted (`5be32b7`) — framing stays full-claim; a second named
-  mode is required but its definition is deferred to the T5 contact sheet;
-  cropping is an explicit seam over the selected candidate, owned by P3.
+- **DEC-011** accepted (`5be32b7`) — cropping is an explicit seam over the
+  selected candidate, owned by P3. Its item 1 (full-claim framing) is superseded
+  by DEC-013.
+- **DEC-012** accepted (`2241254`) — topology is judged after canonicalization.
+- **DEC-013** accepted (`fd1de11`) — the card is fitted to the silhouette it
+  draws; compact contribution threshold 111; DEC-008's approval renewed on the
+  full catalog.
 - **AM-005** verified (`ADV-006` pass, independently recomputed) — the oracle-gate
   fix. Supersedes AM-003/AM-004 in text.
 - **AM-003, AM-004** stuck in `applied`, fencing P2 and P3. **Confirmed
@@ -311,75 +319,84 @@ inventory gate: **any new file under `internal/geometry` or
 `internal/geometry/ladder.go` was registered in `3de2ea5`. Files under other
 `cmd/` subdirectories (such as `svgproof`) are outside its globs.
 
-## OPEN — two findings the T3 render surfaced
+## T5 — done (commits `d84c16c` … `f522095`, `fd1de11`)
 
-Both are durable backlog rows. Run `mate backlog list` for current state; this
-section is narrative, the registry is the record.
+**The catalog renders and was reviewed.** `internal/geometry/cmd/svgproof -out
+<dir>` writes every SVG plus one self-contained contact sheet with all 993
+silhouettes inlined. `contact-sheet.json` is committed as readiness evidence at
+`readiness/T5-catalog-render.contact-sheet.json`; the ~5.5 MB of SVG files and
+the 3.1 MB page are build outputs and deliberately not committed.
 
-**`WKI-C83B0B9EB4EE` (high) — Russia renders as a crude blob.** RU/un/standard
-selects rung **24**: 508 bytes of a 7500 cap, 45 points, 1 part, IoU 0.9204.
-Italy at the same band spends 6829. Russia is the only anomaly of its kind —
-exactly 14 committed rows select a rung at or below 64 and the other 12 (CA, GR,
-AX, DK, FK, HK) sit at 68–98% of budget, i.e. coarse because they hit the cap.
-Russia is coarse while leaving 93% of its hero budget unspent, so the
-fine-to-coarse search rejected every rung from 512 down to 32 for a reason the
-artifact does not record (per-attempt logs are stored only on no_artifact rows).
-The oracle cannot see it: minimum IoU is 0.40. Suspected antimeridian topology
-damage, **unverified**. Diagnosing needs a Mapshaper sweep for RU alone with
-per-attempt logging — T1/T5 work. **Status `accepted`: the owner marked this a
-release blocker.**
+The sheet carries a **frame-coverage** column — what share of the viewBox the
+drawn silhouette occupies — because answering "which cards need a look" by eye
+over 996 cells is not answering it. That column is what found the framing defect.
 
-**`WKI-490046152C71` — framing, now decided in part by DEC-011 and `deferred`.**
-The viewBox is fitted to the whole projected source before any candidate is
-chosen, so it reserves space for components the silhouette may deliberately not
-draw. Chile spans 43.0° of longitude via Easter Island, Salas y Gómez and Juan
-Fernández against 13.5° for the mainland; the United States does the same via
-Alaska. **Pre-existing, not a T3 regression** — the AU viewBox is identical on the
-ladder and source paths (126.4×144 both).
+`internal/geometry/cmd/svgshowcase -out <file>` renders the capability page: one
+country through five CSS treatments, ten more across different geographies, eight
+saturated palettes, a gradient, a two-tone, and a reframing pair. Every silhouette
+is unmodified `Generate()` output — the page proves INV-1 rather than asserting it.
 
-DEC-011 settled the parts that could be settled: the default stays full-claim, a
-second named mode is a product requirement, and cropping is an explicit seam over
-the *selected candidate* rather than an automatic heuristic. What is deferred to
-the T5 contact sheet is only the second mode's definition.
+## Two framing defects, both found by looking
 
-Two measurements from DEC-011 that a future session should not redo. Cropping
-before selection leaves the ladder and fails hard: dropping Alaska and Hawaii and
-calling `Generate()` gives `hard_budget_exceeded` at **40885 bytes against 2500**.
-Cropping the selected candidate instead stays well inside budget — US card 7
-parts → 4 at 1817 of 2200, US hero 17 → 9 at 3137 of 7500, Chile card 9 → 5 at
-1675 of 2200. The seam belongs to P3 or a successor spec, not to P2.
+**Russia rendered as a blob** (`WKI-C83B0B9EB4EE`, closed by DEC-012). The
+acceptance predicate judged topology on **pre-canonical** fitted coordinates — a
+precision no emitted path has. Simplification left a self-crossing of ~1e-4
+against a q=0.01 output grid, and canonicalization erased it two steps later.
+RU/un was rejected at every rung 512 down to 32 and settled on 24: one part, 508
+of 7500 hero bytes. Fixed on both the oracle and the runtime side; fixing only
+the build left Russia committed at rung 80 and falling back to source at 101605
+bytes. Exactly **2 of 996 rows changed**, both Russia's — which confirmed the
+diagnosis.
 
-## CLOSED — Croatia de_facto card (DEC-010, `45385fb`)
+**France rendered as a speck** (DEC-013). The layout was fitted to the whole
+territorial claim while fidelity was already judged against the visible
+reference, so the card framed for components the oracle had excluded. France drew
+2 of 11 components and filled 11.9% of its frame. Fitted to the candidate
+instead: France is the hexagon with Corsica, Chile is tall and narrow, cards
+under a fifth full went **20 → 0**. Croatia's `un` card cost two bytes, so the
+compact contribution threshold moved 110 → 111 and its disputed component is now
+recorded as `subscale` with provenance.
 
-Decided by the owner this session: **accept the typed no-artifact outcome.** No
-override, no threshold change, no country literal. Croatia renders in 3 of its 4
-profile × band slots. The committed rejection log is the evidence: rung 79.63 →
-2205 bytes against the 2200 cap, rung 64 → source component 2 lost (contribution
-111 against the frozen 110 threshold); the two crossings coincide, so no rung
-bridges them. Option 2 (a DEC-007 group anchor) stays pre-authorized as a *data*
-change if the site later shows the missing card is a material defect — that would
-not reopen DEC-010.
+`lodbuild -ladder-explain <ISO>` replays the rung search for one entity and prints
+every rejection. It is what made both diagnoses possible: the artifact stores
+per-attempt logs only on `no_artifact` rows, so a row passing at a coarse rung
+recorded nothing about why the finer rungs lost.
 
-## Next step — T5 (do this first in the new session)
+## Governance state as of T5
 
-`make check` is green and every T4 item is done, so nothing is blocking. T5 is
-the full-catalog SVG proof and the owner contact sheet, and
-`internal/geometry/cmd/svgproof -out <dir>` already produces both — real SVG
-files plus an HTML index.
+- **DEC-010** — Croatia's `de_facto` card stays a typed no-artifact. Unchanged.
+- **DEC-011** — item 1 (full-claim framing) superseded by DEC-013. The rest
+  stands: cropping is an explicit seam over the selected candidate, expressed
+  through the identity vocabulary, never a country literal; the acceptance rule
+  for a cropped variant is still open. Routed to P3.
+- **DEC-012** — topology judged after canonicalization.
+- **DEC-013** — the card is fitted to what it draws; compact threshold 111;
+  **DEC-008's approval renewed on the full catalog**. DEC-008 froze an oracle
+  digest that changed twice, so its validity condition was already broken; note
+  it is an owner approval, not a calibration procedure, so any future threshold
+  or digest change means showing the owner a rendered catalog again.
 
-**Resolve `WKI-C83B0B9EB4EE` (Russia) before that sheet reaches the owner.** It
-is now `accepted` rather than merely captured: the owner marked it a release
-blocker. A top-200 country rendering as a crude blob at 7% of its hero byte
-budget is the first thing anyone will notice on a contact sheet, and shipping the
-sheet without it wastes the owner's review.
+## Backlog
 
-Diagnosing it needs a Mapshaper sweep for RU alone with per-attempt rejection
-logging, so it is a `lodbuild` change, not a runtime one. The artifact records
-per-attempt logs only on `no_artifact` rows, which is why the reason is not
-already on disk.
+Run `mate backlog list`. As of T5: `WKI-C83B0B9EB4EE` **done**;
+`WKI-490046152C71` deferred and now largely answered by DEC-013 — what remains of
+it is component *selection*, not framing; `WKI-B05B4B4287A2` (wall-clock brakes
+force `-p 1`) and `WKI-6638BACD6E20` (707 ms first load) captured.
 
-After the sheet lands, the deferred framing decision (`WKI-490046152C71`, deferred
-under DEC-011) is the owner's next call, with all 996 cards on screen.
+## Next step — P2 closure, then P3
+
+P2's product work is done: the pipeline serves the committed ladder, the catalog
+renders, and the evidence is committed and reviewed. Two things remain.
+
+1. **The governance reconciliation debt, `#15`.** Everything from T1 onward
+   shipped as ordinary engineering commits because AM-003/AM-004 fence P2 with no
+   terminal transition out of `applied` (`FND-1B950D899CE4`). That is unchanged
+   and still blocks a governed close. When mate grows that transition, reconcile
+   per the plan in the fence section above.
+2. **P3.** It inherits a real surface: the typed no-artifact outcome as a
+   first-class result, the component-selection seam DEC-011 and DEC-013 both
+   route to it, and the 707 ms first-load decision that belongs where the
+   invocation shape is known.
 
 ## Hard constraints (from accepted decisions — do not violate)
 
