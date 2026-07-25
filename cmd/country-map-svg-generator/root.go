@@ -56,7 +56,15 @@ Normal generation is offline and needs no Node, Python, GDAL or auxiliary files.
 			withContext("command", cmd.CommandPath())
 	})
 
-	root.AddCommand(newVersionCommand(flags))
+	// Commands are registered by the task that implements them, never stubbed:
+	// registration is what makes VAL-1's gate demand a command's scripts, and a
+	// stub would satisfy it with scripts asserting that nothing happens.
+	root.AddCommand(
+		newInitCommand(flags),
+		newValidateCommand(flags),
+		newExplainCommand(flags),
+		newVersionCommand(flags),
+	)
 	return root, flags
 }
 
@@ -94,15 +102,31 @@ func reportError(stdout, stderr io.Writer, command string, jsonMode bool, err *C
 	}
 }
 
-// requestedJSON scans the raw arguments. Used only on the error path when flag
-// parsing may not have completed.
+// valueTakingFlags are the flags whose next argument is their value. The error
+// path has to know them: without that, `--config --json` (a missing value) and
+// any flag whose value happens to be the string `--json` would both flip the
+// output mode, which is a confusing thing to happen while reporting a different
+// mistake.
+var valueTakingFlags = map[string]bool{
+	"--config": true, "--out": true, "--preset": true,
+	"--profile": true, "--boundary": true, "--style": true, "--delivery": true,
+	"--iso": true,
+}
+
+// requestedJSON scans the raw arguments. Used only on the error path, when flag
+// parsing may not have completed and the parsed value therefore does not exist.
 func requestedJSON(args []string) bool {
-	for _, arg := range args {
+	for i := 0; i < len(args); i++ {
+		arg := args[i]
+		if arg == "--" {
+			return false
+		}
 		if arg == "--json" || arg == "--json=true" {
 			return true
 		}
-		if arg == "--" {
-			return false
+		// Skip the value position, so a value is never mistaken for a flag.
+		if valueTakingFlags[arg] {
+			i++
 		}
 	}
 	return false

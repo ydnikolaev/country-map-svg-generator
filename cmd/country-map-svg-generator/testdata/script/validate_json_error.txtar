@@ -1,0 +1,30 @@
+# Every problem in one envelope: fixing one key per run turns a five-typo config
+# into five round trips.
+! exec country-map-svg-generator validate --config many.yaml --json
+stdout '"status": "error"'
+stdout '"class": "config"'
+stdout '"exit": 2'
+stdout '"code": "invalid_configuration"'
+stdout 'style'
+stdout 'delivery'
+stdout 'fillOpacity'
+
+# A missing file is a config-class failure, not a filesystem one: the caller
+# fixes it by correcting the path they asked for.
+! exec country-map-svg-generator validate --config nowhere.yaml --json
+stdout '"class": "config"'
+stdout '"code": "config_missing"'
+
+# An unknown entity is a data-class failure, and the diagnostic names the corpus
+# it was looked up in.
+! exec country-map-svg-generator validate --iso ZZ --json
+stdout '"class": "data"'
+stdout '"code": "unknown_entity"'
+stdout '"exit": 3'
+
+-- many.yaml --
+schema: country-map/v1
+style: neon
+delivery: inline
+tokens:
+  fillOpacity: 14

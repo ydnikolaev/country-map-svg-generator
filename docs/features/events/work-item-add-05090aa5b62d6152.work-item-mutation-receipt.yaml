@@ -1,0 +1,35 @@
+version: 1
+kind: work-item-mutation-receipt
+id: work-item-add-05090aa5b62d6152
+project: country-map-svg-generator
+claim:
+    project: country-map-svg-generator
+    item_id: WKI-37F18A2AA6A5
+    item_revision: 1
+    registry_revision: 11
+    mutation: add-capture
+    operation_id: work-item-add-05090aa5b62d6152
+    actor: operator
+    timestamp: "2026-07-25T04:12:49Z"
+    inputs:
+        - name: registry
+          value: 7deb4c91004a71e6bff6ce1dd96e476eb37d2f547251b37c9b95ca03905821d0
+        - name: request
+          value: 05090aa5b62d6152a3cd897195b12d484b2fcd88724cd4f93418fabfe014aec6
+        - name: source
+          value: specification#P3#docs/features/active/country-map-svg-generator/specs/P3-generator-cli/P3-generator-cli.spec.md#5b346b283aacf67fae2a1480e036e93af0d849f06e0286b53eb66f1817100243
+    input_digest: 5e056e9961f6d7ac1ebbf7201c27cc2f7df4267e9a9b106484d5fc4000cdea32
+    result: captured
+    next_action: Belongs to internal/geometry (BND-003), which is P2 territory and currently fenced. Decide during P2 governance reconciliation, alongside WKI-490046152C71 and the crop seam DEC-015 deferred, since all three are about what a frame contains.
+    predecessor_registry:
+        kind: sha256
+        digest: 7deb4c91004a71e6bff6ce1dd96e476eb37d2f547251b37c9b95ca03905821d0
+    predecessor_receipt:
+        kind: work-item-mutation-receipt
+        id: work-item-add-11448fdc6365bf60
+        path: docs/features/events/work-item-add-11448fdc6365bf60.work-item-mutation-receipt.yaml
+        sha256: 359aecf0acbc124f915f02699e40b0ab8da3ff0f55db2028382a84c8acde6cd5
+    event: capture
+    from: absent
+    to: captured
+successor_registry_sha256: 8a647991d063fd3bc1383803891cab15848bca710c4ad51448d6476707dcf62f

@@ -1,0 +1,25 @@
+# The starter file is written, and it is valid as generated — a starter config
+# that does not validate teaches the wrong shape and blames the author for it.
+exec country-map-svg-generator init --out country-map.yaml
+stdout 'wrote country-map.yaml \(extends site-default\)'
+stdout 'next: country-map-svg-generator validate --config country-map.yaml'
+exists country-map.yaml
+
+exec country-map-svg-generator validate --config country-map.yaml
+stdout 'valid: country-map.yaml resolves for [0-9]+ entities \(full catalog\)'
+
+# The comments are the point of the file, not decoration.
+grep 'schema: country-map/v1' country-map.yaml
+grep 'underscore is not optional' country-map.yaml
+grep 'not its boundary profile' country-map.yaml
+
+# A different preset is a flag, never a prompt.
+exec country-map-svg-generator init --out standalone.json --preset standalone-default
+exists standalone.json
+exec country-map-svg-generator validate --config standalone.json
+
+# The machine surface names the follow-up command so an agent need not guess it.
+exec country-map-svg-generator init --out other.yaml --json
+stdout '"preset": "site-default"'
+stdout '"next_action": "country-map-svg-generator validate --config other.yaml"'
+stdout '"available_presets"'

@@ -1,13 +1,13 @@
 version: 1
 kind: work-item-registry
 project: country-map-svg-generator
-revision: 10
+revision: 11
 head_receipt:
     kind: work-item-mutation-receipt
-    id: work-item-add-11448fdc6365bf60
-    path: docs/features/events/work-item-add-11448fdc6365bf60.work-item-mutation-receipt.yaml
-    claim_sha256: e1e0f842e620c91bb64bd801634a46980d29534cf65bcd0e3a4b0695e15aba17
-updated_at: "2026-07-25T03:24:24Z"
+    id: work-item-add-05090aa5b62d6152
+    path: docs/features/events/work-item-add-05090aa5b62d6152.work-item-mutation-receipt.yaml
+    claim_sha256: 56ae1bd9d3a0beaba2150aba4640c9c71820c243bef125ef67005ab5ae16fe0f
+updated_at: "2026-07-25T04:12:49Z"
 items:
     - id: WKI-1DA58E0FE741
       fingerprint: 1da58e0fe7415e43bdab46361325c255e34bfa26abf169de19cf7996604c35f0
@@ -50,6 +50,48 @@ items:
           claim_sha256: e1e0f842e620c91bb64bd801634a46980d29534cf65bcd0e3a4b0695e15aba17
       created_at: "2026-07-25T03:24:24Z"
       updated_at: "2026-07-25T03:24:24Z"
+      revision: 1
+    - id: WKI-37F18A2AA6A5
+      fingerprint: 37f18a2aa6a59fc5720757959538755763ee7e204f06239f821e88a0aa9d0391
+      scope: project
+      title: An explicit contain frame is fitted before visibility removals, so the silhouette sits off centre
+      problem: 'Measured through the shipped path at P3/T2, on the sampled corpus at hero into a 900x300 frame: 14 of the sampled entities drop components as below_visible_area, and their drawn silhouette is off centre by up to 292 px in a 300 px tall frame. NC is the worst; FM draws 6 components and removes 14, leaving 3.96 px of slack above and 145.3 px below. The cause is ordering, not arithmetic: fitGeometry centres the geometry it is handed (internal/geometry/fit.go, the contain branch computes tx and ty from availW and availH minus raw dimensions, halved), and visibility removals happen afterwards, so what is centred is a superset of what is drawn. This is the same defect class as the France-as-a-speck finding DEC-013 closed, on the path DEC-013 did not reach: DEC-013 fits the card to the candidate it draws, but that applies to a committed ladder candidate, and an explicit contain frame changes the layout so the committed verdict does not transfer (ladderVerdictApplies) and the request takes the DEC-005 source path. Entities that draw everything they were fitted for are centred correctly, verified over 18 sampled entities to within one output pixel. Characterized by TestVisibilityRemovalsPushTheSilhouetteOffCentre in internal/render, which reddens if the gap ever closes so a fix cannot be silently outlived by a green suite.'
+      expected_outcome: A contain frame centres what is actually drawn, on every path rather than only on the committed ladder candidate. Either the fit runs after visibility removals, or removals feed back into a refit, or the source path adopts the fitted-to-candidate rule DEC-013 established for the ladder. Then TestContainCentresTheUnusedSpace asserts centring unconditionally and its characterization counterpart is deleted.
+      status: captured
+      owner: product-owner
+      priority_band: high
+      effort_band: medium
+      next_action: Belongs to internal/geometry (BND-003), which is P2 territory and currently fenced. Decide during P2 governance reconciliation, alongside WKI-490046152C71 and the crop seam DEC-015 deferred, since all three are about what a frame contains.
+      observations:
+        - id: OBS-05090AA5B62D
+          source:
+            artifact: specification
+            id: P3
+            path: docs/features/active/country-map-svg-generator/specs/P3-generator-cli/P3-generator-cli.spec.md
+            sha256: 5b346b283aacf67fae2a1480e036e93af0d849f06e0286b53eb66f1817100243
+          actor: operator
+          evidence: []
+          observed_at: "2026-07-25T04:12:49Z"
+      decisions:
+        - revision: 1
+          actor: operator
+          from: absent
+          to: captured
+          rationale: Capture the durable work item
+          decided_at: "2026-07-25T04:12:49Z"
+          receipt:
+            kind: work-item-mutation-receipt
+            id: work-item-add-05090aa5b62d6152
+            path: docs/features/events/work-item-add-05090aa5b62d6152.work-item-mutation-receipt.yaml
+            claim_sha256: 56ae1bd9d3a0beaba2150aba4640c9c71820c243bef125ef67005ab5ae16fe0f
+      relationships: []
+      mutation_receipts:
+        - kind: work-item-mutation-receipt
+          id: work-item-add-05090aa5b62d6152
+          path: docs/features/events/work-item-add-05090aa5b62d6152.work-item-mutation-receipt.yaml
+          claim_sha256: 56ae1bd9d3a0beaba2150aba4640c9c71820c243bef125ef67005ab5ae16fe0f
+      created_at: "2026-07-25T04:12:49Z"
+      updated_at: "2026-07-25T04:12:49Z"
       revision: 1
     - id: WKI-4062B33B8FEA
       fingerprint: 4062b33b8fea73850cf1c6bffef741a30c85838471689672ebb6701bf313884a

@@ -3,6 +3,7 @@ module github.com/yuranikolaev/country-map-svg-generator
 go 1.26
 
 require (
+	github.com/goccy/go-yaml v1.19.2
 	github.com/peterstace/simplefeatures v0.59.0
 	github.com/rogpeppe/go-internal v1.15.0
 	github.com/spf13/cobra v1.10.2

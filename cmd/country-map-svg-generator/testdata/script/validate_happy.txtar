@@ -1,0 +1,40 @@
+# The zero-config path is a first-class path: the embedded defaults are a
+# complete configuration, so validate with no --config checks what the generator
+# would actually use.
+exec country-map-svg-generator validate
+stdout 'valid: embedded defaults resolves for [0-9]+ entities \(full catalog\)'
+! stderr .
+
+exec country-map-svg-generator validate --json
+stdout '"valid": true'
+stdout '"selection": "full catalog"'
+stdout '"schema": "country-map/v1"'
+
+# A real document, including the shape the specification documents.
+exec country-map-svg-generator validate --config config.yaml --json
+stdout '"config": "config.yaml"'
+stdout '"valid": true'
+
+# Narrowing the selection narrows what is reported, so "valid" is never a claim
+# about entities that were not checked.
+exec country-map-svg-generator validate --config config.yaml --iso US
+stdout 'resolves for 1 entities \(US\)'
+
+# Flags are the strongest layer and are validated like everything else.
+exec country-map-svg-generator validate --config config.yaml --profile hero --style ghost
+
+-- config.yaml --
+schema: country-map/v1
+extends: site-default
+profile: card
+layout:
+  mode: tight
+  longSide: 160
+tokens:
+  fill: var(--map-fill, currentColor)
+  fillOpacity: 0.14
+countries:
+  US:
+    profile: hero
+    layout: { mode: contain, width: 720, height: 420 }
+    marker: { mode: capital }

@@ -1,0 +1,20 @@
+# An existing file is never overwritten silently: regenerating over an edited
+# config would discard work with no way to get it back.
+exec country-map-svg-generator init --out country-map.yaml
+! exec country-map-svg-generator init --out country-map.yaml
+stderr 'filesystem: country-map.yaml already exists'
+stderr 'hint: pass --force'
+
+exec country-map-svg-generator init --out country-map.yaml --force
+stdout 'wrote country-map.yaml'
+
+! exec country-map-svg-generator init --preset nonesuch
+stderr 'usage: unknown preset "nonesuch"'
+stderr 'available: site-default, standalone-default'
+
+! exec country-map-svg-generator init --out config.toml
+stderr 'usage: unsupported config extension ".toml"'
+stderr 'accepted: .yaml, .yml, .json'
+
+! exec country-map-svg-generator init extra
+stderr 'usage: expected 0 argument\(s\), got 1'

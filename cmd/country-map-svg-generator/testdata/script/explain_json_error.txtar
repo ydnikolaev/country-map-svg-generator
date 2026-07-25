@@ -1,0 +1,17 @@
+! exec country-map-svg-generator explain --json
+stdout '"status": "error"'
+stdout '"class": "usage"'
+stdout '"code": "missing_iso"'
+stdout '"exit": 1'
+
+! exec country-map-svg-generator explain --iso ZZ --json
+stdout '"class": "data"'
+stdout '"code": "unknown_entity"'
+stdout '"exit": 3'
+
+# A flag given without its value must not be read as a request for envelope
+# output. This is the case that breaks a naive scan of the raw arguments, and it
+# is exactly when a caller most needs the diagnostic they asked for.
+! exec country-map-svg-generator explain --iso FR --config --json
+! stdout '"status": "error"'
+stderr 'config'

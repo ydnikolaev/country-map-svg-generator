@@ -1,0 +1,14 @@
+# Each refusal carries its own exit class, so a caller can tell "you asked for
+# something impossible" from "the filesystem said no".
+! exec country-map-svg-generator init --preset nonesuch --json
+stdout '"status": "error"'
+stdout '"class": "usage"'
+stdout '"code": "unknown_preset"'
+stdout '"available": "site-default, standalone-default"'
+stdout '"exit": 1'
+
+exec country-map-svg-generator init --out taken.yaml
+! exec country-map-svg-generator init --out taken.yaml --json
+stdout '"class": "filesystem"'
+stdout '"code": "exists"'
+stdout '"exit": 7'

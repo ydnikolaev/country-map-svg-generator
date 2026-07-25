@@ -1,0 +1,56 @@
+# An unknown key is refused, and the wrong-case spelling of a real key is
+# refused for the same reason: accepting it would make every casing part of the
+# v1 contract forever.
+! exec country-map-svg-generator validate --config unknown.yaml
+stderr 'config: unknown.yaml: unknown field profil'
+
+! exec country-map-svg-generator validate --config wrongcase.yaml
+stderr 'unknown field layout.longside'
+
+# DEC-015 reserves this namespace for the deferred crop seam.
+! exec country-map-svg-generator validate --config reserved.yaml
+stderr 'unknown field selection'
+
+# The layout modes take disjoint fields, so a width in a tight layout is a
+# mistake about which mode was wanted rather than a value to ignore.
+! exec country-map-svg-generator validate --config badlayout.yaml
+stderr 'not accepted in tight mode'
+
+# The hyphenated boundary is the specific trap the corpus manifest sets, and the
+# diagnostic names the spelling that works.
+! exec country-map-svg-generator validate --config hyphen.yaml
+stderr 'de_facto'
+
+# A collision is refused before anything is written, naming both claimants and
+# the fix.
+! exec country-map-svg-generator validate --config collide.yaml
+stderr 'is the output path for'
+stderr 'add \{iso\}, \{profile\} or \{boundary\}'
+
+! exec country-map-svg-generator validate --config missing.yaml
+stderr 'config: no configuration at missing.yaml'
+
+-- unknown.yaml --
+schema: country-map/v1
+profil: card
+-- wrongcase.yaml --
+schema: country-map/v1
+layout:
+  longside: 160
+-- reserved.yaml --
+schema: country-map/v1
+selection:
+  components: [mainland]
+-- badlayout.yaml --
+schema: country-map/v1
+layout:
+  mode: tight
+  longSide: 160
+  width: 300
+-- hyphen.yaml --
+schema: country-map/v1
+boundary: de-facto
+-- collide.yaml --
+schema: country-map/v1
+output:
+  filename: "{profile}.svg"

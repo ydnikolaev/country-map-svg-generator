@@ -1,0 +1,9 @@
+exec country-map-svg-generator validate --help
+stdout 'Check a configuration and report every problem at once'
+stdout 'Validation runs twice over different things'
+stdout '--config'
+stdout '--iso'
+! stderr .
+
+exec country-map-svg-generator --help
+stdout 'validate\s+Check a configuration before it writes anything'

@@ -1,0 +1,10 @@
+exec country-map-svg-generator init --help
+stdout 'Write a starter configuration that is valid as generated'
+stdout 'non-interactive'
+stdout '--preset'
+stdout '--force'
+stdout '--out'
+! stderr .
+
+exec country-map-svg-generator --help
+stdout 'init\s+Write a starter configuration'

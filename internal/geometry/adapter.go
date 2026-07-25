@@ -5,6 +5,15 @@ import (
 	"github.com/yuranikolaev/country-map-svg-generator/internal/catalog"
 )
 
+// AcceptedBoundaryProfiles is the boundary posture vocabulary DEC-002 governs,
+// exported so a consumer enumerates it rather than spelling it.
+//
+// Note the underscore. The corpus manifest declares its own profile list as
+// {"un", "de-facto"} with a hyphen (catalog/compile.go), and nothing translates
+// between the two spellings, so a consumer that built its vocabulary from the
+// manifest would offer a value this package refuses. Enumerate from here.
+var AcceptedBoundaryProfiles = []string{"un", "de_facto"}
+
 func InputFromCatalog(c *catalog.Corpus, alpha2, profile, preset string) (Input, error) {
 	var entity *catalog.Entity
 	for i := range c.Manifest.Entities {

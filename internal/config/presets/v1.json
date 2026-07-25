@@ -1,0 +1,49 @@
+{
+  "version": "v1",
+  "note": "Embedded named presets a document reaches through `extends`. The set is deliberately small: a preset is a public compatibility surface, and every name shipped here is one that cannot be removed without a schema major. Layout sizing is absent on purpose — the geometry presets own the long side and the byte budget for each profile, and restating either here would create a second source of truth that drifts.",
+  "defaults": {
+    "note": "The weakest layer: what a document that says nothing at all resolves to. These are product choices, so they live in data rather than in Go. `card` is the default profile because the accepted site composition is many small card illustrations and one hero; `un` is the default boundary by DEC-002; `standalone` is the default delivery because an asset that needs no host CSS is the safer default for someone trying the tool for the first time; markers are off by REQ-7 and animation by REQ-8. Layout carries only a mode — the long side comes from the geometry preset for the resolved profile, and restating it here would fork the budget.",
+    "profile": "card",
+    "boundary": "un",
+    "delivery": "standalone",
+    "style": "outline",
+    "layout": { "mode": "tight" },
+    "marker": { "mode": "none" },
+    "animation": { "enabled": false },
+    "output": { "dir": ".", "filename": "{iso}.svg" }
+  },
+  "presets": [
+    {
+      "name": "site-default",
+      "note": "Carries only what it changes from the defaults. A preset that restates a default adds nothing and makes `explain` attribute the value to the preset instead of to where it actually comes from.",
+      "settings": {
+        "delivery": "themed-inline",
+        "style": "bold-soft",
+        "tokens": {
+          "fill": "var(--country-map-fill, currentColor)",
+          "fillOpacity": 0.14,
+          "stroke": "var(--country-map-stroke, currentColor)",
+          "strokeOpacity": 1,
+          "strokeWidth": 1,
+          "lineCap": "round",
+          "lineJoin": "round"
+        }
+      }
+    },
+    {
+      "name": "standalone-default",
+      "extends": "site-default",
+      "note": "The same shape baked rather than themed: an asset that carries its own presentation and needs no host CSS.",
+      "settings": {
+        "delivery": "standalone",
+        "style": "filled",
+        "tokens": {
+          "fill": "currentColor",
+          "fillOpacity": 1,
+          "stroke": "none",
+          "strokeOpacity": 0
+        }
+      }
+    }
+  ]
+}

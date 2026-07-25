@@ -1,0 +1,9 @@
+exec country-map-svg-generator explain --help
+stdout 'Resolve one entity''s configuration and report every value with its origin'
+stdout 'embedded defaults'
+stdout 'Nothing is written'
+stdout '--iso'
+! stderr .
+
+exec country-map-svg-generator --help
+stdout 'explain\s+Show the resolved configuration and where each value came from'

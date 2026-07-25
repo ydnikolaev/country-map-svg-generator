@@ -1,0 +1,18 @@
+# explain resolves exactly one entity, so an omitted --iso is a refusal rather
+# than a guess at which of 249 entities was meant.
+! exec country-map-svg-generator explain
+stderr 'usage: explain resolves one entity; pass --iso'
+stderr 'hint: run country-map-svg-generator validate'
+
+! exec country-map-svg-generator explain --iso ZZ
+stderr 'data: no entity "ZZ" in corpus'
+
+! exec country-map-svg-generator explain --iso FR --config broken.yaml
+stderr 'broken.yaml: unknown field profil'
+
+! exec country-map-svg-generator explain --iso FR extra
+stderr 'usage: expected 0 argument\(s\), got 1'
+
+-- broken.yaml --
+schema: country-map/v1
+profil: card

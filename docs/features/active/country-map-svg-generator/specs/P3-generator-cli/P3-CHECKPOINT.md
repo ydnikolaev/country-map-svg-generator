@@ -6,10 +6,11 @@ resume from — this file and the commits are the whole record. Read it first.
 
 ## The one-line status
 
-**T1 done.** The binary exists, the command surface and its typed failure
-taxonomy are in place, and the e2e harness that will hold every later task is
-built and proven to bite. Only `version` is registered so far; the other six
-commands land with the tasks that implement them.
+**T1 and T2 done.** The binary exists with its typed failure taxonomy and the
+e2e harness that holds every later task; the configuration schema is frozen,
+layered, validated and explainable. `init`, `validate`, `explain` and `version`
+are registered; `generate`, `inspect` and `preview` land with the tasks that
+implement them. Nothing renders an SVG yet — that is T3.
 
 ## Why P3 has no governed tracker
 
@@ -53,11 +54,11 @@ max**. `geometry` ≈ 322 s and `lodbuild` ≈ 373 s already sit near the defaul
 10-minute per-package timeout; adding a full-catalog sweep to either breaks the
 build before it fails an assertion.
 
-P3's budget is **≤ 90 s added to `make check`**. Measured inside a real `-p 1`
-run: **2.142 s** for the whole `cmd/country-map-svg-generator` package including
-the `GOWORK=off` binary build. For context in the same run, `catalog` 28.7 s,
-`geometry` 353.3 s, `lodbuild` 267.6 s. The levers that keep P3 inside its
-budget:
+P3's budget is **≤ 90 s added to `make check`**. After T2 the three P3 packages
+cost **≈ 26 s** together: `cmd` 4.4 s (including the `GOWORK=off` binary build),
+`config` 0.5 s, `render` 20.7 s — almost all of it VAL-8 generating real
+geometry. For context, `catalog` ≈ 29 s, `geometry` ≈ 355 s, `lodbuild` ≈ 265 s.
+The levers that keep P3 inside its budget:
 
 - The ordered product loop (VAL-5) runs a **selected set** of ISO codes chosen for
   shape, never the catalog.
@@ -155,7 +156,7 @@ stub would satisfy the gate with scripts asserting that the command does nothing
 | Command | Registered by |
 | --- | --- |
 | `version` | T1 — done |
-| `init`, `validate`, `explain` | T2 |
+| `init`, `validate`, `explain` | T2 — done |
 | `generate` | T4 |
 | `inspect`, `preview` | T5 |
 
@@ -278,25 +279,196 @@ different boundary postures. The T4 manifest carries **both** `profile` and
 `boundary`. No governed decision is needed: ARCH-001 says compatibility is
 additive within a major and only *removing* a field requires one.
 
-## Known limitation to fix when it starts to matter
+## T2 — done
 
-`requestedJSON` in `root.go` scans the raw arguments for a literal `--json` on the
-error path, because a flag that fails to parse never reaches the parsed value.
-Once T2 adds value-taking flags, `--config --json` (a missing value) or any flag
-whose value is the string `--json` will flip error output to envelope mode. Fix it
-when the first value-taking flag lands: stop scanning at the value position of a
-known value-taking flag.
+`internal/config` (BND-005) carries schema `country-map/v1`, the embedded
+presets, the precedence chain and every diagnostic. `init`, `validate` and
+`explain` are registered. `internal/render` (BND-006) exists with the one bridge
+into geometry; its serializer is T3.
+
+### Four things the tests found that review would not have
+
+**1. `encoding/json` matches field names case-insensitively.**
+`{"layout":{"longside":160}}` binds to `LongSide` and decodes cleanly, so
+`DisallowUnknownFields` alone accepts it. For a schema frozen at v1 that would
+make every casing of every key part of the contract forever, and would make a
+genuine typo look like a working document. `internal/config/keys.go` derives the
+exact key set from the struct tags by reflection and checks case exactly. The
+same traversal answers "what keys exist", which is the discovery surface REQ-1
+asks for, so one mechanism serves both.
+
+**2. A mandatory `{iso}` in the filename template made REQ-3's collision check
+unreachable.** That requirement was invented here, not specified; with it, two
+entities can never resolve to one path, so the check the requirement asks for by
+name could not fire. Removed. A template without `{iso}` is a legitimate
+single-entity configuration, and for a batch the collision check refuses it with
+a better diagnostic — one that names which entities actually collided.
+
+**3. The specification's own example config did not validate.** Globals set
+`mode: tight, longSide: 160`; the `US` override sets `mode: contain, width: 720,
+height: 420`. Merged naively, the result carried a contain mode *and* an
+inherited long side, and the resolved check refused the documented shape.
+`pruneSupersededLayoutFields` drops sizing that belonged to a mode a later layer
+replaced — and only sizing set **earlier** than the mode. A layer that sets a
+mode and a foreign field together is contradicting itself, and the per-layer
+check already refuses that; pruning it would silently accept the mistake.
+
+**4. `init --out config.json` wrote a commented YAML body into a `.json` file.**
+Caught by `init` validating what it generates, which is why it does that: a
+starter config that does not validate teaches the wrong shape and blames the
+author for it. JSON has no comments, so that path now emits plain JSON and
+prints the guidance the YAML starter carries inline.
+
+### The layering design, and why it is typed rather than generic
+
+Every field is a pointer or a map so "unset" is distinguishable from "set to the
+zero value". Without that, a layer could not tell whether an earlier one had an
+opinion, `explain` could not name an origin, and an explicit `fillOpacity: 0` —
+an invisible fill under a visible stroke, a real style — would be silently
+dropped.
+
+Layers are merged as typed settings rather than as generic maps, so every layer
+has already been through key checking and validation by the time it merges. A
+generic merge defers both to the end and reports a preset's typo against
+whichever document inherited it.
+
+Nested blocks merge field by field. A country override that sets one token must
+not erase the rest, and the result of that bug would still look like a valid
+config. Lists replace wholesale: appending would make an override unable to
+shorten an inherited list, and would make the result depend on how many ancestors
+happened to mention it.
+
+`TestMergeCoversEveryField` walks the whole schema rather than a handful of
+fields, because every hand-written merge assertion would still pass if the merge
+silently skipped a field nobody thought to name.
+
+### Resolution is two-pass, and it has to be
+
+The profile block to apply depends on the resolved profile, and the resolved
+profile can be set by the country override — `countries: {US: {profile: hero}}`
+is the specification's own example. One pass would choose the block from the
+document globals and apply the card block to a hero card. So the profile is
+resolved first from every layer that can carry it except the profile blocks, and
+only then is the matching block inserted. A profile block may not select a
+profile; that is refused, which is what keeps this from being circular.
+
+Each preset in an `extends` chain is named separately in the provenance
+(`preset ancestry site-default`), because with a chain of three, "which preset set
+this" is the actual question.
+
+Presets carry only what they change. A preset restating a default makes `explain`
+attribute the value to the preset, sending an author to edit the wrong place;
+`TestPresetsCarryOnlyWhatTheyChange` enforces it.
+
+### One decode path for both formats
+
+goccy turns YAML into a generic value and `encoding/json` turns JSON into one;
+from there both go through the same normalization, the same key check and the
+same typed decode. Two typed decoders would be two implementations of "what does
+this document mean", free to differ exactly where it matters — case sensitivity,
+embedded-struct flattening, and the padding union type.
+
+Normalization is where YAML's extra vocabulary is refused with a path: a
+non-string mapping key, a `.nan`, a `.inf`. Unchecked, an infinity reaches the
+layout as a dimension and a viewBox full of NaN is the first anyone hears of it.
+
+goccy is the parser rather than a minimal one because `FormatError` carries the
+line, column and a source excerpt, which is the difference between a fixable
+diagnostic and "invalid YAML".
+
+### The vocabulary, enforced rather than documented
+
+`render.Vocabulary` builds the enums from their owners: profiles from
+`geometry.Presets()`, boundaries from `geometry.AcceptedBoundaryProfiles`, ISO
+codes and capital ids from the corpus. So a new detail preset appears in the CLI
+with no edit to the config layer, and no country literal or enum lives here.
+
+`geometry.AcceptedBoundaryProfiles` was added to the geometry adapter in this
+task (an existing file — the source-inventory gate only demands registration for
+**new** files), with `TestAcceptedBoundaryProfilesMatchesWhatTheAdapterTakes`
+keeping the exported list and the switch that implements it from drifting.
+
+`render.GeometryRequest` is the only place a `geometry.Input` is constructed, and
+`TestTheTwoAxesAreNotTransposed` is its tooth. Its subtlest rule:
+**a layout mode with no sizing must produce an empty geometry layout**, because
+`ApplyPreset` fills a layout only when its mode is empty — returning a mode with
+no size would suppress the preset's long side and produce a card sized by
+nothing.
+
+### The provenance constants moved again, as predicted
+
+`goccy/go-yaml` landed with its import, `go.mod` and `go.sum` changed, and
+`TestDiagnosticIdentityDriftChecksEveryRecordedLoadBearingIdentity` reddened for
+the second time. Re-recorded on the same evidence. This is the gate functioning,
+not debt: it fires once per real dependency change. `WKI-1DA58E0FE741` carries
+the over-specification.
+
+### VAL-8, and the framing defect it found
+
+`internal/render/layout_test.go` asserts the layout contract against what
+geometry **produces**, not against what the configuration was allowed to say.
+Shapes are chosen from the corpus by measured aspect, never by ISO literal.
+
+The no-distortion claim is made without reaching inside the pipeline: the same
+entity rendered into a 900×300 frame and a 300×900 frame must produce drawn
+extents of the *same* aspect. Under a stretch-to-fill bug they would follow the
+frames (3.0 and 0.33), so the 2% tolerance separates quantization noise from
+distortion by two orders of magnitude.
+
+Two things worth knowing before extending it:
+
+- **`NaturalAspect` is the full projection's aspect, not the drawn one.**
+  DEC-013 fits the card to the silhouette it draws, so for an entity with
+  excluded components those differ substantially. Assertions compare the frame
+  against the measured drawn extent instead.
+- **The centring tolerance is one output pixel, not the quantization grid.** The
+  drawn extent is the simplified and quantized silhouette, and simplification
+  pulls the extreme vertex inward by a different fraction at each edge —
+  measured at up to 0.19 px. A real centring failure misses by hundreds.
+
+**It found a live framing defect: `WKI-37F18A2AA6A5`.** An explicit `contain`
+frame is fitted *before* visibility removals, so an entity that drops components
+draws off-centre — up to **292 px off in a 300 px tall frame**, worst case NC;
+FM draws 6 components and removes 14, leaving 3.96 px of slack above and 145.3
+below. This is the France-as-a-speck class on the path DEC-013 did not reach: an
+explicit frame changes the layout, the committed ladder verdict does not
+transfer, and the request takes the DEC-005 source path where the old ordering
+still applies. It is `internal/geometry` (BND-003), so it is P2's to fix and
+currently fenced.
+
+The centring assertion therefore holds over entities that draw everything they
+were fitted for — **verified over 18 sampled entities**, and the test fails if
+that population is ever empty rather than passing vacuously. The excluded
+population is measured by `TestVisibilityRemovalsPushTheSilhouetteOffCentre`,
+which reddens when the gap closes, so a fix cannot be silently outlived by a
+green suite. That is P2's own idiom for its superseded characterizations.
+
+### Fixed from T1
+
+`requestedJSON` now skips the value position of known value-taking flags, so
+`--config --json` (a missing value) no longer flips error output to envelope mode
+while reporting a different mistake. `explain_json_error.txtar` covers it.
+
+Config-shape failures are classified **by type**, not by matching substrings of
+an error message. `config.DocumentError` wraps every "the document is wrong"
+failure, so the CLI's frozen exit classes cannot be silently reclassified by a
+dependency changing its wording.
+
+### Two things T4 should fix when it adds its first flag
+
+- **`valueTakingFlags` in `root.go` is a hand-maintained list beside the cobra
+  tree.** `runnableLeaves` was built from the tree specifically to avoid a
+  maintained list; this one is the exception and nothing reddens when it goes
+  stale. The symptom is `--out --json` silently flipping error output while
+  reporting a different mistake. Derive it by walking the tree for flags whose
+  `Value.Type() != "bool"`, or add a test asserting every non-bool flag appears
+  in the map.
+- **`geometry.ApplyPreset` is called in `explain` to fill the preset's layout and
+  budget.** `generate` must resolve through the same path, or the two commands
+  will disagree about what will be produced.
 
 ## Remaining tasks
 
-- **T2 — `internal/config`.** Schema `country-map/v1` in YAML and JSON, embedded
-  presets, single-parent inheritance, global tokens, profile and per-country
-  overrides, documented precedence. Unknown fields, cycles, missing presets,
-  invalid combinations and output collisions fail before anything is written.
-  `explain` emits resolved value plus origin layer. REQ-13's layout contract
-  belongs here, not later — it is the same surface freeze, and `card`/`hero` must
-  come out as overrideable presets rather than modes. Reserve `selection`
-  (DEC-015). VAL-2, VAL-8.
 - **T3 — `internal/render`.** Five styles through tokens, two delivery modes,
   CTR-005 hooks, markers, opt-in animation. VAL-3, VAL-4.
 - **T4 — `generate`.** Staging, atomic publication, CTR-006 manifest. VAL-5,
