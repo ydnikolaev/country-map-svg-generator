@@ -1,13 +1,13 @@
 version: 1
 kind: work-item-registry
 project: country-map-svg-generator
-revision: 8
+revision: 9
 head_receipt:
     kind: work-item-mutation-receipt
-    id: work-item-add-248b8e9bdb66c6cd
-    path: docs/features/events/work-item-add-248b8e9bdb66c6cd.work-item-mutation-receipt.yaml
-    claim_sha256: 214d2cca54d1c4ce8282b2e2c8a09d2c685d7bd2dde28273f41fb3861a33c0fb
-updated_at: "2026-07-25T02:38:14Z"
+    id: work-item-add-4135ec64a1671961
+    path: docs/features/events/work-item-add-4135ec64a1671961.work-item-mutation-receipt.yaml
+    claim_sha256: 68ae72e41f28562b49b83fbec09a842882b34738766435279840f181735b20df
+updated_at: "2026-07-25T03:00:18Z"
 items:
     - id: WKI-4062B33B8FEA
       fingerprint: 4062b33b8fea73850cf1c6bffef741a30c85838471689672ebb6701bf313884a
@@ -30,6 +30,15 @@ items:
           actor: operator
           evidence: []
           observed_at: "2026-07-25T02:38:14Z"
+        - id: OBS-4135EC64A167
+          source:
+            artifact: decision
+            id: DEC-014
+            path: docs/features/active/country-map-svg-generator/decisions/DEC-014/country-map-svg-generator.DEC-014-p3-delivery-under-the-fence.decision.md
+            sha256: d71bc8a1daeddb36fca5a5d8cfd9841c045ede2136f7d3c16064f2c763c3b6c3
+          actor: operator
+          evidence: []
+          observed_at: "2026-07-25T03:00:18Z"
       decisions:
         - revision: 1
           actor: operator
@@ -48,9 +57,13 @@ items:
           id: work-item-add-248b8e9bdb66c6cd
           path: docs/features/events/work-item-add-248b8e9bdb66c6cd.work-item-mutation-receipt.yaml
           claim_sha256: 214d2cca54d1c4ce8282b2e2c8a09d2c685d7bd2dde28273f41fb3861a33c0fb
+        - kind: work-item-mutation-receipt
+          id: work-item-add-4135ec64a1671961
+          path: docs/features/events/work-item-add-4135ec64a1671961.work-item-mutation-receipt.yaml
+          claim_sha256: 68ae72e41f28562b49b83fbec09a842882b34738766435279840f181735b20df
       created_at: "2026-07-25T02:38:14Z"
-      updated_at: "2026-07-25T02:38:14Z"
-      revision: 1
+      updated_at: "2026-07-25T03:00:18Z"
+      revision: 2
     - id: WKI-490046152C71
       fingerprint: 490046152c71b060bafa56b799f6862959f842e62fb3df542e49ab30a640f22d
       scope: project

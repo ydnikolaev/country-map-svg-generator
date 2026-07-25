@@ -1,0 +1,25 @@
+version: 1
+kind: transition-receipt
+id: decision-accept-e867fa652646cad0
+epic: country-map-svg-generator
+status: recorded
+input_digest: 61ebc8e5fb2d304b39b75cb123d71b33337002f1bb5bf7927933ffdb18be2603
+subject:
+    artifact: decision
+    id: DEC-014
+    path: docs/features/active/country-map-svg-generator/decisions/candidates/DEC-014/country-map-svg-generator.DEC-014-p3-delivery-under-the-fence.decision.md
+    sha256: 229e3837114191cfc94af28bc223262d448fa0e00dc41040b1869ec7dc5c4457
+producer_role: lifecycle-engine
+principal: product-owner
+result: pass
+machine: decision
+event: accept
+from: draft
+to: accepted
+inputs:
+    - artifact: decision
+      id: DEC-014
+      path: docs/features/active/country-map-svg-generator/decisions/candidates/DEC-014/country-map-svg-generator.DEC-014-p3-delivery-under-the-fence.decision.md
+      sha256: 229e3837114191cfc94af28bc223262d448fa0e00dc41040b1869ec7dc5c4457
+predecessor: 229e3837114191cfc94af28bc223262d448fa0e00dc41040b1869ec7dc5c4457
+successor: d71bc8a1daeddb36fca5a5d8cfd9841c045ede2136f7d3c16064f2c763c3b6c3

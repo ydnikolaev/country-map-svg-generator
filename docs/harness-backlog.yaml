@@ -1,7 +1,7 @@
 version: 1
 kind: harness-feedback-backlog
 project: country-map-svg-generator
-revision: 15
+revision: 16
 operations:
     - version: 1
       id: feedback-add-2239ce643f15640e
@@ -45,6 +45,13 @@ operations:
       result_id: FND-9A2B22724307
       result_revision: 2
       recorded_at: "2026-07-23T16:46:38Z"
+    - version: 1
+      id: feedback-add-88da34bcd22bd90c
+      kind: feedback-add
+      input_digest: 904d13b7504e0cd4c39a9e97489dbba9341417b82fcf6b686ea82ba2008560f8
+      result_id: FND-A878CECB53C8
+      result_revision: 16
+      recorded_at: "2026-07-25T03:00:42Z"
     - version: 1
       id: feedback-add-8b9454ca97c91d59
       kind: feedback-add
@@ -277,6 +284,22 @@ findings:
       state: new
       created_at: "2026-07-24T14:44:51Z"
       updated_at: "2026-07-24T14:44:51Z"
+    - id: FND-A878CECB53C8
+      scope: mate
+      severity: medium
+      area: lifecycle-next-action
+      summary: Spec next_action advertises amendment.resolve, a verb that exists nowhere in the vocabulary
+      observed: 'mate work snapshot and mate spec status report P2 and P3 with next_action {id: amendment.resolve, availability: blocked}. No such verb exists: mate amendment offers accept, apply, impact, propose, reject, scaffold, status, validate and verify; the amendment state machine in internal/workdocs/assets/bundle-v1/registries/state-machines.yaml declares events propose, impact-detected, accept, reject, apply and verify; and grepping the SSOT for resolve finds exactly one hit, internal/work/spec.go:153, which is the line that emits the ID. There is no command, no state-machine event and no loop entry behind it. Because availability is blocked rather than absent, the string reads as a real route that is temporarily closed, and an operator spends time looking for the flag or the authority that opens it. Two independent sessions on this repository did exactly that before reading the state machine. Verified at mate CLI v1.4.3.'
+      expected: A next_action either names a verb the CLI can run or says the state is terminal for this actor. When a spec is fenced by an amendment stuck in applied with no legal outgoing transition, the honest next action is the one that actually unblocks it - dispose the amendment, or an explicit sink diagnostic naming that no transition exists - not an invented resolve. If the ID is a placeholder for a route that is planned but unimplemented, say so in the availability or the ID itself, so the operator does not search for a command that was never written.
+      fingerprint: a878cecb53c85a513546b8376d608bf306f2c0ef44a2b25303de79b598e5da05
+      project: country-map-svg-generator
+      mate_release: v1.4.1
+      evidence:
+        - kind: repository
+          locator: docs/features/active/country-map-svg-generator/specs/P2-geometry-pipeline/P2-geometry-pipeline.tracker.yaml
+      state: new
+      created_at: "2026-07-25T03:00:42Z"
+      updated_at: "2026-07-25T03:00:42Z"
     - id: FND-B1F93F6321DE
       scope: mate
       severity: medium

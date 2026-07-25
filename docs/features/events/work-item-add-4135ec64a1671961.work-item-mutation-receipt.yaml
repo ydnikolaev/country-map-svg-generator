@@ -1,0 +1,32 @@
+version: 1
+kind: work-item-mutation-receipt
+id: work-item-add-4135ec64a1671961
+project: country-map-svg-generator
+claim:
+    project: country-map-svg-generator
+    item_id: WKI-4062B33B8FEA
+    item_revision: 2
+    registry_revision: 9
+    mutation: add-capture
+    operation_id: work-item-add-4135ec64a1671961
+    actor: operator
+    timestamp: "2026-07-25T03:00:18Z"
+    inputs:
+        - name: registry
+          value: b0028ad909a9a7fff1edff921bc416cbe001c0fc3e2d789aee390ab67cb6c112
+        - name: request
+          value: 4135ec64a1671961d8d4f2a0af3813ff270f2ee5c2e6824459ed1076c87aefb8
+        - name: source
+          value: decision#DEC-014#docs/features/active/country-map-svg-generator/decisions/DEC-014/country-map-svg-generator.DEC-014-p3-delivery-under-the-fence.decision.md#d71bc8a1daeddb36fca5a5d8cfd9841c045ede2136f7d3c16064f2c763c3b6c3
+    input_digest: 64f4959c0d208932a21427cc78ef02165d758465fca4d11cfe000aef16391c25
+    result: captured
+    next_action: 'Fix in its own session in the mate SSOT per the sketch in P2-CHECKPOINT.md under The mate fix sketched from the SSOT: add a supersede edge from applied to superseded with loop amendment-supersede plus the superseded state and terminal entry in state-machines.yaml, add the amendment-supersede loop entry modelled on amendment-reject in loops.yaml, add newAmendmentEvidenceTransitionCmd for supersede at internal/cli/amendment.go:14, confirm validateAmendmentTransitionEvidence at internal/work/amendment_transition.go:167 authorizes it through a readiness receipt with no new code, then cut a CLI release, run mate fleet pull here, supersede AM-003 and AM-004 and reconcile debt 15.'
+    predecessor_registry:
+        kind: sha256
+        digest: b0028ad909a9a7fff1edff921bc416cbe001c0fc3e2d789aee390ab67cb6c112
+    predecessor_receipt:
+        kind: work-item-mutation-receipt
+        id: work-item-add-248b8e9bdb66c6cd
+        path: docs/features/events/work-item-add-248b8e9bdb66c6cd.work-item-mutation-receipt.yaml
+        sha256: 5398a478205e0b680b0a75beb5da586c77394974ba9bf29eb927380632813f86
+successor_registry_sha256: a606b3bdc024892e78ad0270b987ebc58e7b3e13a4c29d5649472728d69a95de

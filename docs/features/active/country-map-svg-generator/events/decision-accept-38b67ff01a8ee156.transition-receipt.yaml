@@ -1,0 +1,25 @@
+version: 1
+kind: transition-receipt
+id: decision-accept-38b67ff01a8ee156
+epic: country-map-svg-generator
+status: recorded
+input_digest: a7d2d060de3f246a324c0a5347db224aa73e9265e1b0a8d12a92b1de3f5c5167
+subject:
+    artifact: decision
+    id: DEC-015
+    path: docs/features/active/country-map-svg-generator/decisions/candidates/DEC-015/country-map-svg-generator.DEC-015-crop-seam-leaves-p3.decision.md
+    sha256: 18457b021954d7f8a752c0b63f034489087a4990aae178b6500455aa7fb8d3bb
+producer_role: lifecycle-engine
+principal: product-owner
+result: pass
+machine: decision
+event: accept
+from: draft
+to: accepted
+inputs:
+    - artifact: decision
+      id: DEC-015
+      path: docs/features/active/country-map-svg-generator/decisions/candidates/DEC-015/country-map-svg-generator.DEC-015-crop-seam-leaves-p3.decision.md
+      sha256: 18457b021954d7f8a752c0b63f034489087a4990aae178b6500455aa7fb8d3bb
+predecessor: 18457b021954d7f8a752c0b63f034489087a4990aae178b6500455aa7fb8d3bb
+successor: 8f7d6c932d8f5f4c6fc823cf40801967032325a5fd09682c1390598bcfb7bf3b
